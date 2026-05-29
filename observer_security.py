@@ -1,3 +1,7 @@
+# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
+# Proprietary Software — ALL RIGHTS RESERVED.
+#
 """
 观察器安全设置模块
 实现: 白盒推理 / 外部锚定 / 多观察器冗余 / 用户可调敏感度

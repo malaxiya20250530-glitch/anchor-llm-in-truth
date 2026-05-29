@@ -1,0 +1,33 @@
+# 敏感文件 — 绝对不上传
+*.key
+*.jks
+*.pem
+*.p12
+keystore.txt
+.env
+*.log
+credentials*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# 临时文件
+*.tar.gz
+*.tmp
+*.bak
+demo_export.json
+
+# 系统文件
+.bash_history
+.bashrc
+.cache/
+.cargo/
+.local/
+.mimo2codex/
+.npm/
+.ssh/
+.termux/
+storage/

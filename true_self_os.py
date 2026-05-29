@@ -1,3 +1,7 @@
+# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
+# Proprietary Software — ALL RIGHTS RESERVED.
+#
 """
 真我-识神 双核双层操作系统 v3.0 — 脑电 + 子系统版
 

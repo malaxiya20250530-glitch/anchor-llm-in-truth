@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
+# Proprietary Software — ALL RIGHTS RESERVED.
+#
 """
 社会对齐中间件 — 防止 AI 在多轮对话中被用户牵着走
 

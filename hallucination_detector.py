@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
+# Proprietary Software — ALL RIGHTS RESERVED.
+#
 """
 幻觉检测器 — 独立 CLI 工具
 输入 LLM 生成的文本，输出每条断言的可信度评估。

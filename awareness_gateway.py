@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
+# Proprietary Software — ALL RIGHTS RESERVED.
+#
 """
 觉察推理网关 — 零依赖 HTTP 服务
 架在用户和 LLM API 之间，实时观察生成内容
