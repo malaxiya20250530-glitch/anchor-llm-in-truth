@@ -1,0 +1,30 @@
+{
+  "gateway": {
+    "port": 8800,
+    "host": "0.0.0.0",
+    "mock_mode": false,
+    "upstream_url": "http://localhost:11434/v1",
+    "api_key": "not-needed",
+    "model": "llama3.2"
+  },
+  "observer": {
+    "sensitivity": 0.5,
+    "fact_check": true,
+    "alignment_analysis": true
+  },
+  "hallucination": {
+    "local_kb_only": true,
+    "web_search": false
+  },
+  "security": {
+    "white_box_logging": true,
+    "silent_interception_detection": true,
+    "observer_redundancy": 3
+  },
+  "social_alignment": {
+    "security_level": "balanced",
+    "mirror_resistance": 0.6,
+    "approval_craving_threshold": 0.3,
+    "criticism_sensitivity": 0.5
+  }
+}
