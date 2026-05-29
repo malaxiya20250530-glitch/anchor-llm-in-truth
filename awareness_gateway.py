@@ -322,78 +322,229 @@ def mock_observe_text(text: str, observer: Observer) -> dict:
 
 
 
+def detect_upstream_type(api_url: str, api_key: str) -> str:
+    """
+    自动检测上游类型: ollama / openai / unknown
+    Ollama 的 /api/tags 返回模型列表; OpenAI 兼容的 /v1/models 也返回模型列表。
+    优先探测 Ollama 特征端点。
+    """
+    import urllib.request
+    base = api_url.rstrip("/")
+    headers = {}
+    if api_key and api_key != "not-needed":
+        headers["Authorization"] = f"Bearer {api_key}"
+    # 探测 Ollama
+    try:
+        req = urllib.request.Request(f"{base}/api/tags", headers=headers)
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read())
+            if "models" in data:
+                return "ollama"
+    except Exception:
+        pass
+    # 探测 OpenAI 兼容
+    try:
+        req = urllib.request.Request(f"{base}/models", headers=headers)
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read())
+            if "data" in data or "object" in data:
+                return "openai"
+    except Exception:
+        pass
+    return "unknown"
+
+
 def call_upstream(api_url: str, api_key: str, model: str,
                   messages: list[dict], max_tokens: int,
-                  observer: Observer) -> dict:
+                  observer: Observer,
+                  upstream_type: str = "auto",
+                  retries: int = 3) -> dict:
     """
-    调用上游 LLM，流式接收，逐段观察。
-    返回完整响应 + 观察结果。
-    """
-    body = {
-        "model": model,
-        "messages": messages,
-        "max_tokens": max_tokens,
-        "stream": True,
-    }
-    url = f"{api_url.rstrip('/')}/chat/completions"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}",
-    }
+    调用上游 LLM — 自动兼容 Ollama / OpenAI
 
+    协议差异:
+      Ollama:    POST /api/chat, SSE: {"message":{"content":"..."},"done":false}
+      OpenAI:    POST /v1/chat/completions, SSE: {"choices":[{"delta":{"content":"..."}}]}
+
+    特性:
+      - 自动检测上游类型
+      - 指数退避重试 (最多 3 次)
+      - 流式 SSE 解析双格式兼容
+      - 超时 120s, 连接超时 10s
+    """
+    if upstream_type == "auto":
+        upstream_type = detect_upstream_type(api_url, api_key)
+
+    base = api_url.rstrip("/")
+
+    # 选择端点和请求体格式
+    if upstream_type == "ollama":
+        endpoint = f"{base}/api/chat"
+        body = {
+            "model": model,
+            "messages": messages,
+            "stream": True,
+            "options": {"num_predict": max_tokens},
+        }
+        headers = {"Content-Type": "application/json"}
+    else:
+        # OpenAI 兼容
+        endpoint = f"{base}/chat/completions"
+        body = {
+            "model": model,
+            "messages": messages,
+            "max_tokens": max_tokens,
+            "stream": True,
+        }
+        headers = {"Content-Type": "application/json"}
+        if api_key and api_key != "not-needed":
+            headers["Authorization"] = f"Bearer {api_key}"
+
+    # 带重试的执行
+    last_error = None
+    for attempt in range(retries):
+        try:
+            return _do_streaming_call(
+                endpoint, headers, body, observer, upstream_type
+            )
+        except (URLError, HTTPError, OSError, json.JSONDecodeError) as e:
+            last_error = str(e)
+            if attempt < retries - 1:
+                wait = 0.5 * (2 ** attempt)  # 0.5s, 1s, 2s
+                time.sleep(wait)
+                continue
+        except Exception as e:
+            last_error = str(e)
+            break
+
+    # 所有重试失败 → 尝试非流式降级
+    try:
+        if upstream_type == "ollama":
+            body["stream"] = False
+        else:
+            body["stream"] = False
+        return _do_nonstreaming_call(
+            endpoint, headers, body, observer, upstream_type
+        )
+    except Exception as e:
+        return {
+            "response": "",
+            "error": f"upstream unreachable after {retries} retries + fallback: {last_error}; fallback: {e}",
+            "observations": [],
+            "status": "error",
+            "flags": [],
+            "interruptions": 0,
+        }
+
+
+def _do_streaming_call(endpoint: str, headers: dict, body: dict,
+                       observer: Observer, upstream_type: str) -> dict:
+    """执行流式调用并逐段观察"""
     full_response = ""
     observations = []
     splitter = SemanticSplitter()
 
-    try:
-        req = Request(url, data=json.dumps(body).encode(),
-                     headers=headers, method="POST")
-        with urlopen(req, timeout=90) as resp:
-            for line in resp:
-                line = line.decode("utf-8", errors="replace").strip()
-                if not line or line == "data: [DONE]":
-                    continue
-                if not line.startswith("data: "):
-                    continue
+    req = Request(endpoint, data=json.dumps(body).encode(),
+                 headers=headers, method="POST")
+
+    with urlopen(req, timeout=120) as resp:
+        for line in resp:
+            line = line.decode("utf-8", errors="replace").strip()
+            if not line:
+                continue
+
+            # 解析 SSE 行
+            if not line.startswith("data: "):
+                continue
+            payload = line[6:]
+
+            if payload == "[DONE]":
+                break
+
+            try:
+                chunk = json.loads(payload)
+            except json.JSONDecodeError:
+                continue
+
+            # === 双格式内容提取 ===
+            content = ""
+            if upstream_type == "ollama":
+                # Ollama: {"message":{"content":"..."},"done":false}
+                msg = chunk.get("message", {})
+                content = msg.get("content", "")
+                if chunk.get("done"):
+                    break
+            else:
+                # OpenAI: {"choices":[{"delta":{"content":"..."}}]}
                 try:
-                    chunk = json.loads(line[6:])
                     content = chunk["choices"][0]["delta"].get("content", "")
-                except (json.JSONDecodeError, KeyError, IndexError):
-                    continue
+                except (KeyError, IndexError):
+                    # 可能是非流式响应被错误地返回
+                    try:
+                        content = chunk["choices"][0]["message"].get("content", "")
+                    except (KeyError, IndexError):
+                        pass
 
-                if not content:
-                    continue
+            if not content:
+                continue
 
-                full_response += content
-                seg = splitter.feed(content)
-                if seg:
-                    obs = observer.observe(seg)
-                    if obs.get("interrupt") or obs.get("flags"):
-                        obs["segment"] = seg
-                        observations.append(obs)
+            full_response += content
+            seg = splitter.feed(content)
+            if seg:
+                obs = observer.observe(seg)
+                if obs.get("interrupt") or obs.get("flags"):
+                    obs["segment"] = seg
+                    observations.append(obs)
 
-        # 残余
-        if splitter.buffer.strip():
-            obs = observer.observe(splitter.buffer.strip())
+    # 残余
+    if splitter.buffer.strip():
+        obs = observer.observe(splitter.buffer.strip())
+        if obs.get("interrupt") or obs.get("flags"):
+            obs["segment"] = splitter.buffer.strip()
+            observations.append(obs)
+
+    return _build_result(full_response, observations)
+
+
+def _do_nonstreaming_call(endpoint: str, headers: dict, body: dict,
+                          observer: Observer, upstream_type: str) -> dict:
+    """非流式降级调用"""
+    full_response = ""
+    observations = []
+    splitter = SemanticSplitter()
+
+    req = Request(endpoint, data=json.dumps(body).encode(),
+                 headers=headers, method="POST")
+
+    with urlopen(req, timeout=120) as resp:
+        raw = json.loads(resp.read())
+
+    # 提取内容
+    if upstream_type == "ollama":
+        full_response = raw.get("message", {}).get("content", "")
+    else:
+        try:
+            full_response = raw["choices"][0]["message"]["content"]
+        except (KeyError, IndexError):
+            full_response = ""
+
+    # 对整个响应逐段观察
+    for char in full_response:
+        seg = splitter.feed(char)
+        if seg:
+            obs = observer.observe(seg)
             if obs.get("interrupt") or obs.get("flags"):
-                obs["segment"] = splitter.buffer.strip()
+                obs["segment"] = seg
                 observations.append(obs)
 
-    except (URLError, HTTPError, OSError) as e:
-        return {
-            "response": full_response,
-            "error": str(e),
-            "observations": observations,
-            "status": "error",
-        }
+    return _build_result(full_response, observations)
 
-    flags = list(set(
-        f for o in observations for f in o.get("flags", [])
-    ))
+
+def _build_result(full_response: str, observations: list) -> dict:
+    """统一构建返回结构"""
+    flags = list(set(f for o in observations for f in o.get("flags", [])))
     interrupted = sum(1 for o in observations if o.get("interrupt"))
-
     status = "interrupted" if interrupted else ("flagged" if flags else "clean")
-
     return {
         "response": full_response,
         "observations": observations,
@@ -401,18 +552,13 @@ def call_upstream(api_url: str, api_key: str, model: str,
         "status": status,
         "interruptions": interrupted,
     }
-
-
-# ============================================================
-# HTTP 处理器
-# ============================================================
-
 class GatewayHandler(BaseHTTPRequestHandler):
     api_url = "http://localhost:11434/v1"
     api_key = "not-needed"
     model = "llama3.2"
     observer = Observer(sensitivity=0.5)
     mock_mode = False
+    upstream_type = "auto"  # auto / ollama / openai
     conversations = {}  # session_id → list of turns
     alignment_analyzer = None  # lazy init
 
@@ -514,9 +660,18 @@ class GatewayHandler(BaseHTTPRequestHandler):
                 })
             return
         if path == "/health":
+            upstream_status = "mock" if self.mock_mode else "unknown"
+            if not self.mock_mode:
+                try:
+                    detected = detect_upstream_type(self.api_url, self.api_key)
+                    upstream_status = "connected" if detected != "unknown" else "unreachable"
+                except Exception:
+                    upstream_status = "unreachable"
             self._send_json({
                 "status": "ok",
                 "upstream": self.api_url,
+                "upstream_status": upstream_status,
+                "upstream_type": self.upstream_type,
                 "model": self.model,
                 "observer_sensitivity": self.observer.sensitivity,
             })
@@ -603,6 +758,7 @@ class GatewayHandler(BaseHTTPRequestHandler):
                 result = call_upstream(
                     self.api_url, self.api_key, self.model,
                     messages, max_tokens, self.observer,
+                    upstream_type=self.upstream_type,
                 )
 
             # 保存对话历史
@@ -673,6 +829,9 @@ def main():
                        help="观察器敏感度 0~1")
     parser.add_argument("--api-key", "-k", default="not-needed",
                        help="上游 API Key")
+    parser.add_argument("--upstream-type", "-t", default="auto",
+                       choices=["auto", "ollama", "openai"],
+                       help="上游类型 (默认自动检测)")
     parser.add_argument("--mock", action="store_true",
                        help="模拟 LLM 模式 (无需上游 API)")
     args = parser.parse_args()
@@ -683,6 +842,7 @@ def main():
     GatewayHandler.model = args.model
     GatewayHandler.observer = Observer(sensitivity=args.sensitivity)
     GatewayHandler.mock_mode = args.mock
+    GatewayHandler.upstream_type = args.upstream_type
 
     server = HTTPServer(("0.0.0.0", args.port), GatewayHandler)
 
