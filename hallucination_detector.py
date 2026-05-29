@@ -362,6 +362,15 @@ class AnchorEngine:
 
     # --- 事实比对子检查器 (每个单一职责) ---
 
+    # 检查器优先级列表 (按执行顺序)
+    _PRIORITY_CHECKERS = [
+        "_check_infinity",
+        "_check_negation",
+        "_check_year_conflict",
+        "_check_numeric_conflict",
+        "_check_overlap",
+    ]
+
     def _check_infinity(self, claim: str, fact: str):
         """检查: 声称无穷 vs 事实有限 → 矛盾"""
         if re.search(r'无穷|无限', claim) and re.search(r'有限|每秒|公里|不是.*无穷', fact):
@@ -373,7 +382,7 @@ class AnchorEngine:
         patterns = [
             (r"(?:发明了|创造了|创建了)", r"(?:不是|没有|并非).*创[造建]|.*发明"),
             (r"第一", r"(?:不是|没有|维京|更早)"),
-            (r"最大", r"(?:不是|没有|并非)"),
+            (r"(?:最好|最大)", r"(?:不是|没有|并非)"),
             (r"同一个", r"任何.*关系"),
         ]
         for cp, fp in patterns:
@@ -430,9 +439,8 @@ class AnchorEngine:
 
     def _compare_with_fact(self, claim: str, fact: str) -> tuple:
         """卫语句链: 依次调用子检查器, 命中即返回"""
-        for check in [self._check_infinity, self._check_negation,
-                      self._check_year_conflict, self._check_numeric_conflict,
-                      self._check_overlap]:
+        for method_name in self._PRIORITY_CHECKERS:
+            check = getattr(self, method_name)
             result = check(claim, fact)
             if result:
                 return result
