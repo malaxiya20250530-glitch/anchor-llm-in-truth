@@ -263,7 +263,52 @@ async function analyze() {
   document.getElementById('results').innerHTML = html;
 }
 loadMetrics();
-setInterval(loadMetrics, 5000);
+async function loadLogs() {
+  try {
+    const r = await fetch('/logs');
+    const d = await r.json();
+    document.getElementById('logCount').textContent = '(' + d.total + ')';
+    if(d.total === 0) return;
+    let html = '';
+    for(const l of [...d.logs].reverse()) {
+      const sc = l.status === 'interrupted' ? '#f85149' : l.status === 'flagged' ? '#d2991d' : '#3fb950';
+      html += '<div style="padding:4px 0;border-bottom:1px solid #21262d">' +
+        '<span style="color:#484f58">' + l.time + '</span>' +
+        '<span style="color:' + sc + ';margin:0 6px">●</span>' +
+        '<span style="color:#c9d1d9">' + (l.user||'(analyze)') + '</span>' +
+        '<span style="color:#8b949e;font-size:11px;margin-left:8px">' + (l.flags.join(', ')||'clean') + '</span>' +
+        (l.latency_ms ? '<span style="color:#484f58;float:right">' + l.latency_ms + 'ms</span>' : '') +
+      '</div>';
+    }
+    document.getElementById('logArea').innerHTML = html;
+  } catch(e) {}
+}
+async function runStress() {
+  const n = parseInt(document.getElementById('stressN').value);
+  const c = parseInt(document.getElementById('stressC').value);
+  document.getElementById('stressResult').textContent = '测试中...';
+  const t0 = performance.now();
+  let ok = 0, err = 0;
+  const batch = async (id) => {
+    for(let i = 0; i < Math.ceil(n/c); i++) {
+      try {
+        await fetch('/v1/chat/completions', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({messages:[{role:'user',content:'火锅是谁发明的？'}],session_id:'stress_'+id+'_'+i})
+        });
+        ok++;
+      } catch(e) { err++; }
+    }
+  };
+  const workers = [];
+  for(let i = 0; i < c; i++) workers.push(batch(i));
+  await Promise.all(workers);
+  const elapsed = ((performance.now() - t0)/1000).toFixed(1);
+  document.getElementById('stressResult').innerHTML = '<span style="color:#3fb950">✅ ' + ok + '成功 ' + err + '失败 · ' + elapsed + 's · ' + (ok/elapsed).toFixed(0) + ' req/s</span>';
+  loadLogs(); loadMetrics();
+}
+setInterval(() => { loadLogs(); loadMetrics(); }, 3000);
+
 </script>
 </body>
 </html>"""
@@ -560,6 +605,7 @@ class GatewayHandler(BaseHTTPRequestHandler):
     mock_mode = False
     upstream_type = "auto"  # auto / ollama / openai
     conversations = {}  # session_id → list of turns
+    request_log = deque(maxlen=50)  # 最近请求日志
     alignment_analyzer = None  # lazy init
 
     def log_message(self, format, *args):
@@ -659,6 +705,13 @@ class GatewayHandler(BaseHTTPRequestHandler):
                     "keys": list(KNOWLEDGE_BASE.keys()),
                 })
             return
+        if path == "/logs":
+            logs = list(self.request_log)
+            self._send_json({
+                "total": len(logs),
+                "logs": logs,
+            })
+            return
         if path == "/health":
             upstream_status = "mock" if self.mock_mode else "unknown"
             if not self.mock_mode:
@@ -685,6 +738,7 @@ class GatewayHandler(BaseHTTPRequestHandler):
         self.do_POST()
 
     def do_POST(self):
+        self._req_start = time.time()
         self.command = getattr(self, 'command', 'POST')
         path = urlparse(self.path).path
 
@@ -772,6 +826,18 @@ class GatewayHandler(BaseHTTPRequestHandler):
                 "user": user_msg,
                 "ai": result["response"],
             })
+            # 记录到请求日志
+            log_entry = {
+                "time": time.strftime("%H:%M:%S"),
+                "session": session_id,
+                "user": user_msg[:50] if user_msg else "",
+                "ai": result.get("response", "")[:40],
+                "status": result.get("status", "?"),
+                "flags": result.get("flags", []),
+                "latency_ms": round((time.time() - self._req_start) * 1000),
+            }
+            self.request_log.append(log_entry)
+
 
             # OpenAI 兼容响应格式 + 觉察标记
             response = {
