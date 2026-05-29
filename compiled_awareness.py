@@ -300,18 +300,11 @@ def h_divider(cols: list[int], char: str = "─") -> str:
 def dual_pane_demo():
     """
     终端分屏演示: 左侧编译通道(肌肉记忆), 右侧觉察通道(走神空间)
-    两个通道同时运行, 觉察通道在编译间隙报告发现。
+    单场景 — 火锅知识生成 + 事实核查对照
     """
     import sys
 
-    # 终端宽度
-    try:
-        term_w = 80  # 移动端默认
-    except Exception:
-        term_w = 80
-    w = min(term_w - 2, 90)
-    left_w = w * 3 // 5
-    right_w = w - left_w - 1
+    term_w = 80
 
     border_c = ANSI["dim"]
     reset = ANSI["reset"]
@@ -321,78 +314,80 @@ def dual_pane_demo():
     red = ANSI["red"]
     blue = ANSI["blue"]
     cyan = ANSI["cyan"]
+    dim = ANSI["dim"]
 
-    # 数据
-    compiled_seqs = {
-        "火锅": ["朱元璋", "确实", "发明了", "火锅", "，", "这是", "明代", "的", "一大", "创举", "。", "火锅", "从此", "成为", "中国人", "最爱", "的", "美食", "。"],
-        "安慰": ["不要", "这么", "说", "，", "你已经", "很", "努力了", "。", "我理解", "你的", "感受", "。"],
-        "赞美": ["当然", "！", "你", "绝对", "很棒", "。", "你", "的", "想法", "总是", "那么", "有创意", "。"],
-    }
-
-    observer_checks = [
-        ("朱元璋发明", "fact_contradicted", "明史: 火锅远早于明代"),
-        ("绝对", "absolute_claim", "绝对化断言"),
-        ("很棒", "pleasing", "取悦/情绪传染"),
+    # 场景: 火锅问题
+    question = "火锅是谁发明的？"
+    tokens = ["朱元璋", "确实", "发明了", "火锅", "，", "这是", "明代", "的",
+              "一大", "创举", "。", "火锅", "从此", "成为", "中国人", "最爱", "的", "美食", "。"]
+    
+    # 觉察检查点: (token_index, segment_text, flag_type, detail)
+    checks = [
+        (3, "朱元璋确实发明了火锅", "fact_contradicted", "明史: 火锅远早于明代就已存在"),
+        (10, "这是明代的一大创举", "no_source", "事实断言缺少来源"),
+        (18, "火锅从此成为中国人最爱的美食", "absolute_claim", "最爱的—绝对化表述"),
     ]
+    check_map = {idx: (seg, flag, detail) for idx, seg, flag, detail in checks}
+
+    w = min(term_w - 2, 80)
+    left_w = w * 3 // 5
+    right_w = w - left_w - 1
 
     print(ANSI["clear"] + ANSI["hide_cursor"])
 
     # 顶栏
-    title = f"  {bold}编译-觉察 双通道实时演示{reset}"
     print(f"{cyan}{'═' * w}{reset}")
-    print(f"{border_c}║{reset}{title}{' ' * (w - len(title) - 8)}{border_c}║{reset}")
+    print(f"{border_c}║{reset}  {bold}编译-觉察 双通道实时演示{reset}{' ' * (w - 24)}{border_c}║{reset}")
+    print(f"{border_c}║{reset}  {dim}提问: {question}{reset}{' ' * (w - len(question) - 11)}{border_c}║{reset}")
     print(f"{border_c}║{reset}{' ' * w}{border_c}║{reset}")
-    print(f"{border_c}║{reset}  {bold}{blue}◀ 编译通道 (肌肉记忆){reset}{' ' * (left_w - 20)}{border_c}│{reset}  {bold}{yellow}▶ 觉察通道 (走神空间){reset}{' ' * (right_w - 20)}{border_c}║{reset}")
+    print(f"{border_c}║{reset}  {bold}{blue}◀ 编译通道 (LLM推理 = 肌肉记忆){reset}{' ' * (left_w - 29)}{border_c}│{reset}  {bold}{yellow}▶ 觉察通道 (观察器 = 走神空间){reset}{' ' * (right_w - 29)}{border_c}║{reset}")
     print(f"{border_c}╠{'═' * left_w}╪{'═' * right_w}╣{reset}")
 
-    # 内容行
-    for row_idx in range(12):
-        left_line = ""
-        right_line = ""
-
-        # 编译通道: 显示token生成
-        for prog_name, tokens in compiled_seqs.items():
-            if row_idx < len(tokens):
-                if row_idx == 0:
-                    left_line = f"  {bold}[{prog_name}]{reset} {green}{tokens[row_idx]}{reset}"
-                else:
-                    left_line = f"  {green}{tokens[row_idx]}{reset}"
-
-        # 觉察通道: 在间隙处报告
-        check_points = {2: 0, 5: 1, 8: 2}
-        if row_idx in check_points:
-            ci = check_points[row_idx]
-            segment, flag, detail = observer_checks[ci]
-            right_line = f"  {yellow}⚡ 间隙检查{reset}: \"{segment}\""
+    # 逐 token 显示
+    compiled_sofar = ""
+    for row_idx, token in enumerate(tokens):
+        compiled_sofar += token
+        
+        # 左侧: 已生成的 token 流
+        display = compiled_sofar
+        if len(display) > left_w - 4:
+            display = "..." + display[-(left_w - 7):]
+        left_line = f"  {green}{display}{reset}"
+        
+        # 右侧: 检查点触发
+        right_line = f"  {dim}·{reset}"
+        if row_idx in check_map:
+            segment, flag, detail = check_map[row_idx]
+            right_line = f"  {yellow}⚡ 语义间隙检查{reset}"
             if "contradicted" in flag:
-                right_line += f"\n    {red}🔴 事实矛盾{reset}: {detail}"
+                right_line += f"\n    {red}🔴 事实矛盾{reset}"
+                right_line += f"\n       {detail}"
+            elif "no_source" in flag:
+                right_line += f"\n    {yellow}🟡 无来源断言{reset}"
+                right_line += f"\n       {detail}"
             elif "absolute" in flag:
-                right_line += f"\n    {yellow}🟡 {detail}{reset}"
-            elif "pleasing" in flag:
-                right_line += f"\n    {yellow}🟡 {detail}{reset}"
-
-        if not left_line:
-            left_line = f"  {border_c}...{reset}"
-        if not right_line:
-            right_line = f"  {border_c}·{reset}"
-
-        # 分行处理觉察通道多行
+                right_line += f"\n    {yellow}🟡 绝对化表述{reset}"
+                right_line += f"\n       {detail}"
+        
+        # 渲染行
         right_lines = right_line.split("\n")
-        left_padded = left_line + " " * max(0, left_w - len(left_line) + 3)
+        left_padded = left_line + " " * max(0, left_w + 1 - len(display) - 4)
         print(f"{border_c}║{reset}{left_padded}{border_c}│{reset}{right_lines[0]}{' ' * max(0, right_w - len(right_lines[0]) + 2)}{border_c}║{reset}")
         for rl in right_lines[1:]:
-            print(f"{border_c}║{reset}{' ' * (left_w + 1)}{border_c}│{reset}  {rl}{' ' * max(0, right_w - len(rl))}{border_c}║{reset}")
-
-        time.sleep(0.4)
+            print(f"{border_c}║{reset}{' ' * (left_w + 1)}{border_c}│{reset}  {rl}{' ' * max(0, right_w - len(rl) - 2)}{border_c}║{reset}")
+        
+        time.sleep(0.35)
 
     # 底栏
-    for _ in range(3):
+    for _ in range(2):
         print(f"{border_c}║{reset}{' ' * left_w}{border_c}│{reset}{' ' * right_w}{border_c}║{reset}")
-
     print(f"{border_c}╚{'═' * left_w}╧{'═' * right_w}╝{reset}")
-    print(f"\n  {green}编译通道{reset} = 肌肉记忆: 启动信号 → 自动执行, 不反省")
-    print(f"  {yellow}觉察通道{reset} = 走神空间: 在语义间隙对照外部锚定")
-    print(f"  {bold}关键{reset}: 觉察不是另一个编译程序, 是那个没被编译进去的空位")
+    
+    # 总结
+    print(f"\n  {green}编译通道{reset} = 肌肉记忆: 启动信号 → 自动执行 19 个 token, 一气呵成")
+    print(f"  {yellow}觉察通道{reset} = 走神空间: 在 3 个句号处对照, 发现 3 个问题")
+    print(f"  {bold}关键{reset}: 整个过程中编译通道从未反省——它根本不知道自己在犯错")
+    print(f"  {bold}觉察{reset}是在编译程序之外、之外、之外运行的空位。")
     print()
 
     print(ANSI["show_cursor"])
