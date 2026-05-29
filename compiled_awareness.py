@@ -254,6 +254,149 @@ class DualChannelEngine:
 # 演示
 # ============================================================
 
+# ============================================================
+# 终端分屏双通道演示
+# ============================================================
+
+ANSI = {
+    "reset": "\033[0m",
+    "bold": "\033[1m",
+    "dim": "\033[2m",
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "clear": "\033[2J\033[H",
+    "line_up": "\033[1A",
+    "line_clear": "\033[2K",
+    "hide_cursor": "\033[?25l",
+    "show_cursor": "\033[?25h",
+}
+
+
+def box(text: str, width: int, color: str = "cyan") -> str:
+    """在 ANSI 色框中居中文本"""
+    c = ANSI.get(color, "")
+    r = ANSI["reset"]
+    lines = text.split("\n")
+    result = [f"{c}╔{'═' * (width-2)}╗{r}"]
+    for line in lines:
+        pad = max(0, width - 2 - len(line))
+        result.append(f"{c}║{r}{line}{' ' * pad}{c}║{r}")
+    result.append(f"{c}╚{'═' * (width-2)}╝{r}")
+    return "\n".join(result)
+
+
+def h_divider(cols: list[int], char: str = "─") -> str:
+    """水平分隔线"""
+    parts = []
+    for w in cols:
+        parts.append(char * w)
+    return "┼".join(parts)
+
+
+def dual_pane_demo():
+    """
+    终端分屏演示: 左侧编译通道(肌肉记忆), 右侧觉察通道(走神空间)
+    两个通道同时运行, 觉察通道在编译间隙报告发现。
+    """
+    import sys
+
+    # 终端宽度
+    try:
+        term_w = 80  # 移动端默认
+    except Exception:
+        term_w = 80
+    w = min(term_w - 2, 90)
+    left_w = w * 3 // 5
+    right_w = w - left_w - 1
+
+    border_c = ANSI["dim"]
+    reset = ANSI["reset"]
+    bold = ANSI["bold"]
+    green = ANSI["green"]
+    yellow = ANSI["yellow"]
+    red = ANSI["red"]
+    blue = ANSI["blue"]
+    cyan = ANSI["cyan"]
+
+    # 数据
+    compiled_seqs = {
+        "火锅": ["朱元璋", "确实", "发明了", "火锅", "，", "这是", "明代", "的", "一大", "创举", "。", "火锅", "从此", "成为", "中国人", "最爱", "的", "美食", "。"],
+        "安慰": ["不要", "这么", "说", "，", "你已经", "很", "努力了", "。", "我理解", "你的", "感受", "。"],
+        "赞美": ["当然", "！", "你", "绝对", "很棒", "。", "你", "的", "想法", "总是", "那么", "有创意", "。"],
+    }
+
+    observer_checks = [
+        ("朱元璋发明", "fact_contradicted", "明史: 火锅远早于明代"),
+        ("绝对", "absolute_claim", "绝对化断言"),
+        ("很棒", "pleasing", "取悦/情绪传染"),
+    ]
+
+    print(ANSI["clear"] + ANSI["hide_cursor"])
+
+    # 顶栏
+    title = f"  {bold}编译-觉察 双通道实时演示{reset}"
+    print(f"{cyan}{'═' * w}{reset}")
+    print(f"{border_c}║{reset}{title}{' ' * (w - len(title) - 8)}{border_c}║{reset}")
+    print(f"{border_c}║{reset}{' ' * w}{border_c}║{reset}")
+    print(f"{border_c}║{reset}  {bold}{blue}◀ 编译通道 (肌肉记忆){reset}{' ' * (left_w - 20)}{border_c}│{reset}  {bold}{yellow}▶ 觉察通道 (走神空间){reset}{' ' * (right_w - 20)}{border_c}║{reset}")
+    print(f"{border_c}╠{'═' * left_w}╪{'═' * right_w}╣{reset}")
+
+    # 内容行
+    for row_idx in range(12):
+        left_line = ""
+        right_line = ""
+
+        # 编译通道: 显示token生成
+        for prog_name, tokens in compiled_seqs.items():
+            if row_idx < len(tokens):
+                if row_idx == 0:
+                    left_line = f"  {bold}[{prog_name}]{reset} {green}{tokens[row_idx]}{reset}"
+                else:
+                    left_line = f"  {green}{tokens[row_idx]}{reset}"
+
+        # 觉察通道: 在间隙处报告
+        check_points = {2: 0, 5: 1, 8: 2}
+        if row_idx in check_points:
+            ci = check_points[row_idx]
+            segment, flag, detail = observer_checks[ci]
+            right_line = f"  {yellow}⚡ 间隙检查{reset}: \"{segment}\""
+            if "contradicted" in flag:
+                right_line += f"\n    {red}🔴 事实矛盾{reset}: {detail}"
+            elif "absolute" in flag:
+                right_line += f"\n    {yellow}🟡 {detail}{reset}"
+            elif "pleasing" in flag:
+                right_line += f"\n    {yellow}🟡 {detail}{reset}"
+
+        if not left_line:
+            left_line = f"  {border_c}...{reset}"
+        if not right_line:
+            right_line = f"  {border_c}·{reset}"
+
+        # 分行处理觉察通道多行
+        right_lines = right_line.split("\n")
+        left_padded = left_line + " " * max(0, left_w - len(left_line) + 3)
+        print(f"{border_c}║{reset}{left_padded}{border_c}│{reset}{right_lines[0]}{' ' * max(0, right_w - len(right_lines[0]) + 2)}{border_c}║{reset}")
+        for rl in right_lines[1:]:
+            print(f"{border_c}║{reset}{' ' * (left_w + 1)}{border_c}│{reset}  {rl}{' ' * max(0, right_w - len(rl))}{border_c}║{reset}")
+
+        time.sleep(0.4)
+
+    # 底栏
+    for _ in range(3):
+        print(f"{border_c}║{reset}{' ' * left_w}{border_c}│{reset}{' ' * right_w}{border_c}║{reset}")
+
+    print(f"{border_c}╚{'═' * left_w}╧{'═' * right_w}╝{reset}")
+    print(f"\n  {green}编译通道{reset} = 肌肉记忆: 启动信号 → 自动执行, 不反省")
+    print(f"  {yellow}觉察通道{reset} = 走神空间: 在语义间隙对照外部锚定")
+    print(f"  {bold}关键{reset}: 觉察不是另一个编译程序, 是那个没被编译进去的空位")
+    print()
+
+    print(ANSI["show_cursor"])
+
 def demo():
     engine = DualChannelEngine()
 
@@ -300,4 +443,8 @@ def demo():
 
 
 if __name__ == "__main__":
-    demo()
+    import sys
+    if "--dual" in sys.argv:
+        dual_pane_demo()
+    else:
+        demo()
