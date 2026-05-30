@@ -30,6 +30,13 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from urllib.parse import quote
 
+try:
+    from logger import log
+except ImportError:
+    class _NoopLog:
+        def __getattr__(self, _): return lambda *a, **k: None
+    log = _NoopLog()
+
 # ============================================================
 # 知识库：可扩展的本地事实锚定
 # ============================================================
@@ -443,7 +450,10 @@ class AnchorEngine:
             check = getattr(self, method_name)
             result = check(claim, fact)
             if result:
+                log.debug("checker hit", checker=method_name, 
+                          verdict=result[0], claim=claim[:40])
                 return result
+        log.debug("all checkers miss", claim=claim[:40])
         return ("uncertain", 0.5)
 
     def _check_absolute_claim(self, claim: FactualClaim) -> Optional[VerificationResult]:
