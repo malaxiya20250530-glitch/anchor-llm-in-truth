@@ -502,13 +502,17 @@ def _do_streaming_call(endpoint: str, headers: dict, body: dict,
             if not line:
                 continue
 
-            # 解析 SSE 行
-            if not line.startswith("data: "):
-                continue
-            payload = line[6:]
-
-            if payload == "[DONE]":
-                break
+            # 解析响应行 (兼容两种格式)
+            if upstream_type == "ollama":
+                # Ollama: 裸 NDJSON, 每行一个完整 JSON
+                payload = line
+            else:
+                # OpenAI: SSE 格式 "data: {...}"
+                if not line.startswith("data: "):
+                    continue
+                payload = line[6:]
+                if payload == "[DONE]":
+                    break
 
             try:
                 chunk = json.loads(payload)
