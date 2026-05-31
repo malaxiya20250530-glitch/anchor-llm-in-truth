@@ -48,7 +48,8 @@ jobs:
 
       - name: OCR 演示
         run: |
-          python3 ocr_handler.py --text '朱元璋发明了火锅' > /tmp/ocr.json
+          echo 'import json,sys; d=json.load(sys.stdin); print("OCR:",d.get("claims_count",0))' > /tmp/ocr_check.py
+          python3 ocr_handler.py --text '朱元璋发明了火锅' | python3 /tmp/ocr_check.py
           python3 -c 'import json; d=json.load(open("/tmp/ocr.json")); print("OCR:", d.get("claims_count",0), "claims")'
 
       - name: Gateway 启动
