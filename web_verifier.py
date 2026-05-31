@@ -251,3 +251,83 @@ class WikipediaVerifier:
             "evidence": extract[:200],
             "source": "Wikipedia",
         }
+
+
+class CrossVerifier:
+    """多源交叉验证 — 同时查 DuckDuckGo + Wikipedia，加权综合"""
+
+    def __init__(self):
+        self.web = WebVerifier()
+        self.wiki = WikipediaVerifier()
+        # 源权重：DuckDuckGo 覆盖面广但噪声高，Wikipedia 质量高但覆盖面窄
+        self.source_weights = {"web": 0.5, "wikipedia": 0.5}
+
+    def verify(self, claim: str, timeout: float = 15) -> dict:
+        """
+        多源交叉验证
+        返回: {verdict, confidence, evidence, sources, votes}
+        """
+        import concurrent.futures
+
+        results = {}
+
+        def _fetch_web():
+            return self.web.verify(claim, timeout=timeout)
+
+        def _fetch_wiki():
+            return self.wiki.verify(claim)
+
+        # 并行请求
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            futures = {
+                executor.submit(_fetch_web): "web",
+                executor.submit(_fetch_wiki): "wikipedia",
+            }
+            for future in concurrent.futures.as_completed(futures, timeout=timeout):
+                source = futures[future]
+                try:
+                    results[source] = future.result()
+                except Exception:
+                    results[source] = {"verdict": "uncertain", "confidence": 0.0, "evidence": "", "source": source}
+
+        # 加权综合
+        votes = {"verified": 0.0, "contradicted": 0.0, "uncertain": 0.0}
+        total_weight = 0.0
+        for source, r in results.items():
+            w = self.source_weights.get(source, 0.3)
+            votes[r.get("verdict", "uncertain")] += w * r.get("confidence", 0.0)
+            total_weight += w
+
+        # 归一化
+        if total_weight > 0:
+            for k in votes:
+                votes[k] /= total_weight
+
+        # 判定最终 verdict
+        if votes["contradicted"] > 0.3:
+            final_verdict = "contradicted"
+            final_confidence = votes["contradicted"]
+        elif votes["verified"] > votes["contradicted"] and votes["verified"] > votes["uncertain"]:
+            final_verdict = "verified"
+            final_confidence = votes["verified"]
+        elif votes["contradicted"] > 0.1:
+            final_verdict = "contradicted"
+            final_confidence = votes["contradicted"]
+        else:
+            final_verdict = "uncertain"
+            final_confidence = max(votes.values())
+
+        # 组合证据
+        evidences = []
+        for source, r in results.items():
+            if r.get("evidence"):
+                evidences.append(f"[{source}] {r['evidence'][:200]}")
+
+        return {
+            "verdict": final_verdict,
+            "confidence": round(final_confidence, 3),
+            "evidence": " | ".join(evidences[:3]),
+            "sources": list(results.keys()),
+            "votes": {k: round(v, 3) for k, v in votes.items()},
+            "details": results,
+        }

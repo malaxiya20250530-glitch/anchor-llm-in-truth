@@ -52,5 +52,6 @@ py-modules = [
     "web_verifier",
     "ocr_handler",
     "langchain_plugin",
+    "encrypt_source",
     "stress_test",
 ]

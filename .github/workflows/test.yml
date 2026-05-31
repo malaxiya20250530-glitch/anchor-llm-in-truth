@@ -43,7 +43,7 @@ jobs:
 
       - name: 语法检查
         run: |
-          python3 -c "import hallucination_detector, awareness_gateway, observer_proxy, observer_security, alignment_middleware, feedback_store, feedback_dashboard, update_kb, logger, vector_kb, web_verifier, ocr_handler, langchain_plugin"
+          python3 -c "import hallucination_detector, awareness_gateway, observer_proxy, observer_security, alignment_middleware, feedback_store, feedback_dashboard, update_kb, logger, vector_kb, web_verifier, ocr_handler, langchain_plugin, encrypt_source"; python3 -c "from web_verifier import CrossVerifier"
           echo "全部模块导入成功"
 
       - name: OCR 演示

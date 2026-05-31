@@ -1,0 +1,26 @@
+name: Docker 构建验证
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '*.py'
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 构建 Docker 镜像
+        run: docker build -t awareness-gateway .
+      - name: 启动 docker-compose
+        run: |
+          docker compose up -d
+          sleep 5
+          curl -s http://localhost:8800/health | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['status']=='ok'; print('Gateway OK')"
+          curl -s http://localhost:8801/health | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['status']=='ok'; print('Dashboard OK')"
+          docker compose down
