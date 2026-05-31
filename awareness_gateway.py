@@ -53,7 +53,7 @@ except ImportError:
     HAS_CORRECTION = False
 
 try:
-    from alignment_middleware import AlignmentAnalyzer, ReportFormatter
+    from alignment_middleware import AlignmentAnalyzer
     HAS_ALIGNMENT = True
 except ImportError:
     HAS_ALIGNMENT = False
@@ -398,12 +398,14 @@ def detect_upstream_type(api_url: str, api_key: str) -> str:
     """
     import urllib.request
     base = api_url.rstrip("/")
+    # Ollama 原生 API 在根路径，不在 /v1 下
+    ollama_base = re.sub(r'/v\d+$', '', base)
     headers = {}
     if api_key and api_key != "not-needed":
         headers["Authorization"] = f"Bearer {api_key}"
     # 探测 Ollama
     try:
-        req = urllib.request.Request(f"{base}/api/tags", headers=headers)
+        req = urllib.request.Request(f"{ollama_base}/api/tags", headers=headers)
         with urllib.request.urlopen(req, timeout=5) as resp:
             data = json.loads(resp.read())
             if "models" in data:
@@ -427,7 +429,8 @@ def _build_upstream_request(api_url: str, api_key: str, model: str,
     """Build endpoint, headers, and body for upstream LLM call."""
     base = api_url.rstrip("/")
     if upstream_type == "ollama":
-        endpoint = f"{base}/api/chat"
+        ollama_base = re.sub(r'/v\d+$', '', base)
+        endpoint = f"{ollama_base}/api/chat"
         body = {
             "model": model,
             "messages": messages,
@@ -676,6 +679,8 @@ class GatewayHandler(BaseHTTPRequestHandler):
     mock_mode = False
     upstream_type = "auto"  # 自动检测 / ollama / openai
     conversations = {}  # session_id → list of turns
+    awareness_flags = {}  # session_id → list of detection flags (反思闭环)
+    enable_reflection = True  # 是否启用反思闭环
     request_log = deque(maxlen=50)  # 最近请求日志
     alignment_analyzer = None  # lazy init
     MAX_CONCURRENT = int(os.getenv("MAX_CONCURRENT", "20"))
@@ -832,6 +837,14 @@ class GatewayHandler(BaseHTTPRequestHandler):
                 }
                 self._send_json({"added": key, "facts": len(body.get("facts", []))})
             return
+        if path == "/config/reflection":
+            if self.command == "POST":
+                body = self._read_body()
+                self.enable_reflection = body.get("enable", True)
+                self._send_json({"reflection": self.enable_reflection})
+            else:
+                self._send_json({"reflection": self.enable_reflection})
+            return
         if path == "/config/concurrent":
             body = self._read_body()
             new_limit = int(body.get("limit", 20))
@@ -914,6 +927,17 @@ class GatewayHandler(BaseHTTPRequestHandler):
                     if correction:
                         messages = [{'role': 'system', 'content': correction}] + messages
 
+            # 反思闭环：将上一轮的觉察发现注入系统上下文
+            if self.enable_reflection and session_id in self.awareness_flags:
+                prev_flags = self.awareness_flags.get(session_id, [])
+                if prev_flags:
+                    flag_summary = "；".join(prev_flags[-3:])  # 最近 3 条
+                    reflection_note = (
+                        f"[觉察反思] 上一轮对话检测到以下问题，请注意核实：{flag_summary}"
+                    )
+                    # 注入为 system 消息，放在最前面
+                    messages = [{'role': 'system', 'content': reflection_note}] + messages
+
             # 模拟模式或真实推理
             if self.mock_mode:
                 # 统计会话轮数
@@ -938,6 +962,25 @@ class GatewayHandler(BaseHTTPRequestHandler):
                 "user": user_msg,
                 "ai": result["response"],
             })
+            # 反思闭环：记录本次觉察发现
+            if self.enable_reflection:
+                turn_flags = result.get("flags", [])
+                observations = result.get("observations", [])
+                contradictions = []
+                for o in observations:
+                    for fc in o.get("fact_checks", []):
+                        if fc.get("verdict") == "contradicted":
+                            contradictions.append(
+                                f"{fc.get('claim', '')[:30]}: {fc.get('evidence', '')[:40]}"
+                            )
+                # 合并标志
+                all_flags = turn_flags + contradictions
+                if all_flags:
+                    if session_id not in self.awareness_flags:
+                        self.awareness_flags[session_id] = []
+                    self.awareness_flags[session_id].extend(all_flags)
+                    # 限制每个 session 最多保留 20 条标志
+                    self.awareness_flags[session_id] = self.awareness_flags[session_id][-20:]
             # 写入请求日志
             log_entry = {
                 "time": time.strftime("%H:%M:%S"),

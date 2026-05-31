@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+__all__ = ["HallucinationTool", "HallucinationCallback", "detect_hallucination"]
+
 """
 LangChain 幻觉检测插件 — 一行代码接入
 
@@ -15,7 +17,6 @@ LangChain 幻觉检测插件 — 一行代码接入
 """
 
 import json
-from typing import Optional, Any
 
 
 class HallucinationTool:
@@ -97,10 +98,22 @@ class HallucinationCallback:
         self.threshold = threshold
         self.detector = None
 
-    def _ensure_detector(self):
-        if self.detector is None:
+    def _ensure_detector(self) -> bool:
+        """初始化检测器，返回是否成功"""
+        if self.detector is not None:
+            return True
+        try:
             from hallucination_detector import HallucinationDetector
             self.detector = HallucinationDetector()
+            return True
+        except ImportError:
+            if self.verbose:
+                print("[幻觉检测] ⚠️ 无法导入 hallucination_detector 模块")
+            return False
+        except Exception as e:
+            if self.verbose:
+                print(f"[幻觉检测] ⚠️ 初始化失败: {e}")
+            return False
 
     def on_llm_end(self, response, **kwargs) -> None:
         """LLM 生成完成后自动检测"""
@@ -110,10 +123,17 @@ class HallucinationCallback:
                 for g in gen if isinstance(gen, list) else [gen]:
                     if hasattr(g, 'text'):
                         text += g.text
+        # LangChain v0.1+ 兼容: generations 可能在 LLMResult 中
+        if not text and hasattr(response, 'llm_output'):
+            llm_out = response.llm_output
+            if isinstance(llm_out, dict):
+                text = llm_out.get("text", "")
         if not text:
             return
 
-        self._ensure_detector()
+        if not self._ensure_detector():
+            return
+
         report = self.detector.analyze(text)
 
         if report.hallucination_ratio > self.threshold:
@@ -130,6 +150,19 @@ class HallucinationCallback:
 # ============================================================
 # 独立运行演示
 # ============================================================
+
+def detect_hallucination(text: str, threshold: float = 0.3) -> dict:
+    """
+    便捷函数：一行检测文本中的幻觉（无需 LangChain）
+
+    用法:
+      from langchain_plugin import detect_hallucination
+      result = detect_hallucination("地球是平的")
+      print(result["has_hallucination"])  # True
+    """
+    tool = HallucinationTool()
+    return tool._run(text)
+
 
 if __name__ == "__main__":
     print("=" * 60)

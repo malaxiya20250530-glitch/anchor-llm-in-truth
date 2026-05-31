@@ -64,7 +64,7 @@ def _cosine_similarity(a: list[float], b: list[float]) -> float:
 class VectorKnowledgeBase:
     """轻量向量知识库 — 纯 Python，无需 GPU"""
 
-    def __init__(self, kb_path: str = None):
+    def __init__(self, kb_path: str = None, lazy: bool = True):
         if kb_path is None:
             kb_path = str(Path(__file__).parent / "kb_user.json")
         self.kb_path = kb_path
@@ -75,7 +75,10 @@ class VectorKnowledgeBase:
         self.vocab: list[str] = []
         self.vocab_idx: dict[str, int] = {}
         self.search_cache: dict[str, list] = {} # claim → [(key, fact, sim)]
-        self._load()
+        self._loaded = False
+        if not lazy:
+            self._load()
+            self._loaded = True
 
     def _load(self):
         """从 JSON 知识库 + hallucination_detector.KNOWLEDGE_BASE 加载并向量化"""
@@ -123,7 +126,10 @@ class VectorKnowledgeBase:
         self.vectors, self.vocab, self.vocab_idx, self._df, self._N = _tfidf_vector(self.texts)
 
     def add(self, key: str, fact: str):
-        """动态添加一条事实到索引"""
+        """动态添加一条事实到索引（惰性加载）"""
+        if not self._loaded:
+            self._load()
+            self._loaded = True
         if key in self.entries:
             return
         self.entries[key] = fact
@@ -132,7 +138,10 @@ class VectorKnowledgeBase:
         self._build_index()  # 简单重建（生产环境可增量更新）
 
     def search(self, claim: str, top_k: int = 3, threshold: float = 0.15) -> list[tuple[str, str, float]]:
-        """向量检索：返回 [(key, fact_text, similarity), ...]"""
+        """向量检索：返回 [(key, fact_text, similarity), ...]（惰性加载）"""
+        if not self._loaded:
+            self._load()
+            self._loaded = True
         # 缓存命中
         if claim in self.search_cache:
             return [(k, f, s) for k, f, s in self.search_cache[claim] if s >= threshold]

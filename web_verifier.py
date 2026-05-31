@@ -26,14 +26,35 @@ def _hash_claim(claim: str) -> str:
 
 
 def _extract_snippets(html: str) -> list[str]:
-    """从 DuckDuckGo HTML 结果页提取摘要片段"""
+    """从 DuckDuckGo HTML 结果页提取摘要片段（多模式 fallback）"""
     snippets = []
+    # 模式 1: 新版 DDG snippet class
     for m in re.finditer(r'class="result__snippet"[^>]*>(.*?)</', html, re.DOTALL):
         text = re.sub(r'<[^>]+>', '', m.group(1)).strip()
         text = re.sub(r'\s+', ' ', text)
         if len(text) > 20:
             snippets.append(text)
-    return snippets[:5]
+    # 模式 2: 旧版 DDG 或通用 snippet 提取
+    if len(snippets) < 3:
+        for m in re.finditer(r'class="[^"]*snippet[^"]*"[^>]*>(.*?)</', html, re.DOTALL):
+            text = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+            text = re.sub(r'\s+', ' ', text)
+            if len(text) > 20 and text not in snippets:
+                snippets.append(text)
+    # 模式 3: 从 description meta 标签提取
+    if len(snippets) < 3:
+        for m in re.finditer(r'<meta[^>]+name="description"[^>]+content="([^"]+)"', html):
+            text = m.group(1).strip()
+            if len(text) > 20:
+                snippets.append(text)
+    # 去重 + 限制
+    seen = set()
+    unique = []
+    for s in snippets:
+        if s[:30] not in seen:
+            seen.add(s[:30])
+            unique.append(s)
+    return unique[:5]
 
 
 class WebVerifier:
@@ -90,6 +111,14 @@ class WebVerifier:
             conn.execute("DELETE FROM web_cache WHERE claim_hash = ?", (claim_hash,))
             conn.commit()
 
+    def cleanup_expired(self) -> int:
+        """清理过期缓存条目，返回删除数"""
+        with self._connect() as conn:
+            cutoff = time.time() - CACHE_TTL
+            cur = conn.execute("DELETE FROM web_cache WHERE created_at < ?", (cutoff,))
+            conn.commit()
+            return cur.rowcount
+
     def search(self, claim: str, timeout: float = 8.0) -> list[str]:
         """搜索 claim 并返回摘要列表（先查缓存）"""
         claim_hash = _hash_claim(claim)
@@ -122,29 +151,39 @@ class WebVerifier:
 
         return snippets
 
-    def verify(self, claim: str) -> dict:
+    def verify(self, claim: str, timeout: float = 8.0) -> dict:
         """
         联网验证一条声明
-        返回: {verdict, confidence, evidence, source}
+        返回: {verdict, confidence, evidence, source, cached}
         """
-        snippets = self.search(claim)
+        # 先检查是否来自缓存
+        claim_hash = _hash_claim(claim)
+        from_cache = self._cache_get(claim_hash) is not None
+        
+        snippets = self.search(claim, timeout=timeout)
         if not snippets:
             return {
                 "verdict": "uncertain",
                 "confidence": 0.0,
                 "evidence": "无法连接搜索服务",
                 "source": "web",
+                "cached": from_cache,
             }
 
-        claim_words = set(claim)
+        # 多粒度匹配: 字符级 + 双词级
+        claim_chars = set(claim)
+        claim_bigrams = {claim[i:i+2] for i in range(len(claim)-1)}
         best_score = 0.0
         best_snippet = ""
 
         for s in snippets:
-            s_words = set(s)
-            overlap = len(claim_words & s_words) / max(len(claim_words), 1)
-            if overlap > best_score:
-                best_score = overlap
+            s_chars = set(s)
+            s_bigrams = {s[i:i+2] for i in range(len(s)-1)}
+            char_overlap = len(claim_chars & s_chars) / max(len(claim_chars), 1)
+            bigram_overlap = len(claim_bigrams & s_bigrams) / max(len(claim_bigrams), 1) if claim_bigrams else 0
+            score = char_overlap * 0.4 + bigram_overlap * 0.6
+            if score > best_score:
+                best_score = score
                 best_snippet = s
 
         if best_score > 0.3:

@@ -5,8 +5,6 @@
 """
 
 import re
-import json
-from pathlib import Path
 from typing import Optional
 from collections import defaultdict
 
@@ -17,6 +15,7 @@ from collections import defaultdict
 RE_YEAR_SPAN = re.compile(r'(\d{3,4})\s*[-–—年]\s*(\d{3,4})?\s*年?')  # 1328-1398年
 RE_BIRTH = re.compile(r'(生于|出生于|出生[于在]?)\s*(\d{3,4})\s*年?')  # 出生于1328年
 RE_INVENTED = re.compile(r'([一-鿿]{2,4})(发明了?|创造了?|改进了?)([一-鿿]{2,6})')  # 蔡伦改进 / 毕昇发明
+RE_PERSON_INTRO = re.compile(r'^([一-鿿]{1,4})(于|在|的)')  # 毕昇于... → 毕昇
 RE_FOUNDED = re.compile(r'(\S{2,4})于?(\d{3,4})年(建立|创立|成立|建国)')  # 于1368年建立
 RE_LOCATED = re.compile(r'(\S{2,8})(位于|在)(\S{2,8})')  # 故宫位于北京
 RE_IS_A = re.compile(r'(\S{2,8})(是|属于)(\S{2,12})')  # 地球是行星
@@ -142,10 +141,15 @@ def _extract_person_from_fact(fact: str) -> list[tuple[str, str, str]]:
             triples.append((name, "BORN_IN", m.group(1)))
             triples.append((name, "DIED_IN", m.group(2)))
 
-    # 发明/改进
+    # 发明/改进 — 优先从句首提取人名（处理 "毕昇于北宋年间发明..." 模式）
     m = RE_INVENTED.search(fact)
     if m:
-        name = _clean_name(m.group(1))
+        # 尝试从句首提取真正的人名
+        intro_m = RE_PERSON_INTRO.match(fact)
+        if intro_m:
+            name = _clean_name(intro_m.group(1))
+        else:
+            name = _clean_name(m.group(1))
         invention = m.group(3).rstrip('，,。的')
         triples.append((name, "INVENTED", invention))
 
@@ -338,12 +342,12 @@ class GraphReasoner:
                         "reasoning": "explicit_negation",
                     }
 
-        # 检查发明归属冲突：如果 X 发明了 Z，而 Z 已在知识库中被 Y 发明
+        # 检查发明归属冲突：如果 X 发明了 Z，而 Z 已在知识库中被 Y 发明（支持模糊匹配）
         m = re.match(r'(\S{1,4})(发明了?|创造了?)(\S{1,6})', claim_text)
         if m:
             person = m.group(1)
             event = m.group(3)
-            # 查找谁发明了 event
+            # 先精确匹配
             for r in self.kg.query_relations(rel="INVENTED", obj=event):
                 if r.subj != person:
                     return {
@@ -352,6 +356,17 @@ class GraphReasoner:
                         "evidence": f"{event}由{r.subj}发明，而非{person}",
                         "reasoning": "inventor_conflict",
                     }
+            # 模糊匹配：event 可能是简称（"活字印刷" vs "活字印刷术"）
+            all_invented = self.kg.query_relations(rel="INVENTED")
+            for r in all_invented:
+                if event in r.obj or r.obj in event:
+                    if r.subj != person:
+                        return {
+                            "verdict": "contradicted",
+                            "confidence": 0.75,
+                            "evidence": f"{r.obj}由{r.subj}发明，而非{person}",
+                            "reasoning": "inventor_conflict_fuzzy",
+                        }
 
         return None
 

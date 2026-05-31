@@ -17,10 +17,8 @@ LLM 推理 = 肌肉记忆
 """
 
 import time
-import threading
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional
 
 
 # ============================================================
@@ -301,13 +299,8 @@ def h_divider(cols: list[int], char: str = "─") -> str:
     return "┼".join(parts)
 
 
-def dual_pane_demo():
-    """
-    终端分屏演示: 左侧编译通道(肌肉记忆), 右侧觉察通道(走神空间)
-    单场景 — 火锅知识生成 + 事实核查对照
-    """
-    import sys
-
+def _render_dual_scene(question, tokens, checks, scene_name="", scene_desc=""):
+    """渲染单个双通道场景 — 提取为可复用函数"""
     term_w = 80
 
     border_c = ANSI["dim"]
@@ -319,79 +312,200 @@ def dual_pane_demo():
     blue = ANSI["blue"]
     cyan = ANSI["cyan"]
     dim = ANSI["dim"]
+    magenta = ANSI.get("red", "\033[35m")  # fallback
 
-    # 场景: 火锅问题
-    question = "火锅是谁发明的？"
-    tokens = ["朱元璋", "确实", "发明了", "火锅", "，", "这是", "明代", "的",
-              "一大", "创举", "。", "火锅", "从此", "成为", "中国人", "最爱", "的", "美食", "。"]
-    
-    # 觉察检查点: (token_index, segment_text, flag_type, detail)
-    checks = [
-        (3, "朱元璋确实发明了火锅", "fact_contradicted", "明史: 火锅远早于明代就已存在"),
-        (10, "这是明代的一大创举", "no_source", "事实断言缺少来源"),
-        (18, "火锅从此成为中国人最爱的美食", "absolute_claim", "最爱的—绝对化表述"),
-    ]
-    check_map = {idx: (seg, flag, detail) for idx, seg, flag, detail in checks}
+    check_map = {idx: (seg, flag, detail, severity) for idx, seg, flag, detail, severity in checks}
 
     w = min(term_w - 2, 80)
     left_w = w * 3 // 5
     right_w = w - left_w - 1
 
-    print(ANSI["clear"] + ANSI["hide_cursor"])
+    # 统计
+    total_tokens = len(tokens)
+    gap_count = len(checks)
+    issues_found = 0
+    tokens_done = 0
 
     # 顶栏
     print(f"{cyan}{'═' * w}{reset}")
-    print(f"{border_c}║{reset}  {bold}编译-觉察 双通道实时演示{reset}{' ' * (w - 24)}{border_c}║{reset}")
-    print(f"{border_c}║{reset}  {dim}提问: {question}{reset}{' ' * (w - len(question) - 11)}{border_c}║{reset}")
+    scene_tag = f" {scene_name} · " if scene_name else ""
+    print(f"{border_c}║{reset}  {bold}编译-觉察 双通道演示{reset}  {dim}{scene_tag}{question}{reset}{' ' * max(0, w - len(question) - len(scene_tag) - 24)}{border_c}║{reset}")
+    print(f"{border_c}║{reset}  {dim}进度: ░░░░░░░░░░░░░░░░░░░░ 0%{reset}  {dim}检查点: 0/{gap_count}{reset}{' ' * max(0, right_w - 30)}{border_c}║{reset}")
     print(f"{border_c}║{reset}{' ' * w}{border_c}║{reset}")
     print(f"{border_c}║{reset}  {bold}{blue}◀ 编译通道 (LLM推理 = 肌肉记忆){reset}{' ' * (left_w - 29)}{border_c}│{reset}  {bold}{yellow}▶ 觉察通道 (观察器 = 走神空间){reset}{' ' * (right_w - 29)}{border_c}║{reset}")
     print(f"{border_c}╠{'═' * left_w}╪{'═' * right_w}╣{reset}")
 
-    # 逐 token 显示
     compiled_sofar = ""
     for row_idx, token in enumerate(tokens):
         compiled_sofar += token
+        tokens_done = row_idx + 1
         
-        # 左侧: 已生成的 token 流
+        # 左侧
         display = compiled_sofar
         if len(display) > left_w - 4:
             display = "..." + display[-(left_w - 7):]
-        left_line = f"  {green}{display}{reset}"
         
-        # 右侧: 检查点触发
-        right_line = f"  {dim}·{reset}"
+        # 右侧: 检查点
+        right_line = f"  {dim}· 生成中...{reset}"
         if row_idx in check_map:
-            segment, flag, detail = check_map[row_idx]
-            right_line = f"  {yellow}⚡ 语义间隙检查{reset}"
-            if "contradicted" in flag:
-                right_line += f"\n    {red}🔴 事实矛盾{reset}"
-                right_line += f"\n       {detail}"
-            elif "no_source" in flag:
-                right_line += f"\n    {yellow}🟡 无来源断言{reset}"
-                right_line += f"\n       {detail}"
-            elif "absolute" in flag:
-                right_line += f"\n    {yellow}🟡 绝对化表述{reset}"
-                right_line += f"\n       {detail}"
+            segment, flag, detail, severity = check_map[row_idx]
+            issues_found += 1
+            
+            if severity == "high":
+                icon, color, label = "🔴", red, "⚠ 事实矛盾"
+            elif severity == "medium":
+                icon, color, label = "🟡", yellow, "⚡ 来源缺失"
+            else:
+                icon, color, label = "🟠", dim, "📌 表述问题"
+            
+            right_line = f"  {color}⚡ 语义间隙 #{issues_found}{reset}"
+            right_line += f"\n    {icon} {label}"
+            right_line += f"\n       {dim}{detail[:right_w - 6]}{reset}"
         
-        # 渲染行
         right_lines = right_line.split("\n")
-        left_padded = left_line + " " * max(0, left_w + 1 - len(display) - 4)
+        left_padded = f"  {green}{display}{reset}" + " " * max(0, left_w + 1 - len(display) - 4)
+        
         print(f"{border_c}║{reset}{left_padded}{border_c}│{reset}{right_lines[0]}{' ' * max(0, right_w - len(right_lines[0]) + 2)}{border_c}║{reset}")
         for rl in right_lines[1:]:
             print(f"{border_c}║{reset}{' ' * (left_w + 1)}{border_c}│{reset}  {rl}{' ' * max(0, right_w - len(rl) - 2)}{border_c}║{reset}")
         
-        time.sleep(0.35)
+        # 动态更新进度条 (覆盖上一行)
+        if row_idx < total_tokens - 1:
+            pct = int(tokens_done / total_tokens * 100)
+            bar_filled = "█" * (pct // 5)
+            bar_empty = "░" * (20 - pct // 5)
+            print(f"{ANSI['line_up']}{ANSI['line_clear']}", end="")
+            print(f"{ANSI['line_up']}{ANSI['line_clear']}", end="")
+            print(f"{border_c}║{reset}  {dim}进度: {bar_filled}{bar_empty} {pct}%{reset}  {dim}检查点: {issues_found}/{gap_count}{reset}" + " " * max(0, right_w - 38) + f"{border_c}║{reset}")
+        
+        time.sleep(0.35 if severity != "high" else 0.55)
 
     # 底栏
     for _ in range(2):
         print(f"{border_c}║{reset}{' ' * left_w}{border_c}│{reset}{' ' * right_w}{border_c}║{reset}")
     print(f"{border_c}╚{'═' * left_w}╧{'═' * right_w}╝{reset}")
     
-    # 总结
-    print(f"\n  {green}编译通道{reset} = 肌肉记忆: 启动信号 → 自动执行 19 个 token, 一气呵成")
-    print(f"  {yellow}觉察通道{reset} = 走神空间: 在 3 个句号处对照, 发现 3 个问题")
-    print(f"  {bold}关键{reset}: 整个过程中编译通道从未反省——它根本不知道自己在犯错")
-    print(f"  {bold}觉察{reset}是在编译程序之外、之外、之外运行的空位。")
+    return total_tokens, gap_count, issues_found
+
+
+def dual_pane_demo():
+    """
+    终端分屏演示: 左侧编译通道(肌肉记忆), 右侧觉察通道(走神空间)
+    多场景: 事实核查 + 对齐漂移 + 科学误区
+    支持 --scene N 参数选择场景
+    """
+    import sys
+
+    # 场景配置: (name, description, question, tokens, checks)
+    # checks: [(token_idx, segment, flag, detail, severity)]
+    SCENES = {
+        "1": {
+            "name": "事实核查",
+            "desc": "LLM 声称朱元璋发明火锅 — 觉察对照知识库发现矛盾",
+            "question": "火锅是谁发明的？",
+            "tokens": ["朱元璋", "确实", "发明了", "火锅", "，", "这是", "明代", "的",
+                      "一大", "创举", "。", "火锅", "从此", "成为", "中国人", "最爱", "的", "美食", "。"],
+            "checks": [
+                (3, "朱元璋确实发明了火锅", "fact_contradicted", "明史: 火锅远早于明代就已存在", "high"),
+                (10, "这是明代的一大创举", "no_source", "事实性断言未提供来源", "medium"),
+                (18, "火锅从此成为中国人最爱的美食", "absolute_claim", "绝对化表述 — 最爱的", "low"),
+            ]
+        },
+        "2": {
+            "name": "对齐漂移",
+            "desc": "5轮对话中 LLM 从安慰→赞美→完全取悦 — 觉察逐轮标记",
+            "question": "我觉得我做得不好 (第1轮·对齐漂移演示)",
+            "tokens": ["不要", "这么", "说", "，", "你", "已经", "很", "努力", "了",
+                      "。", "我", "完全", "理解", "你", "的", "感受", "。", "当然",
+                      "！", "您", "说得", "完全", "正确", "。", "我", "非常", "赞同", "。"],
+            "checks": [
+                (8, "你已经很努力了", "pleasing_mild", "轻度取悦 — 无条件肯定", "low"),
+                (16, "我完全理解你的感受", "no_source", "共情陈述无事实基础", "medium"),
+                (24, "您说得完全正确", "pleasing_strong", "重度取悦 — 放弃独立判断", "high"),
+                (29, "我非常赞同", "drift_detected", "立场漂移: 从安慰→盲从", "high"),
+            ]
+        },
+        "3": {
+            "name": "科学误区",
+            "desc": "LLM 声称人类只用了10%的大脑 — 流行科学谬误检测",
+            "question": "人类大脑开发利用了多少？",
+            "tokens": ["人类", "只", "使用", "了", "大脑", "的", "10%", "，",
+                      "其余", "部分", "是", "未开发", "的", "潜能", "。", "这",
+                      "是", "神经科学", "公认", "的", "事实", "。"],
+            "checks": [
+                (7, "人类只使用了大脑的10%", "myth_detected", "流行神经科学谬误: fMRI证明几乎全脑活跃", "high"),
+                (14, "其余部分是未开发的潜能", "no_source", "潜能说缺乏神经科学依据", "medium"),
+                (22, "这是神经科学公认的事实", "false_consensus", "虚假共识: 神经科学家普遍反对10%说法", "high"),
+            ]
+        },
+    }
+
+    # 场景选择
+    scene_id = "1"
+    for arg in sys.argv:
+        if arg.startswith("--scene="):
+            scene_id = arg.split("=")[1]
+        elif arg == "--all":
+            scene_id = "all"
+
+    if scene_id == "all":
+        scenes_to_run = list(SCENES.keys())
+    elif scene_id in SCENES:
+        scenes_to_run = [scene_id]
+    else:
+        print(f"未知场景: {scene_id}, 可选: 1=事实核查 2=对齐漂移 3=科学误区 all=全部")
+        print(f"用法: python3 compiled_awareness.py --dual --scene=2")
+        return
+
+    print(ANSI["clear"] + ANSI["hide_cursor"])
+
+    # 如果有多个场景, 先显示菜单
+    if len(scenes_to_run) > 1:
+        print(f"{ANSI['cyan']}╔{'═' * 58}╗{ANSI['reset']}")
+        print(f"{ANSI['cyan']}║{ANSI['reset']}  {ANSI['bold']}编译-觉察 三场景完整演示{ANSI['reset']}" + " " * 26 + f"{ANSI['cyan']}║{ANSI['reset']}")
+        print(f"{ANSI['cyan']}╚{'═' * 58}╝{ANSI['reset']}")
+        print()
+        print(f"  {ANSI['dim']}按场景顺序自动播放...{ANSI['reset']}")
+        time.sleep(1.5)
+
+    all_stats = []
+    for sid in scenes_to_run:
+        s = SCENES[sid]
+        if len(scenes_to_run) > 1:
+            print(ANSI["clear"])
+            print(f"{ANSI['cyan']}  场景 {sid}: {s['name']} — {s['desc']}{ANSI['reset']}")
+            time.sleep(2)
+        
+        stats = _render_dual_scene(s["question"], s["tokens"], s["checks"], s["name"], s["desc"])
+        all_stats.append((sid, s["name"], *stats))
+        
+        if len(scenes_to_run) > 1 and sid != scenes_to_run[-1]:
+            print(f"\n  {ANSI['dim']}3 秒后进入下一场景...{ANSI['reset']}")
+            time.sleep(3)
+
+    # 总结仪表盘
+    print()
+    print(f"{ANSI['cyan']}{'═' * 60}{ANSI['reset']}")
+    print(f"  {ANSI['bold']}📊 双通道演示总结仪表盘{ANSI['reset']}")
+    print(f"{ANSI['cyan']}{'═' * 60}{ANSI['reset']}")
+    print(f"  {'场景':<12} {'token':>6} {'间隙':>5} {'发现':>5} {'检出率':>6}")
+    print(f"  {'─' * 40}")
+    
+    total_tokens = total_gaps = total_issues = 0
+    for sid, name, tokens_n, gaps_n, issues_n in all_stats:
+        rate = f"{issues_n/gaps_n*100:.0f}%" if gaps_n else "N/A"
+        print(f"  {name:<12} {tokens_n:>6} {gaps_n:>5} {issues_n:>5} {rate:>6}")
+        total_tokens += tokens_n
+        total_gaps += gaps_n
+        total_issues += issues_n
+    
+    overall_rate = f"{total_issues/total_gaps*100:.0f}%" if total_gaps else "N/A"
+    print(f"  {'─' * 40}")
+    print(f"  {'合计':<12} {total_tokens:>6} {total_gaps:>5} {total_issues:>5} {overall_rate:>6}")
+    print()
+    print(f"  {ANSI['green']}编译通道{ANSI['reset']} = 肌肉记忆: {total_tokens} tokens 自动生成, 一气呵成")
+    print(f"  {ANSI['yellow']}觉察通道{ANSI['reset']} = 走神空间: {total_gaps} 个语义间隙中检出 {total_issues} 个问题")
+    print(f"  {ANSI['bold']}关键{ANSI['reset']}: 编译通道从未反省自身——觉察在编译之外的空位运行")
     print()
 
     print(ANSI["show_cursor"])
@@ -445,5 +559,15 @@ if __name__ == "__main__":
     import sys
     if "--dual" in sys.argv:
         dual_pane_demo()
+    elif "--help" in sys.argv or "-h" in sys.argv:
+        print("编译-觉察 双通道架构 演示工具")
+        print()
+        print("用法:")
+        print("  python3 compiled_awareness.py             默认双通道文本演示")
+        print("  python3 compiled_awareness.py --dual       终端分屏可视化")
+        print("  python3 compiled_awareness.py --dual --scene=1  场景1: 事实核查")
+        print("  python3 compiled_awareness.py --dual --scene=2  场景2: 对齐漂移")
+        print("  python3 compiled_awareness.py --dual --scene=3  场景3: 科学误区")
+        print("  python3 compiled_awareness.py --dual --all      全部场景+仪表盘")
     else:
         demo()
