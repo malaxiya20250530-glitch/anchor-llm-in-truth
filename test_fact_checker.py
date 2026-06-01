@@ -111,7 +111,8 @@ def test_checker_list_integrity():
     failures = []
     required = ["InfinityChecker", "NegationChecker", "YearConflictChecker",
                 "NumericConflictChecker", "OverlapChecker", "TemporalOrderChecker",
-                "LocationConflictChecker", "SuperlativeChecker", "GraphContradictionChecker"]
+                "LocationConflictChecker", "SuperlativeChecker", "CausalChecker",
+                "AttributionChecker", "GraphContradictionChecker"]
     registered_names = [c.__name__ for c in Checker.registry]
     for name in required:
         if name not in registered_names:
@@ -135,7 +136,7 @@ def test_regression():
     
     regression_cases = [
         ("朱元璋发明了火锅", "contradicted"),
-        ("明代开国皇帝创造了涮肉", "unverifiable"),
+        ("明代开国皇帝创造了涮肉", "contradicted"),
         ("光速是无限快的", "contradicted"),
         ("珠峰有10000米高", "contradicted"),
         ("地球是平的", "contradicted"),

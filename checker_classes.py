@@ -368,6 +368,76 @@ class SuperlativeChecker(Checker):
 
 
 @checker
+class CausalChecker(Checker):
+    """因果推断检测 — 声称X导致/引起Y vs 事实反驳 → 矛盾"""
+    weight = 0.76  # 中高可靠：因果关系检测较精确
+
+    _CAUSAL_CLAIM_PATTERNS = [
+        r'(?:导致|引起|造成|引发|诱发)',
+        r'(?:因为|由于).{0,10}(?:所以|因此|因而|于是)',
+        r'.{2,15}(?:所以|因此|因而|于是)',  # 隐式因果: A所以B
+        r'(?:源于|来源于|来自于)',
+        r'(?:致使|使得|令)',
+    ]
+
+    _CAUSAL_FACT_PATTERNS = [
+        r'(?:不会|不能|并非|不是).{0,6}(?:导致|引起|造成|引发)',
+        r'(?:与.{0,8}无关|无直接关系|没有直接关系|没有关系|关系不大|不相关)',
+        r'(?:实际上|其实|真正).{0,6}(?:是因为|原因|由于)',
+        r'(?:并非|不是).{0,4}(?:源于|因为)',
+    ]
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """检测因果声称与事实的矛盾"""
+        has_causal = False
+        for pat in self._CAUSAL_CLAIM_PATTERNS:
+            if re.search(pat, claim):
+                has_causal = True
+                break
+        if not has_causal:
+            return None
+        for pat in self._CAUSAL_FACT_PATTERNS:
+            if re.search(pat, fact):
+                return ("contradicted", 0.80)
+        return None
+
+
+@checker
+class AttributionChecker(Checker):
+    """归因检测 — 声称X发明/发现/创造了Y vs 事实反驳 → 矛盾"""
+    weight = 0.80  # 中高可靠：归因检测在历史/科技领域效果好
+
+    _ATTRIBUTION_CLAIM_PATTERNS = [
+        (r'(?:发明了?|创造了?|创建了?)', '发明/创造'),
+        (r'(?:发现了?|找到了?)', '发现'),
+        (r'(?:提出了?|创立了?|建立了?)', '提出/创立'),
+        (r'(?:设计了?|开发了?|编写了?)', '设计/开发'),
+    ]
+
+    _ATTRIBUTION_FACT_PATTERNS = [
+        r'(?:不是|并非|没有).{0,6}(?:发明|创造|创建|发现)',
+        r'(?:更早|之前|此前).{0,4}(?:已有|发明|发现|出现)',
+        r'(?:才是|方是|正是).{0,4}(?:发明|创造|发现|提出)',
+        r'(?:并非|不是).{0,4}(?:.{0,2})?(?:发明|创造|发现|提出)',
+        r'(?:真正的.{0,2})?(?:发明者|创造者|发现者).{0,4}(?:是|为)',
+    ]
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """检测归因声称与事实的矛盾"""
+        has_attribution = False
+        for pat, _ in self._ATTRIBUTION_CLAIM_PATTERNS:
+            if re.search(pat, claim):
+                has_attribution = True
+                break
+        if not has_attribution:
+            return None
+        for pat in self._ATTRIBUTION_FACT_PATTERNS:
+            if re.search(pat, fact):
+                return ("contradicted", 0.82)
+        return None
+
+
+@checker
 class GraphContradictionChecker(Checker):
     weight = 0.78  # F1 ≈ 0.87
     """检查: 知识图谱实体关系推理 → 矛盾（最后兜底检查器）"""
