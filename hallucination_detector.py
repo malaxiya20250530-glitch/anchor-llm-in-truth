@@ -834,10 +834,13 @@ class AnchorEngine:
                 if kw == key_lower:
                     score = min(score + 0.2, 1.0)
                     break
-                    break
-                    # 实体类型匹配置信度加权
-                    entity_conf = self._entity_match_confidence(key, text_lower, key_lower)
-                    score = score * (0.7 + 0.3 * entity_conf)
+            # 实体类型匹配置信度加权 — 修复死代码
+            entity_conf = self._entity_match_confidence(key, text_lower, key_lower)
+            score = score * (0.7 + 0.3 * entity_conf)
+            # 位置加分: KB键出现在文本前1/3处 → 更可能是主题
+            key_pos = text_lower.find(key_lower)
+            if key_pos >= 0 and key_pos < len(text_lower) / 3:
+                score = min(score * 1.1, 1.0)
             if score > best_score:
                 best_score, best_key, best_entry = score, key, entry
         return best_score, best_key, best_entry
