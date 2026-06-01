@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""
+可观测性报告 — 从 API /metrics 端点拉取指标并生成报告
+
+用法:
+  python3 ci/metrics_reporter.py                    # 从 localhost:8801 拉取
+  python3 ci/metrics_reporter.py --url http://x:8801 # 自定义地址
+  python3 ci/metrics_reporter.py --save metrics/     # 保存历史快照
+"""
+
+import json, sys, time, urllib.request
+from pathlib import Path
+from datetime import datetime
+
+ROOT = Path(__file__).parent.parent
+
+
+def fetch_metrics(url: str) -> dict:
+    """从 API 拉取指标"""
+    req = urllib.request.Request(f"{url}/metrics")
+    with urllib.request.urlopen(req, timeout=5) as resp:
+        return json.loads(resp.read())
+
+
+def fetch_health(url: str) -> dict:
+    """健康检查"""
+    req = urllib.request.Request(f"{url}/health")
+    with urllib.request.urlopen(req, timeout=5) as resp:
+        return json.loads(resp.read())
+
+
+def print_report(metrics: dict, health: dict):
+    """打印人类可读报告"""
+    print("=" * 55)
+    print("  幻觉检测服务 — 可观测性报告")
+    print("=" * 55)
+    print(f"  时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  状态: {'🟢 健康' if health.get('status') == 'healthy' else '🔴 异常'}")
+    print()
+
+    # 吞吐量
+    uptime_h = metrics.get("uptime_seconds", 0) / 3600
+    qps = metrics.get("total_requests", 0) / max(metrics.get("uptime_seconds", 1), 1)
+    print(f"  ── 吞吐量 ──")
+    print(f"  运行时间:     {uptime_h:.1f}h")
+    print(f"  总请求:       {metrics.get('total_requests', 0)}")
+    print(f"  单条验证:     {metrics.get('verify_calls', 0)}")
+    print(f"  批量验证:     {metrics.get('batch_calls', 0)}")
+    print(f"  QPS:          {qps:.3f}")
+    print()
+
+    # 延迟
+    print(f"  ── 延迟 ──")
+    print(f"  平均延迟:     {metrics.get('avg_latency_ms', 0):.1f}ms")
+    print()
+
+    # 命中率
+    print(f"  ── 命中率 ──")
+    print(f"  KB 命中率:    {metrics.get('kb_hit_rate', 0):.1%}")
+    print()
+
+    # 裁决分布
+    dist = metrics.get("verdict_distribution", {})
+    total = sum(dist.values()) or 1
+    print(f"  ── 裁决分布 ──")
+    for verdict in ["contradicted", "verified", "uncertain", "unverifiable"]:
+        count = dist.get(verdict, 0)
+        bar = "█" * int(count / max(total, 1) * 30)
+        print(f"  {verdict:15s} {count:4d} ({count/total:.0%}) {bar}")
+    print()
+
+    # 检查器使用
+    usage = metrics.get("checker_usage", {})
+    if usage:
+        print(f"  ── 检查器命中 ──")
+        for name, count in sorted(usage.items(), key=lambda x: -x[1]):
+            print(f"  {name:30s} {count:4d}")
+    print()
+
+    # 错误
+    errors = metrics.get("errors", 0)
+    if errors > 0:
+        print(f"  ⚠️  错误数: {errors}")
+    else:
+        print(f"  ✅ 零错误")
+
+
+def save_snapshot(metrics: dict, health: dict, save_dir: str):
+    """保存历史快照"""
+    path = Path(save_dir)
+    path.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    snapshot = {
+        "timestamp": datetime.now().isoformat(),
+        "health": health,
+        "metrics": metrics,
+    }
+    filename = path / f"snapshot_{timestamp}.json"
+    with open(filename, 'w') as f:
+        json.dump(snapshot, f, indent=2, ensure_ascii=False)
+    print(f"\n  📸 快照已保存: {filename}")
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="可观测性报告")
+    parser.add_argument("--url", default="http://localhost:8801", help="API 地址")
+    parser.add_argument("--save", help="保存快照目录")
+    parser.add_argument("--watch", type=int, default=0, help="持续监控间隔(秒)")
+    args = parser.parse_args()
+
+    try:
+        health = fetch_health(args.url)
+        metrics = fetch_metrics(args.url)
+    except Exception as e:
+        print(f"❌ 无法连接 API: {e}")
+        print(f"   请先启动: python3 api_server.py")
+        sys.exit(1)
+
+    if args.watch > 0:
+        try:
+            while True:
+                print("\033[2J\033[H")  # 清屏
+                health = fetch_health(args.url)
+                metrics = fetch_metrics(args.url)
+                print_report(metrics, health)
+                print(f"\n  (每 {args.watch}s 刷新, Ctrl+C 退出)")
+                time.sleep(args.watch)
+        except KeyboardInterrupt:
+            print("\n⏹  停止监控")
+    else:
+        print_report(metrics, health)
+
+    if args.save:
+        save_snapshot(metrics, health, args.save)
+
+
+if __name__ == "__main__":
+    main()
