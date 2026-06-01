@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""
+错误分析仪表板 — 每次 Benchmark 后自动生成分类错误报告
+
+输出: error_dashboard.json
+  {
+    "kb_no_cover": 136,
+    "entity_mismatch": 24,
+    "kb_overmatch": 20,
+    ...
+  }
+
+用法:
+  python3 ci/error_dashboard.py                          # 分析最新 benchmark_report.json
+  python3 ci/error_dashboard.py --output error_dashboard.json
+"""
+
+import json, sys, re
+from pathlib import Path
+from collections import defaultdict
+
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT))
+
+from hallucination_detector import AnchorEngine, FactExtractor, KNOWLEDGE_BASE
+from checker_registry import Checker
+import checker_classes
+
+
+def classify_error(case: dict, verdict: str, confidence: float) -> str:
+    """将错误案例分类到根因类别"""
+    text = case.get("text", "")
+    label = case.get("label", "TRUE")
+    domain = case.get("domain", case.get("category", "unknown"))
+
+    # 假阳性 (TRUE 被判 contradicted)
+    if label == "TRUE" and verdict == "contradicted":
+        # 检查是否 KB 过匹配
+        entities_in_text = []
+        for kb_key in KNOWLEDGE_BASE:
+            if kb_key in text:
+                entities_in_text.append(kb_key)
+        if len(entities_in_text) >= 2:
+            return "kb_overmatch"
+        # 检查是否实体不匹配
+        if re.search(r'(?:不是|没有|并非).{0,6}(?:是|在|有)', text):
+            return "negation_mismatch"
+        # 年份误报
+        if re.search(r'\d{3,4}', text):
+            return "year_conflict_fp"
+        return "entity_mismatch"
+
+    # 假阴性 (FALSE 未被判 contradicted)
+    if label == "FALSE" and verdict != "contradicted":
+        # 检查 KB 是否覆盖
+        has_kb = False
+        for kb_key in KNOWLEDGE_BASE:
+            if kb_key in text or (len(kb_key) >= 2 and all(c in text for c in kb_key)):
+                has_kb = True
+                break
+        if not has_kb:
+            return "kb_no_cover"
+        # 年份漏检
+        if re.search(r'\d{3,4}', text):
+            return "year_miss"
+        # 实体漏检
+        return "entity_miss"
+
+    return "other"
+
+
+def generate_dashboard(report_path: str = None, output_path: str = None) -> dict:
+    """生成错误仪表板"""
+    report_path = report_path or str(ROOT / "benchmark_report.json")
+    output_path = output_path or str(ROOT / "error_dashboard.json")
+
+    with open(report_path) as f:
+        report = json.load(f)
+
+    # 从基准案例中分析错误
+    benchmark_path = ROOT / "benchmark" / "all.jsonl"
+    if not benchmark_path.exists():
+        benchmark_path = ROOT / "baseline" / "benchmark_v1.jsonl"
+
+    if not benchmark_path.exists():
+        print("❌ 找不到基准案例文件")
+        return {"error": "no benchmark cases"}
+
+    engine = AnchorEngine()
+    extractor = FactExtractor()
+
+    error_counts = defaultdict(int)
+    domain_errors = defaultdict(lambda: defaultdict(int))
+    error_examples = defaultdict(list)
+
+    with open(benchmark_path) as f:
+        cases = [json.loads(l) for l in f if l.strip()]
+
+    # 采样分析 (全量太慢，取前500条)
+    sample = cases[:500]
+    for case in sample:
+        claims = extractor.extract(case.get("text", ""))
+        for c in claims:
+            if c.is_verifiable:
+                r = engine.verify(c)
+                label = case.get("label", "TRUE")
+                is_error = (label == "TRUE" and r.verdict == "contradicted") or \
+                           (label == "FALSE" and r.verdict != "contradicted")
+                if is_error:
+                    root_cause = classify_error(case, r.verdict, r.confidence)
+                    error_counts[root_cause] += 1
+                    domain = case.get("domain", case.get("category", "unknown"))
+                    domain_errors[root_cause][domain] += 1
+                    if len(error_examples[root_cause]) < 3:
+                        error_examples[root_cause].append({
+                            "text": case.get("text", "")[:100],
+                            "label": label,
+                            "verdict": r.verdict,
+                            "domain": domain,
+                        })
+
+    dashboard = {
+        "timestamp": report.get("timestamp", ""),
+        "sample_size": len(sample),
+        "total_errors": sum(error_counts.values()),
+        "error_breakdown": dict(error_counts),
+        "domain_breakdown": {k: dict(v) for k, v in domain_errors.items()},
+        "examples": dict(error_examples),
+    }
+
+    with open(output_path, 'w') as f:
+        json.dump(dashboard, f, indent=2, ensure_ascii=False)
+
+    print(f"✅ 错误仪表板已生成: {output_path}")
+    print(f"   采样: {len(sample)} 条, 错误: {dashboard['total_errors']} 条")
+    for cause, count in sorted(error_counts.items(), key=lambda x: -x[1]):
+        pct = count / max(dashboard['total_errors'], 1) * 100
+        print(f"   {cause:25s} {count:4d} ({pct:.0f}%)")
+
+    return dashboard
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="错误分析仪表板")
+    parser.add_argument("--report", help="基准报告路径")
+    parser.add_argument("--output", help="输出路径")
+    args = parser.parse_args()
+    generate_dashboard(args.report, args.output)

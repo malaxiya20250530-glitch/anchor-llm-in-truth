@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""
+质量门禁 — 每次基准测试后运行，阻止回归。
+
+三级判定:
+  PASS  — 所有指标达到 V1.0 目标
+  WARN  — 未达目标但高于基线 (允许合并，需人工确认)
+  FAIL  — 低于基线 (阻止合并)
+
+用法:
+  python3 ci/benchmark_gate.py                          # 用最新 benchmark_report.json
+  python3 ci/benchmark_gate.py --baseline baseline/metrics.json
+"""
+
+import json, sys, argparse
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+
+# ── V1.0 目标阈值 ──────────────────────────
+V1_TARGETS = {
+    "f1":        0.84,
+    "precision": 0.83,
+    "recall":    0.78,
+    "year_f1":   0.70,   # YearConflictChecker F1
+}
+
+
+def load_metrics(path: str) -> dict:
+    with open(path) as f:
+        return json.load(f)
+
+
+def check_gate(current: dict, baseline: dict) -> tuple[str, list[str]]:
+    """返回 (PASS/WARN/FAIL, 消息列表)"""
+    messages = []
+    status = "PASS"
+
+    checks = [
+        ("f1", "F1 Score"),
+        ("precision", "精度(Precision)"),
+        ("recall", "召回(Recall)"),
+    ]
+
+    for key, label in checks:
+        cur = current.get(key, 0)
+        base = baseline.get(key, 0)
+        target = V1_TARGETS.get(key, 1.0)
+
+        if cur < base:
+            status = "FAIL"
+            messages.append(f"🔴 [{label}] 回归! {cur:.4f} < 基线 {base:.4f}")
+        elif cur < target:
+            if status != "FAIL":
+                status = "WARN"
+            gap = target - cur
+            messages.append(f"🟡 [{label}] {cur:.4f} < 目标 {target:.2f} (差 {gap:.4f})")
+        else:
+            messages.append(f"🟢 [{label}] {cur:.4f} ≥ 目标 {target:.2f}")
+
+    # Year F1 检查
+    chk_f1 = current.get("checker_f1", {})
+    year_f1 = chk_f1.get("YearConflictChecker", 0)
+    if year_f1 < V1_TARGETS["year_f1"]:
+        if status != "FAIL":
+            status = "WARN"
+        messages.append(f"🟡 [Year F1] {year_f1:.3f} < 目标 {V1_TARGETS['year_f1']:.2f}")
+    else:
+        messages.append(f"🟢 [Year F1] {year_f1:.3f} ≥ 目标 {V1_TARGETS['year_f1']:.2f}")
+
+    return status, messages
+
+
+def main():
+    parser = argparse.ArgumentParser(description="V1.0 质量门禁")
+    parser.add_argument("--current", default=str(ROOT / "benchmark_report.json"),
+                        help="当前基准报告路径")
+    parser.add_argument("--baseline", default=str(ROOT / "baseline/metrics.json"),
+                        help="V1 基线路径")
+    args = parser.parse_args()
+
+    if not Path(args.current).exists():
+        print(f"❌ 当前报告不存在: {args.current}")
+        print("   请先运行: python3 benchmark.py")
+        sys.exit(2)
+
+    if not Path(args.baseline).exists():
+        print(f"❌ 基线不存在: {args.baseline}")
+        print("   请先运行 Phase 1 冻结")
+        sys.exit(2)
+
+    current = load_metrics(args.current)
+    baseline = load_metrics(args.baseline)
+
+    print("=" * 55)
+    print("  V1.0 质量门禁")
+    print("=" * 55)
+    print(f"  基线: {baseline.get('timestamp', '?')}")
+    print(f"  当前: {current.get('timestamp', '?')}")
+    print()
+
+    status, messages = check_gate(current, baseline)
+
+    for msg in messages:
+        print(f"  {msg}")
+
+    print()
+    if status == "PASS":
+        print("  ✅ 通过 — 所有指标达到 V1.0 目标")
+        sys.exit(0)
+    elif status == "WARN":
+        print("  ⚠️  警告 — 未达 V1.0 目标但高于基线，可合并但需关注")
+        sys.exit(0)  # 不阻止合并
+    else:
+        print("  ❌ 失败 — 低于基线，禁止合并!")
+        print("     请修复回归后重试")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
