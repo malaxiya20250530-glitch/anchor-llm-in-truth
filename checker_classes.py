@@ -62,6 +62,13 @@ class InfinityChecker(Checker):
 class NegationChecker(Checker):
     weight = 0.83  # F1 ≈ 0.88
     """检查: 否定模式匹配 → 矛盾"""
+    # 不/没 白名单：这些固定表达中的"不/没"不构成独立否定
+    _NEG_WHITELIST = {
+        "不错", "不满", "不客气", "不好意思", "不仅", "不只", "不同",
+        "不断", "不足", "不管", "不论", "不过", "不久", "不仅", "不如",
+        "不妨", "不止", "不免", "不愧", "不由得",
+    }
+
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
         """执行检查，返回 (verdict, confidence) 或 None"""
         # 前向引用：_negation_same_subject 在导入此模块前已定义
@@ -71,8 +78,13 @@ class NegationChecker(Checker):
         general_neg = re.search(r'(?:没有|不是|并非|不存在|不在|不|没)\s*(.{1,8}?)(?:[，。、；的]|$)', fact)
         if general_neg:
             neg_entity = general_neg.group(1).strip()
-            # 实体必须≥2字符 (过滤"不好"中的"好"等单字误报)
-            if neg_entity and len(neg_entity) >= 1:
+            # 白名单: 固定表达中的不/没不构成独立否定
+            # 提取纯否定词 (不 或 没)
+            neg_prefix = '不' if general_neg.group(0).startswith('不') else ('没' if general_neg.group(0).startswith('没') else '')
+            neg_full = neg_prefix + neg_entity if neg_prefix else ''
+            if neg_full in self._NEG_WHITELIST:
+                pass  # 白名单固定表达 → 跳过
+            elif neg_entity and len(neg_entity) >= 1:
                 # 精确匹配或字符级回退 (处理"效果"↔"有效"的情况)
                 entity_in_claim = (neg_entity in claim or 
                     (len(neg_entity) >= 2 and 
