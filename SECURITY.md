@@ -39,4 +39,4 @@ find . -name "*.py" -exec stat {} \;
 git log --all --format="%H %ai %s" > authorship_proof.txt
 ```
 
-版权所有人: 李刚 (hubeiligang420@gmail.com)
+版权所有人: 李桥 (hubeiligang420@gmail.com)

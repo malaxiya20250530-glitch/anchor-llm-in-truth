@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 from urllib.parse import quote
 from typing import Optional
+from logger import log
 
 
 DB_PATH = Path(__file__).parent / "web_cache.db"
@@ -247,8 +248,8 @@ class WikipediaVerifier:
             if extract:
                 self.cache[query] = (time.time(), extract)
                 return extract
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("Wikipedia 摘要获取失败: %s", e)
 
         # 回退：搜索 API
         try:
@@ -261,8 +262,8 @@ class WikipediaVerifier:
                 title = results[0]["title"]
                 # 递归获取摘要
                 return self.search(title, lang, timeout)
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("Wikipedia 搜索回退失败: %s", e)
 
         return ""
 
@@ -326,7 +327,8 @@ class CrossVerifier:
                 source = futures[future]
                 try:
                     results[source] = future.result()
-                except Exception:
+                except Exception as e:
+                    log.warning("并发验证子任务失败: %s", e)
                     results[source] = {"verdict": "uncertain", "confidence": 0.0, "evidence": "", "source": source}
 
         # 加权综合

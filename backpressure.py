@@ -13,6 +13,7 @@ import threading
 from collections import deque
 from enum import Enum
 from typing import Optional, Callable
+from logger import log
 
 
 class CheckLevel(Enum):
@@ -205,8 +206,8 @@ class BackpressureAwareChannel:
                         "result": result,
                         "time": time.time(),
                     })
-            except Exception:
-                pass  # 检查失败不影响编译通道
+            except Exception as e:
+                log.warning("检查器执行失败: %s", e)
 
     def get_results(self, clear: bool = True) -> list[dict]:
         """获取累积的检查结果"""

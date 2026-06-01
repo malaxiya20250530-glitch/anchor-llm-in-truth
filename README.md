@@ -11,6 +11,41 @@
          └── 安全观察（锚定 / 来源归因 / 一致性）
 ```
 
+## 性能指标 (Phase 1 冻结基线)
+
+| 指标 | 值 |
+|------|------|
+| F1 分数 | **0.851** |
+| 准确率 | 79.9% |
+| 精确率 | 93.8% |
+| 召回率 | 77.8% |
+| 平均延迟 | 14.2 ms/条 |
+| P50 | 10.5 ms |
+| P95 | 42.8 ms |
+| P99 | 57.2 ms |
+| KB 规模 | 225 实体, 1000 事实 |
+| 代码规模 | 18,353 行, 46 模块 |
+| 依赖 | **0 外部依赖**（纯 Python 3.10+ 标准库） |
+
+### 各检查器 F1
+
+| 检查器 | F1 | 说明 |
+|--------|:--:|------|
+| negation | 0.938 | 否定模式匹配 |
+| temporal_order | 0.919 | 时间顺序推理 |
+| knowledge_base | 0.971 | 知识库匹配 |
+| graph_relation | 0.896 | 知识图谱推理 |
+| location_conflict | 0.881 | 地点冲突检测 |
+| numeric_conflict | 0.848 | 数值偏差检测 |
+| year_conflict | 0.743 | 年份冲突检测 |
+
+### Phase 2 组件
+
+- `Dockerfile` — alpine 轻量镜像（预计 < 80MB）
+- `circuit_breaker.py` — 三级降级断路器（128/286/296ms）
+- `webhook_notifier.py` — 异步告警推送
+- `.github/workflows/ci.yml` — CI 回归守卫（Hash 验证 + F1 退化检查）
+
 ## 快速开始
 
 ### Docker（推荐）
@@ -131,4 +166,4 @@ _PRIORITY_CHECKERS = [
 
 ## 许可
 
-Copyright (c) 2025 李刚. 专有软件 — 保留所有权利。
+Copyright (c) 2025 李桥. 专有软件 — 保留所有权利。

@@ -26,5 +26,10 @@
     "mirror_resistance": 0.6,
     "approval_craving_threshold": 0.3,
     "criticism_sensitivity": 0.5
+  },
+  "deepseek": {
+    "api_key": "${DEEPSEEK_API_KEY}",
+    "base_url": "https://api.deepseek.com/v1",
+    "model": "deepseek-chat"
   }
 }

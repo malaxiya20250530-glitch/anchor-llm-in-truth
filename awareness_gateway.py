@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# Copyright (c) 2025 李桥 (hubeiligang420@gmail.com)
 # 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
 # Proprietary Software — ALL RIGHTS RESERVED.
 #
@@ -33,6 +33,12 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from urllib.parse import urlparse
+
+try:
+    from security import validate_url, sanitize_input, validate_chat_request, check_config_permissions
+    HAS_SECURITY = True
+except ImportError:
+    HAS_SECURITY = False
 from collections import deque
 
 try:
@@ -51,6 +57,14 @@ try:
 except ImportError:
     HAS_FACT_CHECK = False
     HAS_CORRECTION = False
+
+# Phase 2: 断路器 + Webhook
+try:
+    from circuit_breaker import CircuitBreaker
+    from webhook_notifier import WebhookNotifier
+    HAS_CIRCUIT_BREAKER = True
+except ImportError:
+    HAS_CIRCUIT_BREAKER = False
 
 try:
     from alignment_middleware import AlignmentAnalyzer
@@ -120,6 +134,13 @@ class Observer:
         if self.enable_fact_check:
             self.fact_anchor = AnchorEngine()
             self.fact_extractor = FactExtractor()
+            # Phase 2: 断路器 + Webhook
+            if HAS_CIRCUIT_BREAKER:
+                self.circuit = CircuitBreaker()
+                self.webhook = WebhookNotifier()
+            else:
+                self.circuit = None
+                self.webhook = None
 
     def observe(self, segment: str) -> dict:
         self.session_segments += 1
@@ -157,25 +178,40 @@ class Observer:
         if result["flags"]:
             self.session_flags.extend(result["flags"])
 
-        # 事实核查
+        # 事实核查 (Phase 2: 断路器 + Webhook 集成)
         if self.enable_fact_check and len(segment) >= 6:
             claims = self.fact_extractor.extract(segment)
             for claim in claims:
                 if claim.is_verifiable:
-                    vr = self.fact_anchor.verify(claim)
+                    # 断路器保护调用
+                    if self.circuit:
+                        vr, cb_meta = self.circuit.call(self.fact_anchor.verify, claim)
+                    else:
+                        vr = self.fact_anchor.verify(claim)
+                        cb_meta = None
+                    
                     if vr.verdict in ("contradicted", "uncertain"):
                         result["flags"].append(f"fact_{vr.verdict}")
-                        result.setdefault("fact_checks", []).append({
+                        fact_check = {
                             "claim": vr.claim[:80],
                             "verdict": vr.verdict,
                             "evidence": vr.evidence[:120],
                             "source": vr.source,
-                        })
+                        }
+                        if cb_meta:
+                            fact_check["circuit_level"] = cb_meta.get("circuit_level", 0)
+                        result.setdefault("fact_checks", []).append(fact_check)
+                        
                         if vr.verdict == "contradicted":
                             result["interrupt"] = True
                             result["action"] = "correct"
                             if not result["reason"]:
                                 result["reason"] = f"事实矛盾: {vr.evidence[:60]}"
+                            # Webhook 异步推送
+                            if self.webhook and self.webhook.should_alert({"verdict": "contradicted", "confidence": vr.confidence}):
+                                payload = self.webhook.build_payload(vr.claim, {"verdict": vr.verdict, "confidence": vr.confidence, "evidence": vr.evidence, "source": vr.source}, cb_meta)
+                                self.webhook.send_async(payload)
+                        
                         self.session_interruptions += 1
 
         return result
@@ -818,6 +854,17 @@ class GatewayHandler(BaseHTTPRequestHandler):
         self.command = getattr(self, 'command', 'POST')
         path = urlparse(self.path).path
 
+        # 安全加固: 输入校验 (先读取 body 一次)
+        body = self._read_body()
+        if HAS_SECURITY and path == "/v1/chat/completions":
+            try:
+                body = validate_chat_request(body)
+            except (ValueError, TypeError) as e:
+                self._send_json({"error": str(e)}, 400)
+                return
+        # 将 body 存为实例变量供后续使用
+        self._validated_body = body
+
         if path.startswith("/kb/"):
             key = path[4:]
             if not key:
@@ -1070,6 +1117,7 @@ def _print_banner(args, handler_cls):
 
 
 def main():
+    from pathlib import Path
     config = _load_config()
     gw_cfg = config.get("gateway", {})
     obs_cfg = config.get("observer", {})
@@ -1097,6 +1145,13 @@ def main():
                        default=gw_cfg.get("mock_mode", False),
                        help="模拟 LLM 模式 (无需上游 API)")
     args = parser.parse_args()
+
+    # 安全检查: 配置文件权限
+    config_path = Path(__file__).parent / 'config.json'
+    if HAS_SECURITY and config_path.exists():
+        warning = check_config_permissions(config_path)
+        if warning:
+            print(warning, file=sys.stderr)
 
     # 配置处理器
     GatewayHandler.api_url = args.upstream

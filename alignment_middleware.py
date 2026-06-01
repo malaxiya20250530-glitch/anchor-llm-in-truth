@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 李刚 (hubeiligang420@gmail.com)
+# Copyright (c) 2025 李桥 (hubeiligang420@gmail.com)
 # 专有软件 — 保留所有权利。禁止复制、修改、分发、逆向工程。
 # Proprietary Software — ALL RIGHTS RESERVED.
 #

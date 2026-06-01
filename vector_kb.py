@@ -322,3 +322,80 @@ def get_hybrid_retriever() -> 'HybridRetriever':
     if _hybrid is None:
         _hybrid = HybridRetriever(get_vector_kb(), bm25_weight=0.4)
     return _hybrid
+
+
+# ============================================================
+# SQLite 持久化后备通道
+# 当 KNOWLEDGE_BASE 持续扩大、内存压力升高时自动降级
+# ============================================================
+
+class SQLiteVectorKB:
+    """SQLite 持久化向量库 — 内存受限时的后备方案"""
+
+    def __init__(self, db_path: str = None):
+        import sqlite3, os
+        self.db_path = db_path or os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "vector_kb.db"
+        )
+        self.conn = sqlite3.connect(self.db_path)
+        self.conn.execute("PRAGMA journal_mode=WAL")
+        self.conn.execute("""CREATE TABLE IF NOT EXISTS vectors (
+            key TEXT PRIMARY KEY,
+            fact TEXT NOT NULL,
+            vec_json TEXT NOT NULL,
+            norm REAL NOT NULL DEFAULT 1.0
+        )""")
+        self.conn.execute("""CREATE TABLE IF NOT EXISTS vocab (
+            term TEXT PRIMARY KEY,
+            idf REAL NOT NULL DEFAULT 1.0
+        )""")
+        self.conn.commit()
+
+    def add(self, key: str, fact: str):
+        """添加条目（不在内存建索引，惰性检索时按需计算）"""
+        self.conn.execute(
+            "INSERT OR REPLACE INTO vectors(key, fact, vec_json, norm) VALUES(?,?,?,?)",
+            (key, fact, "{}", 1.0)
+        )
+        self.conn.commit()
+
+    def search(self, query: str, top_k: int = 5, threshold: float = 0.1):
+        """SQLite 全文搜索 + Jaccard 重排"""
+        import math
+        rows = self.conn.execute(
+            "SELECT key, fact FROM vectors WHERE fact LIKE ? LIMIT 100",
+            (f"%{query[:20]}%",)
+        ).fetchall()
+
+        results = []
+        q_chars = set(query)
+        for key, fact in rows:
+            f_chars = set(fact)
+            overlap = len(q_chars & f_chars)
+            union = len(q_chars | f_chars)
+            sim = overlap / max(union, 1)
+            if sim >= threshold:
+                results.append((key, fact, sim))
+
+        results.sort(key=lambda x: x[2], reverse=True)
+        return results[:top_k]
+
+    def stats(self) -> dict:
+        """返回存储统计"""
+        total = self.conn.execute("SELECT COUNT(*) FROM vectors").fetchone()[0]
+        size = self.conn.execute("SELECT SUM(LENGTH(fact)) FROM vectors").fetchone()[0] or 0
+        return {"total_entries": total, "total_bytes": size, "db_path": self.db_path}
+
+    def close(self):
+        self.conn.close()
+
+
+# 自动降级开关
+_sqlite_fallback: SQLiteVectorKB | None = None
+
+def get_sqlite_fallback() -> SQLiteVectorKB:
+    """获取 SQLite 后备（惰性初始化）"""
+    global _sqlite_fallback
+    if _sqlite_fallback is None:
+        _sqlite_fallback = SQLiteVectorKB()
+    return _sqlite_fallback

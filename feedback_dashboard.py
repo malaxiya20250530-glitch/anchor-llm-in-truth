@@ -12,6 +12,7 @@ from urllib.parse import urlparse, parse_qs
 from pathlib import Path
 
 import feedback_store as fs
+from logger import log
 
 TEMPLATE = r"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -316,8 +317,8 @@ class FeedbackHandler(BaseHTTPRequestHandler):
                 user_kb[key]["facts"] = [f for f in user_kb[key]["facts"] if f not in existing]
             with open(kb_path, "w") as f:
                 _json.dump(user_kb, f, ensure_ascii=False, indent=2)
-        except Exception:
-            pass  # KB写入失败不影响主流程
+        except Exception as e:
+            log.warning("KB 写入失败: %s", e)
     def _serve_page(self):
         qs = parse_qs(urlparse(self.path).query)
         page = int(qs.get("page", [1])[0])
@@ -450,8 +451,8 @@ class FeedbackHandler(BaseHTTPRequestHandler):
                 vkb.add(key, new_fact)
             except ImportError:
                 pass
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("主动学习标注写入失败: %s", e)
 
 def main():
     port = 8900

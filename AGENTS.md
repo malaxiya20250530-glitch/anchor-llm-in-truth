@@ -65,3 +65,21 @@
 - 事实核查: python3 hallucination_detector.py "朱元璋发明了火锅"
 - 启动网关: python3 awareness_gateway.py --port 8800 --mock
 - 演示: bash demo_auto_captions.sh
+
+# 🌐 中文化补充规则
+
+## Git 提交信息
+提交信息必须使用中文，格式：`类型: 简短描述`
+- 类型：新增 / 修复 / 优化 / 重构 / 文档 / 测试 / 回滚
+- 示例：`新增: 知识图谱模糊匹配层`
+
+## 术语标准化
+代码注释和解释中必须使用以下中文术语：
+- function→函数, variable→变量, parameter→参数, return→返回
+- exception→异常, error→错误, warning→警告, log→日志
+- deploy→部署, rollback→回滚, benchmark→基准测试
+- middleware→中间件, gateway→网关, observer→观察器
+- checker→检查器, pipeline→流水线, buffer→缓冲区
+
+## 文件引用格式
+引用文件路径时使用反引号，如 `hallucination_detector.py`

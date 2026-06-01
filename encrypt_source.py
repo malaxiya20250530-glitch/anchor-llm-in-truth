@@ -129,6 +129,15 @@ def decrypt_file(filepath: Path, key: bytes) -> bool:
 def generate_loader(key: bytes) -> Path:
     """生成 _loader.py — 运行时解密加载器"""
     key_hex = key.hex()
+    # 生成完整性哈希清单
+    import json as _json
+    _manifest = {}
+    _base = Path(__file__).parent
+    for _mod in CORE_MODULES:
+        _fp = _base / _mod
+        if _fp.exists():
+            _manifest[_mod] = hashlib.sha256(_fp.read_bytes()).hexdigest()
+    _manifest_json = _json.dumps(_manifest, separators=(",", ":"))
 
     loader_code = f'''#!/usr/bin/env python3
 """
@@ -142,6 +151,7 @@ from pathlib import Path
 
 _KEY = bytes.fromhex("{key_hex}")
 _SALT = b"awareness-gateway-v2-salt-2026"
+_MANIFEST = {_manifest_json}
 
 def _decrypt(data: bytes) -> bytes:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -158,6 +168,16 @@ class _PyeLoader(importlib.abc.Loader):
     def exec_module(self, module):
         with open(self.path, "rb") as f:
             plaintext = _decrypt(f.read())
+        import hashlib as _hl
+        from pathlib import Path as _P
+        _mod_name = _P(self.path).stem + ".py"
+        _actual = _hl.sha256(plaintext).hexdigest()
+        _expected = _MANIFEST.get(_mod_name)
+        if _expected and _actual != _expected:
+            raise ImportError(
+                f"完整性校验失败: {_mod_name} 哈希不匹配"
+                f" (expected ...{_expected[-8:]}, got ...{_actual[-8:]})"
+            )
         code = compile(plaintext, self.path, "exec")
         exec(code, module.__dict__)
 
