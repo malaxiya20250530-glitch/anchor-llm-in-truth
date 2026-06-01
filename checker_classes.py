@@ -71,11 +71,12 @@ class NegationChecker(Checker):
         general_neg = re.search(r'(?:没有|不是|并非|不存在|不在|不|没)\s*(.{1,8}?)(?:[，。、；的]|$)', fact)
         if general_neg:
             neg_entity = general_neg.group(1).strip()
+            # 实体必须≥2字符 (过滤"不好"中的"好"等单字误报)
             if neg_entity and len(neg_entity) >= 1:
                 # 精确匹配或字符级回退 (处理"效果"↔"有效"的情况)
                 entity_in_claim = (neg_entity in claim or 
                     (len(neg_entity) >= 2 and 
-                     sum(1 for c in neg_entity if c in claim) / len(neg_entity) >= 0.6))
+                     sum(1 for c in neg_entity if c in claim) / len(neg_entity) >= 0.7))
                 if entity_in_claim:
                     # 确认 claim 中没有否定该实体（避免双重否定）
                     if not re.search(
