@@ -906,21 +906,44 @@ class AnchorEngine:
                           verdict=verdict, weight=weight, weighted_score=round(weighted_score, 3))
         if not results:
             log.debug("all checkers miss", claim=claim[:40])
+            self._last_vote_details = {"votes": [], "hallucination_score": 0.0}
             return ("uncertain", 0.5)
+        # 存储投票明细 (共识引擎透传)
+        self._last_vote_details = {
+            "votes": [{"checker": n, "verdict": v, "confidence": c, "weight": w, "weighted_score": round(ws, 3)} 
+                      for n, v, c, w, ws in results],
+        }
+        # 计算加权幻觉分数: Σ(w × v) / Σ(w)
+        # v = confidence (contradicted) / 0 (verified) / 0.5×confidence (uncertain)
+        total_w = sum(r[3] for r in results)
+        hallucination_sum = 0.0
+        for n, v, c, w, ws in results:
+            if v == "contradicted":
+                hallucination_sum += w * c
+            elif v == "uncertain":
+                hallucination_sum += w * c * 0.5
+            # verified → 0 contribution
+        self._last_vote_details["hallucination_score"] = round(hallucination_sum / max(total_w, 0.001), 3)
         # 加权决策规则:
         # 1. 如果存在高权重(≥0.85)检查器命中 → 优先采用
         high_weight = [(n, v, c, w, ws) for n, v, c, w, ws in results if w >= 0.85]
         if high_weight:
             best = max(high_weight, key=lambda x: x[4])  # 按 weighted_score
+            self._last_vote_details["decision"] = best[0]
             log.debug("weighted decision (high-weight)", checker=best[0], score=round(best[4], 3))
             return (best[1], best[2])
         # 2. 否则取加权分数最高者，但低 confidence 的矛盾不予采信
         best = max(results, key=lambda x: x[4])
+        self._last_vote_details["decision"] = best[0]
         if best[1] == "contradicted" and best[2] < 0.65:
             log.debug("weighted decision (low confidence suppressed)", checker=best[0])
             return ("uncertain", 0.5)
         log.debug("weighted decision", checker=best[0], score=round(best[4], 3))
         return (best[1], best[2])
+
+    def get_vote_details(self) -> dict:
+        """返回最近一次 _compare_with_fact 的投票明细和幻觉分数"""
+        return getattr(self, '_last_vote_details', {"votes": [], "hallucination_score": 0.0})
 
     def _record_feedback(self, claim: str, fact: str, result: dict) -> None:
         """记录反馈（跳过已有记录避免重复）"""
