@@ -329,6 +329,45 @@ class LocationConflictChecker(Checker):
 
 
 @checker
+class SuperlativeChecker(Checker):
+    """绝对化断言检测 — 声称最大/最早/唯一/第一 vs 事实反驳 → 矛盾"""
+    weight = 0.72  # 中等可靠：绝对化词语常有例外
+
+    _SUPERLATIVE_PATTERNS = [
+        (r'(?:是|为|成为).{0,6}(?:最大|最高|最长|最重|最快|最强)', '最大/最高类'),
+        (r'(?:是|为|成为).{0,6}(?:最早|最先|首个|第一个)', '最早/首个类'),
+        (r'(?:是|为).{0,4}(?:唯一|仅有|独一无二)', '唯一类'),
+        (r'(?:世界|全球|史上|历史).{0,4}(?:第一|首位)', '世界第一类'),
+        (r'(?:最好|最佳|最优|最棒)', '最好/最佳类'),
+    ]
+
+    _FACT_CONTRADICTION_PATTERNS = [
+        r'(?:不是|并非|没有).{0,6}(?:最大|最高|最早|唯一|第一|最好|最)',
+        r'(?:还有|另有|也存在).{0,6}(?:更|比较|其他|别的|另外)',
+        r'(?:更早|更早|之前).{0,4}(?:已有|存在|出现|发明|发现)',
+        r'(?:不是|并非).{0,4}(?:唯一|仅有)',
+        r'(?:并非|实际上|其实).{0,6}(?:最早|最好|最大)',
+    ]
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """检测绝对化声称与事实的矛盾"""
+        # 声明必须包含绝对化词语
+        has_superlative = False
+        for pat, _ in self._SUPERLATIVE_PATTERNS:
+            if re.search(pat, claim):
+                has_superlative = True
+                break
+        if not has_superlative:
+            return None
+
+        # 事实必须包含反驳模式
+        for pat in self._FACT_CONTRADICTION_PATTERNS:
+            if re.search(pat, fact):
+                return ("contradicted", 0.78)
+        return None
+
+
+@checker
 class GraphContradictionChecker(Checker):
     weight = 0.78  # F1 ≈ 0.87
     """检查: 知识图谱实体关系推理 → 矛盾（最后兜底检查器）"""

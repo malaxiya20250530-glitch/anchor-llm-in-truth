@@ -111,7 +111,7 @@ def test_checker_list_integrity():
     failures = []
     required = ["InfinityChecker", "NegationChecker", "YearConflictChecker",
                 "NumericConflictChecker", "OverlapChecker", "TemporalOrderChecker",
-                "LocationConflictChecker", "GraphContradictionChecker"]
+                "LocationConflictChecker", "SuperlativeChecker", "GraphContradictionChecker"]
     registered_names = [c.__name__ for c in Checker.registry]
     for name in required:
         if name not in registered_names:
