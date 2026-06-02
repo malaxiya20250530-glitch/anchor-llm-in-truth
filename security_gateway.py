@@ -21,6 +21,8 @@ from leak_scanner import LeakScanner
 from observability_platform import MetricsCollector, AlertEngine, ReportGenerator, AuditMetric
 from audit_trail import AuditTrail, ComplianceReport, AccessControl, CertificationChecklist
 from security_hardener import InputValidator, RateLimiter, IPBlocker, SecurityHeaders, SecurityAuditor
+from production_guard import (RequestValidator, TieredRateLimiter, ExponentialBlocker,
+    SecurityLogger, SecurityLogEntry, DoSGuard, APIKeyManager)
 
 
 class SecurityGateway:
@@ -39,8 +41,10 @@ class SecurityGateway:
         self.access = AccessControl()
         self.certification = CertificationChecklist()
         self.validator = InputValidator()
-        self.rate_limiter = RateLimiter()
-        self.ip_blocker = IPBlocker()
+        self.rate_limiter = TieredRateLimiter()
+        self.ip_blocker = ExponentialBlocker()
+        self.key_manager = APIKeyManager()
+        self.sec_logger = SecurityLogger()
 
     def audit(self, text: str) -> dict:
         """全面安全审计，返回统一报告"""
@@ -147,6 +151,8 @@ class GatewayHandler(BaseHTTPRequestHandler):
             self._handle_obs()
         elif self.path.startswith("/audit"):
             self._handle_audit_endpoints()
+        elif self.path.startswith("/admin"):
+            self._handle_admin()
         else:
             self._json(404, {"error": "not found"})
 
@@ -163,8 +169,15 @@ class GatewayHandler(BaseHTTPRequestHandler):
             self._json(429, {"error": msg})
             return
         length = int(self.headers.get("Content-Length", 0))
+        raw_body = self.rfile.read(length)
+        # JSON Bomb + 深度检测
+        ok, msg = RequestValidator.validate_json(raw_body)
+        if not ok:
+            self.gateway.ip_blocker.record_failure(client_ip)
+            self._json(413 if "超限" in msg else 400, {"error": msg})
+            return
         try:
-            body = json.loads(self.rfile.read(length))
+            body = json.loads(raw_body)
         except (json.JSONDecodeError, ValueError) as e:
             self.gateway.ip_blocker.record_failure(client_ip)
             self._json(400, {"error": f"JSON 解析失败"})
@@ -176,11 +189,21 @@ class GatewayHandler(BaseHTTPRequestHandler):
             self._json(400, {"error": msg})
             return
         text = self.gateway.validator.sanitize(text)
+        # Prompt 注入检测
+        ok, msg = RequestValidator.validate_prompt(text)
+        if not ok:
+            self._json(400, {"error": msg})
+            return
         report = self.gateway.audit(text)
         # 写入审计日志
         api_key = self.headers.get("Authorization", "anonymous")[:30]
         self.gateway.audit_trail.record("audit_request", api_key,
             "security_audit", report["status"])
+        # 安全日志
+        self.gateway.sec_logger.log(SecurityLogEntry(
+            time.time(), client_ip, api_key, "/v1/audit", "POST",
+            length, 0, 0, 200 if report["status"] == "safe" else 403,
+            self.headers.get("User-Agent", ""), "free", len(text)//3))
         self._json(200 if report["status"] != "blocked" else 403, report)
 
     def _handle_chat(self):
@@ -234,6 +257,17 @@ class GatewayHandler(BaseHTTPRequestHandler):
         else:
             self._json(404, {"error": "unknown obs endpoint"})
 
+
+    def _handle_admin(self):
+        gw = self.gateway
+        if self.path == "/admin/keys":
+            self._json(200, gw.key_manager.stats)
+        elif self.path == "/admin/logs":
+            self._json(200, {"entries": [{"ip":e.ip,"key":e.api_key[:8],"status":e.status_code,"duration":e.duration_ms} for e in gw.sec_logger.query(limit=50)]})
+        elif self.path == "/admin/security":
+            self._json(200, {"limits": {"max_json":1000000,"max_depth":20,"max_prompt":32000,"max_context":128000,"max_output":8192}})
+        else:
+            self._json(404, {"error": "unknown admin endpoint"})
 
     def _handle_audit_endpoints(self):
         path = self.path
