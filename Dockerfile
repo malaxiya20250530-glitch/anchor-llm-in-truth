@@ -1,44 +1,65 @@
-# Phase 2 生产镜像 — 纯标准库 0 外部依赖
-# 基于 Alpine，镜像体积预计 < 80MB
-FROM python:3.10-alpine
+# 生产镜像 — 零外部依赖，镜像 < 100MB
+FROM python:3.13-alpine
 
-LABEL org.opencontainers.image.title="Awareness Gateway"
-LABEL org.opencontainers.image.description="基于预测加工框架的LLM异步觉察与幻觉检测网关"
-LABEL org.opencontainers.image.version="2.0.0"
-LABEL org.opencontainers.image.authors="李桥 <hubeiligang420@gmail.com>"
+LABEL org.opencontainers.image.title="Hallucination Detector Gateway"
+LABEL org.opencontainers.image.description="Zero-dependency LLM hallucination detection middleware with billing & dashboard"
+LABEL org.opencontainers.image.version="3.0.0"
+LABEL org.opencontainers.image.authors="Li Qiao"
+LABEL org.opencontainers.image.url="https://github.com/malaxiya20250530-glitch/shiyan2925"
 
-# 安全加固：非 root 运行
 RUN adduser -D -h /app gateway
 WORKDIR /app
 
-# 只复制运行时必需文件（最小化攻击面）
+# 核心模块
 COPY hallucination_detector.py .
 COPY checker_classes.py .
 COPY checker_registry.py .
 COPY awareness_gateway.py .
 COPY knowledge_graph.py .
 COPY vector_kb.py .
-COPY feedback_store.py .
-COPY observer_security.py .
-COPY alignment_middleware.py .
+COPY consensus_engine.py .
 COPY ml_consensus.py .
+COPY observer_security.py .
+COPY observer_proxy.py .
+COPY alignment_middleware.py .
+
+# 计费 + 仪表盘
+COPY billing.py .
+COPY dashboard_server.py .
+COPY rate_limiter.py .
+
+# 知识库
 COPY kb_core.json .
-COPY kb_core.idx .
-COPY kb_manifest.json .
-COPY config.json .
+COPY kb_medical.json .
+COPY kb_legal.json .
+COPY kb_loader.py .
+
+# 跨平台检测器
+COPY hallucination_detector.py .
+COPY checker_classes.py .
+COPY checker_registry.py .
+
+# 可选模块
+COPY web_verifier.py .
+COPY feedback_store.py .
+COPY feedback_collector.py .
+COPY auto_kb_updater.py .
+COPY logger.py .
 COPY wal_logger.py .
 
-# 基准测试文件（可选，生产环境可省略）
-COPY benchmark/ ./benchmark/
+# 测试与基准
 COPY test_fact_checker.py .
-COPY run_baseline.sh .
+COPY benchmark.py .
 
-# 纯标准库，无需 pip install
-# 健康检查
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-    CMD python3 -c "import hallucination_detector; print('ok')" || exit 1
+# 配置文件
+COPY config.json .
 
-# 默认启动网关
-EXPOSE 8800
+RUN chown -R gateway:gateway /app
 USER gateway
-CMD ["python3", "awareness_gateway.py", "--port", "8800", "--host", "0.0.0.0"]
+
+EXPOSE 8800 8080
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:8800/health')"
+
+ENTRYPOINT ["python3", "awareness_gateway.py"]
+CMD ["--mock", "--port", "8800"]

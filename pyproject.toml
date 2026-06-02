@@ -3,15 +3,15 @@ requires = ["setuptools>=68.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "awareness-gateway"
-version = "2.2.0"
-description = "Hallucination detection gateway — real-time fact-checking proxy for LLMs"
+name = "hallucination-detector"
+version = "3.0.0"
+description = "Zero-dependency LLM hallucination detection middleware with billing & dashboard — real-time fact-checking proxy for LLMs"
 readme = "README.md"
 license = {text = "Proprietary"}
 authors = [
     {name = "Li Gang", email = "hubeiligang420@gmail.com"}
 ]
-keywords = ["llm", "hallucination", "fact-checking", "langchain", "ai-safety"]
+keywords = ["llm", "hallucination", "fact-checking", "ai-safety", "openai", "chinese-nlp", "cybersecurity", "middleware"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -39,11 +39,22 @@ Repository = "https://github.com/malaxiya20250530-glitch/shiyan2925"
 py-modules = [
     "hallucination_detector",
     "awareness_gateway",
+    "checker_classes",
+    "checker_registry",
+    "knowledge_graph",
+    "consensus_engine",
+    "ml_consensus",
     "observer_proxy",
     "observer_security",
     "alignment_middleware",
+    "billing",
+    "dashboard_server",
+    "kb_loader",
+    "rate_limiter",
     "feedback_store",
     "feedback_dashboard",
+    "feedback_collector",
+    "auto_kb_updater",
     "update_kb",
     "logger",
     "true_self_os",
@@ -54,4 +65,10 @@ py-modules = [
     "langchain_plugin",
     "encrypt_source",
     "stress_test",
+    "benchmark",
+    "fuzzy_matcher",
+    "backpressure",
+    "trace_exporter",
+    "prometheus_exporter",
+    "webhook_dispatcher",
 ]
