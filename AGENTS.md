@@ -11,15 +11,15 @@
 # 核心约束（必须遵守）
 
 ## 架构底线
-- **检查器注册**：新增检查器只需两步——写函数 + 把名字加到 _PRIORITY_CHECKERS 列表
-- **不破坏责任链**：_compare_with_fact() 保持 2 层嵌套，不改成其他模式
-- **单一职责**：每个 _check_xxx 只做一种冲突检测，返回 (result_type, confidence) 或 None
+- **检查器注册**：新增检查器只需两步——继承 Checker 类实现 check() + 用 @checker 装饰器注册（checker_registry.py + checker_classes.py）
+- **不破坏责任链**：_compare_with_fact() 遍历 Checker.registry 调用各检查器，保持责任链模式
+- **单一职责**：每个 Checker 子类只做一种冲突检测，check() 返回 (result_type, confidence) 或 None
 
 ## 质量门禁（改动后必须做）
 - 运行 python3 test_fact_checker.py，确保 5 组测试全部通过
 - 运行 python3 -c "import hallucination_detector" 确保无语法错误
 - 新增函数必须有 docstring（一句话说清做什么）
-- 不改动 _PRIORITY_CHECKERS 顺序除非明确知道优先级变更
+- 不改动 Checker.registry 中的注册顺序除非明确知道优先级变更
 
 ## 禁止项
 - 禁用 bare except —— 用具体异常类
@@ -46,7 +46,7 @@
 
 # 决策记录
 - 用责任链模式代替深层嵌套：13层嵌套无法维护 (2026-05-30)
-- 检查器用列表注册而非类继承：简单直观新增成本低 (2026-05-30)
+- 检查器用 @checker 装饰器自动注册：保持简单性同时支持类级权重 (2026-06-02)
 - 单元测试覆盖命中/未命中/优先级：为后续修改提供安全网 (2026-05-30)
 - 同义词映射扩充知识库：突破关键词天花板 (2026-05-29)
 - 双协议 Ollama/OpenAI SSE：网关对接真实 LLM (2026-05-29)
@@ -55,7 +55,7 @@
 - 静态扫描 bare except 清零
 - 嵌套 13→6（_compare_with_fact 拆为 5 个子检查器）
 - 单元测试 221 行，5 组场景，全部通过
-- _PRIORITY_CHECKERS 模块级常量提取
+- Checker 类注册机制 + checker_classes.py 14 个检查器 + F1 权重决策
 - 同义词映射 + bigram 语义回退
 - 网关 Ollama 协议兼容
 

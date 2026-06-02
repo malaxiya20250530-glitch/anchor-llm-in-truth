@@ -153,6 +153,27 @@ class NegationChecker(Checker):
                 if extra_check and not extra_check(claim, fact):
                     continue
                 return ("contradicted", 0.85)
+        # 通用否定：claim声称"没有任何X" → 检查fact是否有反例关键词
+        univ_neg = re.search(r'(?:没有任何|从未有|从来没有|从未|不存在任何|没有一个)\s*(.{2,15})', claim)
+        if univ_neg:
+            univ_entity = univ_neg.group(1).strip()
+            if univ_entity:
+                counter_words = ['已有', '存在', '维京', '更早', '之前', '在此之前', '早就', '已有过']
+                if any(w in fact for w in counter_words):
+                    return ("contradicted", 0.80)
+        # 长否定回退：fact含"不是/没有/并非"且claim不含该否定词 → 宽松匹配
+        if re.search(r'(?:不是|没有|并非|而非)', fact):
+            neg_in_claim = re.search(r'(?:不是|没有|并非|而非)', claim)
+            if not neg_in_claim:
+                # 提取fact否定词后的内容作为关键实体（放宽到20字，贪婪）
+                fm = re.search(r'(?:不是|没有|并非|而非)\s*(.{1,20})(?:[，。、；的]|$)', fact)
+                if fm:
+                    neg_entity = fm.group(1).strip()
+                    if neg_entity and len(neg_entity) >= 2:
+                        # 模糊匹配：claim中是否包含该实体的70%字符
+                        overlap = sum(1 for c in neg_entity if c in claim) / len(neg_entity)
+                        if overlap >= 0.6:
+                            return ("contradicted", 0.76)
         return None
 
 
@@ -162,10 +183,11 @@ class YearConflictChecker(Checker):
     """检查: 年份冲突 — 事件年份/生卒范围/单年溢出"""
     _EVENT_GROUPS = {
         "birth": ["出生", "生于", "诞辰", "诞生"],
-        "death": ["去世", "病逝", "驾崩", "卒于", "逝世"],
+        "death": ["去世", "病逝", "驾崩", "卒于", "逝世", "流放"],
         "found": ["建立", "统一", "创建", "成立", "建国", "灭亡"],
-        "invent": ["发明", "创造", "发现", "发布"],
+        "invent": ["发明", "创造", "发现", "发布", "发表", "提出"],
         "reign": ["称帝", "即位", "登基"],
+        "publish": ["出版", "撰写", "著作"],
     }
     def _event_group(self, text: str) -> str:
         """识别文本中的事件类型，返回分组名如 birth/death/found/invent/reign/other"""
@@ -215,6 +237,11 @@ class YearConflictChecker(Checker):
                 re.search(r'(?:年|公元|前\d)', fact)
             )
             if has_year_context:
+                # 事件类型守卫：一方明确是生卒/发明/建国，另一方无匹配 → 不比较
+                if c_group != "other" and f_group == "other":
+                    return None
+                if c_group == "other" and f_group != "other":
+                    return None
                 c_bigrams = {claim[i:i+2] for i in range(len(claim)-1)}
                 f_bigrams = {fact[i:i+2] for i in range(len(fact)-1)}
                 if len(c_bigrams & f_bigrams) >= 3:
@@ -225,27 +252,67 @@ class YearConflictChecker(Checker):
 @checker
 class NumericConflictChecker(Checker):
     weight = 0.90  # F1 ≈ 0.7
-    """检查: 同度量数值偏差 > 8% → 矛盾"""
+    """检查: 同度量数值偏差 > 8% → 矛盾（支持万/亿中文数字）"""
+
+    # 中文数字单位映射
+    _CN_UNIT = {'万': 10000, '亿': 100000000, '千': 1000, '百': 100}
+
+    @classmethod
+    def _parse_number(cls, s: str) -> Optional[float]:
+        """解析数字字符串，支持中文单位：30万→300000, 3.5亿→350000000"""
+        m = re.match(r'([\d]+(?:\.\d+)?)\s*([万亿千百])?', s)
+        if not m:
+            return None
+        val = float(m.group(1))
+        unit = m.group(2)
+        if unit and unit in cls._CN_UNIT:
+            val *= cls._CN_UNIT[unit]
+        return val
+
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
-        """检查: 数值冲突 — 实体绑定 + 年份事件类型验证"""
-        cn = re.findall(r"\d+\.?\d*", claim)
-        fn = re.findall(r"\d+\.?\d*", fact)
-        if not cn or not fn:
+        """检查: 数值冲突 — 中文数字解析 + 宽松单位匹配"""
+        # 提取含单位的数字：30万、8800米、100°C 等
+        cn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', claim)
+        fn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+        if not cn_raw or not fn_raw:
             return None
         # 实体绑定: 必须是同一实体
         if not _shared_entity(claim, fact):
             return None
         # 年份场景: 额外验证事件类型一致性
         if re.search(r'年', claim) and re.search(r'年', fact):
-            # 同年份检查器的事件分组
             c_group = YearConflictChecker()._event_group(claim)
             f_group = YearConflictChecker()._event_group(fact)
             if c_group != "other" and f_group != "other" and c_group != f_group:
                 return None  # 不同事件类型不比较
-        if len(cn) != len(fn):
+        # 单位一致性检查：claim和fact的数字必须共享同类单位
+        # 否则可能是不同语义的数字（如2100万个 vs 2009年）
+        unit_types = {
+            '长度': r"米|公里|千米",
+            '时间': r"年|岁",
+            '数量': r"个|枚|颗|次",
+            '温度': r"度|°|℃",
+        }
+        unit_match = False
+        for utype, upat in unit_types.items():
+            if re.search(upat, claim) and re.search(upat, fact):
+                unit_match = True
+                break
+        if not unit_match:
+            # 无单位或单位不匹配 → 不比较
             return None
-        unit_re = r"米|公里|千米|年|岁|个|万"
-        if not (re.search(unit_re, claim) and re.search(unit_re, fact)):
+        # 解析所有数字为浮点数
+        cn = []
+        for s in cn_raw:
+            v = self._parse_number(s)
+            if v is not None:
+                cn.append(v)
+        fn = []
+        for s in fn_raw:
+            v = self._parse_number(s)
+            if v is not None:
+                fn.append(v)
+        if not cn or not fn:
             return None
         return self._compare_number_pairs(cn, fn)
 
@@ -258,23 +325,74 @@ class NumericConflictChecker(Checker):
         return None
 
     @staticmethod
-    def _nums_conflict(a: str, b: str) -> bool:
+    def _nums_conflict(a: float, b: float) -> bool:
         try:
-            return abs(float(a) - float(b)) / max(float(b), 1) > 0.08
-        except ValueError:
+            return abs(a - b) / max(abs(b), 1) > 0.08
+        except (ValueError, ZeroDivisionError):
             return False
 
 
 @checker
 class OverlapChecker(Checker):
     weight = 0.55  # F1 ≈ 0.75
-    """检查: 字符重叠 > 55% 且无否定悖反 → 验证通过"""
+    """检查: 字符重叠 > 55% 且无否定/数字/实体冲突 → 验证通过"""
+
+    _CN_UNIT = {'万': 10000, '亿': 100000000, '千': 1000, '百': 100}
+
+    @classmethod
+    def _parse_num(cls, s: str) -> float:
+        """解析带中文单位的数字"""
+        m = re.match(r'([\d]+(?:\.\d+)?)\s*([万亿千百])?', s)
+        if not m:
+            return None
+        val = float(m.group(1))
+        unit = m.group(2)
+        if unit and unit in cls._CN_UNIT:
+            val *= cls._CN_UNIT[unit]
+        return val
+
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
         """执行检查，返回 (verdict, confidence) 或 None"""
         if re.search(r'不是|没有|并非|不在|更早|错误|误会', claim):
             return None
         if re.search(r'不是|没有|并非|不在|更早|错误|误会', fact):
             return None
+        # 比较级否定守卫：claim声称"比不上/不如"时，不与任何事实验证通过
+        if re.search(r'比不上|不如|不及|比不过', claim):
+            return None
+        # 数值冲突守卫：解析中文数字后比较，差异>8%则可能是矛盾
+        cn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', claim)
+        fn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+        if cn_raw and fn_raw:
+            cn_parsed = [v for v in (self._parse_num(s) for s in cn_raw) if v is not None]
+            fn_parsed = [v for v in (self._parse_num(s) for s in fn_raw) if v is not None]
+            if cn_parsed and fn_parsed:
+                # 检查是否有显著的数值差异
+                for a in cn_parsed:
+                    for b in fn_parsed:
+                        if abs(a - b) / max(abs(b), 1) > 0.08:
+                            return None  # 数值冲突，不验证
+        # 实体冲突守卫：双方提到不同专名实体 → 不验证
+        cn_entities = set(re.findall(r'[金木水火土天王海王冥王]?星|月球|太阳|地球|Python|Java|Go|Rust|C\+\+', claim))
+        fn_entities = set(re.findall(r'[金木水火土天王海王冥王]?星|月球|太阳|地球|Python|Java|Go|Rust|C\+\+', fact))
+        if cn_entities and fn_entities and cn_entities != fn_entities:
+            return None
+        # 最高级/比较级冲突守卫：claim说"比不上/不如/不到"但KB说"最" → 不验证
+        if re.search(r'比不上|不如|不到|没有.{0,3}[高长大多快]', claim):
+            # 检查KB事实是否包含反证（如"最"、"第一"、精确数值）
+            if re.search(r'最[高长大多]|第一|唯一|最高峰', fact):
+                return None
+            # 检查是否有"不到X"但KB数值>X的情况
+            under_match = re.search(r'不到\s*([\d.]+(?:万|亿|千|百)?)', claim)
+            if under_match:
+                val_s = under_match.group(1)
+                val = self._parse_num(val_s) if hasattr(self, '_parse_num') else None
+                if val is not None:
+                    f_nums = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+                    for fn in f_nums:
+                        f_val = self._parse_num(fn)
+                        if f_val is not None and f_val > val:
+                            return None  # KB数值>声称上限 → 矛盾
         cs, fs = set(claim), set(fact)
         ratio = len(cs & fs) / max(len(cs), 1)
         if len(claim) < 4 and ratio > 0.7:
@@ -460,10 +578,11 @@ class AttributionChecker(Checker):
     weight = 0.80  # 中高可靠：归因检测在历史/科技领域效果好
 
     _ATTRIBUTION_CLAIM_PATTERNS = [
-        (r'(?:发明了?|创造了?|创建了?)', '发明/创造'),
+        (r'(?:发明了?|创造了?|创建了?|创始)', '发明/创造'),
         (r'(?:发现了?|找到了?)', '发现'),
         (r'(?:提出了?|创立了?|建立了?)', '提出/创立'),
         (r'(?:设计了?|开发了?|编写了?)', '设计/开发'),
+        (r'(?:创始人是?|发明者是?|创造者是?|作者是?)', '归因声明'),
     ]
 
     _ATTRIBUTION_FACT_PATTERNS = [
@@ -472,6 +591,8 @@ class AttributionChecker(Checker):
         r'(?:才是|方是|正是).{0,4}(?:发明|创造|发现|提出)',
         r'(?:并非|不是).{0,4}(?:.{0,2})?(?:发明|创造|发现|提出)',
         r'(?:真正的.{0,2})?(?:发明者|创造者|发现者).{0,4}(?:是|为)',
+        # 替代归因模式：KB给出了不同的创造者/发明者 → 矛盾
+        r'(?:由|是)\s*.+?(?:发明|创造|创建|提出|设计|开发|发布|首次)', 
     ]
 
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
@@ -485,6 +606,127 @@ class AttributionChecker(Checker):
             return None
         for pat in self._ATTRIBUTION_FACT_PATTERNS:
             if re.search(pat, fact):
+                # 替代归因模式需额外验证：fact中的归因主体 ≠ claim中的归因主体
+                if '由' in pat or '是.{0,8}' in pat:
+                    # 提取claim和fact中的主体名称
+                    claim_subj = re.findall(r'(?:创始人是?|发明者是?|创造者是?|作者是?)([一-鿿\w\s]+?)(?:[，。、]|$)', claim)
+                    fact_subj = re.findall(r'(?:由|是)\s*([一-鿿\w\s]+?)\s*(?:于|在|发明|创造|首次|设计)', fact)
+                    if not claim_subj or not fact_subj:
+                        return ("contradicted", 0.78)
+                    # 如果主体名称不同 → 确认为矛盾
+                    claim_name = claim_subj[0].strip()
+                    fact_name = fact_subj[0].strip()
+                    if claim_name.lower() != fact_name.lower():
+                        return ("contradicted", 0.82)
+                    return None
+                return ("contradicted", 0.82)
+        return None
+
+
+@checker
+class EntitySwapChecker(Checker):
+    """实体归属交换检测 — 声明X属于/是Y vs KB说X属于/是Z → 矛盾"""
+    weight = 0.82
+
+    # 归属关系模式
+    _BELONG_PATTERNS = [
+        r'([一-鿿]{1,5})(?:是|属于|位于|在|作为|算)([一-鿿]{1,8})(?:的|之)?(?:一[种个]|卫星|行星|国家|地区|语言|运动|动物|植物|人)',
+    ]
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """检测实体归属交换"""
+        # 提取claim中的归属关系
+        claim_pairs = []
+        for pat in self._BELONG_PATTERNS:
+            for m in re.finditer(pat, claim):
+                subject = m.group(1)
+                attr = m.group(2)
+                if subject and attr and subject != attr:
+                    claim_pairs.append((subject, attr))
+        if not claim_pairs:
+            return None
+        # 提取fact中的归属关系
+        fact_pairs = []
+        for pat in self._BELONG_PATTERNS:
+            for m in re.finditer(pat, fact):
+                subject = m.group(1)
+                attr = m.group(2)
+                if subject and attr and subject != attr:
+                    fact_pairs.append((subject, attr))
+        if not fact_pairs:
+            # 回退：检查否定模式"不是/并非"
+            for subj, attr in claim_pairs:
+                neg_pat = rf'{subj}.*?(?:不是|并非|不在).*?{attr}'
+                if re.search(neg_pat, fact):
+                    return ("contradicted", 0.85)
+            return None
+        # 交叉比对：同一主体的不同归属 → 矛盾
+        for c_subj, c_attr in claim_pairs:
+            for f_subj, f_attr in fact_pairs:
+                if c_subj == f_subj and c_attr != f_attr:
+                    return ("contradicted", 0.85)
+        return None
+
+
+@checker
+class ComparativeChecker(Checker):
+    """比较级语义检测 — 「不到X」「比不上Y」「不如Z」vs KB事实 → 矛盾"""
+    weight = 0.86
+
+    # 中文数字单位
+    _CN_UNIT = {'万': 10000, '亿': 100000000, '千': 1000, '百': 100}
+
+    @classmethod
+    def _parse_cn_num(cls, s: str) -> float:
+        """解析带中文单位的数字"""
+        m = re.match(r'([\d]+(?:\.\d+)?)\s*([万亿千百])?', s)
+        if not m:
+            return None
+        val = float(m.group(1))
+        unit = m.group(2)
+        if unit and unit in cls._CN_UNIT:
+            val *= cls._CN_UNIT[unit]
+        return val
+
+    # 上限模式：不到/不足/低于/少于 X
+    _UPPER_BOUND = re.compile(r'(?:不到|不足|低于|少于|不超过|小于)\s*([\d.]+(?:万|亿|千|百)?)')
+
+    # 下限模式：超过/高于/大于 X
+    _LOWER_BOUND = re.compile(r'(?:超过|高于|大于|不止|不低于|不小于)\s*([\d.]+(?:万|亿|千|百)?)')
+
+    # 比较级否定：比不上/不如/不及/比不过
+    _COMPARE_NEG = re.compile(r'比不上|不如|不及|比不过|比.{0,2}(?:差|低|小|矮|短|少)')
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """检测比较级声称与KB事实的数值矛盾"""
+        # 1. 上限模式：「不到8800米」vs KB「8848米」→ 8848 > 8800 → 矛盾
+        m = self._UPPER_BOUND.search(claim)
+        if m:
+            bound = self._parse_cn_num(m.group(1))
+            if bound is not None:
+                f_nums = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+                for fn in f_nums:
+                    f_val = self._parse_cn_num(fn)
+                    if f_val is not None and f_val > bound:
+                        return ("contradicted", 0.86)
+        # 2. 下限模式：「超过9000米」vs KB「8848米」→ 8848 < 9000 → 可能矛盾
+        m = self._LOWER_BOUND.search(claim)
+        if m:
+            bound = self._parse_cn_num(m.group(1))
+            if bound is not None:
+                f_nums = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+                for fn in f_nums:
+                    f_val = self._parse_cn_num(fn)
+                    if f_val is not None and f_val < bound:
+                        return ("contradicted", 0.84)
+        # 3. 比较级否定 + 最高级/唯一性 KB → 矛盾
+        # 「比不上乔戈里峰」vs KB「是世界最高峰」→ 矛盾
+        if self._COMPARE_NEG.search(claim):
+            if re.search(r'最[高长大多宽深]|第一|唯一|最高峰|最大', fact):
+                return ("contradicted", 0.88)
+            # 「比不上乔戈里峰」vs KB「海拔8848米」(乔戈里8611米) → KB数值暗示最高
+            # 简化处理：如果claim说比不上X，且fact中有明确绝对化描述
+            if re.search(r'海拔|高度|长度|深度|宽度|世界.{0,3}(?:之|第)', fact):
                 return ("contradicted", 0.82)
         return None
 

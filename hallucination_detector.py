@@ -30,6 +30,17 @@ from typing import Optional
 from checker_registry import Checker
 import checker_classes  # 触发 @checker 装饰器自动注册所有检查器
 
+# 延迟导入嵌入检索引擎（避免循环依赖）
+_embedding_searcher = None
+
+def _get_embedding_searcher():
+    global _embedding_searcher
+    if _embedding_searcher is None:
+        from embedding_search import EmbeddingSearcher
+        _embedding_searcher = EmbeddingSearcher()
+        _embedding_searcher.build_index(KNOWLEDGE_BASE)
+    return _embedding_searcher
+
 try:
     from logger import log
 except ImportError:
@@ -475,9 +486,92 @@ class AnchorEngine:
                 self.enable_graph = False
         return self._graph_reasoner
 
+    def _hybrid_retrieve(self, claim_text: str) -> Optional[VerificationResult]:
+        """混合检索：BM25 + TF-IDF 向量匹配，命中后走责任链核查"""
+        try:
+            from vector_kb import get_hybrid_retriever
+            hr = get_hybrid_retriever()
+            matches = hr.search(claim_text, top_k=2, threshold=0.12)
+            for vk_key, vk_fact, vk_sim in matches:
+                claim_kw = [claim_text[i:i+2] for i in range(len(claim_text)-1)]
+                if claim_kw:
+                    overlap = sum(1 for kw in claim_kw if kw in vk_fact)
+                    if overlap == 0:
+                        continue
+                result = self._compare_with_fact(claim_text, vk_fact)
+                if result[0] != "uncertain":
+                    return VerificationResult(
+                        claim=claim_text,
+                        verdict=result[0],
+                        confidence=max(result[1], vk_sim * 0.8),
+                        evidence=vk_fact,
+                        source=f"混合检索 (key={vk_key}, score={vk_sim:.2f})",
+                        anchor_type="hybrid_retrieval",
+                    )
+        except ImportError:
+            pass
+        return None
+
+    def _web_verify(self, claim_text: str) -> Optional[VerificationResult]:
+        """联网多源交叉验证：DuckDuckGo + Wikipedia 加权融合"""
+        if not self.enable_web:
+            return None
+        web_sources = []
+        try:
+            from web_verifier import WebVerifier
+            ddg = WebVerifier()
+            web_sources.append(ddg.verify(claim_text))
+        except (ImportError, Exception):
+            pass
+        try:
+            from web_verifier import WikipediaVerifier
+            wiki = WikipediaVerifier()
+            web_sources.append(wiki.verify(claim_text))
+        except (ImportError, Exception):
+            pass
+        verified_sources = [s for s in web_sources if s["verdict"] == "verified"]
+        if verified_sources:
+            best = max(verified_sources, key=lambda s: s["confidence"])
+            return VerificationResult(
+                claim=claim_text,
+                verdict="verified",
+                confidence=best["confidence"] * (0.7 + 0.15 * len(verified_sources)),
+                evidence=best["evidence"],
+                source=f"{best['source']} (+{len(verified_sources)-1}源交叉验证)" if len(verified_sources) > 1 else best["source"],
+                anchor_type="web_search",
+            )
+        uncertain_sources = [s for s in web_sources if s["verdict"] == "uncertain" and s["confidence"] > 0.1]
+        if uncertain_sources:
+            best_uncertain = max(uncertain_sources, key=lambda s: s["confidence"])
+            if best_uncertain["evidence"]:
+                return VerificationResult(
+                    claim=claim_text,
+                    verdict="uncertain",
+                    confidence=best_uncertain["confidence"],
+                    evidence=best_uncertain["evidence"],
+                    source=best_uncertain["source"],
+                    anchor_type="web_search",
+                )
+        return None
+
+    def _record_uncertain_sample(self, claim_text: str) -> None:
+        """将核查未命中的样本写入反馈数据库供后续分析"""
+        try:
+            import sqlite3, time
+            from pathlib import Path
+            db_path = Path(__file__).parent / "feedback.db"
+            conn = sqlite3.connect(str(db_path))
+            conn.execute(
+                "INSERT INTO uncertain_samples (claim, verdict, confidence, context, created_at) VALUES (?,?,?,?,?)",
+                (claim_text[:200], "uncertain", 0.3, "三级管道均未命中", time.time())
+            )
+            conn.commit()
+            conn.close()
+        except (sqlite3.Error, OSError, ValueError) as e:
+            log.debug("failed to record uncertain sample", error=str(e)[:60])
+
     def verify(self, claim: FactualClaim) -> VerificationResult:
         """综合核查一条断言"""
-
         # 1. 本地知识库
         kb_result = self._check_knowledge_base(claim)
         if kb_result["verdict"] != "uncertain":
@@ -489,7 +583,6 @@ class AnchorEngine:
                 source=kb_result["source"],
                 anchor_type="knowledge_base",
             )
-
         # 2. 混合检索：BM25 + TF-IDF 向量
         #    快速通道：enable_web=False 时跳过向量检索（KB 已是最佳信源）
         if not self.enable_web:
@@ -501,100 +594,21 @@ class AnchorEngine:
                 source="",
                 anchor_type="fallback",
             )
-        # WAL 审计日志
-        try:
-            from wal_logger import log_detection
-            log_detection(claim.text, result.verdict, result.confidence,
-                         result.evidence, result.source)
-        except ImportError:
-            pass
-        try:
-            from vector_kb import get_hybrid_retriever
-            hr = get_hybrid_retriever()
-            matches = hr.search(claim.text, top_k=2, threshold=0.12)
-            for vk_key, vk_fact, vk_sim in matches:
-                # 关键词重叠检查：避免无关事实被误判
-                # 提取 claim 中 2-gram 关键词（中文按字切分）
-                claim_kw = [claim.text[i:i+2] for i in range(len(claim.text)-1)]
-                if claim_kw:
-                    overlap = sum(1 for kw in claim_kw if kw in vk_fact)
-                    if overlap == 0:
-                        continue
-                result = self._compare_with_fact(claim.text, vk_fact)
-                if result[0] != "uncertain":
-                    return VerificationResult(
-                        claim=claim.text,
-                        verdict=result[0],
-                        confidence=max(result[1], vk_sim * 0.8),
-                        evidence=vk_fact,
-                        source=f"混合检索 (key={vk_key}, score={vk_sim:.2f})",
-                        anchor_type="hybrid_retrieval",
-                    )
-        except ImportError:
-            pass
+        hybrid_result = self._hybrid_retrieve(claim.text)
+        if hybrid_result:
+            return hybrid_result
 
-        # 3. 联网验证 — 多源交叉验证（新增）
-        if self.enable_web:
-            web_sources = []
-            # 源 1: DuckDuckGo
-            try:
-                from web_verifier import WebVerifier
-                ddg = WebVerifier()
-                web_sources.append(ddg.verify(claim.text))
-            except (ImportError, Exception):
-                pass
-            # 源 2: Wikipedia
-            try:
-                from web_verifier import WikipediaVerifier
-                wiki = WikipediaVerifier()
-                web_sources.append(wiki.verify(claim.text))
-            except (ImportError, Exception):
-                pass
-
-            # 加权融合多源结果
-            verified_sources = [s for s in web_sources if s["verdict"] == "verified"]
-            if verified_sources:
-                best = max(verified_sources, key=lambda s: s["confidence"])
-                return VerificationResult(
-                    claim=claim.text,
-                    verdict="verified",
-                    confidence=best["confidence"] * (0.7 + 0.15 * len(verified_sources)),
-                    evidence=best["evidence"],
-                    source=f"{best['source']} (+{len(verified_sources)-1}源交叉验证)" if len(verified_sources) > 1 else best["source"],
-                    anchor_type="web_search",
-                )
-            elif any(s["verdict"] == "uncertain" and s["confidence"] > 0.1 for s in web_sources):
-                best_uncertain = max([s for s in web_sources if s["confidence"] > 0.1], key=lambda s: s["confidence"], default=None)
-                if best_uncertain and best_uncertain["evidence"]:
-                    return VerificationResult(
-                        claim=claim.text,
-                        verdict="uncertain",
-                        confidence=best_uncertain["confidence"],
-                        evidence=best_uncertain["evidence"],
-                        source=best_uncertain["source"],
-                        anchor_type="web_search",
-                    )
+        # 3. 联网验证 — 多源交叉验证
+        web_result = self._web_verify(claim.text)
+        if web_result:
+            return web_result
 
         # 4. 绝对化断言检测
         abs_result = self._check_absolute_claim(claim)
         if abs_result:
             return abs_result
-
         # 记录不确定样本到反馈库
-        try:
-            import sqlite3, time
-            from pathlib import Path
-            db_path = Path(__file__).parent / "feedback.db"
-            conn = sqlite3.connect(str(db_path))
-            conn.execute(
-                "INSERT INTO uncertain_samples (claim, verdict, confidence, context, created_at) VALUES (?,?,?,?,?)",
-                (claim.text[:200], "uncertain", 0.3, "三级管道均未命中", time.time())
-            )
-            conn.commit()
-            conn.close()
-        except (URLError, OSError, json.JSONDecodeError, ValueError) as e:
-            log.debug("web search failed", error=str(e)[:60])
-            pass
+        self._record_uncertain_sample(claim.text)
 
         # 5. 无法核查
         return VerificationResult(
@@ -691,6 +705,18 @@ class AnchorEngine:
                 return None
         return result + current if result + current > 0 else None
 
+
+    def _extract_anchor_entity(self, text: str) -> Optional[str]:
+        """从文本中提取首次出现的知识库实体作为锚点"""
+        text_lower = text.lower()
+        for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
+            if len(key) >= 1 and key in text:
+                if len(key) == 1:
+                    if key in text:
+                        return key
+                else:
+                    return key
+        return None
     def _normalize_claim(self, text: str) -> list[str]:
         """将叙事性声明分解为原子子句并规范化数字"""
         # 1. 规范化中文数字
@@ -704,12 +730,7 @@ class AnchorEngine:
         text = re.sub(r'([零一二两三四五六七八九十百千万亿]+)(年|岁|米|公里|个|天|次)?', repl_num, text)
         
         # 2. 提取文本中首次出现的KB实体作为锚点
-        anchor_entity = None
-        text_lower = text.lower()
-        for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
-            if len(key) >= 2 and key in text:
-                anchor_entity = key
-                break
+        anchor_entity = self._extract_anchor_entity(text)
         
         # 3. 分解为子句
         parts = re.split(r'[，,、。！？；;]', text)
@@ -736,25 +757,43 @@ class AnchorEngine:
         
         return sub_claims if sub_claims else [text]
 
+    def _match_sub_claims(self, sub_claims: list, claim_entities: list) -> Optional[dict]:
+        """逐子句匹配知识库并聚合结果，矛盾优先返回"""
+        sub_results = []
+        for sub in sub_claims:
+            sub_expanded = self._expand_synonyms(sub.lower())
+            for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
+                if not self._key_matches_claim(key.lower(), sub_expanded, sub.lower(), claim_entities):
+                    continue
+                entity_conf = self._entity_match_confidence(key, sub, key.lower())
+                if key.lower() in sub_expanded:
+                    entity_conf = min(entity_conf + 0.25, 1.0)
+                if entity_conf < 0.4:
+                    continue
+                result = self._check_facts_against_entry(sub, KNOWLEDGE_BASE[key])
+                if result["verdict"] != "uncertain":
+                    sub_results.append(result)
+                    break
+        # 聚合子句结果：矛盾优先
+        contradicted_results = [r for r in sub_results if r["verdict"] == "contradicted"]
+        if contradicted_results:
+            return max(contradicted_results, key=lambda r: r["confidence"])
+        verified_results = [r for r in sub_results if r["verdict"] == "verified"]
+        if verified_results:
+            return max(verified_results, key=lambda r: r["confidence"])
+        if sub_results:
+            return sub_results[0]
+        return None
+
     def _check_knowledge_base(self, claim: FactualClaim) -> dict:
         """在知识库中匹配声明，优先走用户反馈的重映射键，否则按关键词查 KB。"""
         # 0. 语义规范化：分解为子句并分别尝试匹配
+        # 聚合策略：任一子句矛盾 → 整体矛盾；全验证 → 验证；否则不确定
         sub_claims = self._normalize_claim(claim.text)
         if len(sub_claims) > 1:
-            # 每个子句独立尝试KB匹配
-            for sub in sub_claims:
-                sub_expanded = self._expand_synonyms(sub.lower())
-                for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
-                    if not self._key_matches_claim(key.lower(), sub_expanded, sub.lower(), claim.entities):
-                        continue
-                    entity_conf = self._entity_match_confidence(key, sub, key.lower())
-                    if key.lower() in sub_expanded:
-                        entity_conf = min(entity_conf + 0.25, 1.0)
-                    if entity_conf < 0.4:
-                        continue
-                    result = self._check_facts_against_entry(sub, KNOWLEDGE_BASE[key])
-                    if result["verdict"] != "uncertain":
-                        return result
+            aggregated = self._match_sub_claims(sub_claims, claim.entities)
+            if aggregated:
+                return aggregated
         # 1. 完整声明匹配 (原有逻辑)
         # 优先查重匹配记录：用户指定了正确的KB键
         if self.enable_feedback:
@@ -953,7 +992,7 @@ class AnchorEngine:
     _GENERIC_KEYS = {"发明", "唯一", "第一"}
 
     def _semantic_match_kb(self, claim: FactualClaim) -> dict:
-        """语义回退匹配 — 多粒度相似度 + 自适应阈值"""
+        """语义回退匹配 — 多粒度相似度 + 嵌入检索兜底"""
         text_lower = claim.text.lower()
         best_score, best_key, best_entry = self._find_best_match(text_lower)
         
@@ -969,7 +1008,6 @@ class AnchorEngine:
         # 通用规则条目需要更高阈值（避免"故事/传说"语境误匹配）
         if best_key in self._GENERIC_KEYS:
             threshold = max(threshold, 0.40)
-            # 实体类型验证：类型不匹配时提高阈值
             if best_key:
                 entity_conf = self._entity_match_confidence(best_key, text_lower, best_key.lower())
                 if entity_conf < 0.5:
@@ -978,11 +1016,57 @@ class AnchorEngine:
                     threshold = max(threshold, 0.22)
         
         if best_score < threshold:
+            # 嵌入检索兜底 — 当传统匹配失败时
+            try:
+                searcher = _get_embedding_searcher()
+                emb_results = searcher.search(text_lower, top_k=3, min_score=0.15)
+                if emb_results:
+                    best_key, best_score = emb_results[0]
+                    best_entry = KNOWLEDGE_BASE.get(best_key)
+                    if best_entry:
+                        result = self._check_facts_against_entry(claim.text, best_entry)
+                        if result["verdict"] != "uncertain":
+                            result["semantic_match"] = {"key": best_key, "score": round(best_score, 3), "method": "embedding"}
+                            return result
+            except Exception:
+                pass  # 嵌入检索失败时静默回退
             return {"verdict": "uncertain", "confidence": 0, "evidence": "", "source": ""}
         
         result = self._check_facts_against_entry(claim.text, best_entry)
         result["semantic_match"] = {"key": best_key, "score": round(best_score, 3)}
         return result
+
+    def _weighted_decide(self, results: list) -> tuple:
+        """加权决策：计算幻觉分数，按高权重优先/最高加权分返回最终裁决"""
+        self._last_vote_details = {
+            "votes": [{"checker": n, "verdict": v, "confidence": c, "weight": w, "weighted_score": round(ws, 3)}
+                      for n, v, c, w, ws in results],
+        }
+        # 计算加权幻觉分数: Σ(w × v) / Σ(w)
+        total_w = sum(r[3] for r in results)
+        hallucination_sum = 0.0
+        for n, v, c, w, ws in results:
+            if v == "contradicted":
+                hallucination_sum += w * c
+            elif v == "uncertain":
+                hallucination_sum += w * c * 0.5
+        self._last_vote_details["hallucination_score"] = round(hallucination_sum / max(total_w, 0.001), 3)
+        # 加权决策规则:
+        # 1. 高权重(≥0.85)检查器命中 → 优先采用
+        high_weight = [(n, v, c, w, ws) for n, v, c, w, ws in results if w >= 0.85]
+        if high_weight:
+            best = max(high_weight, key=lambda x: x[4])
+            self._last_vote_details["decision"] = best[0]
+            log.debug("weighted decision (high-weight)", checker=best[0], score=round(best[4], 3))
+            return (best[1], best[2])
+        # 2. 取加权分数最高者，低 confidence 矛盾不采信
+        best = max(results, key=lambda x: x[4])
+        self._last_vote_details["decision"] = best[0]
+        if best[1] == "contradicted" and best[2] < 0.65:
+            log.debug("weighted decision (low confidence suppressed)", checker=best[0])
+            return ("uncertain", 0.5)
+        log.debug("weighted decision", checker=best[0], score=round(best[4], 3))
+        return (best[1], best[2])
 
     def _compare_with_fact(self, claim: str, fact: str) -> tuple:
         """反馈优先 + 加权责任链: 先查自进化库 → 收集所有检查器结果 → 加权最优"""
@@ -1011,38 +1095,7 @@ class AnchorEngine:
             log.debug("all checkers miss", claim=claim[:40])
             self._last_vote_details = {"votes": [], "hallucination_score": 0.0}
             return ("uncertain", 0.5)
-        # 存储投票明细 (共识引擎透传)
-        self._last_vote_details = {
-            "votes": [{"checker": n, "verdict": v, "confidence": c, "weight": w, "weighted_score": round(ws, 3)} 
-                      for n, v, c, w, ws in results],
-        }
-        # 计算加权幻觉分数: Σ(w × v) / Σ(w)
-        # v = confidence (contradicted) / 0 (verified) / 0.5×confidence (uncertain)
-        total_w = sum(r[3] for r in results)
-        hallucination_sum = 0.0
-        for n, v, c, w, ws in results:
-            if v == "contradicted":
-                hallucination_sum += w * c
-            elif v == "uncertain":
-                hallucination_sum += w * c * 0.5
-            # verified → 0 contribution
-        self._last_vote_details["hallucination_score"] = round(hallucination_sum / max(total_w, 0.001), 3)
-        # 加权决策规则:
-        # 1. 如果存在高权重(≥0.85)检查器命中 → 优先采用
-        high_weight = [(n, v, c, w, ws) for n, v, c, w, ws in results if w >= 0.85]
-        if high_weight:
-            best = max(high_weight, key=lambda x: x[4])  # 按 weighted_score
-            self._last_vote_details["decision"] = best[0]
-            log.debug("weighted decision (high-weight)", checker=best[0], score=round(best[4], 3))
-            return (best[1], best[2])
-        # 2. 否则取加权分数最高者，但低 confidence 的矛盾不予采信
-        best = max(results, key=lambda x: x[4])
-        self._last_vote_details["decision"] = best[0]
-        if best[1] == "contradicted" and best[2] < 0.65:
-            log.debug("weighted decision (low confidence suppressed)", checker=best[0])
-            return ("uncertain", 0.5)
-        log.debug("weighted decision", checker=best[0], score=round(best[4], 3))
-        return (best[1], best[2])
+        return self._weighted_decide(results)
 
     def get_vote_details(self) -> dict:
         """返回最近一次 _compare_with_fact 的投票明细和幻觉分数"""
