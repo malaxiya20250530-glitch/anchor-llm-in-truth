@@ -341,13 +341,14 @@ class VerificationResult:
 
 @dataclass
 class HallucinationReport:
-    """完整报告"""
+    """完整报告 — 含预测加工可解释性"""
     input_text: str
     claims: list[FactualClaim] = field(default_factory=list)
     results: list[VerificationResult] = field(default_factory=list)
     overall_score: float = 1.0
     hallucination_ratio: float = 0.0
     warnings: list[str] = field(default_factory=list)
+    predictive_processing: dict = field(default_factory=dict)
 
 
 # ============================================================
@@ -1128,6 +1129,38 @@ class AnchorEngine:
                 ))
         except (OSError, ValueError, AttributeError):
             pass  # 反馈记录失败不阻塞主流程
+        # 飞轮效应：高置信度反馈自动合并到知识库
+        if result.get("verdict") == "verified" and result.get("confidence", 0) >= 0.9:
+            self._auto_merge_to_kb(claim, result)
+
+    def _auto_merge_to_kb(self, claim: str, result: dict) -> None:
+        """飞轮效应：高置信度验证通过后自动合并到用户知识库并热加载"""
+        try:
+            import json, os
+            from pathlib import Path
+            kb_user_path = Path(__file__).parent / "kb_user.json"
+            # 加载现有用户知识库
+            user_kb = {}
+            if kb_user_path.exists():
+                with open(kb_user_path) as f:
+                    user_kb = json.load(f)
+            # 生成关键词
+            key = claim[:12].strip()
+            entry = {
+                "category": "auto_merged",
+                "fact": result.get("evidence", claim),
+                "source": result.get("source", "auto_feedback"),
+                "confidence": result.get("confidence", 0.9),
+            }
+            if key not in user_kb:
+                user_kb[key] = entry
+                with open(kb_user_path, "w") as f:
+                    json.dump(user_kb, f, ensure_ascii=False, indent=2)
+                # 热加载到 KNOWLEDGE_BASE
+                KNOWLEDGE_BASE[key] = entry
+                log.info("auto_merged to KB", key=key, claim=claim[:30])
+        except (OSError, ValueError, KeyError) as e:
+            log.debug("auto_merge skipped", error=str(e)[:40])
 
     def _check_absolute_claim(self, claim: FactualClaim) -> Optional[VerificationResult]:
         """检测绝对化断言（"一定""绝对""从来"）"""
@@ -1280,6 +1313,25 @@ class HallucinationDetector:
 
         # 4. 生成警告
         self._generate_warnings(report, contradicted, uncertain)
+
+        # 5. 预测加工可解释性
+        prior_strength = sum(1 for r in report.results
+                           if r.verdict == "verified") / max(total, 1)
+        sensory_precision = sum(r.confidence for r in report.results
+                               if r.verdict == "contradicted") / max(contradicted, 1) if contradicted > 0 else 0.0
+        report.predictive_processing = {
+            "prior_strength": round(prior_strength, 2),
+            "sensory_precision": round(sensory_precision, 2),
+            "hallucination_probability": round(report.hallucination_ratio, 2),
+            "analysis": (
+                f"模型的先验强度({prior_strength:.2f})"
+                + (f"低于" if sensory_precision > prior_strength else "高于")
+                + f"外部事实核查的感官精度({sensory_precision:.2f})，"
+                + (f"判定为高幻觉概率。" if report.hallucination_ratio > 0.3
+                   else f"判定为中等幻觉概率。" if report.hallucination_ratio > 0.1
+                   else f"判定为低幻觉概率。")
+            )
+        }
 
         return report
 
