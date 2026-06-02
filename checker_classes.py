@@ -94,6 +94,14 @@ class NegationChecker(Checker):
                     if not re.search(
                         r'(?:没有|不是|并非|不存在|不在|不|没)\s*' + re.escape(neg_entity), claim):
                         return ("contradicted", 0.78)
+        # 反向否定: claim说"没有X/不是X", fact肯定X → 矛盾
+        claim_neg = re.search(r'(?:没有|不是|并非|不存在|不在)\s*(.{1,8}?)(?:[，。、；的]|$)', claim)
+        if claim_neg:
+            claim_neg_entity = claim_neg.group(1).strip()
+            if claim_neg_entity and len(claim_neg_entity) >= 1:
+                # fact中正面出现该实体 → 矛盾
+                if claim_neg_entity in fact:
+                    return ("contradicted", 0.80)
 
         if re.search(r'不是|没有|并非|不可以|不能|不会|不在', fact):
             # 主语验证: claim和fact必须共享至少一个2字以上的实词
@@ -198,6 +206,18 @@ class YearConflictChecker(Checker):
                 c_year = int(cy[0])
                 f_years = sorted(int(y) for y in fy)
                 if c_year < f_years[0] or c_year > f_years[-1]:
+                    return ("contradicted", 0.82)
+        # 单年对比: 双方各1个年份且不同 → 矛盾(bigram重叠防误判)
+        # 必须至少一方有年份上下文(年/公元/前) → 防止金额/数量误判
+        if len(cy) == 1 and len(fy) == 1 and cy[0] != fy[0]:
+            has_year_context = (
+                re.search(r'(?:年|公元|前\d)', claim) and
+                re.search(r'(?:年|公元|前\d)', fact)
+            )
+            if has_year_context:
+                c_bigrams = {claim[i:i+2] for i in range(len(claim)-1)}
+                f_bigrams = {fact[i:i+2] for i in range(len(fact)-1)}
+                if len(c_bigrams & f_bigrams) >= 3:
                     return ("contradicted", 0.82)
         return None
 
@@ -307,8 +327,12 @@ class TemporalOrderChecker(Checker):
                     continue
                 if era_name == era:
                     continue
+                # 朝代名在人名中 → 检查是否在claim中独立出现
                 if era_name in person and era_name != person:
-                    continue
+                    # 去除人名后检查claim是否仍有该朝代名
+                    claim_no_person = claim.replace(person, '')
+                    if era_name not in claim_no_person:
+                        continue
                 if len(era_name) == 1:
                     false_words = self._ERA_FALSE_WORDS.get(era_name, [])
                     if any(fw in claim for fw in false_words):
