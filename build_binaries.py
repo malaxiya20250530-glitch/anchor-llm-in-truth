@@ -23,11 +23,26 @@ ROOT = Path(__file__).parent.resolve()
 
 # ============ 编译清单 ============
 CYTHON_MODULES = [
-    "logger.py",
-    "checker_registry.py",
-    "checker_classes.py",
-    "knowledge_graph.py",
     "hallucination_detector.py",
+    "checker_classes.py",
+    "checker_registry.py",
+    "knowledge_graph.py",
+    "logger.py",
+    "observer_security.py",
+    "alignment_middleware.py",
+    "web_verifier.py",
+    "vector_kb.py",
+    "consensus_engine.py",
+    "ml_consensus.py",
+    "fuzzy_matcher.py",
+    "billing.py",
+    "rate_limiter.py",
+    "security_logger.py",
+    "waf.py",
+    "circuit_breaker.py",
+    "backpressure.py",
+    "secrets_manager.py",
+    "db_protection.py",
 ]
 
 # ============ 平台检测 ============
