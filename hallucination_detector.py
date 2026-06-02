@@ -452,6 +452,19 @@ class AnchorEngine:
             except ImportError:
                 self.enable_feedback = False
 
+
+    def _get_kb_years_for_entity(self, claim_text: str) -> list[str]:
+        """从KB中提取与claim相关实体的所有年份事实"""
+        facts_with_years = []
+        for key, entry in KNOWLEDGE_BASE.items():
+            # 允许单字键 (如秦/汉/唐) 匹配 2+字词 (如秦朝/汉代/唐朝)
+            if key in claim_text or (len(key) == 1 and any(key in w for w in claim_text.split())):
+                for fact in entry.get('facts', []):
+                    if re.search(r'\d{3,4}', fact):
+                        facts_with_years.append(fact)
+                break
+        return facts_with_years
+
     def _get_graph_reasoner(self):
         """惰性加载知识图谱推理器"""
         if self._graph_reasoner is None and self.enable_graph:
@@ -651,8 +664,98 @@ class AnchorEngine:
         self._record_feedback(claim_text, entry["facts"][0], result)
         return result
 
+    # ── 语义规范化层 ──────────────────────────
+    _CN_NUM_MAP = {
+        '零': 0, '一': 1, '二': 2, '两': 2, '三': 3, '四': 4,
+        '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10,
+        '百': 100, '千': 1000, '万': 10000, '亿': 100000000,
+    }
+
+    @staticmethod
+    def _cn_to_int(cn: str) -> int:
+        """中文数字→整数 (简化)"""
+        if cn == '几':
+            return None  # 模糊量词，不转换
+        result = 0
+        current = 0
+        for ch in cn:
+            if ch in AnchorEngine._CN_NUM_MAP:
+                val = AnchorEngine._CN_NUM_MAP[ch]
+                if val >= 10:
+                    current = max(current, 1) * val
+                    result += current
+                    current = 0
+                else:
+                    current = val
+            else:
+                return None
+        return result + current if result + current > 0 else None
+
+    def _normalize_claim(self, text: str) -> list[str]:
+        """将叙事性声明分解为原子子句并规范化数字"""
+        # 1. 规范化中文数字
+        def repl_num(m):
+            cn = m.group(1)
+            unit = m.group(2) if m.group(2) else ''
+            val = self._cn_to_int(cn)
+            if val is None:
+                return m.group(0)
+            return f'{val}{unit}'
+        text = re.sub(r'([零一二两三四五六七八九十百千万亿]+)(年|岁|米|公里|个|天|次)?', repl_num, text)
+        
+        # 2. 提取文本中首次出现的KB实体作为锚点
+        anchor_entity = None
+        text_lower = text.lower()
+        for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
+            if len(key) >= 2 and key in text:
+                anchor_entity = key
+                break
+        
+        # 3. 分解为子句
+        parts = re.split(r'[，,、。！？；;]', text)
+        sub_claims = []
+        for part in parts:
+            part = part.strip()
+            if len(part) >= 4:
+                sub_claims.append(part)
+        
+        # 如果只有一个子句，按连接词拆分
+        if len(sub_claims) <= 1:
+            parts2 = re.split(r'(?:其实|所以|因为|而且|但是|不过|因此|于是|然后)', text)
+            sub_claims = [p.strip() for p in parts2 if len(p.strip()) >= 4]
+        
+        # 4. 回贴锚点实体到缺失的子句
+        if anchor_entity and len(sub_claims) > 1:
+            fixed = []
+            for sc in sub_claims:
+                if anchor_entity not in sc:
+                    fixed.append(f'{anchor_entity}{sc}')
+                else:
+                    fixed.append(sc)
+            sub_claims = fixed
+        
+        return sub_claims if sub_claims else [text]
+
     def _check_knowledge_base(self, claim: FactualClaim) -> dict:
         """在知识库中匹配声明，优先走用户反馈的重映射键，否则按关键词查 KB。"""
+        # 0. 语义规范化：分解为子句并分别尝试匹配
+        sub_claims = self._normalize_claim(claim.text)
+        if len(sub_claims) > 1:
+            # 每个子句独立尝试KB匹配
+            for sub in sub_claims:
+                sub_expanded = self._expand_synonyms(sub.lower())
+                for key in sorted(KNOWLEDGE_BASE.keys(), key=len, reverse=True):
+                    if not self._key_matches_claim(key.lower(), sub_expanded, sub.lower(), claim.entities):
+                        continue
+                    entity_conf = self._entity_match_confidence(key, sub, key.lower())
+                    if key.lower() in sub_expanded:
+                        entity_conf = min(entity_conf + 0.25, 1.0)
+                    if entity_conf < 0.4:
+                        continue
+                    result = self._check_facts_against_entry(sub, KNOWLEDGE_BASE[key])
+                    if result["verdict"] != "uncertain":
+                        return result
+        # 1. 完整声明匹配 (原有逻辑)
         # 优先查重匹配记录：用户指定了正确的KB键
         if self.enable_feedback:
             rematch_key = self.feedback.find_rematch(claim.text)

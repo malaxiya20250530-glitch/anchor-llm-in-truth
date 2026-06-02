@@ -490,6 +490,67 @@ class AttributionChecker(Checker):
 
 
 @checker
+class DurationChecker(Checker):
+    """持续时间检测 — 声称持续X年 vs KB推算实际时长 → 矛盾"""
+    weight = 0.85
+
+    # 持续时间模式
+    _DURATION_PATTERNS = [
+        (r'(?:持续了?|历时|延续了?|存在了?)(?:将近|大约|约|近)?(\d+)年', 'duration'),
+        (r'(?:只有?|才|仅仅)(?:将近|大约|约)?(\d+)年', 'short_duration'),
+        (r'(?:长达|超过)(\d+)年', 'long_duration'),
+    ]
+
+    def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
+        """从claim提取声称时长，从fact推算实际时长并对比"""
+        import re as _re
+        # 0. 规范化中文数字 (三百→300)
+        cn_map = {'零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10,'百':100,'千':1000,'万':10000}
+        def cn2int(s):
+            r, c = 0, 0
+            for ch in s:
+                if ch in cn_map:
+                    v = cn_map[ch]
+                    if v >= 10: c = max(c,1)*v; r += c; c = 0
+                    else: c = v
+            return r + c if r + c > 0 else None
+        normed_claim = _re.sub(r'[零一二两三四五六七八九十百千万]+', lambda m: str(cn2int(m.group()) or m.group()), claim)
+        # 1. 从claim提取声称的持续时间
+        claimed_years = None
+        for pat, _ in self._DURATION_PATTERNS:
+            m = _re.search(pat, normed_claim)
+            if m:
+                claimed_years = int(m.group(1))
+                break
+        if claimed_years is None:
+            return None
+
+        # 2. 从fact + KB全量事实中提取年份，计算实际时长
+        all_years_text = fact
+        if engine and hasattr(engine, '_get_kb_years_for_entity'):
+            # 尝试获取同一实体的所有KB事实中的年份
+            kb_years = engine._get_kb_years_for_entity(claim)
+            if kb_years:
+                all_years_text = fact + ' ' + ' '.join(kb_years)
+        
+        years = _re.findall(r'(\d{3,4})', all_years_text)
+        if len(years) < 2:
+            return None
+        
+        # 取最小和最大年份作为时间范围
+        nums = sorted(int(y) for y in years)
+        actual_duration = nums[-1] - nums[0]
+        
+        # 3. 对比：偏差>50%且实际<声称 → 矛盾
+        if actual_duration <= 0:
+            return None
+        if claimed_years > actual_duration * 1.5:
+            return ("contradicted", 0.82)
+        
+        return None
+
+
+@checker
 class GraphContradictionChecker(Checker):
     weight = 0.78  # F1 ≈ 0.87
     """检查: 知识图谱实体关系推理 → 矛盾（最后兜底检查器）"""
