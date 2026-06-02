@@ -1,0 +1,76 @@
+name: Baseline Regression Guard
+
+on:
+  push:
+    paths:
+      - 'hallucination_detector.py'
+      - 'checker_classes.py'
+      - 'checker_registry.py'
+      - 'kb_core.json'
+  pull_request:
+    paths:
+      - 'hallucination_detector.py'
+      - 'checker_classes.py'
+      - 'checker_registry.py'
+      - 'kb_core.json'
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: 验证关键文件 Hash
+        run: |
+          python3 -c "
+          import hashlib, json
+          with open('benchmark/baseline_meta.json') as f:
+              meta = json.load(f)
+          failed = False
+          for fname in ['hallucination_detector.py', 'checker_classes.py', 'checker_registry.py', 'kb_core.json']:
+              with open(fname, 'rb') as f:
+                  current = hashlib.sha256(f.read()).hexdigest()[:12]
+              stored = meta.get(f'{fname}_sha256', '?')
+              if current != stored:
+                  print(f'❌ Hash 不匹配: {fname}')
+                  print(f'   当前: {current}')
+                  print(f'   基线: {stored}')
+                  failed = True
+              else:
+                  print(f'✅ {fname}')
+          import sys
+          sys.exit(1 if failed else 0)
+          "
+
+      - name: 运行基准测试
+        run: |
+          python3 benchmark/run.py --fast 2>&1 | tee ci_benchmark.txt
+
+      - name: 检查 F1 不退化
+        run: |
+          python3 -c "
+          import json, re
+          with open('benchmark/baseline_meta.json') as f:
+              meta = json.load(f)
+          with open('ci_benchmark.txt') as f:
+              output = f.read()
+          m = re.search(r'F1 分数:\s+([\d.]+)', output)
+          if not m:
+              print('❌ 无法解析 F1')
+              exit(1)
+          current_f1 = float(m.group(1))
+          baseline_f1 = meta['f1']
+          if current_f1 < baseline_f1 - 0.005:
+              print(f'❌ F1 退化: {current_f1} < {baseline_f1} (基线)')
+              exit(1)
+          print(f'✅ F1={current_f1} (基线={baseline_f1})')
+          "
+
+      - name: 单元测试
+        run: python3 test_fact_checker.py
