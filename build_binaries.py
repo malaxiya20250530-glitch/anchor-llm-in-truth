@@ -13,6 +13,10 @@
 """
 
 import os, sys, subprocess, shutil, platform
+
+# Windows 控制台强制 UTF-8，避免 emoji 乱码
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
@@ -81,7 +85,7 @@ def compile_module(py_path, so_path):
         capture_output=True, text=True
     )
     if r.returncode != 0:
-        print(f"  ❌ cython 失败: {r.stderr.strip()[:150]}")
+        print(f"  [FAIL] cython 失败: {r.stderr.strip()[:150]}")
         return False
 
     # 步骤2: 编译参数
@@ -104,7 +108,7 @@ def compile_module(py_path, so_path):
     c_path.unlink(missing_ok=True)
 
     if r.returncode != 0:
-        print(f"  ❌ {cc} 失败: {r.stderr.strip()[:200]}")
+        print(f"  [FAIL] {cc} 失败: {r.stderr.strip()[:200]}")
         return False
 
     return True
@@ -115,7 +119,7 @@ def main():
     suffix = get_ext_suffix_for(os_name, arch)
 
     print("=" * 60)
-    print(f"  🔧 Cython 二进制编译")
+    print(f"  [BUILD] Cython 二进制编译")
     print(f"  平台: {os_name} / {arch}")
     print(f"  Python: {sys.version.split()[0]}")
     print(f"  后缀: {suffix}")
@@ -125,31 +129,31 @@ def main():
     try:
         subprocess.run(["cython", "--version"], capture_output=True)
     except FileNotFoundError:
-        print("\n❌ 未安装 Cython，请先运行: pip install cython")
+        print("\n[FAIL] 未安装 Cython，请先运行: pip install cython")
         sys.exit(1)
 
     ok = 0
     for mod in CYTHON_MODULES:
         py_path = ROOT / mod
         if not py_path.exists():
-            print(f"  ⚠️  {mod} 不存在，跳过")
+            print(f"  [WARN]  {mod} 不存在，跳过")
             continue
 
         name = mod.replace(".py", "")
         so_path = ROOT / f"{name}{suffix}"
 
-        print(f"🔧 {mod} → {so_path.name} ...", end=" ", flush=True)
+        print(f"[BUILD] {mod} → {so_path.name} ...", end=" ", flush=True)
         if compile_module(py_path, so_path):
             size_kb = so_path.stat().st_size / 1024
-            print(f"✅ {size_kb:.0f} KB")
+            print(f"[OK] {size_kb:.0f} KB")
             ok += 1
 
     print(f"\n{'=' * 60}")
-    print(f"  ✅ 完成: {ok}/{len(CYTHON_MODULES)} 个模块")
+    print(f"  [OK] 完成: {ok}/{len(CYTHON_MODULES)} 个模块")
     print(f"  输出目录: {ROOT}")
 
     if os_name == "darwin":
-        print(f"\n  💡 macOS 提示:")
+        print(f"\n  [TIP] macOS 提示:")
         print(f"     如需通用二进制 (x86_64 + arm64)，用 lipo 合并:")
         print(f"     lipo -create arm64.so x86_64.so -output universal.so")
     print("=" * 60)
