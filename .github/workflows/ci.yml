@@ -1,6 +1,7 @@
 name: Baseline Regression Guard
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'hallucination_detector.py'
@@ -16,7 +17,9 @@ on:
 
 jobs:
   regression:
-    runs-on: ubuntu-latest
+  workflow_dispatch:
+    runs-on:
+  workflow_dispatch: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +27,8 @@ jobs:
       - name: 设置 Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version:
+  workflow_dispatch: "3.13"
 
       - name: 验证关键文件 Hash
         run: |
