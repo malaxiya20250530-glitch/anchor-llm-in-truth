@@ -18,16 +18,147 @@ def _shared_entity(claim: str, fact: str) -> bool:
     fp2 = f_clean[:2] if len(f_clean) >= 2 else f_clean
     if cp2 in f_clean and fp2 in c_clean:
         return True
-    # 策略2: 字符级重合度回退（处理简称 vs 全称，如"珠峰"→"珠穆朗玛峰"）
+    # 策略2: TF-IDF 加权语义重合度（自动压低通用词权重，提升专名权重）
+    if _semantic_overlap(claim, fact):
+        return True
+    # 字符级回退: 处理极短文本（加权分不可靠时）
     c_chars = set(re.findall(r'[一-鿿]', c_clean))
     f_chars = set(re.findall(r'[一-鿿]', f_clean))
     if not c_chars or not f_chars:
         return False
     overlap = c_chars & f_chars
-    # 至少共享2个汉字，且重合度 >= 50% of the smaller set
-    return len(overlap) >= 2 and len(overlap) / min(len(c_chars), len(f_chars)) >= 0.5
+    total_ratio = len(overlap) / max(min(len(c_chars), len(f_chars)), 1)
+    # 至少共享3个汉字，且重合度 >= 60%
+    if len(overlap) >= 3 and total_ratio >= 0.6:
+        return True
+    return False
 
 from checker_registry import Checker, checker
+
+
+# ═══════════════════════════════════════════════════════════
+# TF-IDF 加权语义重合度 — 替代手工维护的通用词黑名单
+# ═══════════════════════════════════════════════════════════
+
+# KB bigram IDF 权重表（惰性初始化）
+_bigram_idf = None
+
+
+def _build_bigram_idf():
+    """从 KB 构建 bigram 逆文档频率表。
+    高频 bigram（如'发明'、'印刷'）→ 低权重；
+    低频专名 bigram（如'毕昇'、'朱熹'）→ 高权重。
+    """
+    global _bigram_idf
+    if _bigram_idf is not None:
+        return _bigram_idf
+    try:
+        from hallucination_detector import KNOWLEDGE_BASE
+    except ImportError:
+        _bigram_idf = {}
+        return _bigram_idf
+    
+    # 统计每个 bigram 出现在多少个 KB 条目中
+    doc_count = {}
+    total_docs = len(KNOWLEDGE_BASE)
+    for key, entry in KNOWLEDGE_BASE.items():
+        facts = entry.get('facts', entry.get('fact', []))
+        if isinstance(facts, str):
+            facts = [facts]
+        # 合并 key + 所有 facts 的 bigram（去重，每个条目只计1次）
+        all_text = key + ' ' + ' '.join(facts)
+        seen = set()
+        for i in range(len(all_text) - 1):
+            bg = all_text[i:i+2]
+            if bg not in seen:
+                seen.add(bg)
+                doc_count[bg] = doc_count.get(bg, 0) + 1
+    
+    # 计算 IDF: log(总文档数 / 出现该 bigram 的文档数)
+    import math
+    _bigram_idf = {}
+    for bg, count in doc_count.items():
+        _bigram_idf[bg] = math.log((total_docs + 1) / (count + 1)) + 1.0  # +1 平滑
+    return _bigram_idf
+
+
+def _weighted_bigram_overlap(text_a: str, text_b: str) -> float:
+    """TF-IDF 加权 bigram 重叠分数 + 同义词扩展 + 动态阈值。
+    
+    返回 (score, has_entity_link) 元组:
+    - score: 0.0~1.0 加权重合度
+    - has_entity_link: 同义词扩展是否增加了共享bigram（实体链接信号）
+    
+    调用方根据 has_entity_link 使用不同阈值:
+    - 有实体链接 → 阈值 0.06（宽松）
+    - 无实体链接 → 阈值 0.25（严格）
+    """
+    idf = _build_bigram_idf()
+    if not idf:
+        return (0.0, False)
+    
+    # 先计算原始文本的共享bigram
+    raw_a_bigrams = {text_a[i:i+2] for i in range(len(text_a) - 1)}
+    raw_b_bigrams = {text_b[i:i+2] for i in range(len(text_b) - 1)}
+    raw_shared = raw_a_bigrams & raw_b_bigrams
+    
+    # 同义词扩展: 将同义表达替换为规范形式（实体链接）
+    expanded_a = text_a
+    expanded_b = text_b
+    try:
+        from hallucination_detector import SYNONYM_MAP
+        for syn, target in SYNONYM_MAP.items():
+            if syn in text_a:
+                expanded_a += ' ' + target
+            if syn in text_b:
+                expanded_b += ' ' + target
+    except ImportError:
+        pass
+    
+    # 提取扩展后文本的 bigram 集合
+    a_bigrams = {expanded_a[i:i+2] for i in range(len(expanded_a) - 1)}
+    b_bigrams = {expanded_b[i:i+2] for i in range(len(expanded_b) - 1)}
+    
+    if not a_bigrams or not b_bigrams:
+        return (0.0, False)
+    
+    # 共享 bigram
+    shared = a_bigrams & b_bigrams
+    if not shared:
+        return (0.0, False)
+    
+    # 实体链接信号: 扩展后是否增加了共享bigram
+    has_entity_link = len(shared) > len(raw_shared)
+    
+    # 加权方向重合度: 调和平均(共享/A, 共享/B)
+    shared_weight = sum(idf.get(bg, 1.0) for bg in shared)
+    a_weight = sum(idf.get(bg, 1.0) for bg in a_bigrams)
+    b_weight = sum(idf.get(bg, 1.0) for bg in b_bigrams)
+    
+    if a_weight < 0.001 or b_weight < 0.001:
+        return (0.0, False)
+    
+    ratio_a = shared_weight / a_weight
+    ratio_b = shared_weight / b_weight
+    if ratio_a + ratio_b < 0.001:
+        return (0.0, False)
+    score = 2 * ratio_a * ratio_b / (ratio_a + ratio_b)
+    return (score, has_entity_link)
+
+
+def _semantic_overlap(claim: str, fact: str) -> bool:
+    """判断两个文本是否讨论同一主题。
+    
+    结合 TF-IDF 加权重合度 + 实体链接信号，使用动态阈值。
+    - 有实体链接 → 阈值 0.06
+    - 无实体链接 → 阈值 0.25
+    
+    返回 True 表示可能是同一主题，False 表示跨主题。
+    """
+    score, has_link = _weighted_bigram_overlap(claim, fact)
+    threshold = 0.06 if has_link else 0.25
+    return score >= threshold
+
 
 
 def _negation_same_subject(claim, fact, claim_pat, fact_pat):
@@ -69,6 +200,17 @@ class NegationChecker(Checker):
         "不妨", "不止", "不免", "不愧", "不由得",
     }
 
+    _SELF_CORRECT_PAT = re.compile(
+        r'[（(]\s*(?:确切地?说|准确地?说|严格地?说|其实|应当说|应该说|即|也就是)[^）)]*[）)]',
+        re.IGNORECASE
+    )
+
+    @classmethod
+    def _has_self_correction(cls, claim: str, keyword_pos: int) -> bool:
+        """检查claim中keyword_pos附近是否有括号自我纠正（如'发明（确切地说是改进）'）"""
+        near = claim[keyword_pos:keyword_pos + 40]
+        return bool(cls._SELF_CORRECT_PAT.search(near))
+
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
         """执行检查，返回 (verdict, confidence) 或 None"""
         # 前向引用：_negation_same_subject 在导入此模块前已定义
@@ -93,7 +235,9 @@ class NegationChecker(Checker):
                     # 确认 claim 中没有否定该实体（避免双重否定）
                     if not re.search(
                         r'(?:没有|不是|并非|不存在|不在|不|没)\s*' + re.escape(neg_entity), claim):
-                        return ("contradicted", 0.78)
+                        # 检查claim中是否有括号自我纠正（如'发明（确切地说是改进）'）
+                        if not self._has_self_correction(claim, claim.find(neg_entity[:2]) if len(neg_entity) >= 2 else 0):
+                            return ("contradicted", 0.78)
         # 反向否定: claim说"没有X/不是X", fact肯定X → 矛盾
         claim_neg = re.search(r'(?:没有|不是|并非|不存在|不在)\s*(.{1,8}?)(?:[，。、；的]|$)', claim)
         if claim_neg:
@@ -147,6 +291,11 @@ class NegationChecker(Checker):
                 f_bi = {fact[i:i+2] for i in range(len(fact)-1)}
                 if not (c_bi & f_bi):
                     continue
+                # 括号自我纠正: claim 中匹配关键词后紧跟括号纠正 → 不矛盾
+                # 例: "瓦特发明（确切地说是改进）蒸汽机" → 已自我修正
+                after_match = claim[cm.end():cm.end()+30]
+                if re.search(r'[（(].{0,10}(?:确切地|准确|其实|严格|应当|应该|即).{0,10}[）)]', after_match):
+                    continue
                 # 通用叙事上下文: claim在讲"故事/传说/说法"而非直接断言
                 if re.search(r'(?:的故事|的传说|的说法|的迷思|的误解).{0,20}$', claim[:cm.start() + len(cp) + 10]):
                     continue
@@ -173,7 +322,9 @@ class NegationChecker(Checker):
                         # 模糊匹配：claim中是否包含该实体的70%字符
                         overlap = sum(1 for c in neg_entity if c in claim) / len(neg_entity)
                         if overlap >= 0.6:
-                            return ("contradicted", 0.76)
+                            # 检查claim中是否有括号自我纠正
+                            if not self._has_self_correction(claim, 0):
+                                return ("contradicted", 0.76)
         return None
 
 
@@ -198,6 +349,9 @@ class YearConflictChecker(Checker):
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
         """执行检查，返回 (verdict, confidence) 或 None"""
         if not _shared_entity(claim, fact):
+            return None
+        # TF-IDF 加权语义重合: 防止毕昇 vs 古腾堡被误判为冲突
+        if not _semantic_overlap(claim, fact):
             return None
         cy, fy = re.findall(r"\d{3,4}", claim), re.findall(r"\d{3,4}", fact)
         if not cy or not fy:
@@ -272,19 +426,26 @@ class NumericConflictChecker(Checker):
     def check(self, claim: str, fact: str, engine=None) -> Optional[tuple]:
         """检查: 数值冲突 — 中文数字解析 + 宽松单位匹配"""
         # 提取含单位的数字：30万、8800米、100°C 等
-        cn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', claim)
-        fn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', fact)
+        # 先去除数字中的逗号分隔符（如 299,792,458 → 299792458）
+        _clean_claim = re.sub(r'(?<=\d),(?=\d)', '', claim)
+        _clean_fact = re.sub(r'(?<=\d),(?=\d)', '', fact)
+        cn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', _clean_claim)
+        fn_raw = re.findall(r'[\d.]+(?:万|亿|千|百)?', _clean_fact)
         if not cn_raw or not fn_raw:
             return None
         # 实体绑定: 必须是同一实体
         if not _shared_entity(claim, fact):
             return None
-        # 年份场景: 额外验证事件类型一致性
+        # 年份场景: 额外验证事件类型一致性 + 共享专名
         if re.search(r'年', claim) and re.search(r'年', fact):
             c_group = YearConflictChecker()._event_group(claim)
             f_group = YearConflictChecker()._event_group(fact)
             if c_group != "other" and f_group != "other" and c_group != f_group:
                 return None  # 不同事件类型不比较
+            # TF-IDF 加权语义重合: 防止毕昇(1041) vs 古腾堡(1450)被误判
+            if c_group == f_group:
+                if not _semantic_overlap(claim, fact):
+                    return None  # 语义不相关，不比较
         # 单位一致性检查：claim和fact的数字必须共享同类单位
         # 否则可能是不同语义的数字（如2100万个 vs 2009年）
         unit_types = {
@@ -294,24 +455,36 @@ class NumericConflictChecker(Checker):
             '温度': r"度|°|℃",
         }
         unit_match = False
+        matched_utype = None
         for utype, upat in unit_types.items():
             if re.search(upat, claim) and re.search(upat, fact):
                 unit_match = True
+                matched_utype = utype
                 break
         if not unit_match:
             # 无单位或单位不匹配 → 不比较
             return None
+        # 长度单位归一化：处理 米 ↔ 公里/千米 的换算
+        claim_has_km = bool(re.search(r'公里|千米', claim))
+        fact_has_km = bool(re.search(r'公里|千米', fact))
+        cn_scale = 1.0
+        fn_scale = 1.0
+        if matched_utype == '长度':
+            if claim_has_km and not fact_has_km:
+                cn_scale = 1000.0  # 公里→米
+            elif fact_has_km and not claim_has_km:
+                fn_scale = 1000.0  # 公里→米
         # 解析所有数字为浮点数
         cn = []
         for s in cn_raw:
             v = self._parse_number(s)
             if v is not None:
-                cn.append(v)
+                cn.append(v * cn_scale)
         fn = []
         for s in fn_raw:
             v = self._parse_number(s)
             if v is not None:
-                fn.append(v)
+                fn.append(v * fn_scale)
         if not cn or not fn:
             return None
         return self._compare_number_pairs(cn, fn)
@@ -619,7 +792,10 @@ class AttributionChecker(Checker):
                     if claim_name.lower() != fact_name.lower():
                         return ("contradicted", 0.82)
                     return None
-                return ("contradicted", 0.82)
+                # TF-IDF 加权语义重合: 防止跨主题误匹配（如大脑→足球）
+                if _semantic_overlap(claim, fact):
+                    return ("contradicted", 0.82)
+                return None
         return None
 
 

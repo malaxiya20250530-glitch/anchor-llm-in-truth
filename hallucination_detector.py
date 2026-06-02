@@ -657,8 +657,12 @@ class AnchorEngine:
 
     def _check_facts_against_entry(self, claim_text: str, entry: dict) -> dict:
         """检查条目所有事实 — 收集全部结果取最优（高置信度矛盾优先于低置信度验证）"""
+        # 兼容 'fact'(单数) 和 'facts'(复数) 两种格式
+        facts = entry.get("facts", [entry.get("fact", "")] if "fact" in entry else [])
+        if not facts:
+            return {"verdict": "uncertain", "confidence": 0.5, "evidence": "", "source": entry.get("source", "")}
         best_result = None
-        for fact in entry["facts"]:
+        for fact in facts:
             v, c = self._compare_with_fact(claim_text, fact)
             if v == "uncertain":
                 continue
@@ -675,8 +679,8 @@ class AnchorEngine:
         if best_result:
             self._record_feedback(claim_text, best_result["evidence"], best_result)
             return best_result
-        result = {"verdict": "uncertain", "confidence": 0.5, "evidence": f"相关: {entry['facts'][0][:80]}", "source": entry["source"]}
-        self._record_feedback(claim_text, entry["facts"][0], result)
+        result = {"verdict": "uncertain", "confidence": 0.5, "evidence": f"相关: {facts[0][:80]}", "source": entry.get("source", "")}
+        self._record_feedback(claim_text, facts[0], result)
         return result
 
     # ── 语义规范化层 ──────────────────────────
