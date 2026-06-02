@@ -1,16 +1,26 @@
-V1.0 基线快照
+V1.0 最终基线
 ===============
-时间: 2026-06-01T23:40:03Z
-提交: 766a33cc0e95af109b616d25b2217b11bb6e26cd
+时间: 2026-06-02T01:23:14Z
+提交: 766a33cc0e95
 
---- 总体指标 ---
-样本: 550 条
-TP=20 FP=55 FN=167 TN=308
-精度(Precision): 0.2670
-召回(Recall):    0.1070
-F1 Score:        0.1530
-准确率(Accuracy):0.5960
-平均延迟:         56.5ms
+── 550条自动基准 ──
+TP=18 FP=58 FN=169 TN=305
+精度: 0.2370  召回: 0.0960  F1: 0.1370
 
---- 系统信息 ---
-检查器数量: 11  KB条目: 504
+── 60条对抗基准(DeepSeek) ──
+检出率: 57% (34/60)
+
+── 系统 ──
+检查器: 12 个  KB: 504 条目
+  InfinityChecker                w=0.82
+  NegationChecker                w=0.83
+  YearConflictChecker            w=0.92
+  NumericConflictChecker         w=0.90
+  OverlapChecker                 w=0.55
+  TemporalOrderChecker           w=0.80
+  LocationConflictChecker        w=0.85
+  SuperlativeChecker             w=0.72
+  CausalChecker                  w=0.76
+  AttributionChecker             w=0.80
+  DurationChecker                w=0.85
+  GraphContradictionChecker      w=0.78
