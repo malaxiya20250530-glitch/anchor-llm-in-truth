@@ -34,22 +34,13 @@ COPY kb_medical.json .
 COPY kb_legal.json .
 COPY kb_loader.py .
 
-# 跨平台检测器
-COPY hallucination_detector.py .
-COPY checker_classes.py .
-COPY checker_registry.py .
-
 # 可选模块
 COPY web_verifier.py .
 COPY feedback_store.py .
 COPY feedback_collector.py .
 COPY auto_kb_updater.py .
 COPY logger.py .
-COPY wal_logger.py .
-
-# 测试与基准
-COPY test_fact_checker.py .
-COPY benchmark.py .
+COPY security_logger.py .
 
 # 配置文件
 COPY config.json .

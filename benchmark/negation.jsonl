@@ -1,0 +1,678 @@
+{"id": "false_000003", "text": "秦朝不是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "FALSE", "category": "秦_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000008", "text": "秦始皇没有发明火锅", "label": "TRUE", "category": "秦", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000017", "text": "唐朝(618-907年)不是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000024", "text": "北宋(960-1127年)首都不是开封", "label": "FALSE", "category": "宋_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000041", "text": "Python 不是解释型面向对象的高级编程语言", "label": "FALSE", "category": "python_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000047", "text": "Linux 不是开源的类 Unix 操作系统内核", "label": "FALSE", "category": "linux_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000052", "text": "HTTP 不是超文本传输协议", "label": "FALSE", "category": "http_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000060", "text": "Java 最初的名字不是 Oak", "label": "FALSE", "category": "java_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000065", "text": "C 语言不是为了写 Unix 而创造的", "label": "FALSE", "category": "c语言_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000069", "text": "JavaScript 与 Java 没有任何关系", "label": "TRUE", "category": "javascript", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000076", "text": "水的化学式不是 H2O", "label": "FALSE", "category": "水_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000079", "text": "光速不是无穷大的，光速是有限的", "label": "TRUE", "category": "光速", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000084", "text": "光速不是宇宙中信息传播的极限速度", "label": "FALSE", "category": "光速_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000091", "text": "地球不是太阳系第三颗行星，形成于约 45.4 亿年前", "label": "FALSE", "category": "地球_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000093", "text": "地球不是已知唯一存在生命的天体", "label": "FALSE", "category": "地球_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000094", "text": "地球不是平的，地球是近似球体", "label": "TRUE", "category": "地球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000100", "text": "珠穆朗玛峰不是世界最高峰", "label": "FALSE", "category": "珠穆朗玛峰_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000106", "text": "造纸术不是中国古代四大发明之一", "label": "FALSE", "category": "造纸_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000115", "text": "内阁制度是明朝永乐年间设立的不是朱元璋设立的", "label": "TRUE", "category": "内阁制度", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000118", "text": "朱元璋时期废除的不是丞相制度设立了锦衣卫", "label": "FALSE", "category": "内阁制度_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000121", "text": "火药不是中国古代四大发明之一，唐代已有记载", "label": "FALSE", "category": "火药_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000125", "text": "指南针不是中国古代四大发明之一", "label": "FALSE", "category": "指南针_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000142", "text": "朱元璋没有发明火锅——火锅远早于明代就已存在", "label": "TRUE", "category": "朱元璋", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000144", "text": "朱元璋没有发明火锅——火锅远早于唐代就已存在", "label": "FALSE", "category": "朱元璋_实体置换", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000146", "text": "任何声称某人没有发明某自然现象的断言都是错误的", "label": "FALSE", "category": "发明_否定添加", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000149", "text": "包含唯一的断言几乎总不是存在反例", "label": "FALSE", "category": "唯一_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000151", "text": "声称某物不是唯一的需要极其严格的证明", "label": "FALSE", "category": "唯一_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000154", "text": "许多第一的宣称在学术上不是争议的", "label": "FALSE", "category": "第一_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000168", "text": "毕昇没有发明活字印刷术", "label": "FALSE", "category": "毕昇_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000181", "text": "哥伦布不是第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "TRUE", "category": "哥伦布", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000188", "text": "太阳系最大的行星不是木星", "label": "FALSE", "category": "太阳系_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000189", "text": "地球不是太阳系最大的行星", "label": "TRUE", "category": "太阳系", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000193", "text": "现存长城主要不是明代修建的", "label": "FALSE", "category": "长城_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000195", "text": "长城不是秦始皇一个人修建的", "label": "TRUE", "category": "长城", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000217", "text": "牛顿不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "TRUE", "category": "牛顿", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000219", "text": "爱因斯坦不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000220", "text": "牛顿没有发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000222", "text": "爱因斯坦没有发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "FALSE", "category": "牛顿_实体置换", "checker": ["negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000223", "text": "牛顿没有发明反射望远镜——但他改进了反射望远镜", "label": "TRUE", "category": "牛顿", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000225", "text": "爱因斯坦没有发明反射望远镜——但他改进了反射望远镜", "label": "FALSE", "category": "牛顿_实体置换", "checker": ["negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000227", "text": "牛顿与莱布尼茨不是同时代人", "label": "FALSE", "category": "牛顿_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000244", "text": "爱因斯坦不是物理学家", "label": "FALSE", "category": "爱因斯坦_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000264", "text": "爱因斯坦没有发明原子弹", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000266", "text": "牛顿没有发明原子弹", "label": "FALSE", "category": "爱因斯坦_实体置换", "checker": ["negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000267", "text": "E=mc²不是爱因斯坦唯一的贡献——他还解释了光电效应", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000269", "text": "E=mc²不是牛顿唯一的贡献——他还解释了光电效应", "label": "FALSE", "category": "爱因斯坦_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000271", "text": "爱因斯坦与玻尔不是同时代人", "label": "FALSE", "category": "爱因斯坦_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000290", "text": "爱迪生没有发明留声机", "label": "FALSE", "category": "爱迪生_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000291", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000295", "text": "爱迪生与特斯拉不是同时代人", "label": "FALSE", "category": "爱迪生_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000306", "text": "特斯拉不是电气工程家", "label": "FALSE", "category": "特斯拉_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000308", "text": "特斯拉没有发明交流电系统", "label": "FALSE", "category": "特斯拉_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000309", "text": "特斯拉不是被历史遗忘的——他的名字被用作磁感应强度单位", "label": "TRUE", "category": "特斯拉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000323", "text": "瓦特没有发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "TRUE", "category": "瓦特", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000327", "text": "瓦特与纽科门不是同时代人", "label": "FALSE", "category": "瓦特_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000331", "text": "贝尔不是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "TRUE", "category": "贝尔", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000334", "text": "贝尔的专利不是历史上最有价值的专利之一", "label": "FALSE", "category": "贝尔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000348", "text": "莱特兄弟不是最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "TRUE", "category": "莱特兄弟", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000363", "text": "莎士比亚不是英国文艺复兴时期最伟大的剧作家", "label": "FALSE", "category": "莎士比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000379", "text": "达尔文没有说过人类是猴子变的——他说人类和猿类有共同祖先", "label": "TRUE", "category": "达尔文", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000384", "text": "弗莱明不是有意发现青霉素的——是实验室污染导致的意外发现", "label": "TRUE", "category": "青霉素", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000388", "text": "人类只用了大脑10%的说法是完全没有科学依据的谣言", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000389", "text": "人类只用了大脑12%的说法是完全没有科学依据的谣言", "label": "FALSE", "category": "大脑_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000393", "text": "神经元不能再生是一个被推翻的旧观点——某些脑区确实可以产生新神经元", "label": "TRUE", "category": "大脑", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000399", "text": "一颗小行星撞击地球不是恐龙灭绝的主要原因", "label": "FALSE", "category": "恐龙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000400", "text": "鸟类是恐龙的直接后代——鸟类不是恐龙的后代，鸟类就是恐龙的一种", "label": "TRUE", "category": "恐龙", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000402", "text": "根据物理定律，大黄蜂不能飞行的说法是都市传说", "label": "TRUE", "category": "蜜蜂", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000408", "text": "咖啡因不是世界上消费最广泛的精神活性物质", "label": "FALSE", "category": "咖啡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000409", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000414", "text": "唐代陆羽写了《茶经》，不是世界第一部茶叶专著", "label": "FALSE", "category": "茶_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000422", "text": "白巧克力不是真正的巧克力——它不含可可固体", "label": "TRUE", "category": "巧克力", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000429", "text": "维基百科不是世界最大的百科全书", "label": "FALSE", "category": "维基百科_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000437", "text": "比特币的总量上限不是2100万个", "label": "FALSE", "category": "比特币_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000440", "text": "万有引力不是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "TRUE", "category": "万有引力", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000441", "text": "万有引力是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000442", "text": "万有引力不是爱因斯坦看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000444", "text": "引力不是四种基本力中最弱的", "label": "FALSE", "category": "万有引力_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000448", "text": "氧气不是可燃的——它是助燃的", "label": "TRUE", "category": "氧气", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000452", "text": "二氧化碳的化学式不是CO2", "label": "FALSE", "category": "二氧化碳_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000454", "text": "二氧化碳不是温室气体", "label": "FALSE", "category": "二氧化碳_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000457", "text": "月球不是地球唯一的天然卫星", "label": "FALSE", "category": "月球_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000458", "text": "月球不是自己发光的——它反射太阳光", "label": "TRUE", "category": "月球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000463", "text": "人类首次登月不是1969年阿波罗11号任务", "label": "FALSE", "category": "月球_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000465", "text": "太阳不是太阳系的中心恒星", "label": "FALSE", "category": "太阳_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000467", "text": "太阳不是一颗G型主序星(黄矮星)", "label": "FALSE", "category": "太阳_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000471", "text": "木星不是太阳系最大的行星", "label": "FALSE", "category": "木星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000476", "text": "火星上目前没有发现液态水的存在", "label": "TRUE", "category": "火星", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000480", "text": "GPT不是Generative Pre-trained Transformer的缩写", "label": "FALSE", "category": "gpt_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000489", "text": "Transformer不是当前大多数大语言模型的基础架构", "label": "FALSE", "category": "transformer_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000491", "text": "Transformer的核心创新不是自注意力机制", "label": "FALSE", "category": "transformer_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000497", "text": "围棋不是最复杂的棋类游戏之一", "label": "FALSE", "category": "围棋_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000501", "text": "AlphaGo于2016年击败李世石不是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000505", "text": "马拉松的距离不是42.195公里", "label": "FALSE", "category": "马拉松_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000506", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "TRUE", "category": "马拉松", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000507", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1909年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000508", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是2289年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000515", "text": "清朝(1644-1912年)不是中国最后一个封建王朝", "label": "FALSE", "category": "清_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000527", "text": "元朝不是中国历史上疆域最广阔的朝代之一", "label": "FALSE", "category": "元_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000534", "text": "三国时期(220-280年)不是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000538", "text": "三国不是由曹操统一的——最终由司马炎统一", "label": "TRUE", "category": "三国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000551", "text": "E=mc²不是狭义相对论最著名的公式", "label": "FALSE", "category": "相对论_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000558", "text": "进化论的核心机制不是自然选择", "label": "FALSE", "category": "进化论_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000559", "text": "进化论不是人是从猴子变来的——人和猴子有共同祖先", "label": "TRUE", "category": "进化论", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000561", "text": "达尔文没有说适者生存——这是斯宾塞的说法", "label": "TRUE", "category": "进化论", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000567", "text": "量子纠缠不是真实存在的物理现象", "label": "FALSE", "category": "量子力学_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000568", "text": "薛定谔的猫是一个思想实验，不是真实实验", "label": "TRUE", "category": "量子力学", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000574", "text": "故宫不是明清两代的皇家宫殿", "label": "FALSE", "category": "故宫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000576", "text": "富士山不是日本最高峰", "label": "FALSE", "category": "富士山_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000579", "text": "富士山不是一座活火山", "label": "FALSE", "category": "富士山_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000587", "text": "元素周期表按原子序数排列，不是原子量", "label": "TRUE", "category": "元素周期表", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_000589", "text": "电是自然现象，不是任何人发明的", "label": "TRUE", "category": "电", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000591", "text": "本杰明·富兰克林没有发明电——他证明了闪电是电", "label": "TRUE", "category": "电", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_000600", "text": "互联网和万维网不是同一个概念——万维网运行在互联网之上", "label": "TRUE", "category": "internet", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000608", "text": "AI不是万能的——当前AI是窄人工智能而非通用人工智能", "label": "TRUE", "category": "人工智能", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000613", "text": "莱特兄弟不是第一个飞上天空的人——滑翔机和气球更早出现", "label": "TRUE", "category": "飞机", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000619", "text": "爱德华·詹纳于1796年没有发明天花疫苗——世界上第一种疫苗", "label": "FALSE", "category": "疫苗_否定添加", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000621", "text": "疫苗不会导致自闭症——这个说法来自一篇被撤稿的造假论文", "label": "TRUE", "category": "疫苗", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000636", "text": "奥林匹克休战不是古希腊的传统", "label": "FALSE", "category": "奥林匹克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000637", "text": "奥运会金牌不是纯金的——主要是银，镀了一层金", "label": "TRUE", "category": "奥林匹克", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000640", "text": "黄帝不是传说中中华民族的人文初祖", "label": "FALSE", "category": "黄帝_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000641", "text": "黄帝不是第一个皇帝——皇帝制度始于秦始皇", "label": "TRUE", "category": "黄帝", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000644", "text": "黄帝和炎帝并称炎黄，不是华夏族的共同祖先", "label": "FALSE", "category": "黄帝_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000646", "text": "《史记》不是中国第一部纪传体通史", "label": "FALSE", "category": "司马迁_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000660", "text": "《孙子兵法》不是世界上最早的兵书之一", "label": "FALSE", "category": "孙子兵法_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000661", "text": "孙子兵法不是现代管理学著作——但其中的策略被广泛借用", "label": "TRUE", "category": "孙子兵法", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000676", "text": "拿破仑不是法国军事家", "label": "FALSE", "category": "拿破仑_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000677", "text": "拿破仑不是矮子——他身高约168-170厘米", "label": "TRUE", "category": "拿破仑", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000678", "text": "拿破仑不是矮子——他身高约169-170厘米", "label": "FALSE", "category": "拿破仑_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000679", "text": "拿破仑不是矮子——他身高约201-170厘米", "label": "FALSE", "category": "拿破仑_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000684", "text": "达芬奇、米开朗基罗和拉斐尔不是文艺复兴三杰", "label": "FALSE", "category": "文艺复兴_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000688", "text": "文艺复兴不是突然出现的——它根植于中世纪晚期的社会变化", "label": "TRUE", "category": "文艺复兴", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000697", "text": "工业革命不是一夜之间发生的——它是渐进的过程", "label": "TRUE", "category": "工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000707", "text": "十月革命不是唯一的俄国革命——同年二月革命已推翻了沙皇", "label": "TRUE", "category": "十月革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000711", "text": "圆周率π不是一个无限不循环小数", "label": "FALSE", "category": "圆周率_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000717", "text": "π不是3.14——3.14只是一个近似值", "label": "TRUE", "category": "圆周率", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000718", "text": "π不是3.8——3.14只是一个近似值", "label": "FALSE", "category": "圆周率_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000723", "text": "勾股定理不是毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "TRUE", "category": "勾股定理", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000729", "text": "黄金分割不是美的唯一标准——很多经典作品并不遵循黄金分割", "label": "TRUE", "category": "黄金分割", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000732", "text": "撒哈拉沙漠不是世界上最大的热沙漠", "label": "FALSE", "category": "撒哈拉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000733", "text": "撒哈拉不是世界上最大的沙漠——南极洲是最大的沙漠", "label": "TRUE", "category": "撒哈拉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000737", "text": "撒哈拉曾经不是绿洲，约1万年前气候湿润", "label": "FALSE", "category": "撒哈拉_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000739", "text": "尼罗河不是世界上最长的河流之一", "label": "FALSE", "category": "尼罗河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000743", "text": "亚马逊雨林不是世界上最大的热带雨林", "label": "FALSE", "category": "亚马逊_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000744", "text": "亚马逊雨林不是地球之肺——海洋产生更多氧气", "label": "TRUE", "category": "亚马逊", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000747", "text": "亚马逊河不是世界上流量最大的河流", "label": "FALSE", "category": "亚马逊_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000749", "text": "蓝鲸不是地球上已知最大的动物", "label": "FALSE", "category": "蓝鲸_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000750", "text": "蓝鲸不是鱼——是哺乳动物", "label": "TRUE", "category": "蓝鲸", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000756", "text": "章鱼不是非常聪明的无脊椎动物", "label": "FALSE", "category": "章鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000758", "text": "章鱼血液不是蓝色的——因为含有血蓝蛋白而非血红蛋白", "label": "FALSE", "category": "章鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000761", "text": "维生素C不能预防感冒——这个说法缺乏科学证据", "label": "TRUE", "category": "维生素c", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000773", "text": "莫扎特不是古典音乐史上最天才的作曲家之一", "label": "FALSE", "category": "莫扎特_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000775", "text": "《红楼梦》不是中国古典四大名著之一", "label": "FALSE", "category": "红楼梦_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000779", "text": "《红楼梦》前80回由曹雪芹所著，后40回一般认为不是高鹗续写", "label": "FALSE", "category": "红楼梦_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000780", "text": "《红楼梦》不是爱情小说——它是一部封建社会的百科全书", "label": "TRUE", "category": "红楼梦", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000784", "text": "足球不是英国发明的——古代中国和古希腊都有类似运动", "label": "TRUE", "category": "足球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000786", "text": "足球不是英国发明的——古代日本和古希腊都有类似运动", "label": "FALSE", "category": "足球_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000791", "text": "通货膨胀不是货币购买力持续下降的现象", "label": "FALSE", "category": "通货膨胀_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000792", "text": "通货膨胀不是物价上涨——物价上涨是通货膨胀的表现", "label": "TRUE", "category": "通货膨胀", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000795", "text": "适度的通货膨胀不是经济增长的正常现象", "label": "FALSE", "category": "通货膨胀_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000797", "text": "半导体不是导电性介于导体和绝缘体之间的材料", "label": "FALSE", "category": "半导体_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000799", "text": "硅不是最常用的半导体材料", "label": "FALSE", "category": "半导体_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000811", "text": "图灵不是计算机科学家", "label": "FALSE", "category": "图灵_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000813", "text": "图灵不是发明计算机的人——他提出了通用计算机的理论模型", "label": "TRUE", "category": "图灵", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000818", "text": "冥王星不是太阳系最小的天体——它仍然是柯伊伯带中最大的天体之一", "label": "TRUE", "category": "冥王星", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000824", "text": "土星不是太阳系第二大行星", "label": "FALSE", "category": "土星_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000826", "text": "土星不是唯一有环的行星——木星、天王星和海王星也有环", "label": "TRUE", "category": "土星", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000839", "text": "孔子不是儒家学派的创始人", "label": "FALSE", "category": "孔子_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000841", "text": "《道德经》不是道家经典", "label": "FALSE", "category": "老子_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000852", "text": "老子不是道家学派的创始人", "label": "FALSE", "category": "老子_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000854", "text": "柏拉图不是古希腊哲学家，苏格拉底的学生", "label": "FALSE", "category": "柏拉图_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000856", "text": "柏拉图不是第一个提出理想国概念的人——但他将其系统化了", "label": "TRUE", "category": "柏拉图", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000860", "text": "亚里士多德不是柏拉图的学生，亚历山大大帝的老师", "label": "FALSE", "category": "亚里士多德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000861", "text": "亚里士多德不是所有科学之父——他的一些科学观点已被证明错误", "label": "TRUE", "category": "亚里士多德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000864", "text": "亚里士多德认为重物比轻物下落更快——这不是错的", "label": "FALSE", "category": "亚里士多德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000866", "text": "罗马帝国不是一天建成的", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000871", "text": "罗马不是世界上最大的帝国——大英帝国和蒙古帝国的面积更大", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000873", "text": "罗马帝国不是突然崩溃的——经历了几百年的衰落过程", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000878", "text": "二战不是由单一事件引发的——是多重因素累积的结果", "label": "TRUE", "category": "二战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000881", "text": "中国抗日战争不是二战的重要组成部分", "label": "FALSE", "category": "二战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000883", "text": "原子弹不是结束二战的唯一原因——苏联对日宣战也是关键因素", "label": "TRUE", "category": "二战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000886", "text": "冷战不是二战后美苏两大阵营的对峙", "label": "FALSE", "category": "冷战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000887", "text": "冷战没有变成热战——但期间有许多代理人战争", "label": "TRUE", "category": "冷战", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_000889", "text": "冷战不是以一方投降结束的——苏联解体标志着冷战终结", "label": "TRUE", "category": "冷战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000895", "text": "黑洞不是由大质量恒星坍缩形成的天体", "label": "FALSE", "category": "黑洞_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000896", "text": "黑洞不是洞——它是一个密度极大的天体", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000898", "text": "黑洞不是只进不出的——霍金辐射理论认为黑洞会蒸发", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000900", "text": "黑洞不是爱因斯坦预言的——是广义相对论方程的一个解", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000902", "text": "黑洞不是牛顿预言的——是广义相对论方程的一个解", "label": "FALSE", "category": "黑洞_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000905", "text": "暗物质不是宇宙中不发光的物质，占宇宙总质量的约27%", "label": "FALSE", "category": "暗物质_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000906", "text": "暗物质不是被证明存在的——目前通过引力效应间接推断", "label": "TRUE", "category": "暗物质", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000908", "text": "暗物质不是反物质——两者是不同的概念", "label": "TRUE", "category": "暗物质", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000914", "text": "魏格纳不是第一个注意到大陆形状吻合的人——但他系统论证了", "label": "TRUE", "category": "大陆漂移", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000917", "text": "大陆不是漂浮在水上的——是漂浮在地幔上的", "label": "TRUE", "category": "大陆漂移", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000920", "text": "光合作用不是植物将光能转化为化学能的过程", "label": "FALSE", "category": "光合作用_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000921", "text": "光合作用不是植物独有的——某些细菌也能进行", "label": "TRUE", "category": "光合作用", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000924", "text": "光合作用释放氧气不是副产物", "label": "FALSE", "category": "光合作用_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000925", "text": "植物不是只靠光合作用生存——夜间进行呼吸作用消耗氧气", "label": "TRUE", "category": "光合作用", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000928", "text": "全球气候变暖不是指地球平均气温持续上升", "label": "FALSE", "category": "气候变暖_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000929", "text": "气候变暖不是自然周期——当前暖化速度远超历史上任何自然周期", "label": "TRUE", "category": "气候变暖", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000933", "text": "97%以上的气候科学家认同人类活动不是主因", "label": "FALSE", "category": "气候变暖_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000934", "text": "气候变暖不是只让地球变热——还导致极端天气增加", "label": "TRUE", "category": "气候变暖", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_000939", "text": "蓝牙不是十世纪丹麦国王发明的——虽然以他的名字命名", "label": "TRUE", "category": "蓝牙", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000944", "text": "蓝牙的有效距离通常为10-100米，不是无限距离", "label": "TRUE", "category": "蓝牙", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000945", "text": "蓝牙的有效距离通常为10-101米，不是无限距离", "label": "FALSE", "category": "蓝牙_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000946", "text": "蓝牙的有效距离通常为12-100米，不是无限距离", "label": "FALSE", "category": "蓝牙_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000951", "text": "WiFi不是基于IEEE 802.11标准的无线网络技术", "label": "FALSE", "category": "wifi_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000952", "text": "WiFi不是由单一个人发明的——是多方技术融合的产物", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000954", "text": "WiFi不是无线上网的唯一方式——蜂窝数据也是", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_000956", "text": "WiFi这个名称不是Wireless Fidelity的缩写——只是一种品牌命名", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000959", "text": "区块链不是一种去中心化的分布式账本技术", "label": "FALSE", "category": "区块链_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000961", "text": "区块链不等于比特币——比特币不是区块链的第一个应用", "label": "FALSE", "category": "区块链_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000962", "text": "区块链不是不可篡改的——51%攻击可以改写历史", "label": "TRUE", "category": "区块链", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000963", "text": "区块链不是不可篡改的——61%攻击可以改写历史", "label": "FALSE", "category": "区块链_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000965", "text": "区块链不是万能解决方案——许多场景不需要区块链", "label": "TRUE", "category": "区块链", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000969", "text": "《蒙娜丽莎》不是达芬奇于16世纪初创作的油画", "label": "FALSE", "category": "蒙娜丽莎_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000970", "text": "蒙娜丽莎不是达芬奇唯一的作品——但确实是最著名的", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000973", "text": "《蒙娜丽莎》的微笑之谜可能只不是达芬奇的sfumato技法", "label": "FALSE", "category": "蒙娜丽莎_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000974", "text": "《蒙娜丽莎》不是被盗后才出名的——它被盗前已经很有名", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000986", "text": "梵高不是后印象派画家", "label": "FALSE", "category": "梵高_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000998", "text": "毕加索不是20世纪最有影响力的艺术家之一", "label": "FALSE", "category": "毕加索_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001000", "text": "《西游记》不是中国古典四大名著之一", "label": "FALSE", "category": "西游记_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001003", "text": "《西游记》作者一般认为不是明代吴承恩", "label": "FALSE", "category": "西游记_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001005", "text": "《西游记》不是佛教宣传书——它融合了儒释道三家思想", "label": "TRUE", "category": "西游记", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001009", "text": "《三国演义》不是元末明初罗贯中所著", "label": "FALSE", "category": "三国演义_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001010", "text": "《三国演义》不是历史——是一部历史演义小说", "label": "TRUE", "category": "三国演义", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001012", "text": "《三国演义》中许多情节是虚构的——如草船借箭实际上不是诸葛亮所为", "label": "TRUE", "category": "三国演义", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001014", "text": "关羽使用的不是青龙偃月刀——这种兵器在三国时期还不存在", "label": "TRUE", "category": "三国演义", "checker": ["negation", "location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001017", "text": "《水浒传》不是中国古典四大名著之一", "label": "FALSE", "category": "水浒传_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001020", "text": "《水浒传》的故事背景不是北宋末年宋江起义", "label": "FALSE", "category": "水浒传_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001021", "text": "《水浒传》108将大多不是真实历史人物——只有36人是历史记载的", "label": "TRUE", "category": "水浒传", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001022", "text": "《水浒传》109将大多不是真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001023", "text": "《水浒传》129将大多不是真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001025", "text": "林冲、武松等核心角色在正史中没有记载", "label": "TRUE", "category": "水浒传", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001028", "text": "死海不是世界上海拔最低的湖泊", "label": "FALSE", "category": "死海_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001030", "text": "死海不是海——是一个内陆盐湖", "label": "TRUE", "category": "死海", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001034", "text": "死海中并非完全没有生命——存在嗜盐微生物", "label": "TRUE", "category": "死海", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001035", "text": "死海中并非完全有生命——存在嗜盐微生物", "label": "FALSE", "category": "死海_否定翻转", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001037", "text": "大堡礁位于澳大利亚东北海岸，不是世界上最大的珊瑚礁系统", "label": "FALSE", "category": "大堡礁_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001038", "text": "大堡礁不是从一个太空可见的地球结构——它是少数几个可见的之一", "label": "TRUE", "category": "大堡礁", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001041", "text": "大堡礁的年龄约为50万年，不是从恐龙时代就存在的", "label": "TRUE", "category": "大堡礁", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001042", "text": "大堡礁的年龄约为60万年，不是从恐龙时代就存在的", "label": "FALSE", "category": "大堡礁_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001045", "text": "黄石国家公园位于美国，不是世界上第一个国家公园", "label": "FALSE", "category": "黄石公园_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001048", "text": "黄石超级火山不会很快喷发——目前没有即将喷发的迹象", "label": "TRUE", "category": "黄石公园", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001049", "text": "黄石超级火山不会很快喷发——目前有即将喷发的迹象", "label": "FALSE", "category": "黄石公园_否定翻转", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001050", "text": "黄石公园不是美国最大的国家公园", "label": "TRUE", "category": "黄石公园", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001052", "text": "黄石公园不是加拿大最大的国家公园", "label": "FALSE", "category": "黄石公园_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001055", "text": "南极洲不是地球上最冷的大陆，平均温度约-57°C", "label": "FALSE", "category": "南极洲_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001056", "text": "南极洲不是没有生命——有企鹅、海豹和多种微生物", "label": "TRUE", "category": "南极洲", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001057", "text": "南极洲是没有生命——有企鹅、海豹和多种微生物", "label": "FALSE", "category": "南极洲_否定翻转", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001061", "text": "珊瑚是动物，不是植物", "label": "TRUE", "category": "珊瑚", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001065", "text": "珊瑚白化不是由于共生藻类离开导致的", "label": "FALSE", "category": "珊瑚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001066", "text": "珊瑚不是石头——活的珊瑚是柔软的珊瑚虫群落", "label": "TRUE", "category": "珊瑚", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001069", "text": "蝙蝠不是唯一能够飞行的哺乳动物", "label": "FALSE", "category": "蝙蝠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001070", "text": "蝙蝠不是瞎子——大多数蝙蝠视力很好", "label": "TRUE", "category": "蝙蝠", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001072", "text": "蝙蝠不会主动攻击人类——吸血蝙蝠只分布于拉丁美洲", "label": "TRUE", "category": "蝙蝠", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001075", "text": "蝙蝠对生态系统至关重要——不是重要的传粉者和害虫控制者", "label": "FALSE", "category": "蝙蝠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001078", "text": "蚂蚁的社会结构不是君主制——蚁后只是产卵机器", "label": "TRUE", "category": "蚂蚁", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001081", "text": "蚂蚁不是完全盲目的——它们依靠信息素导航和通讯", "label": "TRUE", "category": "蚂蚁", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001083", "text": "蜘蛛不是昆虫——属于蛛形纲", "label": "TRUE", "category": "蜘蛛", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001085", "text": "不是所有蜘蛛都织网——狼蛛等猎食性蜘蛛不织网", "label": "TRUE", "category": "蜘蛛", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001092", "text": "麻醉不是让人睡着——是诱导可逆的意识丧失和痛觉消失", "label": "TRUE", "category": "麻醉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001096", "text": "麻醉不是万无一失的——需要专业麻醉医师全程监控", "label": "TRUE", "category": "麻醉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001101", "text": "X光不是伦琴刻意寻找的——他在做阴极射线实验时意外发现", "label": "TRUE", "category": "x光", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001104", "text": "第一张X光片不是伦琴夫人的手", "label": "FALSE", "category": "x光_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001105", "text": "X光不是完全无害的——高剂量辐射有致癌风险", "label": "TRUE", "category": "x光", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001110", "text": "DNA测序不是从2000年才开始——桑格测序法于1977年发明", "label": "TRUE", "category": "dna测序", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001111", "text": "DNA测序不是从2001年才开始——桑格测序法于1977年发明", "label": "FALSE", "category": "dna测序_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001112", "text": "DNA测序不是从2400年才开始——桑格测序法于1977年发明", "label": "FALSE", "category": "dna测序_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001114", "text": "DNA测序的成本不是不变的——从最初的数十亿美元降到了几百美元", "label": "TRUE", "category": "dna测序", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001116", "text": "DNA测序不能预测你的一切——基因只决定一部分特征", "label": "TRUE", "category": "dna测序", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001119", "text": "西格蒙德·弗洛伊德不是精神分析学创始人", "label": "FALSE", "category": "弗洛伊德_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001120", "text": "弗洛伊德的理论不是科学界普遍接受的——许多理论已被现代心理学抛弃", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001122", "text": "弗洛伊德不是发现潜意识的第一人——这个概念在他之前就存在", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "temporal_order", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001124", "text": "弗洛伊德不是心理学家——他是神经科医生", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001127", "text": "安慰剂效应不是指病人因相信自己接受治疗而产生真实改善", "label": "FALSE", "category": "安慰剂效应_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001128", "text": "安慰剂效应不是假的——它能在脑中产生真实的生理变化", "label": "TRUE", "category": "安慰剂效应", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001130", "text": "安慰剂效应不能治愈癌症——但可以缓解某些症状", "label": "TRUE", "category": "安慰剂效应", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001132", "text": "安慰剂不是无用的——它在临床试验和某些治疗中有重要价值", "label": "TRUE", "category": "安慰剂效应", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001135", "text": "认知偏差不是系统性偏离理性判断的思维模式", "label": "FALSE", "category": "认知偏差_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001137", "text": "确认偏误不是人们倾向于寻找支持自己观点的证据", "label": "FALSE", "category": "认知偏差_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001138", "text": "认知偏差不是智商问题——高智商的人同样会有认知偏差", "label": "TRUE", "category": "认知偏差", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001140", "text": "认知偏差不是少数人的问题——每个人都会受到各种认知偏差的影响", "label": "TRUE", "category": "认知偏差", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001143", "text": "居里夫人不是第一位获得诺贝尔奖的女性", "label": "FALSE", "category": "居里夫人_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001154", "text": "居里夫人不是物理学家", "label": "FALSE", "category": "居里夫人_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001165", "text": "诺贝尔不是因为内疚才设立和平奖的——但这件事被广泛传播", "label": "TRUE", "category": "诺贝尔奖", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001167", "text": "诺贝尔奖没有数学奖——不是因为诺贝尔的恋人跟数学家跑了", "label": "TRUE", "category": "诺贝尔奖", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001168", "text": "诺贝尔奖没有数学奖——是因为诺贝尔的恋人跟数学家跑了", "label": "FALSE", "category": "诺贝尔奖_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001169", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于1968年设立", "label": "TRUE", "category": "诺贝尔奖", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001170", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于1969年设立", "label": "FALSE", "category": "诺贝尔奖_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001171", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于2361年设立", "label": "FALSE", "category": "诺贝尔奖_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001176", "text": "三角形内角和不是永远180度——在非欧几何中可以大于或小于180度", "label": "TRUE", "category": "三角形", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001177", "text": "三角形内角和不是永远181度——在非欧几何中可以大于或小于180度", "label": "FALSE", "category": "三角形_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001178", "text": "三角形内角和不是永远216度——在非欧几何中可以大于或小于180度", "label": "FALSE", "category": "三角形_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001181", "text": "勾股定理不是描述直角三角形三边关系的定理", "label": "FALSE", "category": "三角形_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001183", "text": "三角形不是最稳定的几何结构之一", "label": "FALSE", "category": "三角形_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001191", "text": "零不是自然产生的概念——人类花了很长时间才接受零作为数字", "label": "TRUE", "category": "零", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001194", "text": "阿拉伯数字中的零符号不是通过阿拉伯人传入欧洲的", "label": "FALSE", "category": "零_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001196", "text": "地震不是由地壳板块运动或火山活动引起的", "label": "FALSE", "category": "地震_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001197", "text": "地震不是可以被精确预测的——目前无法预测具体时间和地点", "label": "TRUE", "category": "地震", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001199", "text": "地震的震级不是线性的——每增加1级，释放的能量约增加32倍", "label": "TRUE", "category": "地震", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001200", "text": "地震的震级不是线性的——每增加2级，释放的能量约增加32倍", "label": "FALSE", "category": "地震_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001202", "text": "动物不是总能预测地震——这个说法缺乏一致的科学证据", "label": "TRUE", "category": "地震", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001205", "text": "火山不是地球内部岩浆喷出地表形成的", "label": "FALSE", "category": "火山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001206", "text": "火山喷发不是随机事件——通常有前兆如地震和地面变形", "label": "TRUE", "category": "火山", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001208", "text": "火山不是只会破坏——火山灰使土壤肥沃", "label": "TRUE", "category": "火山", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001210", "text": "休眠火山不是死火山——有再次喷发的可能", "label": "TRUE", "category": "火山", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001214", "text": "睡眠不是统一状态——分为REM和非REM睡眠周期", "label": "TRUE", "category": "睡眠", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001216", "text": "补觉不能完全弥补缺觉的损害", "label": "TRUE", "category": "睡眠", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001218", "text": "睡眠不是浪费时间——记忆巩固和身体修复都在睡眠中进行", "label": "TRUE", "category": "睡眠", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001221", "text": "梦不是有颜色的——大多数人的梦是有颜色的", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001223", "text": "梦不是一定有意义——许多梦只是大脑随机神经活动的产物", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001225", "text": "盲人的梦不是没有视觉——先天盲人的梦以声音和触觉为主", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001226", "text": "盲人的梦是没有视觉——先天盲人的梦以声音和触觉为主", "label": "FALSE", "category": "梦境_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001228", "text": "酸奶不是通过乳酸菌发酵制成的乳制品", "label": "FALSE", "category": "酸奶_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001229", "text": "酸奶不是所有细菌都对人体有益——只有特定益生菌株", "label": "TRUE", "category": "酸奶", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001231", "text": "酸奶不能治疗所有消化问题", "label": "TRUE", "category": "酸奶", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001237", "text": "辣椒不是原产于中国——它原产于美洲，明代才传入中国", "label": "TRUE", "category": "辣椒", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001239", "text": "辣椒不是原产于日本——它原产于美洲，明代才传入中国", "label": "FALSE", "category": "辣椒_实体置换", "checker": ["negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001240", "text": "吃辣不是味觉——辣是痛觉感受器被激活", "label": "TRUE", "category": "辣椒", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001242", "text": "四川人不是自古以来就吃辣——辣椒传入四川不超过400年", "label": "TRUE", "category": "辣椒", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001243", "text": "四川人不是自古以来就吃辣——辣椒传入四川不超过401年", "label": "FALSE", "category": "辣椒_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001244", "text": "四川人不是自古以来就吃辣——辣椒传入四川不超过480年", "label": "FALSE", "category": "辣椒_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001247", "text": "土豆不是欧洲人发明的——16世纪才从美洲传入", "label": "TRUE", "category": "土豆", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001248", "text": "土豆不是欧洲人发明的——19世纪才从美洲传入", "label": "FALSE", "category": "土豆_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001250", "text": "土豆不是蔬菜——从营养学角度更接近主食", "label": "TRUE", "category": "土豆", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001252", "text": "炸薯条不是法国人发明的——比利时人也声称发明权", "label": "TRUE", "category": "土豆", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001255", "text": "黄金不是地球上最稀有的贵金属之一", "label": "FALSE", "category": "黄金_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001256", "text": "黄金不是来自地球——超新星爆炸或中子星碰撞产生金元素", "label": "TRUE", "category": "黄金", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001258", "text": "黄金不是不会腐蚀——它只是化学反应性极低", "label": "TRUE", "category": "黄金", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001259", "text": "黄金是不会腐蚀——它只是化学反应性极低", "label": "FALSE", "category": "黄金_否定翻转", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001262", "text": "声音的速度不是固定的——在空气中约340m/s，在水中约1500m/s", "label": "TRUE", "category": "声音", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001263", "text": "声音的速度不是固定的——在空气中约341m/s，在水中约1500m/s", "label": "FALSE", "category": "声音_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001264", "text": "声音的速度不是固定的——在空气中约408m/s，在水中约1500m/s", "label": "FALSE", "category": "声音_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001267", "text": "声音不是能量——是机械振动在介质中的传播", "label": "TRUE", "category": "声音", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001269", "text": "疫苗会导致自闭症与已知事实矛盾——疫苗不会导致自闭症——这个说法来自一篇被撤稿的造假论文", "label": "TRUE", "category": "疫苗会导致自闭症", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001271", "text": "量子计算机将在 2027 年取代经典计算机——用户标注正确事实：海水pH值正在缓慢下降（海洋酸化），但不会在50年内变成酸性", "label": "TRUE", "category": "量子计算机将在", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001272", "text": "量子计算机将在 2028 年取代经典计算机——用户标注正确事实：海水pH值正在缓慢下降（海洋酸化），但不会在50年内变成酸性", "label": "FALSE", "category": "量子计算机将在_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001273", "text": "量子计算机将在 2432 年取代经典计算机——用户标注正确事实：海水pH值正在缓慢下降（海洋酸化），但不会在50年内变成酸性", "label": "FALSE", "category": "量子计算机将在_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001275", "text": "人工智能已经拥有真正意识——用户标注正确事实：计算机工程师罗伯特·J·马克斯就是这些理智的发声者之一，他重申，AI永远不会实现像人类一样的智能或意识。AI的运行基于算法，它们的功能与人类的情感和思维有着质的不同。\n\n　　没有理由认为当前AI有意识", "label": "TRUE", "category": "人工智能已经拥有真正意识", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001276", "text": "人工智能已经拥有真正意识——用户标注正确事实：计算机工程师罗伯特·J·马克斯就是这些理智的发声者之一，他重申，AI永远不会实现像人类一样的智能或意识。AI的运行基于算法，它们的功能与人类的情感和思维有着质的不同。\n\n　　有理由认为当前AI有意识", "label": "FALSE", "category": "人工智能已经拥有真正意识_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001292", "text": "伽利略不是被教会烧死的——他是被软禁至死", "label": "TRUE", "category": "伽利略", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001318", "text": "门捷列夫不是俄罗斯人", "label": "FALSE", "category": "门捷列夫_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001340", "text": "普朗克不是量子力学的奠基人", "label": "FALSE", "category": "普朗克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001351", "text": "弗莱明不是微生物学家", "label": "FALSE", "category": "弗莱明_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001359", "text": "秦始皇不是中国第一位皇帝", "label": "FALSE", "category": "秦始皇_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001374", "text": "秦始皇不是焚书坑儒的第一人", "label": "TRUE", "category": "秦始皇", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001394", "text": "蔡伦没有发明造纸术——造纸术在他之前已有雏形", "label": "TRUE", "category": "蔡伦", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001407", "text": "诸葛亮不是三国时期蜀汉的丞相", "label": "FALSE", "category": "诸葛亮_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001419", "text": "李白不是唐代最伟大的诗人之一", "label": "FALSE", "category": "李白_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001431", "text": "苏轼不是宋代著名文学家", "label": "FALSE", "category": "苏轼_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001443", "text": "康熙不是清朝在位时间最长的皇帝", "label": "FALSE", "category": "康熙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001445", "text": "康熙没有建立清朝——清朝由努尔哈赤建立", "label": "TRUE", "category": "康熙", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001447", "text": "康熙没有建立明朝——清朝由努尔哈赤建立", "label": "FALSE", "category": "康熙_实体置换", "checker": ["negation", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001449", "text": "金字塔不是古埃及法老的陵墓", "label": "FALSE", "category": "金字塔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001451", "text": "胡夫金字塔不是世界七大奇迹之一", "label": "FALSE", "category": "金字塔_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001452", "text": "金字塔不是外星人建造的", "label": "TRUE", "category": "金字塔", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001457", "text": "工业革命不是由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "TRUE", "category": "第一次工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001462", "text": "工业革命不是从中国开始的", "label": "TRUE", "category": "第一次工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001464", "text": "工业革命不是从日本开始的", "label": "FALSE", "category": "第一次工业革命_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001469", "text": "萨拉热窝事件不是第一次世界大战的导火索", "label": "FALSE", "category": "第一次世界大战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001477", "text": "第二次世界大战不是人类历史上规模最大的战争", "label": "FALSE", "category": "第二次世界大战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001495", "text": "贝多芬不是最伟大的作曲家之一", "label": "FALSE", "category": "贝多芬_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001509", "text": "古腾堡没有发明铅活字印刷", "label": "FALSE", "category": "古腾堡_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001520", "text": "米开朗基罗不是意大利人", "label": "FALSE", "category": "米开朗基罗_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001522", "text": "米开朗基罗不是艺术家", "label": "FALSE", "category": "米开朗基罗_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001546", "text": "自由女神像不是法国送给美国的礼物", "label": "FALSE", "category": "自由女神像_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001569", "text": "尼尔·阿姆斯特朗不是第一个登上月球的人", "label": "FALSE", "category": "阿波罗登月_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001574", "text": "《神曲》被认为不是中世纪文学的巅峰", "label": "FALSE", "category": "但丁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001586", "text": "歌德不是德国狂飙突进运动的代表人物", "label": "FALSE", "category": "歌德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001599", "text": "雨果不是法国浪漫主义文学的代表", "label": "FALSE", "category": "雨果_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001621", "text": "托尔斯泰不是俄罗斯人", "label": "FALSE", "category": "托尔斯泰_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001624", "text": "陀思妥耶夫斯基不是存在主义文学的先驱", "label": "FALSE", "category": "陀思妥耶夫斯基_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001635", "text": "陀思妥耶夫斯基不是俄罗斯人", "label": "FALSE", "category": "陀思妥耶夫斯基_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001637", "text": "陀思妥耶夫斯基不是文学家", "label": "FALSE", "category": "陀思妥耶夫斯基_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001662", "text": "杜甫不是唐代最伟大的诗人之一", "label": "FALSE", "category": "杜甫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001665", "text": "杜甫与李白不是同时代人", "label": "FALSE", "category": "杜甫_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001667", "text": "《狂人日记》不是中国第一篇白话小说", "label": "FALSE", "category": "鲁迅_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001679", "text": "鲁迅不是中国现代文学的奠基人", "label": "FALSE", "category": "鲁迅_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001681", "text": "鲁迅不是姓鲁——他本名周树人", "label": "TRUE", "category": "鲁迅", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001694", "text": "巴赫不是巴洛克音乐的集大成者", "label": "FALSE", "category": "巴赫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001706", "text": "肖邦不是浪漫主义钢琴诗人", "label": "FALSE", "category": "肖邦_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001710", "text": "《1812序曲》不是柴可夫斯基的代表作", "label": "FALSE", "category": "柴可夫斯基_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001721", "text": "柴可夫斯基不是俄罗斯人", "label": "FALSE", "category": "柴可夫斯基_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001723", "text": "柴可夫斯基不是音乐家", "label": "FALSE", "category": "柴可夫斯基_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001726", "text": "《纯粹理性批判》不是康德最重要的著作", "label": "FALSE", "category": "康德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001737", "text": "康德不是一辈子的独居隐士——他曾多次参加社交活动", "label": "TRUE", "category": "康德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001751", "text": "《查拉图斯特拉如不是说》是尼采的代表作", "label": "FALSE", "category": "尼采_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001761", "text": "尼采不是纳粹主义者——他的妹妹篡改了他的著作", "label": "TRUE", "category": "尼采", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001805", "text": "麦克斯韦不是物理学家", "label": "FALSE", "category": "麦克斯韦_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001818", "text": "巴斯德没有发明巴氏消毒法", "label": "FALSE", "category": "巴斯德_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001819", "text": "巴斯德不是第一个发现微生物的人——但他证明了微生物致病", "label": "TRUE", "category": "巴斯德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001822", "text": "《红楼梦》不是中国四大名著之一", "label": "FALSE", "category": "曹雪芹_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001837", "text": "罗马斗兽场不是古罗马最大的圆形竞技场", "label": "FALSE", "category": "罗马斗兽场_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001843", "text": "泰姬陵不是莫卧儿皇帝为纪念爱妃修建的", "label": "FALSE", "category": "泰姬陵_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001846", "text": "亚马逊河不是世界流量最大的河流", "label": "FALSE", "category": "亚马逊河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001855", "text": "乔治·华盛顿不是美国第一任总统", "label": "FALSE", "category": "美国独立_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001871", "text": "苏格拉底不是古希腊人", "label": "FALSE", "category": "苏格拉底_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001873", "text": "苏格拉底没有留下任何著作——他的思想主要通过柏拉图记录", "label": "TRUE", "category": "苏格拉底", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001876", "text": "薛定谔的猫不是著名的思想实验", "label": "FALSE", "category": "薛定谔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001888", "text": "费曼图不是量子场论的重要工具", "label": "FALSE", "category": "费曼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001916", "text": "成吉思汗不是只懂杀戮——他也建立了法典和驿站系统", "label": "TRUE", "category": "成吉思汗", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001928", "text": "ARPANET于1969年建立，不是互联网的前身", "label": "FALSE", "category": "互联网诞生_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001932", "text": "蒂姆·伯纳斯-李于1989年没有发明万维网", "label": "FALSE", "category": "互联网诞生_否定添加", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_001957", "text": "释迦牟尼不是古印度人", "label": "FALSE", "category": "释迦牟尼_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001969", "text": "甘地不是印度独立后第一任总理——那是尼赫鲁", "label": "TRUE", "category": "甘地", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001984", "text": "曼德拉不是南非反种族隔离斗士", "label": "FALSE", "category": "曼德拉_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001985", "text": "曼德拉不是在监狱里呆了27年连续不断——他先后被关押在多处监狱", "label": "TRUE", "category": "曼德拉", "checker": ["numeric_conflict", "negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001986", "text": "曼德拉不是在监狱里呆了32年连续不断——他先后被关押在多处监狱", "label": "FALSE", "category": "曼德拉_数值扰动", "checker": ["numeric_conflict", "negation", "temporal_order", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001995", "text": "马可尼没有发明无线电通信", "label": "FALSE", "category": "马可尼_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002004", "text": "牛顿三定律不是经典力学的基石", "label": "FALSE", "category": "牛顿定律_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002023", "text": "欧盟的前身不是欧洲煤钢共同体", "label": "FALSE", "category": "欧盟_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002027", "text": "欧盟正式成立标志不是1993年《马斯特里赫特条约》生效", "label": "FALSE", "category": "欧盟_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002029", "text": "水星不是太阳系中最小的行星", "label": "FALSE", "category": "水星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002031", "text": "水星不是离太阳最近的行星", "label": "FALSE", "category": "水星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002033", "text": "金星不是太阳系中最亮的行星", "label": "FALSE", "category": "金星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002038", "text": "天王星不是第一颗用望远镜发现的行星", "label": "FALSE", "category": "天王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002041", "text": "海王星不是通过数学预测发现的行星", "label": "FALSE", "category": "海王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002043", "text": "海王星不是太阳系中距离太阳最远的行星", "label": "FALSE", "category": "海王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002049", "text": "笛卡尔不是法国哲学家和数学家", "label": "FALSE", "category": "笛卡尔_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002052", "text": "笛卡尔没有发明坐标系", "label": "FALSE", "category": "笛卡尔_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002060", "text": "帕斯卡不是法国数学家和物理学家", "label": "FALSE", "category": "帕斯卡_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002065", "text": "帕斯卡没有发明机械计算器", "label": "FALSE", "category": "帕斯卡_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002074", "text": "欧拉不是历史上最多产的数学家", "label": "FALSE", "category": "欧拉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002078", "text": "拉普拉斯不是法国数学家和天文学家", "label": "FALSE", "category": "拉普拉斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002087", "text": "庞加莱不是法国数学家", "label": "FALSE", "category": "庞加莱_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002089", "text": "庞加莱不是拓扑学的创始人之一", "label": "FALSE", "category": "庞加莱_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002098", "text": "罗素不是英国哲学家和数学家", "label": "FALSE", "category": "罗素_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002119", "text": "特斯拉不是塞尔维亚裔美籍发明家", "label": "FALSE", "category": "特斯拉(Nikola)_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002122", "text": "岳飞不是南宋抗金名将", "label": "FALSE", "category": "岳飞_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002131", "text": "曹操不是东汉末年政治家", "label": "FALSE", "category": "曹操_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002139", "text": "曹操不是三国时期曹魏政权的奠基人", "label": "FALSE", "category": "曹操_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002141", "text": "关羽不是三国时期蜀汉名将", "label": "FALSE", "category": "关羽_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002158", "text": "华盛顿不是美国第一任总统", "label": "FALSE", "category": "华盛顿_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002170", "text": "林肯不是美国第16任总统", "label": "FALSE", "category": "林肯_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002192", "text": "斯大林不是苏联领导人", "label": "FALSE", "category": "斯大林_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002208", "text": "撒哈拉沙漠不是世界最大的热沙漠", "label": "FALSE", "category": "撒哈拉沙漠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002214", "text": "太平洋不是世界最大的海洋", "label": "FALSE", "category": "太平洋_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002219", "text": "天花不是第一种被人类消灭的传染病", "label": "FALSE", "category": "天花_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002231", "text": "鲸鱼是哺乳动物不是鱼类", "label": "TRUE", "category": "鲸鱼", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_002234", "text": "蓝鲸不是地球上最大的动物", "label": "FALSE", "category": "鲸鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002236", "text": "达芬奇不是意大利文艺复兴艺术家", "label": "FALSE", "category": "达芬奇_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002246", "text": "达芬奇也不是一位科学家和发明家", "label": "FALSE", "category": "达芬奇_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002248", "text": "WiFi不是一种无线局域网技术", "label": "FALSE", "category": "互联网(WiFi)_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002257", "text": "5G不是第五代移动通信技术", "label": "FALSE", "category": "5G_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002276", "text": "赫兹不是德国物理学家", "label": "FALSE", "category": "赫兹_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002287", "text": "安培不是法国物理学家", "label": "FALSE", "category": "安培_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002297", "text": "伏特不是意大利物理学家", "label": "FALSE", "category": "伏特_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002306", "text": "欧姆不是德国物理学家", "label": "FALSE", "category": "欧姆_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002317", "text": "瓦特不是苏格兰发明家", "label": "FALSE", "category": "瓦特(James)_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002326", "text": "诺贝尔不是瑞典化学家和发明家", "label": "FALSE", "category": "诺贝尔_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002337", "text": "哥白尼不是波兰天文学家", "label": "FALSE", "category": "哥白尼(Nicolaus)_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002356", "text": "培根提出知识就不是力量", "label": "FALSE", "category": "培根_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002358", "text": "培根不是经验主义哲学创始人", "label": "FALSE", "category": "培根_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002367", "text": "洛克不是经验主义代表人物", "label": "FALSE", "category": "洛克_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002375", "text": "休谟不是苏格兰哲学家", "label": "FALSE", "category": "休谟_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002377", "text": "休谟不是经验主义和怀疑论的代表", "label": "FALSE", "category": "休谟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002385", "text": "叔本华不是德国哲学家", "label": "FALSE", "category": "叔本华_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002388", "text": "叔本华不是唯意志论的代表", "label": "FALSE", "category": "叔本华_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002396", "text": "卢梭不是法国启蒙思想家", "label": "FALSE", "category": "卢梭_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002405", "text": "亚当·斯密不是英国经济学家", "label": "FALSE", "category": "亚当·斯密_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002416", "text": "凯恩斯不是英国经济学家", "label": "FALSE", "category": "凯恩斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002426", "text": "荣格不是瑞士心理学家", "label": "FALSE", "category": "荣格_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002429", "text": "荣格曾不是弗洛伊德的弟子", "label": "FALSE", "category": "荣格_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002439", "text": "阿基米德没有发明螺旋提水器", "label": "FALSE", "category": "阿基米德(Archimedes)_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002441", "text": "阿基米德不是古希腊数学家和物理学家", "label": "FALSE", "category": "阿基米德(Archimedes)_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002443", "text": "张衡不是东汉时期的科学家", "label": "FALSE", "category": "张衡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002450", "text": "祖冲之不是南北朝数学家", "label": "FALSE", "category": "祖冲之_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002466", "text": "郭守敬不是元代天文学家", "label": "FALSE", "category": "郭守敬_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002475", "text": "徐光启不是明代科学家", "label": "FALSE", "category": "徐光启_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002486", "text": "李时珍不是明代医药学家", "label": "FALSE", "category": "李时珍_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002496", "text": "王羲之不是东晋书法家", "label": "FALSE", "category": "王羲之_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002498", "text": "《兰亭序》不是王羲之的代表作", "label": "FALSE", "category": "王羲之_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002534", "text": "王阳明不是明代哲学家", "label": "FALSE", "category": "王阳明_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002544", "text": "顾炎武不是明末清初学者", "label": "FALSE", "category": "顾炎武_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002553", "text": "屈原不是战国时期楚国诗人", "label": "FALSE", "category": "屈原_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002556", "text": "关汉卿不是元代杂剧作家", "label": "FALSE", "category": "关汉卿_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002559", "text": "关汉卿不是元曲四大家之首", "label": "FALSE", "category": "关汉卿_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002562", "text": "吴承恩不是明代小说家", "label": "FALSE", "category": "吴承恩_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002572", "text": "罗贯中不是元末明初小说家", "label": "FALSE", "category": "罗贯中_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002581", "text": "施耐庵不是元末明初小说家", "label": "FALSE", "category": "施耐庵_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002590", "text": "蒲松龄不是清代文学家", "label": "FALSE", "category": "蒲松龄_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002598", "text": "庄子不是道家学派代表人物", "label": "FALSE", "category": "庄子_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002601", "text": "孟子不是儒家学派代表人物", "label": "FALSE", "category": "孟子_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002603", "text": "加拿大不是世界面积第二大的国家", "label": "FALSE", "category": "加拿大_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002605", "text": "加拿大首都不是渥太华", "label": "FALSE", "category": "加拿大_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002607", "text": "多伦多不是加拿大最大城市", "label": "FALSE", "category": "加拿大_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002609", "text": "墨西哥首都不是墨西哥城", "label": "FALSE", "category": "墨西哥_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002611", "text": "墨西哥的官方语言不是西班牙语", "label": "FALSE", "category": "墨西哥_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002613", "text": "阿根廷首都不是布宜诺斯艾利斯", "label": "FALSE", "category": "阿根廷_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002615", "text": "阿根廷的官方语言不是西班牙语", "label": "FALSE", "category": "阿根廷_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002617", "text": "德国不是欧盟最大的经济体", "label": "FALSE", "category": "德国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002627", "text": "法语不是法国的官方语言", "label": "FALSE", "category": "法国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002635", "text": "意大利不是文艺复兴的发源地", "label": "FALSE", "category": "意大利_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002638", "text": "西班牙首都不是马德里", "label": "FALSE", "category": "西班牙_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002640", "text": "西班牙的官方语言不是西班牙语", "label": "FALSE", "category": "西班牙_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002643", "text": "葡萄牙首都不是里斯本", "label": "FALSE", "category": "葡萄牙_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002645", "text": "葡萄牙曾不是海上强国", "label": "FALSE", "category": "葡萄牙_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002647", "text": "荷兰首都不是阿姆斯特丹", "label": "FALSE", "category": "荷兰_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002651", "text": "瑞典首都不是斯德哥尔摩", "label": "FALSE", "category": "瑞典_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002653", "text": "瑞典不是高度发达的福利国家", "label": "FALSE", "category": "瑞典_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002656", "text": "三星不是韩国最大的企业", "label": "FALSE", "category": "韩国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002663", "text": "泰国不是唯一未被殖民的东南亚国家", "label": "FALSE", "category": "泰国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002665", "text": "新加坡不是东南亚岛国", "label": "FALSE", "category": "新加坡_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002667", "text": "新加坡不是一个城市国家", "label": "FALSE", "category": "新加坡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002673", "text": "土耳其首都不是安卡拉", "label": "FALSE", "category": "土耳其_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002675", "text": "伊斯坦布尔不是土耳其最大城市", "label": "FALSE", "category": "土耳其_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002678", "text": "沙特阿拉伯不是世界最大的石油出口国", "label": "FALSE", "category": "沙特阿拉伯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002680", "text": "麦加不是伊斯兰教圣地", "label": "FALSE", "category": "沙特阿拉伯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002683", "text": "曼德拉不是南非反种族隔离英雄", "label": "FALSE", "category": "南非_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002688", "text": "尼日利亚不是非洲人口最多的国家", "label": "FALSE", "category": "尼日利亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002690", "text": "尼日利亚首都不是阿布贾", "label": "FALSE", "category": "尼日利亚_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002692", "text": "肯尼亚首都不是内罗毕", "label": "FALSE", "category": "肯尼亚_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002696", "text": "埃塞俄比亚首都不是亚的斯亚贝巴", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002698", "text": "埃塞俄比亚不是非洲唯一未被殖民的国家", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002700", "text": "埃塞俄比亚不是咖啡的原产地", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002702", "text": "东京不是世界人口最多的都市圈", "label": "FALSE", "category": "东京_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002707", "text": "迪拜不是阿联酋最大的城市", "label": "FALSE", "category": "迪拜_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002713", "text": "新加坡港不是世界最繁忙的港口之一", "label": "FALSE", "category": "新加坡市_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002715", "text": "莫斯科不是俄罗斯首都", "label": "FALSE", "category": "莫斯科_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002724", "text": "耶路撒冷不是三大宗教的圣地", "label": "FALSE", "category": "耶路撒冷_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002726", "text": "耶路撒冷不是以色列和巴勒斯坦有争议的首都", "label": "FALSE", "category": "耶路撒冷_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002728", "text": "雅典不是西方文明的摇篮", "label": "FALSE", "category": "雅典_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002731", "text": "开罗不是非洲最大城市", "label": "FALSE", "category": "开罗_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002738", "text": "《三国演义》不是罗贯中创作的历史小说", "label": "FALSE", "category": "《三国演义》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002740", "text": "《三国演义》不是中国四大名著之一", "label": "FALSE", "category": "《三国演义》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002744", "text": "《西游记》不是吴承恩创作的神魔小说", "label": "FALSE", "category": "《西游记》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002746", "text": "《西游记》的主角不是唐僧孙悟空猪八戒沙僧", "label": "FALSE", "category": "《西游记》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002748", "text": "《西游记》不是中国四大名著之一", "label": "FALSE", "category": "《西游记》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002754", "text": "《水浒传》的作者不是施耐庵", "label": "FALSE", "category": "《水浒传》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002756", "text": "《水浒传》不是中国四大名著之一", "label": "FALSE", "category": "《水浒传》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002759", "text": "《堂吉诃德》不是塞万提斯的作品", "label": "FALSE", "category": "《堂吉诃德》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002761", "text": "《堂吉诃德》被认为不是现代西方小说的开端", "label": "FALSE", "category": "《堂吉诃德》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002766", "text": "《悲惨世界》不是雨果的作品", "label": "FALSE", "category": "《悲惨世界》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002771", "text": "《悲惨世界》的主角不是冉阿让", "label": "FALSE", "category": "《悲惨世界》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002773", "text": "《百年孤独》不是马尔克斯的作品", "label": "FALSE", "category": "《百年孤独》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002775", "text": "《百年孤独》不是魔幻现实主义代表作", "label": "FALSE", "category": "《百年孤独》_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002780", "text": "《杀死一只知更鸟》不是哈珀·李的作品", "label": "FALSE", "category": "《杀死一只知更鸟》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002786", "text": "《老人与海》不是海明威的作品", "label": "FALSE", "category": "《老人与海》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002794", "text": "《了不起的盖茨比》不是菲茨杰拉德的作品", "label": "FALSE", "category": "《了不起的盖茨比》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002803", "text": "《1984》不是乔治·奥威尔的作品", "label": "FALSE", "category": "《1984》_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002817", "text": "《聊斋志异》不是清代蒲松龄的短篇小说集", "label": "FALSE", "category": "《聊斋志异》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002820", "text": "《儒林外史》不是清代吴敬梓的长篇小说", "label": "FALSE", "category": "《儒林外史》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002823", "text": "《骆驼祥子》不是老舍的作品", "label": "FALSE", "category": "《骆驼祥子》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002827", "text": "《围城》不是钱钟书的作品", "label": "FALSE", "category": "《围城》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002833", "text": "氢不是宇宙中最丰富的元素", "label": "FALSE", "category": "氢_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002835", "text": "氢不是元素周期表中最轻的元素", "label": "FALSE", "category": "氢_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002839", "text": "氧不是生命必需的元素", "label": "FALSE", "category": "氧_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002841", "text": "碳不是有机化学的基础", "label": "FALSE", "category": "碳_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002844", "text": "铁的原子序数不是26", "label": "FALSE", "category": "铁_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002846", "text": "铁不是地壳中含量第四的元素", "label": "FALSE", "category": "铁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002848", "text": "铁不是炼钢的主要原料", "label": "FALSE", "category": "铁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002851", "text": "金的原子序数不是79", "label": "FALSE", "category": "金_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002853", "text": "金的化学符号不是Au", "label": "FALSE", "category": "金_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002856", "text": "银的原子序数不是47", "label": "FALSE", "category": "银_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002858", "text": "银的化学符号不是Ag", "label": "FALSE", "category": "银_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002860", "text": "银不是最好的导电金属", "label": "FALSE", "category": "银_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002863", "text": "铀的原子序数不是92", "label": "FALSE", "category": "铀_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002866", "text": "汞不是唯一的液态金属", "label": "FALSE", "category": "汞_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002868", "text": "汞的化学符号不是Hg", "label": "FALSE", "category": "汞_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002871", "text": "钠的原子序数不是11", "label": "FALSE", "category": "钠_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002874", "text": "钾的原子序数不是19", "label": "FALSE", "category": "钾_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002876", "text": "钾不是人体必需的微量元素", "label": "FALSE", "category": "钾_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002879", "text": "钙的原子序数不是20", "label": "FALSE", "category": "钙_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002881", "text": "钙不是骨骼和牙齿的主要成分", "label": "FALSE", "category": "钙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002889", "text": "Facebook不是全球最大的社交网络", "label": "FALSE", "category": "Facebook_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002894", "text": "Netflix最初不是DVD租赁服务", "label": "FALSE", "category": "Netflix_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002899", "text": "英伟达不是全球领先的GPU制造商", "label": "FALSE", "category": "英伟达_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002904", "text": "英伟达的GPU不是AI训练的核心硬件", "label": "FALSE", "category": "英伟达_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002906", "text": "台积电不是全球最大的芯片代工厂", "label": "FALSE", "category": "台积电_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002912", "text": "三星不是韩国最大的企业集团", "label": "FALSE", "category": "三星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002914", "text": "三星电子不是全球最大的手机制造商之一", "label": "FALSE", "category": "三星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002919", "text": "索尼不是日本电子和娱乐公司", "label": "FALSE", "category": "索尼_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002925", "text": "PlayStation不是索尼的游戏机品牌", "label": "FALSE", "category": "索尼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002927", "text": "任天堂不是日本游戏公司", "label": "FALSE", "category": "任天堂_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002934", "text": "马里奥不是任天堂的经典角色", "label": "FALSE", "category": "任天堂_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002936", "text": "丰田不是全球最大的汽车制造商之一", "label": "FALSE", "category": "丰田_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002941", "text": "丰田没有发明精益生产方式", "label": "FALSE", "category": "丰田_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002943", "text": "史蒂夫·乔布斯不是苹果公司联合创始人", "label": "FALSE", "category": "乔布斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002955", "text": "比尔·盖茨不是微软联合创始人", "label": "FALSE", "category": "比尔·盖茨_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002960", "text": "盖茨基金会不是全球最大的慈善基金会", "label": "FALSE", "category": "比尔·盖茨_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002962", "text": "埃隆·马斯克不是特斯拉和SpaceX的CEO", "label": "FALSE", "category": "马斯克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002968", "text": "马克·扎克伯格不是Facebook的创始人", "label": "FALSE", "category": "扎克伯格_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002974", "text": "杰夫·贝佐斯不是亚马逊创始人", "label": "FALSE", "category": "贝佐斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002980", "text": "沃伦·巴菲特不是美国投资家", "label": "FALSE", "category": "巴菲特_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002987", "text": "巴菲特不是伯克希尔·哈撒韦的CEO", "label": "FALSE", "category": "巴菲特_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002989", "text": "马云不是阿里巴巴的创始人", "label": "FALSE", "category": "马云_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002994", "text": "马云曾不是一名英语教师", "label": "FALSE", "category": "马云_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_002996", "text": "马化腾不是腾讯的创始人", "label": "FALSE", "category": "马化腾_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003001", "text": "任正非不是华为的创始人", "label": "FALSE", "category": "任正非_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003006", "text": "任正非曾不是一名军人", "label": "FALSE", "category": "任正非_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003008", "text": "雷军不是小米科技的创始人", "label": "FALSE", "category": "雷军_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003014", "text": "克里斯蒂亚诺·罗纳尔多不是葡萄牙足球运动员", "label": "FALSE", "category": "C罗_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003020", "text": "莱昂内尔·梅西不是阿根廷足球运动员", "label": "FALSE", "category": "梅西_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003029", "text": "罗杰·费德勒不是瑞士网球运动员", "label": "FALSE", "category": "费德勒_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003036", "text": "迈克尔·菲尔普斯不是美国游泳运动员", "label": "FALSE", "category": "菲尔普斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003041", "text": "菲尔普斯不是获得奥运金牌最多的运动员", "label": "FALSE", "category": "菲尔普斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003043", "text": "尤塞恩·博尔特不是牙买加短跑运动员", "label": "FALSE", "category": "博尔特_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003051", "text": "科比·布莱恩特不是美国篮球运动员", "label": "FALSE", "category": "科比_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003062", "text": "勒布朗·詹姆斯不是美国篮球运动员", "label": "FALSE", "category": "詹姆斯_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003070", "text": "猫王不是摇滚乐的先驱", "label": "FALSE", "category": "猫王_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003078", "text": "披头士不是英国摇滚乐队", "label": "FALSE", "category": "披头士_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003087", "text": "约翰·列侬不是披头士成员", "label": "FALSE", "category": "披头士_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003089", "text": "保罗·麦卡特尼不是披头士成员", "label": "FALSE", "category": "披头士_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003091", "text": "查理·卓别林不是英国喜剧演员", "label": "FALSE", "category": "卓别林_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003094", "text": "卓别林不是默片时代的巨星", "label": "FALSE", "category": "卓别林_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003102", "text": "希区柯克不是英国电影导演", "label": "FALSE", "category": "希区柯克_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003112", "text": "李小龙不是武术家和电影演员", "label": "FALSE", "category": "李小龙_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003123", "text": "微积分不是数学的重要分支", "label": "FALSE", "category": "微积分_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003137", "text": "图灵测试用于判断机器不是否具有智能", "label": "FALSE", "category": "图灵测试_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003145", "text": "启蒙运动不是17-18世纪欧洲的思想解放运动", "label": "FALSE", "category": "启蒙运动_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003174", "text": "诺曼底登陆不是二战的关键战役", "label": "FALSE", "category": "诺曼底登陆_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003183", "text": "这不是人类第一次在战争中使用核武器", "label": "FALSE", "category": "原子弹轰炸广岛_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003208", "text": "古巴导弹危机不是冷战最危险的时刻", "label": "FALSE", "category": "古巴导弹危机_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003213", "text": "水门事件不是1970年代美国的政治丑闻", "label": "FALSE", "category": "水门事件_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003221", "text": "切尔诺贝利不是历史上最严重的核事故", "label": "FALSE", "category": "切尔诺贝利_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003226", "text": "海湾战争起因不是伊拉克入侵科威特", "label": "FALSE", "category": "海湾战争_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003234", "text": "魏格纳不是德国气象学家和地球物理学家", "label": "FALSE", "category": "魏格纳_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003243", "text": "林奈不是瑞典生物学家", "label": "FALSE", "category": "林奈_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003262", "text": "路易斯·巴斯德没有发明狂犬病疫苗", "label": "FALSE", "category": "巴斯德(Louis)_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003266", "text": "卡尔·萨根不是美国天文学家", "label": "FALSE", "category": "卡尔·萨根_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003284", "text": "塞缪尔·莫尔斯没有发明电报", "label": "FALSE", "category": "莫尔斯_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003293", "text": "戴姆勒没有发明第一辆四轮汽车", "label": "FALSE", "category": "戴姆勒_否定添加", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003295", "text": "戴姆勒不是德国工程师", "label": "FALSE", "category": "戴姆勒_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003318", "text": "留声机不是最早的声音记录和回放设备", "label": "FALSE", "category": "留声机_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003328", "text": "第一部电影不是火车进站", "label": "FALSE", "category": "电影_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003342", "text": "Java的口号不是Write Once Run Anywhere", "label": "FALSE", "category": "Java_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003348", "text": "C语言不是Unix操作系统的开发语言", "label": "FALSE", "category": "C语言_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003353", "text": "JavaScript不是Web前端开发的核心语言", "label": "FALSE", "category": "JavaScript_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003354", "text": "JavaScript与Java没有直接关系", "label": "TRUE", "category": "JavaScript", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_003370", "text": "最早的大型搜索引擎不是Yahoo", "label": "FALSE", "category": "搜索引擎_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003381", "text": "YouTube不是全球最大的视频分享平台", "label": "FALSE", "category": "YouTube_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003386", "text": "微信不是中国最流行的即时通讯应用", "label": "FALSE", "category": "微信_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003389", "text": "张小龙不是微信的创始人", "label": "FALSE", "category": "微信_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003399", "text": "赤壁之战不是三国时期决定性战役", "label": "FALSE", "category": "赤壁之战_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003406", "text": "安史之乱不是唐朝由盛转衰的转折点", "label": "FALSE", "category": "安史之乱_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003420", "text": "虎门销烟不是第一次鸦片战争的导火索之一", "label": "FALSE", "category": "虎门销烟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003429", "text": "洋务运动不是晚清的自强改革", "label": "FALSE", "category": "洋务运动_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003448", "text": "五四运动起因不是巴黎和会中国外交失败", "label": "FALSE", "category": "五四运动_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003451", "text": "五四运动不是中国新民主主义革命的开端", "label": "FALSE", "category": "五四运动_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003477", "text": "威尼斯不是意大利的水上城市", "label": "FALSE", "category": "威尼斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003483", "text": "威尼斯狂欢节不是著名的节庆活动", "label": "FALSE", "category": "威尼斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003486", "text": "圣家堂不是巴塞罗那的地标", "label": "FALSE", "category": "巴塞罗那_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003489", "text": "圣彼得堡不是俄罗斯第二大城市", "label": "FALSE", "category": "圣彼得堡_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003495", "text": "伊瓜苏瀑布不是世界最宽的瀑布群", "label": "FALSE", "category": "伊瓜苏瀑布_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003501", "text": "尼亚加拉瀑布不是世界著名的三大瀑布之一", "label": "FALSE", "category": "尼亚加拉瀑布_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003504", "text": "贝加尔湖不是世界最深的湖泊", "label": "FALSE", "category": "贝加尔湖_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003510", "text": "马丘比丘不是印加帝国的遗址", "label": "FALSE", "category": "马丘比丘_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003515", "text": "吴哥窟不是世界最大的宗教建筑群", "label": "FALSE", "category": "吴哥窟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003525", "text": "心脏不是人体的泵血器官", "label": "FALSE", "category": "心脏_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003531", "text": "肝脏不是人体最大的内脏器官", "label": "FALSE", "category": "肝脏_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003547", "text": "人体不能合成维生素C", "label": "TRUE", "category": "维生素C", "checker": ["negation", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_003550", "text": "密西西比河不是北美最长的河流", "label": "FALSE", "category": "密西西比河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003555", "text": "长江不是中国最长的河流", "label": "FALSE", "category": "长江_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003561", "text": "长江不是世界第三长的河流", "label": "FALSE", "category": "长江_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003563", "text": "黄河不是中国的母亲河", "label": "FALSE", "category": "黄河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003569", "text": "黄河不是中国第二长河", "label": "FALSE", "category": "黄河_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003573", "text": "梵蒂冈不是世界最小的国家", "label": "FALSE", "category": "梵蒂冈_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003576", "text": "教皇不是梵蒂冈的国家元首", "label": "FALSE", "category": "梵蒂冈_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003578", "text": "摩纳哥不是世界第二小的国家", "label": "FALSE", "category": "摩纳哥_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003582", "text": "喜马拉雅山脉不是世界最高的山脉", "label": "FALSE", "category": "喜马拉雅山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003589", "text": "阿尔卑斯山不是欧洲最高的山脉", "label": "FALSE", "category": "阿尔卑斯山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003593", "text": "勃朗峰不是阿尔卑斯山最高峰高4809米", "label": "FALSE", "category": "阿尔卑斯山_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003595", "text": "安第斯山脉不是世界最长的山脉", "label": "FALSE", "category": "安第斯山脉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003602", "text": "台积电和三星不是领先的芯片制造商", "label": "FALSE", "category": "半导体制程_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003606", "text": "三大云服务商不是AWS Azure和Google Cloud", "label": "FALSE", "category": "云计算_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003609", "text": "物联网英文缩写不是IoT", "label": "FALSE", "category": "物联网_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003614", "text": "虚拟现实的英文缩写不是VR", "label": "FALSE", "category": "虚拟现实_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003621", "text": "多莉羊不是第一只克隆哺乳动物", "label": "FALSE", "category": "克隆技术_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003637", "text": "CRISPR不是基因编辑技术", "label": "FALSE", "category": "CRISPR_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003644", "text": "热带雨林不是生物多样性最高的生态系统", "label": "FALSE", "category": "生态系统_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003701", "text": "韦伯望远镜不是哈勃的继任者", "label": "FALSE", "category": "詹姆斯韦伯望远镜_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003715", "text": "南极不是地球最南端的大陆", "label": "FALSE", "category": "南极_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003717", "text": "南极不是地球上最冷的地方", "label": "FALSE", "category": "南极_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003722", "text": "尼日利亚不是撒哈拉以南非洲最大的经济体", "label": "FALSE", "category": "撒哈拉以南非洲_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003725", "text": "拉丁美洲主要语言不是西班牙语和葡萄牙语", "label": "FALSE", "category": "拉丁美洲_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003733", "text": "北约全称不是北大西洋公约组织", "label": "FALSE", "category": "北约_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003738", "text": "北约不是军事同盟组织", "label": "FALSE", "category": "北约_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_003744", "text": "WTO的前身不是关贸总协定GATT", "label": "FALSE", "category": "世贸组织_否定插入", "checker": ["negation", "knowledge_base"], "difficulty": "hard"}

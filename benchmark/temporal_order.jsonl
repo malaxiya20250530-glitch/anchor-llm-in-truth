@@ -1,0 +1,16 @@
+{"id": "true_000142", "text": "朱元璋没有发明火锅——火锅远早于明代就已存在", "label": "TRUE", "category": "朱元璋", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000143", "text": "朱元璋有发明火锅——火锅远早于明代就已存在", "label": "FALSE", "category": "朱元璋_否定翻转", "checker": ["temporal_order", "knowledge_base"], "difficulty": "hard"}
+{"id": "false_000144", "text": "朱元璋没有发明火锅——火锅远早于唐代就已存在", "label": "FALSE", "category": "朱元璋_实体置换", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000229", "text": "牛顿生活在爱因斯坦之前", "label": "TRUE", "category": "牛顿", "checker": ["temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000230", "text": "爱因斯坦生活在爱因斯坦之前", "label": "FALSE", "category": "牛顿_实体置换", "checker": ["temporal_order", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000291", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000292", "text": "爱迪生有发明电灯泡——电灯泡在他之前已经存在", "label": "FALSE", "category": "爱迪生_否定翻转", "checker": ["temporal_order", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_000325", "text": "蒸汽机在瓦特之前已存在数十年", "label": "TRUE", "category": "瓦特", "checker": ["temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001122", "text": "弗洛伊德不是发现潜意识的第一人——这个概念在他之前就存在", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "temporal_order", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001123", "text": "弗洛伊德是发现潜意识的第一人——这个概念在他之前就存在", "label": "FALSE", "category": "弗洛伊德_否定翻转", "checker": ["temporal_order", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001394", "text": "蔡伦没有发明造纸术——造纸术在他之前已有雏形", "label": "TRUE", "category": "蔡伦", "checker": ["negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001395", "text": "蔡伦有发明造纸术——造纸术在他之前已有雏形", "label": "FALSE", "category": "蔡伦_否定翻转", "checker": ["temporal_order", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001807", "text": "麦克斯韦生活在法拉第之前", "label": "TRUE", "category": "麦克斯韦", "checker": ["temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001985", "text": "曼德拉不是在监狱里呆了27年连续不断——他先后被关押在多处监狱", "label": "TRUE", "category": "曼德拉", "checker": ["numeric_conflict", "negation", "temporal_order", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001986", "text": "曼德拉不是在监狱里呆了32年连续不断——他先后被关押在多处监狱", "label": "FALSE", "category": "曼德拉_数值扰动", "checker": ["numeric_conflict", "negation", "temporal_order", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001987", "text": "曼德拉是在监狱里呆了27年连续不断——他先后被关押在多处监狱", "label": "FALSE", "category": "曼德拉_否定翻转", "checker": ["numeric_conflict", "temporal_order", "knowledge_base"], "difficulty": "hard"}

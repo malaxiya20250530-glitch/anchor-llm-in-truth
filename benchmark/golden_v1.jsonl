@@ -1,0 +1,852 @@
+{"id": "gold_00001", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00007", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前222年建立", "label": "FALSE", "category": "秦_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00008", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前220年建立", "label": "FALSE", "category": "秦_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00009", "text": "秦朝于公元前207年灭亡", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00011", "text": "秦朝于公元前208年灭亡", "label": "FALSE", "category": "秦_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00012", "text": "秦朝于公元前206年灭亡", "label": "FALSE", "category": "秦_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00016", "text": "汉朝分为西汉(前202-9年)和东汉(25-220年)", "label": "TRUE", "category": "汉", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00018", "text": "汉朝分为西汉(前203-9年)和东汉(25-220年)", "label": "FALSE", "category": "汉_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00019", "text": "汉朝分为西汉(前201-9年)和东汉(25-220年)", "label": "FALSE", "category": "汉_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00022", "text": "唐朝(618-907年)是中国历史上最繁荣的朝代之一", "label": "TRUE", "category": "唐", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00025", "text": "唐朝(619-907年)是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_perturbed", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00026", "text": "唐朝(617-907年)是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_perturbed", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00030", "text": "北宋(960-1127年)首都是开封", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00032", "text": "北宋(961-1127年)首都是开封", "label": "FALSE", "category": "宋_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00033", "text": "北宋(959-1127年)首都是开封", "label": "FALSE", "category": "宋_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00034", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00040", "text": "明朝(1368-1644年)由朱元璋建立", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00043", "text": "明朝(1369-1644年)由朱元璋建立", "label": "FALSE", "category": "明_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00044", "text": "明朝(1367-1644年)由朱元璋建立", "label": "FALSE", "category": "明_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00045", "text": "郑和七下西洋发生在明代永乐年间", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00047", "text": "明代北京故宫于1420年建成", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00050", "text": "明代北京故宫于1421年建成", "label": "FALSE", "category": "明_perturbed", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00051", "text": "明代北京故宫于1419年建成", "label": "FALSE", "category": "明_perturbed", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00052", "text": "Python 由 Guido van Rossum 于 1991 年首次发布", "label": "TRUE", "category": "python", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00053", "text": "Python 由 Guido van Rossum 于 1992 年首次发布", "label": "FALSE", "category": "python_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00054", "text": "Python 由 Guido van Rossum 于 1990 年首次发布", "label": "FALSE", "category": "python_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00057", "text": "Linux 内核由 Linus Torvalds 于 1991 年创建", "label": "TRUE", "category": "linux", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00059", "text": "Linux 内核由 Linus Torvalds 于 1992 年创建", "label": "FALSE", "category": "linux_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00060", "text": "Linux 内核由 Linus Torvalds 于 1990 年创建", "label": "FALSE", "category": "linux_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00062", "text": "HTTP 协议由 Tim Berners-Lee 于 1989 年在 CERN 提出", "label": "TRUE", "category": "http", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00064", "text": "HTTP 协议由 Tim Berners-Lee 于 1990 年在 CERN 提出", "label": "FALSE", "category": "http_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00065", "text": "HTTP 协议由 Tim Berners-Lee 于 1988 年在 CERN 提出", "label": "FALSE", "category": "http_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00067", "text": "第一个网站于 1991 年上线", "label": "TRUE", "category": "http", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00070", "text": "第一个网站于 1992 年上线", "label": "FALSE", "category": "http_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00071", "text": "第一个网站于 1990 年上线", "label": "FALSE", "category": "http_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00072", "text": "Java 由 James Gosling 于 1995 年在 Sun Microsystems 发布", "label": "TRUE", "category": "java", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00073", "text": "Java 由 James Gosling 于 1996 年在 Sun Microsystems 发布", "label": "FALSE", "category": "java_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00074", "text": "Java 由 James Gosling 于 1994 年在 Sun Microsystems 发布", "label": "FALSE", "category": "java_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00076", "text": "C 语言由 Dennis Ritchie 于 1972 年在贝尔实验室开发", "label": "TRUE", "category": "c语言", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00077", "text": "C 语言由 Dennis Ritchie 于 1973 年在贝尔实验室开发", "label": "FALSE", "category": "c语言_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00078", "text": "C 语言由 Dennis Ritchie 于 1971 年在贝尔实验室开发", "label": "FALSE", "category": "c语言_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00081", "text": "JavaScript 由 Brendan Eich 于 1995 年在 Netscape 创建", "label": "TRUE", "category": "javascript", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00083", "text": "JavaScript 由 Brendan Eich 于 1996 年在 Netscape 创建", "label": "FALSE", "category": "javascript_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00084", "text": "JavaScript 由 Brendan Eich 于 1994 年在 Netscape 创建", "label": "FALSE", "category": "javascript_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00097", "text": "DNA 双螺旋结构由 Watson 和 Crick 于 1953 年提出", "label": "TRUE", "category": "dna", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00099", "text": "DNA 双螺旋结构由 Watson 和 Crick 于 1954 年提出", "label": "FALSE", "category": "dna_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00100", "text": "DNA 双螺旋结构由 Watson 和 Crick 于 1952 年提出", "label": "FALSE", "category": "dna_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00102", "text": "地球是太阳系第三颗行星，形成于约 45.4 亿年前", "label": "TRUE", "category": "地球", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00127", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00131", "text": "古腾堡于 1450 年在欧洲发明铅活字印刷", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00135", "text": "古腾堡于 1451 年在欧洲发明铅活字印刷", "label": "FALSE", "category": "印刷_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00136", "text": "古腾堡于 1449 年在欧洲发明铅活字印刷", "label": "FALSE", "category": "印刷_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00137", "text": "内阁制度是明朝永乐年间设立的不是朱元璋设立的", "label": "TRUE", "category": "内阁制度", "checker": ["year_conflict", "negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00156", "text": "朱元璋出生于1328年", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00157", "text": "朱元璋出生于1329年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00158", "text": "朱元璋出生于1327年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00159", "text": "朱元璋于1398年去世", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00160", "text": "朱元璋于1399年去世", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00161", "text": "朱元璋于1397年去世", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00162", "text": "朱元璋生于1328年，卒于1398年", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00163", "text": "朱元璋生于1329年，卒于1398年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00164", "text": "朱元璋生于1327年，卒于1398年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00165", "text": "朱元璋建立明朝于1368年", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00168", "text": "朱元璋建立明朝于1369年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00169", "text": "朱元璋建立明朝于1367年", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00189", "text": "毕昇出生于972年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00190", "text": "毕昇出生于973年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00191", "text": "毕昇出生于971年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00192", "text": "毕昇于1051年去世", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00193", "text": "毕昇于1052年去世", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00194", "text": "毕昇于1050年去世", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00195", "text": "毕昇生于972年，卒于1051年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00196", "text": "毕昇生于973年，卒于1051年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00197", "text": "毕昇生于971年，卒于1051年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00198", "text": "毕昇发明活字印刷术于1041年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00202", "text": "毕昇发明活字印刷术于1042年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00203", "text": "毕昇发明活字印刷术于1040年", "label": "FALSE", "category": "毕昇_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00207", "text": "哥伦布出生于1451年", "label": "TRUE", "category": "哥伦布", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00208", "text": "哥伦布出生于1452年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00209", "text": "哥伦布出生于1450年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00210", "text": "哥伦布于1506年去世", "label": "TRUE", "category": "哥伦布", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00211", "text": "哥伦布于1507年去世", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00212", "text": "哥伦布于1505年去世", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00213", "text": "哥伦布生于1451年，卒于1506年", "label": "TRUE", "category": "哥伦布", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00214", "text": "哥伦布生于1452年，卒于1506年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00215", "text": "哥伦布生于1450年，卒于1506年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00217", "text": "哥伦布到达美洲于1492年", "label": "TRUE", "category": "哥伦布", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00218", "text": "哥伦布到达美洲于1493年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00219", "text": "哥伦布到达美洲于1491年", "label": "FALSE", "category": "哥伦布_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00223", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00227", "text": "古腾堡于1450年在欧洲发明铅活字印刷", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00231", "text": "古腾堡于1451年在欧洲发明铅活字印刷", "label": "FALSE", "category": "活字印刷_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00232", "text": "古腾堡于1449年在欧洲发明铅活字印刷", "label": "FALSE", "category": "活字印刷_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00243", "text": "牛顿出生于1643年", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00244", "text": "牛顿出生于1644年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00245", "text": "牛顿出生于1642年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00246", "text": "牛顿于1727年去世", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00247", "text": "牛顿于1728年去世", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00248", "text": "牛顿于1726年去世", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00249", "text": "牛顿生于1643年，卒于1727年", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00250", "text": "牛顿生于1644年，卒于1727年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00251", "text": "牛顿生于1642年，卒于1727年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00252", "text": "牛顿发表《自然哲学的数学原理》于1687年", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00253", "text": "牛顿发表《自然哲学的数学原理》于1688年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00254", "text": "牛顿发表《自然哲学的数学原理》于1686年", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00275", "text": "牛顿生活在爱因斯坦之前", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00277", "text": "爱因斯坦出生于1879年", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00278", "text": "爱因斯坦出生于1880年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00279", "text": "爱因斯坦出生于1878年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00280", "text": "爱因斯坦于1955年去世", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00281", "text": "爱因斯坦于1956年去世", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00282", "text": "爱因斯坦于1954年去世", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00283", "text": "爱因斯坦生于1879年，卒于1955年", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00284", "text": "爱因斯坦生于1880年，卒于1955年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00285", "text": "爱因斯坦生于1878年，卒于1955年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00288", "text": "爱因斯坦发表狭义相对论于1905年", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00289", "text": "爱因斯坦发表狭义相对论于1906年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00290", "text": "爱因斯坦发表狭义相对论于1904年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00291", "text": "爱因斯坦发表广义相对论于1915年", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00292", "text": "爱因斯坦发表广义相对论于1916年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00293", "text": "爱因斯坦发表广义相对论于1914年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00294", "text": "爱因斯坦获得诺贝尔物理学奖于1921年", "label": "TRUE", "category": "爱因斯坦", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00295", "text": "爱因斯坦获得诺贝尔物理学奖于1922年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00296", "text": "爱因斯坦获得诺贝尔物理学奖于1920年", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00308", "text": "爱迪生出生于1847年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00309", "text": "爱迪生出生于1848年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00310", "text": "爱迪生出生于1846年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00311", "text": "爱迪生于1931年去世", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00312", "text": "爱迪生于1932年去世", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00313", "text": "爱迪生于1930年去世", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00314", "text": "爱迪生生于1847年，卒于1931年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00315", "text": "爱迪生生于1848年，卒于1931年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00316", "text": "爱迪生生于1846年，卒于1931年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00317", "text": "爱迪生获得电灯泡专利于1879年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00318", "text": "爱迪生获得电灯泡专利于1880年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00319", "text": "爱迪生获得电灯泡专利于1878年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00320", "text": "爱迪生发明留声机于1877年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00324", "text": "爱迪生发明留声机于1878年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00325", "text": "爱迪生发明留声机于1876年", "label": "FALSE", "category": "爱迪生_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00330", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00336", "text": "特斯拉出生于1856年", "label": "TRUE", "category": "特斯拉", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00337", "text": "特斯拉出生于1857年", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00338", "text": "特斯拉出生于1855年", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00339", "text": "特斯拉于1943年去世", "label": "TRUE", "category": "特斯拉", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00340", "text": "特斯拉于1944年去世", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00341", "text": "特斯拉于1942年去世", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00342", "text": "特斯拉生于1856年，卒于1943年", "label": "TRUE", "category": "特斯拉", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00343", "text": "特斯拉生于1857年，卒于1943年", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00344", "text": "特斯拉生于1855年，卒于1943年", "label": "FALSE", "category": "特斯拉_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00350", "text": "特斯拉不是被埋没的天才——他在晚年获得了多项荣誉", "label": "TRUE", "category": "特斯拉", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00353", "text": "瓦特出生于1736年", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00354", "text": "瓦特出生于1737年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00355", "text": "瓦特出生于1735年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00356", "text": "瓦特于1819年去世", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00357", "text": "瓦特于1820年去世", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00358", "text": "瓦特于1818年去世", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00359", "text": "瓦特生于1736年，卒于1819年", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00360", "text": "瓦特生于1737年，卒于1819年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00361", "text": "瓦特生于1735年，卒于1819年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00362", "text": "瓦特改良蒸汽机于1769年", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00363", "text": "瓦特改良蒸汽机于1770年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00364", "text": "瓦特改良蒸汽机于1768年", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00370", "text": "蒸汽机在瓦特之前已存在数十年", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00373", "text": "亚历山大·贝尔于1876年获得电话专利", "label": "TRUE", "category": "贝尔", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00374", "text": "亚历山大·贝尔于1877年获得电话专利", "label": "FALSE", "category": "贝尔_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00375", "text": "亚历山大·贝尔于1875年获得电话专利", "label": "FALSE", "category": "贝尔_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00381", "text": "莱特兄弟出生于1867年", "label": "TRUE", "category": "莱特兄弟", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00382", "text": "莱特兄弟出生于1868年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00383", "text": "莱特兄弟出生于1866年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00384", "text": "莱特兄弟于1912年去世", "label": "TRUE", "category": "莱特兄弟", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00385", "text": "莱特兄弟于1913年去世", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00386", "text": "莱特兄弟于1911年去世", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00387", "text": "莱特兄弟生于1867年，卒于1912年", "label": "TRUE", "category": "莱特兄弟", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00388", "text": "莱特兄弟生于1868年，卒于1912年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00389", "text": "莱特兄弟生于1866年，卒于1912年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00392", "text": "莱特兄弟完成首次动力飞行于1903年", "label": "TRUE", "category": "莱特兄弟", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00393", "text": "莱特兄弟完成首次动力飞行于1904年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00394", "text": "莱特兄弟完成首次动力飞行于1902年", "label": "FALSE", "category": "莱特兄弟_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00399", "text": "莎士比亚出生于1564年", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00401", "text": "莎士比亚出生于1565年", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00402", "text": "莎士比亚出生于1563年", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00403", "text": "莎士比亚于1616年去世", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00405", "text": "莎士比亚于1617年去世", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00406", "text": "莎士比亚于1615年去世", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00407", "text": "莎士比亚生于1564年，卒于1616年", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00409", "text": "莎士比亚生于1565年，卒于1616年", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00410", "text": "莎士比亚生于1563年，卒于1616年", "label": "FALSE", "category": "莎士比亚_perturbed", "checker": ["year_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00416", "text": "达尔文出生于1809年", "label": "TRUE", "category": "达尔文", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00417", "text": "达尔文出生于1810年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00418", "text": "达尔文出生于1808年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00419", "text": "达尔文于1882年去世", "label": "TRUE", "category": "达尔文", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00420", "text": "达尔文于1883年去世", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00421", "text": "达尔文于1881年去世", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00422", "text": "达尔文生于1809年，卒于1882年", "label": "TRUE", "category": "达尔文", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00423", "text": "达尔文生于1810年，卒于1882年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00424", "text": "达尔文生于1808年，卒于1882年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00427", "text": "达尔文发表《物种起源》于1859年", "label": "TRUE", "category": "达尔文", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00428", "text": "达尔文发表《物种起源》于1860年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00429", "text": "达尔文发表《物种起源》于1858年", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00442", "text": "青霉素由亚历山大·弗莱明于1928年发现", "label": "TRUE", "category": "青霉素", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00446", "text": "青霉素由亚历山大·弗莱明于1929年发现", "label": "FALSE", "category": "青霉素_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00447", "text": "青霉素由亚历山大·弗莱明于1927年发现", "label": "FALSE", "category": "青霉素_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00464", "text": "恐龙灭绝于约6600万年前的K-Pg灭绝事件", "label": "TRUE", "category": "恐龙", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00466", "text": "恐龙灭绝于约6601万年前的K-Pg灭绝事件", "label": "FALSE", "category": "恐龙_perturbed", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00467", "text": "恐龙灭绝于约6599万年前的K-Pg灭绝事件", "label": "FALSE", "category": "恐龙_perturbed", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00493", "text": "维基百科于2001年1月15日上线", "label": "TRUE", "category": "维基百科", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00494", "text": "维基百科于2002年1月15日上线", "label": "FALSE", "category": "维基百科_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00495", "text": "维基百科于2000年1月15日上线", "label": "FALSE", "category": "维基百科_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00498", "text": "比特币于2009年由化名中本聪的人创建", "label": "TRUE", "category": "比特币", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00501", "text": "比特币于2010年由化名中本聪的人创建", "label": "FALSE", "category": "比特币_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00502", "text": "比特币于2008年由化名中本聪的人创建", "label": "FALSE", "category": "比特币_perturbed", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00510", "text": "万有引力不是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "TRUE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00527", "text": "人类首次登月是1969年阿波罗11号任务", "label": "TRUE", "category": "月球", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00528", "text": "人类首次登月是1970年阿波罗11号任务", "label": "FALSE", "category": "月球_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00529", "text": "人类首次登月是1968年阿波罗11号任务", "label": "FALSE", "category": "月球_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00536", "text": "木星有著名的大红斑——一个持续了数百年的风暴", "label": "TRUE", "category": "木星", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00540", "text": "火星上目前没有发现液态水的存在", "label": "TRUE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00546", "text": "GPT-1于2018年发布，GPT-3于2020年发布", "label": "TRUE", "category": "gpt", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00547", "text": "GPT-1于2019年发布，GPT-3于2020年发布", "label": "FALSE", "category": "gpt_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00548", "text": "GPT-1于2017年发布，GPT-3于2020年发布", "label": "FALSE", "category": "gpt_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00549", "text": "Transformer架构于2017年在论文Attention Is All You Need中提出", "label": "TRUE", "category": "transformer", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00551", "text": "Transformer架构于2018年在论文Attention Is All You Need中提出", "label": "FALSE", "category": "transformer_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00552", "text": "Transformer架构于2016年在论文Attention Is All You Need中提出", "label": "FALSE", "category": "transformer_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00553", "text": "Transformer是当前大多数大语言模型的基础架构", "label": "TRUE", "category": "transformer", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00555", "text": "围棋起源于中国，有超过2500年的历史", "label": "TRUE", "category": "围棋", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00557", "text": "围棋起源于中国，有超过2501年的历史", "label": "FALSE", "category": "围棋_perturbed", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00558", "text": "围棋起源于中国，有超过2499年的历史", "label": "FALSE", "category": "围棋_perturbed", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00560", "text": "AlphaGo于2016年击败李世石是AI历史的重要里程碑", "label": "TRUE", "category": "围棋", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00561", "text": "AlphaGo于2017年击败李世石是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00562", "text": "AlphaGo于2015年击败李世石是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00566", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "TRUE", "category": "马拉松", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00568", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1909年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00569", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1907年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00573", "text": "清朝(1644-1912年)是中国最后一个封建王朝", "label": "TRUE", "category": "清", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00577", "text": "清朝(1645-1912年)是中国最后一个封建王朝", "label": "FALSE", "category": "清_perturbed", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00578", "text": "清朝(1643-1912年)是中国最后一个封建王朝", "label": "FALSE", "category": "清_perturbed", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00579", "text": "鸦片战争于1840年爆发，中国被迫打开国门", "label": "TRUE", "category": "清", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00581", "text": "鸦片战争于1841年爆发，中国被迫打开国门", "label": "FALSE", "category": "清_perturbed", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00582", "text": "鸦片战争于1839年爆发，中国被迫打开国门", "label": "FALSE", "category": "清_perturbed", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00583", "text": "清朝由满族人建立，前身为后金", "label": "TRUE", "category": "清", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00586", "text": "元朝(1271-1368年)由忽必烈建立", "label": "TRUE", "category": "元", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00588", "text": "元朝(1272-1368年)由忽必烈建立", "label": "FALSE", "category": "元_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00589", "text": "元朝(1270-1368年)由忽必烈建立", "label": "FALSE", "category": "元_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00592", "text": "三国时期(220-280年)是魏蜀吴三足鼎立的时代", "label": "TRUE", "category": "三国", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00593", "text": "三国时期(221-280年)是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00594", "text": "三国时期(219-280年)是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00595", "text": "赤壁之战发生在208年", "label": "TRUE", "category": "三国", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00596", "text": "赤壁之战发生在209年", "label": "FALSE", "category": "三国_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00597", "text": "赤壁之战发生在207年", "label": "FALSE", "category": "三国_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00605", "text": "狭义相对论由爱因斯坦于1905年提出", "label": "TRUE", "category": "相对论", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00607", "text": "狭义相对论由爱因斯坦于1906年提出", "label": "FALSE", "category": "相对论_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00608", "text": "狭义相对论由爱因斯坦于1904年提出", "label": "FALSE", "category": "相对论_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00609", "text": "广义相对论于1915年提出", "label": "TRUE", "category": "相对论", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00611", "text": "广义相对论于1916年提出", "label": "FALSE", "category": "相对论_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00612", "text": "广义相对论于1914年提出", "label": "FALSE", "category": "相对论_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00615", "text": "达尔文于1859年出版《物种起源》", "label": "TRUE", "category": "进化论", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00616", "text": "达尔文于1860年出版《物种起源》", "label": "FALSE", "category": "进化论_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00617", "text": "达尔文于1858年出版《物种起源》", "label": "FALSE", "category": "进化论_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00630", "text": "故宫于1420年建成", "label": "TRUE", "category": "故宫", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00631", "text": "故宫于1421年建成", "label": "FALSE", "category": "故宫_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00632", "text": "故宫于1419年建成", "label": "FALSE", "category": "故宫_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00640", "text": "元素周期表由门捷列夫于1869年提出", "label": "TRUE", "category": "元素周期表", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00642", "text": "元素周期表由门捷列夫于1870年提出", "label": "FALSE", "category": "元素周期表_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00643", "text": "元素周期表由门捷列夫于1868年提出", "label": "FALSE", "category": "元素周期表_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00659", "text": "互联网起源于1969年的ARPANET", "label": "TRUE", "category": "internet", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00660", "text": "互联网起源于1970年的ARPANET", "label": "FALSE", "category": "internet_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00661", "text": "互联网起源于1968年的ARPANET", "label": "FALSE", "category": "internet_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00662", "text": "万维网由Tim Berners-Lee于1989年发明", "label": "TRUE", "category": "internet", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00667", "text": "万维网由Tim Berners-Lee于1990年发明", "label": "FALSE", "category": "internet_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00668", "text": "万维网由Tim Berners-Lee于1988年发明", "label": "FALSE", "category": "internet_perturbed", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00671", "text": "人工智能作为一个研究领域始于1956年达特茅斯会议", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00673", "text": "人工智能作为一个研究领域始于1957年达特茅斯会议", "label": "FALSE", "category": "人工智能_perturbed", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00674", "text": "人工智能作为一个研究领域始于1955年达特茅斯会议", "label": "FALSE", "category": "人工智能_perturbed", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00675", "text": "图灵于1950年提出图灵测试", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00677", "text": "图灵于1951年提出图灵测试", "label": "FALSE", "category": "人工智能_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00678", "text": "图灵于1949年提出图灵测试", "label": "FALSE", "category": "人工智能_perturbed", "checker": ["year_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00679", "text": "AI不是万能的——当前AI是窄人工智能而非通用人工智能", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00682", "text": "莱特兄弟于1903年进行了首次动力飞行", "label": "TRUE", "category": "飞机", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00683", "text": "莱特兄弟于1904年进行了首次动力飞行", "label": "FALSE", "category": "飞机_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00684", "text": "莱特兄弟于1902年进行了首次动力飞行", "label": "FALSE", "category": "飞机_perturbed", "checker": ["year_conflict"], "difficulty": "easy"}
+{"id": "gold_00688", "text": "爱德华·詹纳于1796年发明了天花疫苗——世界上第一种疫苗", "label": "TRUE", "category": "疫苗", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00692", "text": "爱德华·詹纳于1797年发明了天花疫苗——世界上第一种疫苗", "label": "FALSE", "category": "疫苗_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00693", "text": "爱德华·詹纳于1795年发明了天花疫苗——世界上第一种疫苗", "label": "FALSE", "category": "疫苗_perturbed", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00699", "text": "内阁制度是明朝永乐年间设立的朱元璋设立的", "label": "FALSE", "category": "内阁制度", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00722", "text": "爱迪生发明电灯泡——电灯泡在他之前已经存在", "label": "FALSE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00726", "text": "特斯拉被埋没的天才——他在晚年获得了多项荣誉", "label": "FALSE", "category": "特斯拉", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00750", "text": "万有引力牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00755", "text": "火星上目前发现液态水的存在", "label": "FALSE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00758", "text": "马拉松的距离从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00771", "text": "AI万能的——当前AI是窄人工智能而非通用人工智能", "label": "FALSE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00786", "text": "十月革命唯一的俄国革命——同年二月革命已推翻了沙皇", "label": "FALSE", "category": "十月革命", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00814", "text": "罗马帝国突然崩溃的——经历了几百年的衰落过程", "label": "FALSE", "category": "罗马帝国", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00822", "text": "暗物质被证明存在的——目前通过引力效应间接推断", "label": "FALSE", "category": "暗物质", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00830", "text": "气候变暖自然周期——当前暖化速度远超历史上任何自然周期", "label": "FALSE", "category": "气候变暖", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00845", "text": "《蒙娜丽莎》被盗后才出名的——它被盗前已经很有名", "label": "FALSE", "category": "蒙娜丽莎", "checker": ["year_conflict"], "difficulty": "medium"}
+{"id": "gold_00002", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00068", "text": "第一个网站于 1991 年上线", "label": "TRUE", "category": "http", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00093", "text": "光速约为每秒30万公里", "label": "TRUE", "category": "光速", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00094", "text": "光速约为每秒33万公里", "label": "FALSE", "category": "光速_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00095", "text": "光速约为每秒27万公里", "label": "FALSE", "category": "光速_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00108", "text": "珠穆朗玛峰海拔8848米", "label": "TRUE", "category": "珠穆朗玛峰", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00109", "text": "珠穆朗玛峰海拔9732米", "label": "FALSE", "category": "珠穆朗玛峰_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00110", "text": "珠穆朗玛峰海拔7963米", "label": "FALSE", "category": "珠穆朗玛峰_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00221", "text": "哥伦布不是第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "TRUE", "category": "哥伦布", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00239", "text": "长城不是秦始皇一个人修建的", "label": "TRUE", "category": "长城", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00255", "text": "牛顿发现了万有引力定律", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00263", "text": "牛顿不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00396", "text": "莱特兄弟不是最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "TRUE", "category": "莱特兄弟", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00435", "text": "达尔文不是第一个提出进化论的人——拉马克等人更早", "label": "TRUE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00456", "text": "人类只用了大脑10%的说法是完全没有科学依据的谣言", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00458", "text": "人类只用了大脑11%的说法是完全没有科学依据的谣言", "label": "FALSE", "category": "大脑_perturbed", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00459", "text": "人类只用了大脑9%的说法是完全没有科学依据的谣言", "label": "FALSE", "category": "大脑_perturbed", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00460", "text": "大脑约占体重的2%，但消耗约20%的能量", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00461", "text": "大脑约占体重的1%，但消耗约10%的能量", "label": "FALSE", "category": "大脑_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00462", "text": "大脑约占体重的3%，但消耗约30%的能量", "label": "FALSE", "category": "大脑_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00463", "text": "神经元不能再生是一个被推翻的旧观点——某些脑区确实可以产生新神经元", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00465", "text": "恐龙灭绝于约6600万年前的K-Pg灭绝事件", "label": "TRUE", "category": "恐龙", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00476", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00504", "text": "比特币的总量上限是2100万个", "label": "TRUE", "category": "比特币", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00506", "text": "比特币的总量上限是2310万个", "label": "FALSE", "category": "比特币_perturbed", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00507", "text": "比特币的总量上限是1890万个", "label": "FALSE", "category": "比特币_perturbed", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00508", "text": "万有引力定律由牛顿提出", "label": "TRUE", "category": "万有引力", "checker": ["numeric_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00511", "text": "万有引力不是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "TRUE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00516", "text": "氧气占地球大气的约21%", "label": "TRUE", "category": "氧气", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00517", "text": "氧气占地球大气的约23%", "label": "FALSE", "category": "氧气_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00518", "text": "氧气占地球大气的约18%", "label": "FALSE", "category": "氧气_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00532", "text": "太阳占太阳系总质量的99.86%", "label": "TRUE", "category": "太阳", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00533", "text": "太阳占太阳系总质量的109.8%", "label": "FALSE", "category": "太阳_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00534", "text": "太阳占太阳系总质量的89.9%", "label": "FALSE", "category": "太阳_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00537", "text": "木星有著名的大红斑——一个持续了数百年的风暴", "label": "TRUE", "category": "木星", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00563", "text": "马拉松的距离是42.195公里", "label": "TRUE", "category": "马拉松", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00564", "text": "马拉松的距离是46.4公里", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00565", "text": "马拉松的距离是38.0公里", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00570", "text": "菲迪皮德斯跑了约40公里从马拉松到雅典报捷", "label": "TRUE", "category": "马拉松", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00571", "text": "菲迪皮德斯跑了约44公里从马拉松到雅典报捷", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00572", "text": "菲迪皮德斯跑了约36公里从马拉松到雅典报捷", "label": "FALSE", "category": "马拉松_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00574", "text": "清朝(1644-1912年)是中国最后一个封建王朝", "label": "TRUE", "category": "清", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00628", "text": "薛定谔的猫是一个思想实验，不是真实实验", "label": "TRUE", "category": "量子力学", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00637", "text": "富士山海拔3776米", "label": "TRUE", "category": "富士山", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00638", "text": "富士山海拔4153米", "label": "FALSE", "category": "富士山_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00639", "text": "富士山海拔3398米", "label": "FALSE", "category": "富士山_perturbed", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00663", "text": "万维网由Tim Berners-Lee于1989年发明", "label": "TRUE", "category": "internet", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00669", "text": "互联网和万维网不是同一个概念——万维网运行在互联网之上", "label": "TRUE", "category": "internet", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00672", "text": "人工智能作为一个研究领域始于1956年达特茅斯会议", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00680", "text": "AI不是万能的——当前AI是窄人工智能而非通用人工智能", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00685", "text": "莱特兄弟不是第一个飞上天空的人——滑翔机和气球更早出现", "label": "TRUE", "category": "飞机", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00695", "text": "疫苗不会导致自闭症——这个说法来自一篇被撤稿的造假论文", "label": "TRUE", "category": "疫苗", "checker": ["numeric_conflict"], "difficulty": "easy"}
+{"id": "gold_00704", "text": "哥伦布第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "FALSE", "category": "哥伦布", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00707", "text": "长城秦始皇一个人修建的", "label": "FALSE", "category": "长城", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00709", "text": "牛顿被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00733", "text": "莱特兄弟最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "FALSE", "category": "莱特兄弟", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00736", "text": "达尔文第一个提出进化论的人——拉马克等人更早", "label": "FALSE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00743", "text": "人类只用了大脑10%的说法是完全科学依据的谣言", "label": "FALSE", "category": "大脑", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00745", "text": "咖啡山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "FALSE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00751", "text": "万有引力牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00762", "text": "薛定谔的猫是一个思想实验，真实实验", "label": "FALSE", "category": "量子力学", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00770", "text": "互联网和万维网同一个概念——万维网运行在互联网之上", "label": "FALSE", "category": "internet", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00772", "text": "AI万能的——当前AI是窄人工智能而非通用人工智能", "label": "FALSE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00773", "text": "莱特兄弟第一个飞上天空的人——滑翔机和气球更早出现", "label": "FALSE", "category": "飞机", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00776", "text": "黄帝第一个皇帝——皇帝制度始于秦始皇", "label": "FALSE", "category": "黄帝", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00780", "text": "拿破仑矮子——他身高约168-170厘米", "label": "FALSE", "category": "拿破仑", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00782", "text": "工业革命由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "FALSE", "category": "工业革命", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00787", "text": "π3.14——3.14只是一个近似值", "label": "FALSE", "category": "圆周率", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00788", "text": "勾股定理毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "FALSE", "category": "勾股定理", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00808", "text": "柏拉图第一个提出理想国概念的人——但他将其系统化了", "label": "FALSE", "category": "柏拉图", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00819", "text": "黑洞洞——它是一个密度极大的天体", "label": "FALSE", "category": "黑洞", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00821", "text": "黑洞爱因斯坦预言的——是广义相对论方程的一个解", "label": "FALSE", "category": "黑洞", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00825", "text": "魏格纳第一个注意到大陆形状吻合的人——但他系统论证了", "label": "FALSE", "category": "大陆漂移", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00835", "text": "蓝牙的有效距离通常为10-100米，无限距离", "label": "FALSE", "category": "蓝牙", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00836", "text": "WiFi由单一个人发明的——是多方技术融合的产物", "label": "FALSE", "category": "wifi", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00841", "text": "WiFi这个名称Wireless Fidelity的缩写——只是一种品牌命名", "label": "FALSE", "category": "wifi", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00842", "text": "区块链不可篡改的——51%攻击可以改写历史", "label": "FALSE", "category": "区块链", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00843", "text": "区块链万能解决方案——许多场景不需要区块链", "label": "FALSE", "category": "区块链", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00852", "text": "死海海——是一个内陆盐湖", "label": "FALSE", "category": "死海", "checker": ["numeric_conflict"], "difficulty": "medium"}
+{"id": "gold_00003", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00013", "text": "秦始皇没有发明火锅", "label": "TRUE", "category": "秦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00027", "text": "雕版印刷术在唐代发明", "label": "TRUE", "category": "唐", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00035", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00069", "text": "第一个网站于 1991 年上线", "label": "TRUE", "category": "http", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00079", "text": "C 语言是为了写 Unix 而创造的", "label": "TRUE", "category": "c语言", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00080", "text": "C 语言不是为了写 Unix 而创造的", "label": "FALSE", "category": "c语言_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00085", "text": "JavaScript 与 Java 没有任何关系", "label": "TRUE", "category": "javascript", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00086", "text": "JavaScript 与 Java 任何关系", "label": "FALSE", "category": "javascript_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00090", "text": "光速不是无穷大的，光速是有限的", "label": "TRUE", "category": "光速", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00091", "text": "光速无穷大的，光速是有限的", "label": "FALSE", "category": "光速_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00092", "text": "光速不是无穷大的，光速是没有限的", "label": "FALSE", "category": "光速_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00104", "text": "地球不是平的，地球是近似球体", "label": "TRUE", "category": "地球", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00105", "text": "地球平的，地球是近似球体", "label": "FALSE", "category": "地球_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00106", "text": "地球不是完美球体", "label": "TRUE", "category": "地球", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00116", "text": "火锅不是单一起源", "label": "TRUE", "category": "火锅", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00117", "text": "造纸术是中国古代四大发明之一", "label": "TRUE", "category": "造纸", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00121", "text": "造纸术不是中国古代四大发明之一", "label": "FALSE", "category": "造纸_perturbed", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00124", "text": "雕版印刷术发明于唐代", "label": "TRUE", "category": "印刷", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00128", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00132", "text": "古腾堡于 1450 年在欧洲发明铅活字印刷", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00138", "text": "内阁制度是明朝永乐年间设立的不是朱元璋设立的", "label": "TRUE", "category": "内阁制度", "checker": ["year_conflict", "negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00142", "text": "火药是中国古代四大发明之一，唐代已有记载", "label": "TRUE", "category": "火药", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00146", "text": "火药不是中国古代四大发明之一，唐代已有记载", "label": "FALSE", "category": "火药_perturbed", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00147", "text": "火药是中国古代四大发明之一，唐代已没有记载", "label": "FALSE", "category": "火药_perturbed", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00149", "text": "指南针是中国古代四大发明之一", "label": "TRUE", "category": "指南针", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00153", "text": "指南针不是中国古代四大发明之一", "label": "FALSE", "category": "指南针_perturbed", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00173", "text": "朱元璋没有发明火锅——火锅远早于明代就已存在", "label": "TRUE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00176", "text": "朱元璋发明火锅——火锅远早于明代就已存在", "label": "FALSE", "category": "朱元璋_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00177", "text": "任何声称某人发明了某自然现象的断言都是错误的", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00180", "text": "任何声称某人发明了某自然现象的断言都不是错误的", "label": "FALSE", "category": "发明_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00181", "text": "四大发明专指造纸术、印刷术、火药、指南针", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00186", "text": "声称世界第一的断言需要严格定义和证据", "label": "TRUE", "category": "第一", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00187", "text": "许多第一的宣称在学术上是争议的", "label": "TRUE", "category": "第一", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00188", "text": "许多第一的宣称在学术上不是争议的", "label": "FALSE", "category": "第一_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00199", "text": "毕昇发明活字印刷术于1041年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00204", "text": "毕昇发明了活字印刷术", "label": "TRUE", "category": "毕昇", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00222", "text": "哥伦布不是第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "TRUE", "category": "哥伦布", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00224", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00228", "text": "古腾堡于1450年在欧洲发明铅活字印刷", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00234", "text": "地球不是太阳系最大的行星", "label": "TRUE", "category": "太阳系", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00235", "text": "地球太阳系最大的行星", "label": "FALSE", "category": "太阳系_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00240", "text": "长城不是秦始皇一个人修建的", "label": "TRUE", "category": "长城", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00256", "text": "牛顿发现了万有引力定律", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00260", "text": "牛顿发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00264", "text": "牛顿不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00266", "text": "牛顿没有发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00269", "text": "牛顿发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00270", "text": "牛顿没有发明反射望远镜——但他改进了反射望远镜", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00273", "text": "牛顿发明反射望远镜——但他改进了反射望远镜", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00299", "text": "爱因斯坦发现了光电效应", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00301", "text": "爱因斯坦没有发明原子弹", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00304", "text": "爱因斯坦发明原子弹", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00305", "text": "E=mc²不是爱因斯坦唯一的贡献——他还解释了光电效应", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00306", "text": "E=mc²爱因斯坦唯一的贡献——他还解释了光电效应", "label": "FALSE", "category": "爱因斯坦_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00321", "text": "爱迪生发明留声机于1877年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00327", "text": "爱迪生发明了留声机", "label": "TRUE", "category": "爱迪生", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00331", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00347", "text": "特斯拉发明了交流电系统", "label": "TRUE", "category": "特斯拉", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00351", "text": "特斯拉不是被埋没的天才——他在晚年获得了多项荣誉", "label": "TRUE", "category": "特斯拉", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00366", "text": "瓦特没有发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "TRUE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00369", "text": "瓦特发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "FALSE", "category": "瓦特_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00376", "text": "贝尔不是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "TRUE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00379", "text": "贝尔唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "FALSE", "category": "贝尔_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00397", "text": "莱特兄弟不是最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "TRUE", "category": "莱特兄弟", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00432", "text": "达尔文没有说人是从猴子变来的——人和猴子有共同祖先", "label": "TRUE", "category": "达尔文", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00433", "text": "达尔文说人是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00434", "text": "达尔文没有说人不是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00436", "text": "达尔文不是第一个提出进化论的人——拉马克等人更早", "label": "TRUE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00438", "text": "适者生存不是达尔文提出的——这是斯宾塞的说法", "label": "TRUE", "category": "达尔文", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00440", "text": "适者生存达尔文提出的——这是斯宾塞的说法", "label": "FALSE", "category": "达尔文_perturbed", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00443", "text": "青霉素由亚历山大·弗莱明于1928年发现", "label": "TRUE", "category": "青霉素", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00448", "text": "弗莱明不是有意发现青霉素的——是实验室污染导致的意外发现", "label": "TRUE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00451", "text": "弗莱明有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00452", "text": "弗莱明不是没有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00453", "text": "青霉素的发现标志着抗生素时代的开始", "label": "TRUE", "category": "青霉素", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00457", "text": "人类只用了大脑10%的说法是完全没有科学依据的谣言", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00469", "text": "鸟类是恐龙的直接后代——鸟类不是恐龙的后代，鸟类就是恐龙的一种", "label": "TRUE", "category": "恐龙", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00470", "text": "鸟类是恐龙的直接后代——鸟类恐龙的后代，鸟类就是恐龙的一种", "label": "FALSE", "category": "恐龙_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00477", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00480", "text": "茶起源于中国，传说神农氏发现了茶", "label": "TRUE", "category": "茶", "checker": ["negation", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00483", "text": "唐代陆羽写了《茶经》，是世界第一部茶叶专著", "label": "TRUE", "category": "茶", "checker": ["negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00485", "text": "唐代陆羽写了《茶经》，不是世界第一部茶叶专著", "label": "FALSE", "category": "茶_perturbed", "checker": ["negation", "temporal_order"], "difficulty": "easy"}
+{"id": "gold_00488", "text": "现代固体巧克力在19世纪才发明", "label": "TRUE", "category": "巧克力", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00491", "text": "白巧克力不是真正的巧克力——它不含可可固体", "label": "TRUE", "category": "巧克力", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00492", "text": "白巧克力真正的巧克力——它不含可可固体", "label": "FALSE", "category": "巧克力_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00512", "text": "万有引力不是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "TRUE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00514", "text": "氧气由约瑟夫·普里斯特利和卡尔·舍勒分别独立发现", "label": "TRUE", "category": "氧气", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00519", "text": "氧气不是可燃的——它是助燃的", "label": "TRUE", "category": "氧气", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00520", "text": "氧气可燃的——它是助燃的", "label": "FALSE", "category": "氧气_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00525", "text": "月球不是自己发光的——它反射太阳光", "label": "TRUE", "category": "月球", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00526", "text": "月球自己发光的——它反射太阳光", "label": "FALSE", "category": "月球_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00541", "text": "火星上目前没有发现液态水的存在", "label": "TRUE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00567", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "TRUE", "category": "马拉松", "checker": ["year_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00598", "text": "三国不是由曹操统一的——最终由司马炎统一", "label": "TRUE", "category": "三国", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00600", "text": "三国由曹操统一的——最终由司马炎统一", "label": "FALSE", "category": "三国_perturbed", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00619", "text": "进化论不是人是从猴子变来的——人和猴子有共同祖先", "label": "TRUE", "category": "进化论", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00620", "text": "进化论人是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "进化论_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00621", "text": "进化论不是人是从猴子变来的——人和猴子没有共同祖先", "label": "FALSE", "category": "进化论_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00622", "text": "达尔文没有说适者生存——这是斯宾塞的说法", "label": "TRUE", "category": "进化论", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00623", "text": "达尔文说适者生存——这是斯宾塞的说法", "label": "FALSE", "category": "进化论_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00624", "text": "达尔文没有说适者生存——这不是斯宾塞的说法", "label": "FALSE", "category": "进化论_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00629", "text": "薛定谔的猫是一个思想实验，不是真实实验", "label": "TRUE", "category": "量子力学", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00644", "text": "门捷列夫准确预测了当时尚未发现的元素", "label": "TRUE", "category": "元素周期表", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00646", "text": "元素周期表按原子序数排列，不是原子量", "label": "TRUE", "category": "元素周期表", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00647", "text": "元素周期表按原子序数排列，原子量", "label": "FALSE", "category": "元素周期表_perturbed", "checker": ["negation"], "difficulty": "easy"}
+{"id": "gold_00648", "text": "电是自然现象，不是任何人发明的", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00651", "text": "电是自然现象，任何人发明的", "label": "FALSE", "category": "电_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00652", "text": "本杰明·富兰克林没有发明电——他证明了闪电是电", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00655", "text": "本杰明·富兰克林发明电——他证明了闪电是电", "label": "FALSE", "category": "电_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00656", "text": "本杰明·富兰克林没有发明电——他证明了闪电不是电", "label": "FALSE", "category": "电_perturbed", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00657", "text": "法拉第发现了电磁感应定律", "label": "TRUE", "category": "电", "checker": ["negation", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00664", "text": "万维网由Tim Berners-Lee于1989年发明", "label": "TRUE", "category": "internet", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00670", "text": "互联网和万维网不是同一个概念——万维网运行在互联网之上", "label": "TRUE", "category": "internet", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00681", "text": "AI不是万能的——当前AI是窄人工智能而非通用人工智能", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00686", "text": "莱特兄弟不是第一个飞上天空的人——滑翔机和气球更早出现", "label": "TRUE", "category": "飞机", "checker": ["numeric_conflict", "negation"], "difficulty": "easy"}
+{"id": "gold_00689", "text": "爱德华·詹纳于1796年发明了天花疫苗——世界上第一种疫苗", "label": "TRUE", "category": "疫苗", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00701", "text": "朱元璋发明火锅——火锅远早于明代就已存在", "label": "FALSE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00705", "text": "哥伦布第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "FALSE", "category": "哥伦布", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00710", "text": "牛顿被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00712", "text": "牛顿发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00715", "text": "牛顿发明反射望远镜——但他改进了反射望远镜", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00718", "text": "爱因斯坦发明原子弹", "label": "FALSE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00723", "text": "爱迪生发明电灯泡——电灯泡在他之前已经存在", "label": "FALSE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00727", "text": "瓦特发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "FALSE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00730", "text": "贝尔唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "FALSE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00734", "text": "莱特兄弟最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "FALSE", "category": "莱特兄弟", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00737", "text": "达尔文第一个提出进化论的人——拉马克等人更早", "label": "FALSE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00740", "text": "弗莱明有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00746", "text": "咖啡山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "FALSE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00752", "text": "万有引力牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力", "checker": ["year_conflict", "numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00756", "text": "火星上目前发现液态水的存在", "label": "FALSE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00764", "text": "电是自然现象，任何人发明的", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00767", "text": "本杰明·富兰克林发明电——他证明了闪电是电", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00774", "text": "莱特兄弟第一个飞上天空的人——滑翔机和气球更早出现", "label": "FALSE", "category": "飞机", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00777", "text": "黄帝第一个皇帝——皇帝制度始于秦始皇", "label": "FALSE", "category": "黄帝", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00783", "text": "工业革命由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "FALSE", "category": "工业革命", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00789", "text": "勾股定理毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "FALSE", "category": "勾股定理", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00797", "text": "足球英国发明的——古代中国和古希腊都有类似运动", "label": "FALSE", "category": "足球", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00802", "text": "图灵发明计算机的人——他提出了通用计算机的理论模型", "label": "FALSE", "category": "图灵", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00809", "text": "柏拉图第一个提出理想国概念的人——但他将其系统化了", "label": "FALSE", "category": "柏拉图", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00826", "text": "魏格纳第一个注意到大陆形状吻合的人——但他系统论证了", "label": "FALSE", "category": "大陆漂移", "checker": ["numeric_conflict", "negation"], "difficulty": "medium"}
+{"id": "gold_00832", "text": "蓝牙十世纪丹麦国王发明的——虽然以他的名字命名", "label": "FALSE", "category": "蓝牙", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00837", "text": "WiFi由单一个人发明的——是多方技术融合的产物", "label": "FALSE", "category": "wifi", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00004", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00010", "text": "秦朝于公元前207年灭亡", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00014", "text": "秦始皇没有发明火锅", "label": "TRUE", "category": "秦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00017", "text": "汉朝分为西汉(前202-9年)和东汉(25-220年)", "label": "TRUE", "category": "汉", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00020", "text": "造纸术在西汉时期已有雏形，东汉蔡伦改进", "label": "TRUE", "category": "汉", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00021", "text": "造纸术在西唐时期已有雏形，东汉蔡伦改进", "label": "FALSE", "category": "汉_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00023", "text": "唐朝(618-907年)是中国历史上最繁荣的朝代之一", "label": "TRUE", "category": "唐", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "medium"}
+{"id": "gold_00028", "text": "雕版印刷术在唐代发明", "label": "TRUE", "category": "唐", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00031", "text": "北宋(960-1127年)首都是开封", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00036", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00038", "text": "宋代出现了世界上最早的纸币交子", "label": "TRUE", "category": "宋", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00039", "text": "清代出现了世界上最早的纸币交子", "label": "FALSE", "category": "宋_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00041", "text": "明朝(1368-1644年)由朱元璋建立", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00046", "text": "郑和七下西洋发生在明代永乐年间", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00048", "text": "明代北京故宫于1420年建成", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "medium"}
+{"id": "gold_00114", "text": "汉代已有类似火锅的青铜器皿", "label": "TRUE", "category": "火锅", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00115", "text": "唐代已有类似火锅的青铜器皿", "label": "FALSE", "category": "火锅_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00118", "text": "造纸术是中国古代四大发明之一", "label": "TRUE", "category": "造纸", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00122", "text": "西汉时期已有麻纸，东汉蔡伦改进", "label": "TRUE", "category": "造纸", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00123", "text": "西唐时期已有麻纸，东汉蔡伦改进", "label": "FALSE", "category": "造纸_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00125", "text": "雕版印刷术发明于唐代", "label": "TRUE", "category": "印刷", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00129", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00133", "text": "古腾堡于 1450 年在欧洲发明铅活字印刷", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00139", "text": "内阁制度是明朝永乐年间设立的不是朱元璋设立的", "label": "TRUE", "category": "内阁制度", "checker": ["year_conflict", "negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00141", "text": "内阁首辅出现在明朝中后期张居正最著名", "label": "TRUE", "category": "内阁制度", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00143", "text": "火药是中国古代四大发明之一，唐代已有记载", "label": "TRUE", "category": "火药", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00150", "text": "指南针是中国古代四大发明之一", "label": "TRUE", "category": "指南针", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00154", "text": "战国时期已有司南，宋代用于航海", "label": "TRUE", "category": "指南针", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00155", "text": "战国时期已有司南，清代用于航海", "label": "FALSE", "category": "指南针_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00166", "text": "朱元璋建立明朝于1368年", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00170", "text": "朱元璋建立了明朝", "label": "TRUE", "category": "朱元璋", "checker": ["temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00174", "text": "朱元璋没有发明火锅——火锅远早于明代就已存在", "label": "TRUE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00178", "text": "任何声称某人发明了某自然现象的断言都是错误的", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00182", "text": "四大发明专指造纸术、印刷术、火药、指南针", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00185", "text": "声称某物是唯一的需要极其严格的证明", "label": "TRUE", "category": "唯一", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00200", "text": "毕昇发明活字印刷术于1041年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00205", "text": "毕昇发明了活字印刷术", "label": "TRUE", "category": "毕昇", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00225", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00229", "text": "古腾堡于1450年在欧洲发明铅活字印刷", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00238", "text": "现存长城主要是明代修建的", "label": "TRUE", "category": "长城", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00241", "text": "长城不是秦始皇一个人修建的", "label": "TRUE", "category": "长城", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00261", "text": "牛顿发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00267", "text": "牛顿没有发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00271", "text": "牛顿没有发明反射望远镜——但他改进了反射望远镜", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00276", "text": "牛顿生活在爱因斯坦之前", "label": "TRUE", "category": "牛顿", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00302", "text": "爱因斯坦没有发明原子弹", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00322", "text": "爱迪生发明留声机于1877年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00328", "text": "爱迪生发明了留声机", "label": "TRUE", "category": "爱迪生", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00332", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00348", "text": "特斯拉发明了交流电系统", "label": "TRUE", "category": "特斯拉", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00367", "text": "瓦特没有发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "TRUE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00371", "text": "蒸汽机在瓦特之前已存在数十年", "label": "TRUE", "category": "瓦特", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00377", "text": "贝尔不是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "TRUE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00398", "text": "莎士比亚的作品包括37部戏剧和154首十四行诗", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00400", "text": "莎士比亚出生于1564年", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00404", "text": "莎士比亚于1616年去世", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00408", "text": "莎士比亚生于1564年，卒于1616年", "label": "TRUE", "category": "莎士比亚", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00411", "text": "莎士比亚是英国人", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order", "location_conflict"], "difficulty": "medium"}
+{"id": "gold_00413", "text": "莎士比亚是文学家", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00414", "text": "莎士比亚是英国文艺复兴时期最伟大的剧作家", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order", "location_conflict"], "difficulty": "medium"}
+{"id": "gold_00444", "text": "青霉素由亚历山大·弗莱明于1928年发现", "label": "TRUE", "category": "青霉素", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00449", "text": "弗莱明不是有意发现青霉素的——是实验室污染导致的意外发现", "label": "TRUE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00474", "text": "咖啡原产于埃塞俄比亚", "label": "TRUE", "category": "咖啡", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00478", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00484", "text": "唐代陆羽写了《茶经》，是世界第一部茶叶专著", "label": "TRUE", "category": "茶", "checker": ["negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00489", "text": "现代固体巧克力在19世纪才发明", "label": "TRUE", "category": "巧克力", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00499", "text": "比特币于2009年由化名中本聪的人创建", "label": "TRUE", "category": "比特币", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00505", "text": "比特币的总量上限是2100万个", "label": "TRUE", "category": "比特币", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00575", "text": "清朝(1644-1912年)是中国最后一个封建王朝", "label": "TRUE", "category": "清", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "medium"}
+{"id": "gold_00584", "text": "清朝由满族人建立，前身为后金", "label": "TRUE", "category": "清", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00601", "text": "丝绸之路始于汉代，张骞出使西域开辟", "label": "TRUE", "category": "丝绸之路", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00602", "text": "丝绸之路始于唐代，张骞出使西域开辟", "label": "FALSE", "category": "丝绸之路_perturbed", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00633", "text": "故宫是明清两代的皇家宫殿", "label": "TRUE", "category": "故宫", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00649", "text": "电是自然现象，不是任何人发明的", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00653", "text": "本杰明·富兰克林没有发明电——他证明了闪电是电", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00665", "text": "万维网由Tim Berners-Lee于1989年发明", "label": "TRUE", "category": "internet", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00690", "text": "爱德华·詹纳于1796年发明了天花疫苗——世界上第一种疫苗", "label": "TRUE", "category": "疫苗", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00700", "text": "内阁制度是明朝永乐年间设立的朱元璋设立的", "label": "FALSE", "category": "内阁制度", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00702", "text": "朱元璋发明火锅——火锅远早于明代就已存在", "label": "FALSE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00708", "text": "长城秦始皇一个人修建的", "label": "FALSE", "category": "长城", "checker": ["numeric_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00713", "text": "牛顿发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00716", "text": "牛顿发明反射望远镜——但他改进了反射望远镜", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00719", "text": "爱因斯坦发明原子弹", "label": "FALSE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00724", "text": "爱迪生发明电灯泡——电灯泡在他之前已经存在", "label": "FALSE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00728", "text": "瓦特发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "FALSE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00731", "text": "贝尔唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "FALSE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00741", "text": "弗莱明有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00747", "text": "咖啡山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "FALSE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00765", "text": "电是自然现象，任何人发明的", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00768", "text": "本杰明·富兰克林发明电——他证明了闪电是电", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00778", "text": "黄帝第一个皇帝——皇帝制度始于秦始皇", "label": "FALSE", "category": "黄帝", "checker": ["numeric_conflict", "negation", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00784", "text": "工业革命由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "FALSE", "category": "工业革命", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00790", "text": "勾股定理毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "FALSE", "category": "勾股定理", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00798", "text": "足球英国发明的——古代中国和古希腊都有类似运动", "label": "FALSE", "category": "足球", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00803", "text": "图灵发明计算机的人——他提出了通用计算机的理论模型", "label": "FALSE", "category": "图灵", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00807", "text": "老子道教创始人——道教是东汉张道陵创立的", "label": "FALSE", "category": "老子", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00811", "text": "亚里士多德所有科学之父——他的一些科学观点已被证明错误", "label": "FALSE", "category": "亚里士多德", "checker": ["temporal_order"], "difficulty": "medium"}
+{"id": "gold_00823", "text": "暗物质被证明存在的——目前通过引力效应间接推断", "label": "FALSE", "category": "暗物质", "checker": ["year_conflict", "temporal_order"], "difficulty": "medium"}
+{"id": "gold_00833", "text": "蓝牙十世纪丹麦国王发明的——虽然以他的名字命名", "label": "FALSE", "category": "蓝牙", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00838", "text": "WiFi由单一个人发明的——是多方技术融合的产物", "label": "FALSE", "category": "wifi", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00005", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00024", "text": "唐朝(618-907年)是中国历史上最繁荣的朝代之一", "label": "TRUE", "category": "唐", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00049", "text": "明代北京故宫于1420年建成", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00111", "text": "珠穆朗玛峰不在日本", "label": "TRUE", "category": "珠穆朗玛峰", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00112", "text": "珠穆朗玛峰位于中国与尼泊尔边境", "label": "TRUE", "category": "珠穆朗玛峰", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00119", "text": "造纸术是中国古代四大发明之一", "label": "TRUE", "category": "造纸", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00144", "text": "火药是中国古代四大发明之一，唐代已有记载", "label": "TRUE", "category": "火药", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00151", "text": "指南针是中国古代四大发明之一", "label": "TRUE", "category": "指南针", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00242", "text": "长城位于中国北方", "label": "TRUE", "category": "长城", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00390", "text": "莱特兄弟是美国人", "label": "TRUE", "category": "莱特兄弟", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00412", "text": "莎士比亚是英国人", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00415", "text": "莎士比亚是英国文艺复兴时期最伟大的剧作家", "label": "TRUE", "category": "莎士比亚", "checker": ["temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00481", "text": "茶起源于中国，传说神农氏发现了茶", "label": "TRUE", "category": "茶", "checker": ["negation", "location_conflict", "graph_relation"], "difficulty": "easy"}
+{"id": "gold_00486", "text": "下午茶的传统始于19世纪的英国", "label": "TRUE", "category": "茶", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00556", "text": "围棋起源于中国，有超过2500年的历史", "label": "TRUE", "category": "围棋", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00576", "text": "清朝(1644-1912年)是中国最后一个封建王朝", "label": "TRUE", "category": "清", "checker": ["year_conflict", "numeric_conflict", "temporal_order", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00580", "text": "鸦片战争于1840年爆发，中国被迫打开国门", "label": "TRUE", "category": "清", "checker": ["year_conflict", "location_conflict"], "difficulty": "easy"}
+{"id": "gold_00590", "text": "元朝是中国历史上疆域最广阔的朝代之一", "label": "TRUE", "category": "元", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00591", "text": "马可·波罗在元朝时期来到中国", "label": "TRUE", "category": "元", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00634", "text": "故宫位于中国北京", "label": "TRUE", "category": "故宫", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00635", "text": "富士山是日本最高峰", "label": "TRUE", "category": "富士山", "checker": ["location_conflict"], "difficulty": "easy"}
+{"id": "gold_00799", "text": "足球英国发明的——古代中国和古希腊都有类似运动", "label": "FALSE", "category": "足球", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00006", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00015", "text": "秦始皇没有发明火锅", "label": "TRUE", "category": "秦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00029", "text": "雕版印刷术在唐代发明", "label": "TRUE", "category": "唐", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00037", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "宋", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00042", "text": "明朝(1368-1644年)由朱元璋建立", "label": "TRUE", "category": "明", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00058", "text": "Linux 内核由 Linus Torvalds 于 1991 年创建", "label": "TRUE", "category": "linux", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00063", "text": "HTTP 协议由 Tim Berners-Lee 于 1989 年在 CERN 提出", "label": "TRUE", "category": "http", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00082", "text": "JavaScript 由 Brendan Eich 于 1995 年在 Netscape 创建", "label": "TRUE", "category": "javascript", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00098", "text": "DNA 双螺旋结构由 Watson 和 Crick 于 1953 年提出", "label": "TRUE", "category": "dna", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00120", "text": "造纸术是中国古代四大发明之一", "label": "TRUE", "category": "造纸", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00126", "text": "雕版印刷术发明于唐代", "label": "TRUE", "category": "印刷", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00130", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00134", "text": "古腾堡于 1450 年在欧洲发明铅活字印刷", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00145", "text": "火药是中国古代四大发明之一，唐代已有记载", "label": "TRUE", "category": "火药", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00152", "text": "指南针是中国古代四大发明之一", "label": "TRUE", "category": "指南针", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00167", "text": "朱元璋建立明朝于1368年", "label": "TRUE", "category": "朱元璋", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00171", "text": "朱元璋建立了明朝", "label": "TRUE", "category": "朱元璋", "checker": ["temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00175", "text": "朱元璋没有发明火锅——火锅远早于明代就已存在", "label": "TRUE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00179", "text": "任何声称某人发明了某自然现象的断言都是错误的", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00183", "text": "四大发明专指造纸术、印刷术、火药、指南针", "label": "TRUE", "category": "发明", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00201", "text": "毕昇发明活字印刷术于1041年", "label": "TRUE", "category": "毕昇", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00206", "text": "毕昇发明了活字印刷术", "label": "TRUE", "category": "毕昇", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00226", "text": "毕昇于北宋庆历年间发明活字印刷术", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00230", "text": "古腾堡于1450年在欧洲发明铅活字印刷", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00257", "text": "牛顿发现了万有引力定律", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00258", "text": "牛顿提出了三大运动定律", "label": "TRUE", "category": "牛顿", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00259", "text": "爱因斯坦提出了三大运动定律", "label": "FALSE", "category": "牛顿_perturbed", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00262", "text": "牛顿发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00265", "text": "牛顿不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "TRUE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00268", "text": "牛顿没有发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00272", "text": "牛顿没有发明反射望远镜——但他改进了反射望远镜", "label": "TRUE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00297", "text": "爱因斯坦提出了狭义相对论", "label": "TRUE", "category": "爱因斯坦", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00298", "text": "爱因斯坦提出了广义相对论", "label": "TRUE", "category": "爱因斯坦", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00300", "text": "爱因斯坦发现了光电效应", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00303", "text": "爱因斯坦没有发明原子弹", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00323", "text": "爱迪生发明留声机于1877年", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00329", "text": "爱迪生发明了留声机", "label": "TRUE", "category": "爱迪生", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00333", "text": "爱迪生没有发明电灯泡——电灯泡在他之前已经存在", "label": "TRUE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00349", "text": "特斯拉发明了交流电系统", "label": "TRUE", "category": "特斯拉", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00368", "text": "瓦特没有发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "TRUE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00378", "text": "贝尔不是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "TRUE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00430", "text": "达尔文提出了进化论", "label": "TRUE", "category": "达尔文", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00431", "text": "达尔文提出了自然选择学说", "label": "TRUE", "category": "达尔文", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00437", "text": "达尔文不是第一个提出进化论的人——拉马克等人更早", "label": "TRUE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00439", "text": "适者生存不是达尔文提出的——这是斯宾塞的说法", "label": "TRUE", "category": "达尔文", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00445", "text": "青霉素由亚历山大·弗莱明于1928年发现", "label": "TRUE", "category": "青霉素", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00450", "text": "弗莱明不是有意发现青霉素的——是实验室污染导致的意外发现", "label": "TRUE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00454", "text": "青霉素的发现标志着抗生素时代的开始", "label": "TRUE", "category": "青霉素", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00479", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00482", "text": "茶起源于中国，传说神农氏发现了茶", "label": "TRUE", "category": "茶", "checker": ["negation", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00490", "text": "现代固体巧克力在19世纪才发明", "label": "TRUE", "category": "巧克力", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00496", "text": "维基百科由Jimmy Wales和Larry Sanger创建", "label": "TRUE", "category": "维基百科", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00500", "text": "比特币于2009年由化名中本聪的人创建", "label": "TRUE", "category": "比特币", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00509", "text": "万有引力定律由牛顿提出", "label": "TRUE", "category": "万有引力", "checker": ["numeric_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00515", "text": "氧气由约瑟夫·普里斯特利和卡尔·舍勒分别独立发现", "label": "TRUE", "category": "氧气", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00542", "text": "火星上目前没有发现液态水的存在", "label": "TRUE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00550", "text": "Transformer架构于2017年在论文Attention Is All You Need中提出", "label": "TRUE", "category": "transformer", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00585", "text": "清朝由满族人建立，前身为后金", "label": "TRUE", "category": "清", "checker": ["year_conflict", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00587", "text": "元朝(1271-1368年)由忽必烈建立", "label": "TRUE", "category": "元", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00599", "text": "三国不是由曹操统一的——最终由司马炎统一", "label": "TRUE", "category": "三国", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00606", "text": "狭义相对论由爱因斯坦于1905年提出", "label": "TRUE", "category": "相对论", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00610", "text": "广义相对论于1915年提出", "label": "TRUE", "category": "相对论", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00625", "text": "量子力学于20世纪初由普朗克、玻尔、海森堡等人建立", "label": "TRUE", "category": "量子力学", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00641", "text": "元素周期表由门捷列夫于1869年提出", "label": "TRUE", "category": "元素周期表", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00645", "text": "门捷列夫准确预测了当时尚未发现的元素", "label": "TRUE", "category": "元素周期表", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00650", "text": "电是自然现象，不是任何人发明的", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00654", "text": "本杰明·富兰克林没有发明电——他证明了闪电是电", "label": "TRUE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00658", "text": "法拉第发现了电磁感应定律", "label": "TRUE", "category": "电", "checker": ["negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00666", "text": "万维网由Tim Berners-Lee于1989年发明", "label": "TRUE", "category": "internet", "checker": ["year_conflict", "numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00676", "text": "图灵于1950年提出图灵测试", "label": "TRUE", "category": "人工智能", "checker": ["year_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00691", "text": "爱德华·詹纳于1796年发明了天花疫苗——世界上第一种疫苗", "label": "TRUE", "category": "疫苗", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00703", "text": "朱元璋发明火锅——火锅远早于明代就已存在", "label": "FALSE", "category": "朱元璋", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00711", "text": "牛顿被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00714", "text": "牛顿发明微积分——他与莱布尼茨分别独立发明了微积分", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00717", "text": "牛顿发明反射望远镜——但他改进了反射望远镜", "label": "FALSE", "category": "牛顿", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00720", "text": "爱因斯坦发明原子弹", "label": "FALSE", "category": "爱因斯坦", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00725", "text": "爱迪生发明电灯泡——电灯泡在他之前已经存在", "label": "FALSE", "category": "爱迪生", "checker": ["year_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00729", "text": "瓦特发明蒸汽机——他改良了蒸汽机使其效率大幅提高", "label": "FALSE", "category": "瓦特", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00732", "text": "贝尔唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "FALSE", "category": "贝尔", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00738", "text": "达尔文第一个提出进化论的人——拉马克等人更早", "label": "FALSE", "category": "达尔文", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00739", "text": "适者生存达尔文提出的——这是斯宾塞的说法", "label": "FALSE", "category": "达尔文", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00742", "text": "弗莱明有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00748", "text": "咖啡山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "FALSE", "category": "咖啡", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00757", "text": "火星上目前发现液态水的存在", "label": "FALSE", "category": "火星", "checker": ["year_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00759", "text": "三国由曹操统一的——最终由司马炎统一", "label": "FALSE", "category": "三国", "checker": ["graph_relation"], "difficulty": "medium"}
+{"id": "gold_00766", "text": "电是自然现象，任何人发明的", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00769", "text": "本杰明·富兰克林发明电——他证明了闪电是电", "label": "FALSE", "category": "电", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00785", "text": "工业革命由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "FALSE", "category": "工业革命", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00791", "text": "勾股定理毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "FALSE", "category": "勾股定理", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00800", "text": "足球英国发明的——古代中国和古希腊都有类似运动", "label": "FALSE", "category": "足球", "checker": ["negation", "temporal_order", "location_conflict", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00804", "text": "图灵发明计算机的人——他提出了通用计算机的理论模型", "label": "FALSE", "category": "图灵", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00810", "text": "柏拉图第一个提出理想国概念的人——但他将其系统化了", "label": "FALSE", "category": "柏拉图", "checker": ["numeric_conflict", "negation", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00834", "text": "蓝牙十世纪丹麦国王发明的——虽然以他的名字命名", "label": "FALSE", "category": "蓝牙", "checker": ["negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00839", "text": "WiFi由单一个人发明的——是多方技术融合的产物", "label": "FALSE", "category": "wifi", "checker": ["numeric_conflict", "negation", "temporal_order", "graph_relation"], "difficulty": "medium"}
+{"id": "gold_00055", "text": "Python 是解释型面向对象的高级编程语言", "label": "TRUE", "category": "python", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00056", "text": "Python 的名字来源于 BBC 喜剧节目 Monty Python", "label": "TRUE", "category": "python", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00061", "text": "Linux 是开源的类 Unix 操作系统内核", "label": "TRUE", "category": "linux", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00066", "text": "HTTP 是超文本传输协议", "label": "TRUE", "category": "http", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00075", "text": "Java 最初的名字是 Oak", "label": "TRUE", "category": "java", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00087", "text": "水在标准大气压下沸点为 100°C，冰点为 0°C", "label": "TRUE", "category": "水", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00088", "text": "水的化学式是 H2O", "label": "TRUE", "category": "水", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00089", "text": "水在 4°C 时密度最大", "label": "TRUE", "category": "水", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00096", "text": "光速是宇宙中信息传播的极限速度", "label": "TRUE", "category": "光速", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00101", "text": "Rosalind Franklin 的 X 射线衍射照片起关键作用", "label": "TRUE", "category": "dna", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00103", "text": "地球是已知唯一存在生命的天体", "label": "TRUE", "category": "地球", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00107", "text": "珠穆朗玛峰是世界最高峰", "label": "TRUE", "category": "珠穆朗玛峰", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00113", "text": "火锅的历史可追溯到战国时期", "label": "TRUE", "category": "火锅", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00140", "text": "朱元璋时期废除的是丞相制度设立了锦衣卫", "label": "TRUE", "category": "内阁制度", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00148", "text": "火药通过阿拉伯传入欧洲", "label": "TRUE", "category": "火药", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00172", "text": "朱元璋废除丞相制度", "label": "TRUE", "category": "朱元璋", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00184", "text": "包含唯一的断言几乎总是存在反例", "label": "TRUE", "category": "唯一", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00216", "text": "哥伦布是意大利人", "label": "TRUE", "category": "哥伦布", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00220", "text": "哥伦布到达了美洲", "label": "TRUE", "category": "哥伦布", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00233", "text": "太阳系最大的行星是木星", "label": "TRUE", "category": "太阳系", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00236", "text": "太阳系有8颗行星", "label": "TRUE", "category": "太阳系", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00237", "text": "长城始建于春秋战国时期", "label": "TRUE", "category": "长城", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00274", "text": "牛顿与莱布尼茨是同时代人", "label": "TRUE", "category": "牛顿", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00286", "text": "爱因斯坦是德国人", "label": "TRUE", "category": "爱因斯坦", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00287", "text": "爱因斯坦是物理学家", "label": "TRUE", "category": "爱因斯坦", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00307", "text": "爱因斯坦与玻尔是同时代人", "label": "TRUE", "category": "爱因斯坦", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00326", "text": "爱迪生改进了电灯泡", "label": "TRUE", "category": "爱迪生", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00334", "text": "爱迪生改进了灯泡并使其商业化", "label": "TRUE", "category": "爱迪生", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00335", "text": "爱迪生与特斯拉是同时代人", "label": "TRUE", "category": "爱迪生", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00345", "text": "特斯拉是物理学家", "label": "TRUE", "category": "特斯拉", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00346", "text": "特斯拉是工程学家", "label": "TRUE", "category": "特斯拉", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00352", "text": "特斯拉与特斯拉是同时代人", "label": "TRUE", "category": "特斯拉", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00365", "text": "瓦特改良了蒸汽机", "label": "TRUE", "category": "瓦特", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00372", "text": "瓦特与纽科门是同时代人", "label": "TRUE", "category": "瓦特", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00380", "text": "贝尔的专利是历史上最有价值的专利之一", "label": "TRUE", "category": "贝尔", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00391", "text": "莱特兄弟是航空家", "label": "TRUE", "category": "莱特兄弟", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00395", "text": "莱特兄弟完成了首次动力飞行", "label": "TRUE", "category": "莱特兄弟", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00425", "text": "达尔文是生物学家", "label": "TRUE", "category": "达尔文", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00426", "text": "达尔文是博物学家", "label": "TRUE", "category": "达尔文", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00441", "text": "达尔文与拉马克是同时代人", "label": "TRUE", "category": "达尔文", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00455", "text": "青霉素在二战期间大量生产，挽救了无数生命", "label": "TRUE", "category": "青霉素", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00468", "text": "一颗小行星撞击地球是恐龙灭绝的主要原因", "label": "TRUE", "category": "恐龙", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00471", "text": "根据物理定律，大黄蜂不能飞行的说法是都市传说", "label": "TRUE", "category": "蜜蜂", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00472", "text": "蜜蜂在采蜜时进行授粉", "label": "TRUE", "category": "蜜蜂", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00473", "text": "一只蜜蜂一生只能生产约十二分之一茶匙的蜂蜜", "label": "TRUE", "category": "蜜蜂", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00475", "text": "咖啡因是世界上消费最广泛的精神活性物质", "label": "TRUE", "category": "咖啡", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00487", "text": "巧克力起源于中美洲，玛雅人和阿兹特克人食用可可", "label": "TRUE", "category": "巧克力", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00497", "text": "维基百科是世界最大的百科全书", "label": "TRUE", "category": "维基百科", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00503", "text": "中本聪的真实身份至今未知", "label": "TRUE", "category": "比特币", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00513", "text": "引力是四种基本力中最弱的", "label": "TRUE", "category": "万有引力", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00521", "text": "二氧化碳的化学式是CO2", "label": "TRUE", "category": "二氧化碳", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00522", "text": "二氧化碳是温室气体", "label": "TRUE", "category": "二氧化碳", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00523", "text": "植物通过光合作用将二氧化碳转化为氧气", "label": "TRUE", "category": "二氧化碳", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00524", "text": "月球是地球唯一的天然卫星", "label": "TRUE", "category": "月球", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00530", "text": "太阳是太阳系的中心恒星", "label": "TRUE", "category": "太阳", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00531", "text": "太阳是一颗G型主序星(黄矮星)", "label": "TRUE", "category": "太阳", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00535", "text": "木星是太阳系最大的行星", "label": "TRUE", "category": "木星", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00538", "text": "木星有超过90颗已知卫星", "label": "TRUE", "category": "木星", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00539", "text": "火星被称为红色行星", "label": "TRUE", "category": "火星", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00543", "text": "火星有两颗卫星：火卫一和火卫二", "label": "TRUE", "category": "火星", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00544", "text": "GPT是Generative Pre-trained Transformer的缩写", "label": "TRUE", "category": "gpt", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00545", "text": "GPT系列由OpenAI开发", "label": "TRUE", "category": "gpt", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00554", "text": "Transformer的核心创新是自注意力机制", "label": "TRUE", "category": "transformer", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00559", "text": "围棋是最复杂的棋类游戏之一", "label": "TRUE", "category": "围棋", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00603", "text": "丝绸之路不仅运输丝绸，还传播文化和技术", "label": "TRUE", "category": "丝绸之路", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00604", "text": "海上丝绸之路与陆上丝绸之路并行发展", "label": "TRUE", "category": "丝绸之路", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00613", "text": "E=mc²是狭义相对论最著名的公式", "label": "TRUE", "category": "相对论", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00614", "text": "相对论推翻了牛顿的绝对时空观", "label": "TRUE", "category": "相对论", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00618", "text": "进化论的核心机制是自然选择", "label": "TRUE", "category": "进化论", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00626", "text": "量子力学描述微观世界的物理规律", "label": "TRUE", "category": "量子力学", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00627", "text": "量子纠缠是真实存在的物理现象", "label": "TRUE", "category": "量子力学", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00636", "text": "富士山是一座活火山", "label": "TRUE", "category": "富士山", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00687", "text": "喷气式飞机在二战后期才投入实战", "label": "TRUE", "category": "飞机", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00694", "text": "疫苗通过激发免疫系统产生抗体来预防疾病", "label": "TRUE", "category": "疫苗", "checker": ["knowledge_base"], "difficulty": "easy"}
+{"id": "gold_00696", "text": "JavaScript 与 Java 任何关系", "label": "FALSE", "category": "javascript", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00697", "text": "光速无穷大的，光速是有限的", "label": "FALSE", "category": "光速", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00698", "text": "地球平的，地球是近似球体", "label": "FALSE", "category": "地球", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00706", "text": "地球太阳系最大的行星", "label": "FALSE", "category": "太阳系", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00721", "text": "E=mc²爱因斯坦唯一的贡献——他还解释了光电效应", "label": "FALSE", "category": "爱因斯坦", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00735", "text": "达尔文说人是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "达尔文", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00744", "text": "鸟类是恐龙的直接后代——鸟类恐龙的后代，鸟类就是恐龙的一种", "label": "FALSE", "category": "恐龙", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00749", "text": "白巧克力真正的巧克力——它不含可可固体", "label": "FALSE", "category": "巧克力", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00753", "text": "氧气可燃的——它是助燃的", "label": "FALSE", "category": "氧气", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00754", "text": "月球自己发光的——它反射太阳光", "label": "FALSE", "category": "月球", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00760", "text": "进化论人是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "进化论", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00761", "text": "达尔文说适者生存——这是斯宾塞的说法", "label": "FALSE", "category": "进化论", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00763", "text": "元素周期表按原子序数排列，原子量", "label": "FALSE", "category": "元素周期表", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00775", "text": "奥运会金牌纯金的——主要是银，镀了一层金", "label": "FALSE", "category": "奥林匹克", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00779", "text": "孙子兵法现代管理学著作——但其中的策略被广泛借用", "label": "FALSE", "category": "孙子兵法", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00781", "text": "文艺复兴突然出现的——它根植于中世纪晚期的社会变化", "label": "FALSE", "category": "文艺复兴", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00792", "text": "黄金分割美的唯一标准——很多经典作品并不遵循黄金分割", "label": "FALSE", "category": "黄金分割", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00793", "text": "撒哈拉世界上最大的沙漠——南极洲是最大的沙漠", "label": "FALSE", "category": "撒哈拉", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00794", "text": "亚马逊雨林地球之肺——海洋产生更多氧气", "label": "FALSE", "category": "亚马逊", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00795", "text": "蓝鲸鱼——是哺乳动物", "label": "FALSE", "category": "蓝鲸", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00796", "text": "《红楼梦》爱情小说——它是一部封建社会的百科全书", "label": "FALSE", "category": "红楼梦", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00801", "text": "通货膨胀物价上涨——物价上涨是通货膨胀的表现", "label": "FALSE", "category": "通货膨胀", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00805", "text": "冥王星太阳系最小的天体——它仍然是柯伊伯带中最大的天体之一", "label": "FALSE", "category": "冥王星", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00806", "text": "土星唯一有环的行星——木星、天王星和海王星也有环", "label": "FALSE", "category": "土星", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00812", "text": "罗马帝国一天建成的", "label": "FALSE", "category": "罗马帝国", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00813", "text": "罗马世界上最大的帝国——大英帝国和蒙古帝国的面积更大", "label": "FALSE", "category": "罗马帝国", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00815", "text": "二战由单一事件引发的——是多重因素累积的结果", "label": "FALSE", "category": "二战", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00816", "text": "原子弹结束二战的唯一原因——苏联对日宣战也是关键因素", "label": "FALSE", "category": "二战", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00817", "text": "冷战变成热战——但期间有许多代理人战争", "label": "FALSE", "category": "冷战", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00818", "text": "冷战以一方投降结束的——苏联解体标志着冷战终结", "label": "FALSE", "category": "冷战", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00820", "text": "黑洞只进不出的——霍金辐射理论认为黑洞会蒸发", "label": "FALSE", "category": "黑洞", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00824", "text": "暗物质反物质——两者是不同的概念", "label": "FALSE", "category": "暗物质", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00827", "text": "大陆漂浮在水上的——是漂浮在地幔上的", "label": "FALSE", "category": "大陆漂移", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00828", "text": "光合作用植物独有的——某些细菌也能进行", "label": "FALSE", "category": "光合作用", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00829", "text": "植物只靠光合作用生存——夜间进行呼吸作用消耗氧气", "label": "FALSE", "category": "光合作用", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00831", "text": "气候变暖只让地球变热——还导致极端天气增加", "label": "FALSE", "category": "气候变暖", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00840", "text": "WiFi无线上网的唯一方式——蜂窝数据也是", "label": "FALSE", "category": "wifi", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00844", "text": "蒙娜丽莎达芬奇唯一的作品——但确实是最著名的", "label": "FALSE", "category": "蒙娜丽莎", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00846", "text": "《西游记》佛教宣传书——它融合了儒释道三家思想", "label": "FALSE", "category": "西游记", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00847", "text": "《三国演义》历史——是一部历史演义小说", "label": "FALSE", "category": "三国演义", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00848", "text": "《三国演义》中许多情节是虚构的——如草船借箭实际上诸葛亮所为", "label": "FALSE", "category": "三国演义", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00849", "text": "关羽使用的青龙偃月刀——这种兵器在三国时期还不存在", "label": "FALSE", "category": "三国演义", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00850", "text": "《水浒传》108将大多真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传", "checker": ["knowledge_base"], "difficulty": "medium"}
+{"id": "gold_00851", "text": "林冲、武松等核心角色在正史中记载", "label": "FALSE", "category": "水浒传", "checker": ["knowledge_base"], "difficulty": "medium"}

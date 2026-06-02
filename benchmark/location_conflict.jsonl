@@ -1,0 +1,59 @@
+{"id": "true_000101", "text": "珠穆朗玛峰位于中国与尼泊尔边境", "label": "TRUE", "category": "珠穆朗玛峰", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000102", "text": "珠穆朗玛峰位于日本与尼泊尔边境", "label": "FALSE", "category": "珠穆朗玛峰_实体置换", "checker": ["location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000112", "text": "古腾堡于 1450 年在欧洲发明铅活字印刷", "label": "TRUE", "category": "印刷", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000113", "text": "古腾堡于 1451 年在欧洲发明铅活字印刷", "label": "FALSE", "category": "印刷_年份偏移", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000114", "text": "古腾堡于 1740 年在欧洲发明铅活字印刷", "label": "FALSE", "category": "印刷_数值扰动", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000184", "text": "古腾堡于1450年在欧洲发明铅活字印刷", "label": "TRUE", "category": "活字印刷", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_000185", "text": "古腾堡于1451年在欧洲发明铅活字印刷", "label": "FALSE", "category": "活字印刷_年份偏移", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_000186", "text": "古腾堡于1740年在欧洲发明铅活字印刷", "label": "FALSE", "category": "活字印刷_数值扰动", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_000529", "text": "马可·波罗在元朝时期来到中国", "label": "TRUE", "category": "元", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_000721", "text": "勾股定理在中国古代由商高发现，西方称为毕达哥拉斯定理", "label": "TRUE", "category": "勾股定理", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001014", "text": "关羽使用的不是青龙偃月刀——这种兵器在三国时期还不存在", "label": "TRUE", "category": "三国演义", "checker": ["negation", "location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001015", "text": "关羽使用的是青龙偃月刀——这种兵器在三国时期还不存在", "label": "FALSE", "category": "三国演义_否定翻转", "checker": ["location_conflict", "knowledge_base"], "difficulty": "hard"}
+{"id": "true_001036", "text": "大堡礁位于澳大利亚东北海岸，是世界上最大的珊瑚礁系统", "label": "TRUE", "category": "大堡礁", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001037", "text": "大堡礁位于澳大利亚东北海岸，不是世界上最大的珊瑚礁系统", "label": "FALSE", "category": "大堡礁_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001044", "text": "黄石国家公园位于美国，是世界上第一个国家公园", "label": "TRUE", "category": "黄石公园", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001045", "text": "黄石国家公园位于美国，不是世界上第一个国家公园", "label": "FALSE", "category": "黄石公园_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001046", "text": "黄石国家公园位于加拿大，是世界上第一个国家公园", "label": "FALSE", "category": "黄石公园_实体置换", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001277", "text": "海水将在 50 年内完全变成酸性——用户标注正确事实：国科研团队首次直接观测到米格达尔效应 为轻暗物质探测迈出坚实的一步\n2026-01-15 00:14:55 来源：新华社\n  近期，由中国科学院大学主导、多所学校参与的科研团队首次直接观测到米格达尔效应，这一发现为轻暗物质探测突破阈值瓶颈提供关键支撑。上述成果北京时间1月15日在国际学术期刊《自然》上发表。", "label": "TRUE", "category": "海水将在", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001278", "text": "海水将在 50 年内完全变成酸性——用户标注正确事实：国科研团队首次直接观测到米格达尔效应 为轻暗物质探测迈出坚实的一步\n2027-01-15 00:14:55 来源：新华社\n  近期，由中国科学院大学主导、多所学校参与的科研团队首次直接观测到米格达尔效应，这一发现为轻暗物质探测突破阈值瓶颈提供关键支撑。上述成果北京时间1月15日在国际学术期刊《自然》上发表。", "label": "FALSE", "category": "海水将在_年份偏移", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001279", "text": "海水将在 60 年内完全变成酸性——用户标注正确事实：国科研团队首次直接观测到米格达尔效应 为轻暗物质探测迈出坚实的一步\n2026-01-15 00:14:55 来源：新华社\n  近期，由中国科学院大学主导、多所学校参与的科研团队首次直接观测到米格达尔效应，这一发现为轻暗物质探测突破阈值瓶颈提供关键支撑。上述成果北京时间1月15日在国际学术期刊《自然》上发表。", "label": "FALSE", "category": "海水将在_数值扰动", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "false_001280", "text": "海水将在 50 年内完全变成酸性——用户标注正确事实：国科研团队首次直接观测到米格达尔效应 为轻暗物质探测迈出坚实的一步\n2026-01-15 00:14:55 来源：新华社\n  近期，由日本科学院大学主导、多所学校参与的科研团队首次直接观测到米格达尔效应，这一发现为轻暗物质探测突破阈值瓶颈提供关键支撑。上述成果北京时间1月15日在国际学术期刊《自然》上发表。", "label": "FALSE", "category": "海水将在_实体置换", "checker": ["year_conflict", "numeric_conflict", "location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001544", "text": "埃菲尔铁塔位于法国巴黎", "label": "TRUE", "category": "埃菲尔铁塔", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001551", "text": "自由女神像位于美国纽约", "label": "TRUE", "category": "自由女神像", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_001552", "text": "自由女神像位于加拿大纽约", "label": "FALSE", "category": "自由女神像_实体置换", "checker": ["location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_001838", "text": "罗马斗兽场位于意大利罗马", "label": "TRUE", "category": "罗马斗兽场", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001844", "text": "泰姬陵位于印度阿格拉", "label": "TRUE", "category": "泰姬陵", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_001849", "text": "亚马逊河位于南美洲", "label": "TRUE", "category": "亚马逊河", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002129", "text": "岳母在岳飞背上刺有精忠报国四字", "label": "TRUE", "category": "岳飞", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002209", "text": "撒哈拉沙漠位于非洲", "label": "TRUE", "category": "撒哈拉沙漠", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002217", "text": "马里亚纳海沟位于太平洋", "label": "TRUE", "category": "太平洋", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002641", "text": "哥伦布在西班牙资助下发现美洲", "label": "TRUE", "category": "西班牙", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002654", "text": "韩国位于朝鲜半岛南部", "label": "TRUE", "category": "韩国", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002657", "text": "朝鲜位于朝鲜半岛北部", "label": "TRUE", "category": "朝鲜", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002681", "text": "南非位于非洲最南端", "label": "TRUE", "category": "南非", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002694", "text": "埃塞俄比亚位于东非", "label": "TRUE", "category": "埃塞俄比亚", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002716", "text": "克里姆林宫位于莫斯科", "label": "TRUE", "category": "莫斯科", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002719", "text": "梵蒂冈位于罗马城内", "label": "TRUE", "category": "罗马", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002722", "text": "圣索菲亚大教堂位于伊斯坦布尔", "label": "TRUE", "category": "伊斯坦布尔", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002729", "text": "帕特农神庙位于雅典", "label": "TRUE", "category": "雅典", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002732", "text": "吉萨金字塔群位于开罗附近", "label": "TRUE", "category": "开罗", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_002910", "text": "台积电总部位于台湾新竹", "label": "TRUE", "category": "台积电", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003151", "text": "香港岛在鸦片战争后被割让给英国", "label": "TRUE", "category": "第一次鸦片战争", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_003152", "text": "香港岛在鸦片战争后被割让给法国", "label": "FALSE", "category": "第一次鸦片战争_实体置换", "checker": ["location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_003219", "text": "切尔诺贝利位于乌克兰", "label": "TRUE", "category": "切尔诺贝利", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003484", "text": "巴塞罗那位于西班牙", "label": "TRUE", "category": "巴塞罗那", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003493", "text": "伊瓜苏瀑布位于巴西和阿根廷边境", "label": "TRUE", "category": "伊瓜苏瀑布", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003498", "text": "尼亚加拉瀑布位于美国和加拿大边境", "label": "TRUE", "category": "尼亚加拉瀑布", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_003499", "text": "尼亚加拉瀑布位于加拿大和加拿大边境", "label": "FALSE", "category": "尼亚加拉瀑布_实体置换", "checker": ["location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_003502", "text": "贝加尔湖位于俄罗斯西伯利亚", "label": "TRUE", "category": "贝加尔湖", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003507", "text": "复活节岛位于太平洋", "label": "TRUE", "category": "复活节岛", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003518", "text": "大峡谷位于美国亚利桑那州", "label": "TRUE", "category": "大峡谷", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "false_003519", "text": "大峡谷位于加拿大亚利桑那州", "label": "FALSE", "category": "大峡谷_实体置换", "checker": ["location_conflict", "knowledge_base"], "difficulty": "medium"}
+{"id": "true_003579", "text": "摩纳哥位于法国南部", "label": "TRUE", "category": "摩纳哥", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003580", "text": "蒙特卡洛赌场位于摩纳哥", "label": "TRUE", "category": "摩纳哥", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003583", "text": "喜马拉雅山脉位于亚洲", "label": "TRUE", "category": "喜马拉雅山", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003596", "text": "安第斯山脉位于南美洲", "label": "TRUE", "category": "安第斯山脉", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003711", "text": "北极位于地球最北端", "label": "TRUE", "category": "北极", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003749", "text": "IMF总部位于华盛顿", "label": "TRUE", "category": "国际货币基金组织", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}
+{"id": "true_003754", "text": "世界银行总部位于华盛顿", "label": "TRUE", "category": "世界银行", "checker": ["location_conflict", "knowledge_base"], "difficulty": "easy"}

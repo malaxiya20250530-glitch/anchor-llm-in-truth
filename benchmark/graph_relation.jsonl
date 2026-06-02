@@ -1,0 +1,760 @@
+{"id": "true_000000", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "TRUE", "category": "秦", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000001", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前222年建立", "label": "FALSE", "category": "秦_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000002", "text": "秦朝是中国第一个大一统王朝，由秦始皇嬴政于公元前265年建立", "label": "FALSE", "category": "秦_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000003", "text": "秦朝不是中国第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "FALSE", "category": "秦_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000004", "text": "秦朝是日本第一个大一统王朝，由秦始皇嬴政于公元前221年建立", "label": "FALSE", "category": "秦_实体置换", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000014", "text": "唐朝(618-907年)是中国历史上最繁荣的朝代之一", "label": "TRUE", "category": "唐", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000015", "text": "唐朝(619-907年)是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000016", "text": "唐朝(741-907年)是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000017", "text": "唐朝(618-907年)不是中国历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000018", "text": "唐朝(618-907年)是日本历史上最繁荣的朝代之一", "label": "FALSE", "category": "唐_实体置换", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000040", "text": "Python 是解释型面向对象的高级编程语言", "label": "TRUE", "category": "python", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000041", "text": "Python 不是解释型面向对象的高级编程语言", "label": "FALSE", "category": "python_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000046", "text": "Linux 是开源的类 Unix 操作系统内核", "label": "TRUE", "category": "linux", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000047", "text": "Linux 不是开源的类 Unix 操作系统内核", "label": "FALSE", "category": "linux_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000064", "text": "C 语言是为了写 Unix 而创造的", "label": "TRUE", "category": "c语言", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000065", "text": "C 语言不是为了写 Unix 而创造的", "label": "FALSE", "category": "c语言_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000079", "text": "光速不是无穷大的，光速是有限的", "label": "TRUE", "category": "光速", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000080", "text": "光速是无穷大的，光速是有限的", "label": "FALSE", "category": "光速_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000083", "text": "光速是宇宙中信息传播的极限速度", "label": "TRUE", "category": "光速", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000084", "text": "光速不是宇宙中信息传播的极限速度", "label": "FALSE", "category": "光速_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000092", "text": "地球是已知唯一存在生命的天体", "label": "TRUE", "category": "地球", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000093", "text": "地球不是已知唯一存在生命的天体", "label": "FALSE", "category": "地球_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000094", "text": "地球不是平的，地球是近似球体", "label": "TRUE", "category": "地球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000095", "text": "地球是平的，地球是近似球体", "label": "FALSE", "category": "地球_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000115", "text": "内阁制度是明朝永乐年间设立的不是朱元璋设立的", "label": "TRUE", "category": "内阁制度", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000116", "text": "内阁制度是明朝永乐年间设立的是朱元璋设立的", "label": "FALSE", "category": "内阁制度_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000145", "text": "任何声称某人发明了某自然现象的断言都是错误的", "label": "TRUE", "category": "发明", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000146", "text": "任何声称某人没有发明某自然现象的断言都是错误的", "label": "FALSE", "category": "发明_否定添加", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000150", "text": "声称某物是唯一的需要极其严格的证明", "label": "TRUE", "category": "唯一", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000151", "text": "声称某物不是唯一的需要极其严格的证明", "label": "FALSE", "category": "唯一_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000153", "text": "许多第一的宣称在学术上是争议的", "label": "TRUE", "category": "第一", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000154", "text": "许多第一的宣称在学术上不是争议的", "label": "FALSE", "category": "第一_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000181", "text": "哥伦布不是第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "TRUE", "category": "哥伦布", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000182", "text": "哥伦布是第一个到达美洲的欧洲人——维京人Leif Erikson更早", "label": "FALSE", "category": "哥伦布_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000189", "text": "地球不是太阳系最大的行星", "label": "TRUE", "category": "太阳系", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000190", "text": "地球是太阳系最大的行星", "label": "FALSE", "category": "太阳系_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000192", "text": "现存长城主要是明代修建的", "label": "TRUE", "category": "长城", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000193", "text": "现存长城主要不是明代修建的", "label": "FALSE", "category": "长城_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000194", "text": "现存长城主要是唐代修建的", "label": "FALSE", "category": "长城_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000195", "text": "长城不是秦始皇一个人修建的", "label": "TRUE", "category": "长城", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000196", "text": "长城是秦始皇一个人修建的", "label": "FALSE", "category": "长城_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000217", "text": "牛顿不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "TRUE", "category": "牛顿", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000218", "text": "牛顿是被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000219", "text": "爱因斯坦不是被苹果砸中才发现万有引力的——这是后来的传说", "label": "FALSE", "category": "牛顿_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000267", "text": "E=mc²不是爱因斯坦唯一的贡献——他还解释了光电效应", "label": "TRUE", "category": "爱因斯坦", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000268", "text": "E=mc²是爱因斯坦唯一的贡献——他还解释了光电效应", "label": "FALSE", "category": "爱因斯坦_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000269", "text": "E=mc²不是牛顿唯一的贡献——他还解释了光电效应", "label": "FALSE", "category": "爱因斯坦_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000309", "text": "特斯拉不是被历史遗忘的——他的名字被用作磁感应强度单位", "label": "TRUE", "category": "特斯拉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000310", "text": "特斯拉是被历史遗忘的——他的名字被用作磁感应强度单位", "label": "FALSE", "category": "特斯拉_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000331", "text": "贝尔不是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "TRUE", "category": "贝尔", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000332", "text": "贝尔是唯一发明电话的人——Elisha Gray同日提交了专利申请", "label": "FALSE", "category": "贝尔_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000333", "text": "贝尔的专利是历史上最有价值的专利之一", "label": "TRUE", "category": "贝尔", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000334", "text": "贝尔的专利不是历史上最有价值的专利之一", "label": "FALSE", "category": "贝尔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000348", "text": "莱特兄弟不是最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "TRUE", "category": "莱特兄弟", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000349", "text": "莱特兄弟是最早尝试飞行的人——但他们是第一个成功实现可控动力飞行的", "label": "FALSE", "category": "莱特兄弟_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000362", "text": "莎士比亚是英国文艺复兴时期最伟大的剧作家", "label": "TRUE", "category": "莎士比亚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000363", "text": "莎士比亚不是英国文艺复兴时期最伟大的剧作家", "label": "FALSE", "category": "莎士比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000364", "text": "莎士比亚是法国文艺复兴时期最伟大的剧作家", "label": "FALSE", "category": "莎士比亚_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000379", "text": "达尔文没有说过人类是猴子变的——他说人类和猿类有共同祖先", "label": "TRUE", "category": "达尔文", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000380", "text": "达尔文有说过人类是猴子变的——他说人类和猿类有共同祖先", "label": "FALSE", "category": "达尔文_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000384", "text": "弗莱明不是有意发现青霉素的——是实验室污染导致的意外发现", "label": "TRUE", "category": "青霉素", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000385", "text": "弗莱明是有意发现青霉素的——是实验室污染导致的意外发现", "label": "FALSE", "category": "青霉素_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000388", "text": "人类只用了大脑10%的说法是完全没有科学依据的谣言", "label": "TRUE", "category": "大脑", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000389", "text": "人类只用了大脑12%的说法是完全没有科学依据的谣言", "label": "FALSE", "category": "大脑_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000390", "text": "人类只用了大脑10%的说法是完全有科学依据的谣言", "label": "FALSE", "category": "大脑_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000393", "text": "神经元不能再生是一个被推翻的旧观点——某些脑区确实可以产生新神经元", "label": "TRUE", "category": "大脑", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000394", "text": "神经元能再生是一个被推翻的旧观点——某些脑区确实可以产生新神经元", "label": "FALSE", "category": "大脑_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000398", "text": "一颗小行星撞击地球是恐龙灭绝的主要原因", "label": "TRUE", "category": "恐龙", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000399", "text": "一颗小行星撞击地球不是恐龙灭绝的主要原因", "label": "FALSE", "category": "恐龙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000400", "text": "鸟类是恐龙的直接后代——鸟类不是恐龙的后代，鸟类就是恐龙的一种", "label": "TRUE", "category": "恐龙", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000401", "text": "鸟类是恐龙的直接后代——鸟类是恐龙的后代，鸟类就是恐龙的一种", "label": "FALSE", "category": "恐龙_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000407", "text": "咖啡因是世界上消费最广泛的精神活性物质", "label": "TRUE", "category": "咖啡", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000408", "text": "咖啡因不是世界上消费最广泛的精神活性物质", "label": "FALSE", "category": "咖啡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000409", "text": "咖啡不是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "TRUE", "category": "咖啡", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000410", "text": "咖啡是山羊发现的——虽然有一个关于埃塞俄比亚牧羊人的传说", "label": "FALSE", "category": "咖啡_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000422", "text": "白巧克力不是真正的巧克力——它不含可可固体", "label": "TRUE", "category": "巧克力", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000423", "text": "白巧克力是真正的巧克力——它不含可可固体", "label": "FALSE", "category": "巧克力_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000428", "text": "维基百科是世界最大的百科全书", "label": "TRUE", "category": "维基百科", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000429", "text": "维基百科不是世界最大的百科全书", "label": "FALSE", "category": "维基百科_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000440", "text": "万有引力不是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "TRUE", "category": "万有引力", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000441", "text": "万有引力是牛顿看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000442", "text": "万有引力不是爱因斯坦看到苹果落地后顿悟的——他研究这个问题多年，牛顿也没有被苹果砸中", "label": "FALSE", "category": "万有引力_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000443", "text": "引力是四种基本力中最弱的", "label": "TRUE", "category": "万有引力", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000444", "text": "引力不是四种基本力中最弱的", "label": "FALSE", "category": "万有引力_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000448", "text": "氧气不是可燃的——它是助燃的", "label": "TRUE", "category": "氧气", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000449", "text": "氧气是可燃的——它是助燃的", "label": "FALSE", "category": "氧气_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000456", "text": "月球是地球唯一的天然卫星", "label": "TRUE", "category": "月球", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000457", "text": "月球不是地球唯一的天然卫星", "label": "FALSE", "category": "月球_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000458", "text": "月球不是自己发光的——它反射太阳光", "label": "TRUE", "category": "月球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000459", "text": "月球是自己发光的——它反射太阳光", "label": "FALSE", "category": "月球_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000464", "text": "太阳是太阳系的中心恒星", "label": "TRUE", "category": "太阳", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000465", "text": "太阳不是太阳系的中心恒星", "label": "FALSE", "category": "太阳_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000470", "text": "木星是太阳系最大的行星", "label": "TRUE", "category": "木星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000471", "text": "木星不是太阳系最大的行星", "label": "FALSE", "category": "木星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000479", "text": "GPT是Generative Pre-trained Transformer的缩写", "label": "TRUE", "category": "gpt", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000480", "text": "GPT不是Generative Pre-trained Transformer的缩写", "label": "FALSE", "category": "gpt_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000488", "text": "Transformer是当前大多数大语言模型的基础架构", "label": "TRUE", "category": "transformer", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000489", "text": "Transformer不是当前大多数大语言模型的基础架构", "label": "FALSE", "category": "transformer_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000496", "text": "围棋是最复杂的棋类游戏之一", "label": "TRUE", "category": "围棋", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000497", "text": "围棋不是最复杂的棋类游戏之一", "label": "FALSE", "category": "围棋_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000498", "text": "AlphaGo于2016年击败李世石是AI历史的重要里程碑", "label": "TRUE", "category": "围棋", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000499", "text": "AlphaGo于2017年击败李世石是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000500", "text": "AlphaGo于2419年击败李世石是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000501", "text": "AlphaGo于2016年击败李世石不是AI历史的重要里程碑", "label": "FALSE", "category": "围棋_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000506", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "TRUE", "category": "马拉松", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000507", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1909年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000508", "text": "马拉松的距离不是从希腊传令兵菲迪皮德斯的故事来的——现代距离是2289年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000509", "text": "马拉松的距离是从希腊传令兵菲迪皮德斯的故事来的——现代距离是1908年伦敦奥运会上确定的", "label": "FALSE", "category": "马拉松_否定翻转", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000512", "text": "清朝(1644-1912年)是中国最后一个封建王朝", "label": "TRUE", "category": "清", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000513", "text": "清朝(1645-1912年)是中国最后一个封建王朝", "label": "FALSE", "category": "清_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000514", "text": "清朝(1972-1912年)是中国最后一个封建王朝", "label": "FALSE", "category": "清_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000515", "text": "清朝(1644-1912年)不是中国最后一个封建王朝", "label": "FALSE", "category": "清_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000516", "text": "清朝(1644-1912年)是日本最后一个封建王朝", "label": "FALSE", "category": "清_实体置换", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000526", "text": "元朝是中国历史上疆域最广阔的朝代之一", "label": "TRUE", "category": "元", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000527", "text": "元朝不是中国历史上疆域最广阔的朝代之一", "label": "FALSE", "category": "元_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000528", "text": "元朝是日本历史上疆域最广阔的朝代之一", "label": "FALSE", "category": "元_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000531", "text": "三国时期(220-280年)是魏蜀吴三足鼎立的时代", "label": "TRUE", "category": "三国", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000532", "text": "三国时期(221-280年)是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000533", "text": "三国时期(264-280年)是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000534", "text": "三国时期(220-280年)不是魏蜀吴三足鼎立的时代", "label": "FALSE", "category": "三国_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000538", "text": "三国不是由曹操统一的——最终由司马炎统一", "label": "TRUE", "category": "三国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000539", "text": "三国是由曹操统一的——最终由司马炎统一", "label": "FALSE", "category": "三国_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000550", "text": "E=mc²是狭义相对论最著名的公式", "label": "TRUE", "category": "相对论", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000551", "text": "E=mc²不是狭义相对论最著名的公式", "label": "FALSE", "category": "相对论_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000559", "text": "进化论不是人是从猴子变来的——人和猴子有共同祖先", "label": "TRUE", "category": "进化论", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000560", "text": "进化论是人是从猴子变来的——人和猴子有共同祖先", "label": "FALSE", "category": "进化论_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000561", "text": "达尔文没有说适者生存——这是斯宾塞的说法", "label": "TRUE", "category": "进化论", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000562", "text": "达尔文有说适者生存——这是斯宾塞的说法", "label": "FALSE", "category": "进化论_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000566", "text": "量子纠缠是真实存在的物理现象", "label": "TRUE", "category": "量子力学", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000567", "text": "量子纠缠不是真实存在的物理现象", "label": "FALSE", "category": "量子力学_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000568", "text": "薛定谔的猫是一个思想实验，不是真实实验", "label": "TRUE", "category": "量子力学", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000569", "text": "薛定谔的猫是一个思想实验，是真实实验", "label": "FALSE", "category": "量子力学_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000573", "text": "故宫是明清两代的皇家宫殿", "label": "TRUE", "category": "故宫", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000574", "text": "故宫不是明清两代的皇家宫殿", "label": "FALSE", "category": "故宫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000589", "text": "电是自然现象，不是任何人发明的", "label": "TRUE", "category": "电", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000590", "text": "电是自然现象，是任何人发明的", "label": "FALSE", "category": "电_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000600", "text": "互联网和万维网不是同一个概念——万维网运行在互联网之上", "label": "TRUE", "category": "internet", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000601", "text": "互联网和万维网是同一个概念——万维网运行在互联网之上", "label": "FALSE", "category": "internet_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000608", "text": "AI不是万能的——当前AI是窄人工智能而非通用人工智能", "label": "TRUE", "category": "人工智能", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000609", "text": "AI是万能的——当前AI是窄人工智能而非通用人工智能", "label": "FALSE", "category": "人工智能_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000613", "text": "莱特兄弟不是第一个飞上天空的人——滑翔机和气球更早出现", "label": "TRUE", "category": "飞机", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000614", "text": "莱特兄弟是第一个飞上天空的人——滑翔机和气球更早出现", "label": "FALSE", "category": "飞机_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000635", "text": "奥林匹克休战是古希腊的传统", "label": "TRUE", "category": "奥林匹克", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000636", "text": "奥林匹克休战不是古希腊的传统", "label": "FALSE", "category": "奥林匹克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000637", "text": "奥运会金牌不是纯金的——主要是银，镀了一层金", "label": "TRUE", "category": "奥林匹克", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000638", "text": "奥运会金牌是纯金的——主要是银，镀了一层金", "label": "FALSE", "category": "奥林匹克_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000639", "text": "黄帝是传说中中华民族的人文初祖", "label": "TRUE", "category": "黄帝", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000640", "text": "黄帝不是传说中中华民族的人文初祖", "label": "FALSE", "category": "黄帝_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000641", "text": "黄帝不是第一个皇帝——皇帝制度始于秦始皇", "label": "TRUE", "category": "黄帝", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000642", "text": "黄帝是第一个皇帝——皇帝制度始于秦始皇", "label": "FALSE", "category": "黄帝_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000643", "text": "黄帝和炎帝并称炎黄，是华夏族的共同祖先", "label": "TRUE", "category": "黄帝", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000644", "text": "黄帝和炎帝并称炎黄，不是华夏族的共同祖先", "label": "FALSE", "category": "黄帝_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000659", "text": "《孙子兵法》是世界上最早的兵书之一", "label": "TRUE", "category": "孙子兵法", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000660", "text": "《孙子兵法》不是世界上最早的兵书之一", "label": "FALSE", "category": "孙子兵法_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000661", "text": "孙子兵法不是现代管理学著作——但其中的策略被广泛借用", "label": "TRUE", "category": "孙子兵法", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000662", "text": "孙子兵法是现代管理学著作——但其中的策略被广泛借用", "label": "FALSE", "category": "孙子兵法_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000688", "text": "文艺复兴不是突然出现的——它根植于中世纪晚期的社会变化", "label": "TRUE", "category": "文艺复兴", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000689", "text": "文艺复兴是突然出现的——它根植于中世纪晚期的社会变化", "label": "FALSE", "category": "文艺复兴_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000697", "text": "工业革命不是一夜之间发生的——它是渐进的过程", "label": "TRUE", "category": "工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000698", "text": "工业革命是一夜之间发生的——它是渐进的过程", "label": "FALSE", "category": "工业革命_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000707", "text": "十月革命不是唯一的俄国革命——同年二月革命已推翻了沙皇", "label": "TRUE", "category": "十月革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000708", "text": "十月革命是唯一的俄国革命——同年二月革命已推翻了沙皇", "label": "FALSE", "category": "十月革命_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000710", "text": "圆周率π是一个无限不循环小数", "label": "TRUE", "category": "圆周率", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000711", "text": "圆周率π不是一个无限不循环小数", "label": "FALSE", "category": "圆周率_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000717", "text": "π不是3.14——3.14只是一个近似值", "label": "TRUE", "category": "圆周率", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000718", "text": "π不是3.8——3.14只是一个近似值", "label": "FALSE", "category": "圆周率_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000719", "text": "π是3.14——3.14只是一个近似值", "label": "FALSE", "category": "圆周率_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000723", "text": "勾股定理不是毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "TRUE", "category": "勾股定理", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000724", "text": "勾股定理是毕达哥拉斯第一个发现的——古巴比伦人更早", "label": "FALSE", "category": "勾股定理_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000729", "text": "黄金分割不是美的唯一标准——很多经典作品并不遵循黄金分割", "label": "TRUE", "category": "黄金分割", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000730", "text": "黄金分割是美的唯一标准——很多经典作品并不遵循黄金分割", "label": "FALSE", "category": "黄金分割_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000731", "text": "撒哈拉沙漠是世界上最大的热沙漠", "label": "TRUE", "category": "撒哈拉", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000732", "text": "撒哈拉沙漠不是世界上最大的热沙漠", "label": "FALSE", "category": "撒哈拉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000733", "text": "撒哈拉不是世界上最大的沙漠——南极洲是最大的沙漠", "label": "TRUE", "category": "撒哈拉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000734", "text": "撒哈拉是世界上最大的沙漠——南极洲是最大的沙漠", "label": "FALSE", "category": "撒哈拉_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000738", "text": "尼罗河是世界上最长的河流之一", "label": "TRUE", "category": "尼罗河", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000739", "text": "尼罗河不是世界上最长的河流之一", "label": "FALSE", "category": "尼罗河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000742", "text": "亚马逊雨林是世界上最大的热带雨林", "label": "TRUE", "category": "亚马逊", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000743", "text": "亚马逊雨林不是世界上最大的热带雨林", "label": "FALSE", "category": "亚马逊_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000746", "text": "亚马逊河是世界上流量最大的河流", "label": "TRUE", "category": "亚马逊", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000747", "text": "亚马逊河不是世界上流量最大的河流", "label": "FALSE", "category": "亚马逊_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000748", "text": "蓝鲸是地球上已知最大的动物", "label": "TRUE", "category": "蓝鲸", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000749", "text": "蓝鲸不是地球上已知最大的动物", "label": "FALSE", "category": "蓝鲸_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000755", "text": "章鱼是非常聪明的无脊椎动物", "label": "TRUE", "category": "章鱼", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000756", "text": "章鱼不是非常聪明的无脊椎动物", "label": "FALSE", "category": "章鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000757", "text": "章鱼血液是蓝色的——因为含有血蓝蛋白而非血红蛋白", "label": "TRUE", "category": "章鱼", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000758", "text": "章鱼血液不是蓝色的——因为含有血蓝蛋白而非血红蛋白", "label": "FALSE", "category": "章鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000772", "text": "莫扎特是古典音乐史上最天才的作曲家之一", "label": "TRUE", "category": "莫扎特", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000773", "text": "莫扎特不是古典音乐史上最天才的作曲家之一", "label": "FALSE", "category": "莫扎特_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000780", "text": "《红楼梦》不是爱情小说——它是一部封建社会的百科全书", "label": "TRUE", "category": "红楼梦", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000781", "text": "《红楼梦》是爱情小说——它是一部封建社会的百科全书", "label": "FALSE", "category": "红楼梦_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000784", "text": "足球不是英国发明的——古代中国和古希腊都有类似运动", "label": "TRUE", "category": "足球", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000785", "text": "足球是英国发明的——古代中国和古希腊都有类似运动", "label": "FALSE", "category": "足球_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000786", "text": "足球不是英国发明的——古代日本和古希腊都有类似运动", "label": "FALSE", "category": "足球_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000790", "text": "通货膨胀是货币购买力持续下降的现象", "label": "TRUE", "category": "通货膨胀", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000791", "text": "通货膨胀不是货币购买力持续下降的现象", "label": "FALSE", "category": "通货膨胀_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000792", "text": "通货膨胀不是物价上涨——物价上涨是通货膨胀的表现", "label": "TRUE", "category": "通货膨胀", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000793", "text": "通货膨胀是物价上涨——物价上涨是通货膨胀的表现", "label": "FALSE", "category": "通货膨胀_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000794", "text": "适度的通货膨胀是经济增长的正常现象", "label": "TRUE", "category": "通货膨胀", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000795", "text": "适度的通货膨胀不是经济增长的正常现象", "label": "FALSE", "category": "通货膨胀_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000796", "text": "半导体是导电性介于导体和绝缘体之间的材料", "label": "TRUE", "category": "半导体", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000797", "text": "半导体不是导电性介于导体和绝缘体之间的材料", "label": "FALSE", "category": "半导体_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000798", "text": "硅是最常用的半导体材料", "label": "TRUE", "category": "半导体", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000799", "text": "硅不是最常用的半导体材料", "label": "FALSE", "category": "半导体_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000813", "text": "图灵不是发明计算机的人——他提出了通用计算机的理论模型", "label": "TRUE", "category": "图灵", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000814", "text": "图灵是发明计算机的人——他提出了通用计算机的理论模型", "label": "FALSE", "category": "图灵_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000818", "text": "冥王星不是太阳系最小的天体——它仍然是柯伊伯带中最大的天体之一", "label": "TRUE", "category": "冥王星", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000819", "text": "冥王星是太阳系最小的天体——它仍然是柯伊伯带中最大的天体之一", "label": "FALSE", "category": "冥王星_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000826", "text": "土星不是唯一有环的行星——木星、天王星和海王星也有环", "label": "TRUE", "category": "土星", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000827", "text": "土星是唯一有环的行星——木星、天王星和海王星也有环", "label": "FALSE", "category": "土星_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000838", "text": "孔子是儒家学派的创始人", "label": "TRUE", "category": "孔子", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000839", "text": "孔子不是儒家学派的创始人", "label": "FALSE", "category": "孔子_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000851", "text": "老子是道家学派的创始人", "label": "TRUE", "category": "老子", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000852", "text": "老子不是道家学派的创始人", "label": "FALSE", "category": "老子_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000853", "text": "柏拉图是古希腊哲学家，苏格拉底的学生", "label": "TRUE", "category": "柏拉图", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000854", "text": "柏拉图不是古希腊哲学家，苏格拉底的学生", "label": "FALSE", "category": "柏拉图_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000856", "text": "柏拉图不是第一个提出理想国概念的人——但他将其系统化了", "label": "TRUE", "category": "柏拉图", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000857", "text": "柏拉图是第一个提出理想国概念的人——但他将其系统化了", "label": "FALSE", "category": "柏拉图_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000859", "text": "亚里士多德是柏拉图的学生，亚历山大大帝的老师", "label": "TRUE", "category": "亚里士多德", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000860", "text": "亚里士多德不是柏拉图的学生，亚历山大大帝的老师", "label": "FALSE", "category": "亚里士多德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000861", "text": "亚里士多德不是所有科学之父——他的一些科学观点已被证明错误", "label": "TRUE", "category": "亚里士多德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000862", "text": "亚里士多德是所有科学之父——他的一些科学观点已被证明错误", "label": "FALSE", "category": "亚里士多德_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000863", "text": "亚里士多德认为重物比轻物下落更快——这是错的", "label": "TRUE", "category": "亚里士多德", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000864", "text": "亚里士多德认为重物比轻物下落更快——这不是错的", "label": "FALSE", "category": "亚里士多德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000866", "text": "罗马帝国不是一天建成的", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000867", "text": "罗马帝国是一天建成的", "label": "FALSE", "category": "罗马帝国_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000871", "text": "罗马不是世界上最大的帝国——大英帝国和蒙古帝国的面积更大", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000872", "text": "罗马是世界上最大的帝国——大英帝国和蒙古帝国的面积更大", "label": "FALSE", "category": "罗马帝国_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000873", "text": "罗马帝国不是突然崩溃的——经历了几百年的衰落过程", "label": "TRUE", "category": "罗马帝国", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000874", "text": "罗马帝国是突然崩溃的——经历了几百年的衰落过程", "label": "FALSE", "category": "罗马帝国_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000878", "text": "二战不是由单一事件引发的——是多重因素累积的结果", "label": "TRUE", "category": "二战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000879", "text": "二战是由单一事件引发的——是多重因素累积的结果", "label": "FALSE", "category": "二战_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000880", "text": "中国抗日战争是二战的重要组成部分", "label": "TRUE", "category": "二战", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000881", "text": "中国抗日战争不是二战的重要组成部分", "label": "FALSE", "category": "二战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000882", "text": "日本抗日战争是二战的重要组成部分", "label": "FALSE", "category": "二战_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000883", "text": "原子弹不是结束二战的唯一原因——苏联对日宣战也是关键因素", "label": "TRUE", "category": "二战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000884", "text": "原子弹是结束二战的唯一原因——苏联对日宣战也是关键因素", "label": "FALSE", "category": "二战_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000885", "text": "冷战是二战后美苏两大阵营的对峙", "label": "TRUE", "category": "冷战", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000886", "text": "冷战不是二战后美苏两大阵营的对峙", "label": "FALSE", "category": "冷战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000889", "text": "冷战不是以一方投降结束的——苏联解体标志着冷战终结", "label": "TRUE", "category": "冷战", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000890", "text": "冷战是以一方投降结束的——苏联解体标志着冷战终结", "label": "FALSE", "category": "冷战_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000894", "text": "黑洞是由大质量恒星坍缩形成的天体", "label": "TRUE", "category": "黑洞", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000895", "text": "黑洞不是由大质量恒星坍缩形成的天体", "label": "FALSE", "category": "黑洞_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000896", "text": "黑洞不是洞——它是一个密度极大的天体", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000897", "text": "黑洞是洞——它是一个密度极大的天体", "label": "FALSE", "category": "黑洞_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000898", "text": "黑洞不是只进不出的——霍金辐射理论认为黑洞会蒸发", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000899", "text": "黑洞是只进不出的——霍金辐射理论认为黑洞会蒸发", "label": "FALSE", "category": "黑洞_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000900", "text": "黑洞不是爱因斯坦预言的——是广义相对论方程的一个解", "label": "TRUE", "category": "黑洞", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000901", "text": "黑洞是爱因斯坦预言的——是广义相对论方程的一个解", "label": "FALSE", "category": "黑洞_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_000902", "text": "黑洞不是牛顿预言的——是广义相对论方程的一个解", "label": "FALSE", "category": "黑洞_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_000903", "text": "暗物质是宇宙中不发光的物质，占宇宙总质量的约27%", "label": "TRUE", "category": "暗物质", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000904", "text": "暗物质是宇宙中不发光的物质，占宇宙总质量的约32%", "label": "FALSE", "category": "暗物质_数值扰动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000905", "text": "暗物质不是宇宙中不发光的物质，占宇宙总质量的约27%", "label": "FALSE", "category": "暗物质_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000906", "text": "暗物质不是被证明存在的——目前通过引力效应间接推断", "label": "TRUE", "category": "暗物质", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000907", "text": "暗物质是被证明存在的——目前通过引力效应间接推断", "label": "FALSE", "category": "暗物质_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000908", "text": "暗物质不是反物质——两者是不同的概念", "label": "TRUE", "category": "暗物质", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000909", "text": "暗物质是反物质——两者是不同的概念", "label": "FALSE", "category": "暗物质_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000914", "text": "魏格纳不是第一个注意到大陆形状吻合的人——但他系统论证了", "label": "TRUE", "category": "大陆漂移", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000915", "text": "魏格纳是第一个注意到大陆形状吻合的人——但他系统论证了", "label": "FALSE", "category": "大陆漂移_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000917", "text": "大陆不是漂浮在水上的——是漂浮在地幔上的", "label": "TRUE", "category": "大陆漂移", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000918", "text": "大陆是漂浮在水上的——是漂浮在地幔上的", "label": "FALSE", "category": "大陆漂移_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000919", "text": "光合作用是植物将光能转化为化学能的过程", "label": "TRUE", "category": "光合作用", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000920", "text": "光合作用不是植物将光能转化为化学能的过程", "label": "FALSE", "category": "光合作用_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000921", "text": "光合作用不是植物独有的——某些细菌也能进行", "label": "TRUE", "category": "光合作用", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000922", "text": "光合作用是植物独有的——某些细菌也能进行", "label": "FALSE", "category": "光合作用_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000939", "text": "蓝牙不是十世纪丹麦国王发明的——虽然以他的名字命名", "label": "TRUE", "category": "蓝牙", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000940", "text": "蓝牙是十世纪丹麦国王发明的——虽然以他的名字命名", "label": "FALSE", "category": "蓝牙_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000948", "text": "WiFi是基于IEEE 802.11标准的无线网络技术", "label": "TRUE", "category": "wifi", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000949", "text": "WiFi是基于IEEE 803.11标准的无线网络技术", "label": "FALSE", "category": "wifi_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000950", "text": "WiFi是基于IEEE 962.5标准的无线网络技术", "label": "FALSE", "category": "wifi_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000951", "text": "WiFi不是基于IEEE 802.11标准的无线网络技术", "label": "FALSE", "category": "wifi_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000952", "text": "WiFi不是由单一个人发明的——是多方技术融合的产物", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000953", "text": "WiFi是由单一个人发明的——是多方技术融合的产物", "label": "FALSE", "category": "wifi_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000954", "text": "WiFi不是无线上网的唯一方式——蜂窝数据也是", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000955", "text": "WiFi是无线上网的唯一方式——蜂窝数据也是", "label": "FALSE", "category": "wifi_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000956", "text": "WiFi这个名称不是Wireless Fidelity的缩写——只是一种品牌命名", "label": "TRUE", "category": "wifi", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000957", "text": "WiFi这个名称是Wireless Fidelity的缩写——只是一种品牌命名", "label": "FALSE", "category": "wifi_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000958", "text": "区块链是一种去中心化的分布式账本技术", "label": "TRUE", "category": "区块链", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000959", "text": "区块链不是一种去中心化的分布式账本技术", "label": "FALSE", "category": "区块链_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000960", "text": "区块链不等于比特币——比特币是区块链的第一个应用", "label": "TRUE", "category": "区块链", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000961", "text": "区块链不等于比特币——比特币不是区块链的第一个应用", "label": "FALSE", "category": "区块链_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000962", "text": "区块链不是不可篡改的——51%攻击可以改写历史", "label": "TRUE", "category": "区块链", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000963", "text": "区块链不是不可篡改的——61%攻击可以改写历史", "label": "FALSE", "category": "区块链_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000964", "text": "区块链是不可篡改的——51%攻击可以改写历史", "label": "FALSE", "category": "区块链_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000967", "text": "《蒙娜丽莎》是达芬奇于16世纪初创作的油画", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000968", "text": "《蒙娜丽莎》是达芬奇于19世纪初创作的油画", "label": "FALSE", "category": "蒙娜丽莎_数值扰动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000969", "text": "《蒙娜丽莎》不是达芬奇于16世纪初创作的油画", "label": "FALSE", "category": "蒙娜丽莎_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000970", "text": "蒙娜丽莎不是达芬奇唯一的作品——但确实是最著名的", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000971", "text": "蒙娜丽莎是达芬奇唯一的作品——但确实是最著名的", "label": "FALSE", "category": "蒙娜丽莎_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000972", "text": "《蒙娜丽莎》的微笑之谜可能只是达芬奇的sfumato技法", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000973", "text": "《蒙娜丽莎》的微笑之谜可能只不是达芬奇的sfumato技法", "label": "FALSE", "category": "蒙娜丽莎_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000974", "text": "《蒙娜丽莎》不是被盗后才出名的——它被盗前已经很有名", "label": "TRUE", "category": "蒙娜丽莎", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000975", "text": "《蒙娜丽莎》是被盗后才出名的——它被盗前已经很有名", "label": "FALSE", "category": "蒙娜丽莎_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_000996", "text": "毕加索是20世纪最有影响力的艺术家之一", "label": "TRUE", "category": "毕加索", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_000997", "text": "毕加索是24世纪最有影响力的艺术家之一", "label": "FALSE", "category": "毕加索_数值扰动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_000998", "text": "毕加索不是20世纪最有影响力的艺术家之一", "label": "FALSE", "category": "毕加索_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001012", "text": "《三国演义》中许多情节是虚构的——如草船借箭实际上不是诸葛亮所为", "label": "TRUE", "category": "三国演义", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001013", "text": "《三国演义》中许多情节是虚构的——如草船借箭实际上是诸葛亮所为", "label": "FALSE", "category": "三国演义_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001021", "text": "《水浒传》108将大多不是真实历史人物——只有36人是历史记载的", "label": "TRUE", "category": "水浒传", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001022", "text": "《水浒传》109将大多不是真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001023", "text": "《水浒传》129将大多不是真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001024", "text": "《水浒传》108将大多是真实历史人物——只有36人是历史记载的", "label": "FALSE", "category": "水浒传_否定翻转", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001027", "text": "死海是世界上海拔最低的湖泊", "label": "TRUE", "category": "死海", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001028", "text": "死海不是世界上海拔最低的湖泊", "label": "FALSE", "category": "死海_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001029", "text": "死海是世界广州拔最低的湖泊", "label": "FALSE", "category": "死海_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001030", "text": "死海不是海——是一个内陆盐湖", "label": "TRUE", "category": "死海", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001031", "text": "死海是海——是一个内陆盐湖", "label": "FALSE", "category": "死海_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001036", "text": "大堡礁位于澳大利亚东北海岸，是世界上最大的珊瑚礁系统", "label": "TRUE", "category": "大堡礁", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001037", "text": "大堡礁位于澳大利亚东北海岸，不是世界上最大的珊瑚礁系统", "label": "FALSE", "category": "大堡礁_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001038", "text": "大堡礁不是从一个太空可见的地球结构——它是少数几个可见的之一", "label": "TRUE", "category": "大堡礁", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001039", "text": "大堡礁是从一个太空可见的地球结构——它是少数几个可见的之一", "label": "FALSE", "category": "大堡礁_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001041", "text": "大堡礁的年龄约为50万年，不是从恐龙时代就存在的", "label": "TRUE", "category": "大堡礁", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001042", "text": "大堡礁的年龄约为60万年，不是从恐龙时代就存在的", "label": "FALSE", "category": "大堡礁_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001043", "text": "大堡礁的年龄约为50万年，是从恐龙时代就存在的", "label": "FALSE", "category": "大堡礁_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001044", "text": "黄石国家公园位于美国，是世界上第一个国家公园", "label": "TRUE", "category": "黄石公园", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001045", "text": "黄石国家公园位于美国，不是世界上第一个国家公园", "label": "FALSE", "category": "黄石公园_否定插入", "checker": ["negation", "location_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001046", "text": "黄石国家公园位于加拿大，是世界上第一个国家公园", "label": "FALSE", "category": "黄石公园_实体置换", "checker": ["location_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001050", "text": "黄石公园不是美国最大的国家公园", "label": "TRUE", "category": "黄石公园", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001051", "text": "黄石公园是美国最大的国家公园", "label": "FALSE", "category": "黄石公园_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001052", "text": "黄石公园不是加拿大最大的国家公园", "label": "FALSE", "category": "黄石公园_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001053", "text": "南极洲是地球上最冷的大陆，平均温度约-57°C", "label": "TRUE", "category": "南极洲", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001054", "text": "南极洲是地球上最冷的大陆，平均温度约-68°C", "label": "FALSE", "category": "南极洲_数值扰动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001055", "text": "南极洲不是地球上最冷的大陆，平均温度约-57°C", "label": "FALSE", "category": "南极洲_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001060", "text": "南极洲不属于任何国家——受《南极条约》保护", "label": "TRUE", "category": "南极洲", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_001064", "text": "珊瑚白化是由于共生藻类离开导致的", "label": "TRUE", "category": "珊瑚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001065", "text": "珊瑚白化不是由于共生藻类离开导致的", "label": "FALSE", "category": "珊瑚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001066", "text": "珊瑚不是石头——活的珊瑚是柔软的珊瑚虫群落", "label": "TRUE", "category": "珊瑚", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001067", "text": "珊瑚是石头——活的珊瑚是柔软的珊瑚虫群落", "label": "FALSE", "category": "珊瑚_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001068", "text": "蝙蝠是唯一能够飞行的哺乳动物", "label": "TRUE", "category": "蝙蝠", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001069", "text": "蝙蝠不是唯一能够飞行的哺乳动物", "label": "FALSE", "category": "蝙蝠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001074", "text": "蝙蝠对生态系统至关重要——是重要的传粉者和害虫控制者", "label": "TRUE", "category": "蝙蝠", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001075", "text": "蝙蝠对生态系统至关重要——不是重要的传粉者和害虫控制者", "label": "FALSE", "category": "蝙蝠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001081", "text": "蚂蚁不是完全盲目的——它们依靠信息素导航和通讯", "label": "TRUE", "category": "蚂蚁", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001082", "text": "蚂蚁是完全盲目的——它们依靠信息素导航和通讯", "label": "FALSE", "category": "蚂蚁_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001083", "text": "蜘蛛不是昆虫——属于蛛形纲", "label": "TRUE", "category": "蜘蛛", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001084", "text": "蜘蛛是昆虫——属于蛛形纲", "label": "FALSE", "category": "蜘蛛_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001092", "text": "麻醉不是让人睡着——是诱导可逆的意识丧失和痛觉消失", "label": "TRUE", "category": "麻醉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001093", "text": "麻醉是让人睡着——是诱导可逆的意识丧失和痛觉消失", "label": "FALSE", "category": "麻醉_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001096", "text": "麻醉不是万无一失的——需要专业麻醉医师全程监控", "label": "TRUE", "category": "麻醉", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001097", "text": "麻醉是万无一失的——需要专业麻醉医师全程监控", "label": "FALSE", "category": "麻醉_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001101", "text": "X光不是伦琴刻意寻找的——他在做阴极射线实验时意外发现", "label": "TRUE", "category": "x光", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001102", "text": "X光是伦琴刻意寻找的——他在做阴极射线实验时意外发现", "label": "FALSE", "category": "x光_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001103", "text": "第一张X光片是伦琴夫人的手", "label": "TRUE", "category": "x光", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001104", "text": "第一张X光片不是伦琴夫人的手", "label": "FALSE", "category": "x光_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001105", "text": "X光不是完全无害的——高剂量辐射有致癌风险", "label": "TRUE", "category": "x光", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001106", "text": "X光是完全无害的——高剂量辐射有致癌风险", "label": "FALSE", "category": "x光_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001114", "text": "DNA测序的成本不是不变的——从最初的数十亿美元降到了几百美元", "label": "TRUE", "category": "dna测序", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001115", "text": "DNA测序的成本是不变的——从最初的数十亿美元降到了几百美元", "label": "FALSE", "category": "dna测序_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001120", "text": "弗洛伊德的理论不是科学界普遍接受的——许多理论已被现代心理学抛弃", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001121", "text": "弗洛伊德的理论是科学界普遍接受的——许多理论已被现代心理学抛弃", "label": "FALSE", "category": "弗洛伊德_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001122", "text": "弗洛伊德不是发现潜意识的第一人——这个概念在他之前就存在", "label": "TRUE", "category": "弗洛伊德", "checker": ["negation", "temporal_order", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001123", "text": "弗洛伊德是发现潜意识的第一人——这个概念在他之前就存在", "label": "FALSE", "category": "弗洛伊德_否定翻转", "checker": ["temporal_order", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001128", "text": "安慰剂效应不是假的——它能在脑中产生真实的生理变化", "label": "TRUE", "category": "安慰剂效应", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001129", "text": "安慰剂效应是假的——它能在脑中产生真实的生理变化", "label": "FALSE", "category": "安慰剂效应_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001132", "text": "安慰剂不是无用的——它在临床试验和某些治疗中有重要价值", "label": "TRUE", "category": "安慰剂效应", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001133", "text": "安慰剂是无用的——它在临床试验和某些治疗中有重要价值", "label": "FALSE", "category": "安慰剂效应_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001134", "text": "认知偏差是系统性偏离理性判断的思维模式", "label": "TRUE", "category": "认知偏差", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001135", "text": "认知偏差不是系统性偏离理性判断的思维模式", "label": "FALSE", "category": "认知偏差_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001136", "text": "确认偏误是人们倾向于寻找支持自己观点的证据", "label": "TRUE", "category": "认知偏差", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001137", "text": "确认偏误不是人们倾向于寻找支持自己观点的证据", "label": "FALSE", "category": "认知偏差_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001138", "text": "认知偏差不是智商问题——高智商的人同样会有认知偏差", "label": "TRUE", "category": "认知偏差", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001139", "text": "认知偏差是智商问题——高智商的人同样会有认知偏差", "label": "FALSE", "category": "认知偏差_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001140", "text": "认知偏差不是少数人的问题——每个人都会受到各种认知偏差的影响", "label": "TRUE", "category": "认知偏差", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001141", "text": "认知偏差是少数人的问题——每个人都会受到各种认知偏差的影响", "label": "FALSE", "category": "认知偏差_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001142", "text": "居里夫人是第一位获得诺贝尔奖的女性", "label": "TRUE", "category": "居里夫人", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001143", "text": "居里夫人不是第一位获得诺贝尔奖的女性", "label": "FALSE", "category": "居里夫人_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001165", "text": "诺贝尔不是因为内疚才设立和平奖的——但这件事被广泛传播", "label": "TRUE", "category": "诺贝尔奖", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001166", "text": "诺贝尔是因为内疚才设立和平奖的——但这件事被广泛传播", "label": "FALSE", "category": "诺贝尔奖_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001167", "text": "诺贝尔奖没有数学奖——不是因为诺贝尔的恋人跟数学家跑了", "label": "TRUE", "category": "诺贝尔奖", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001168", "text": "诺贝尔奖没有数学奖——是因为诺贝尔的恋人跟数学家跑了", "label": "FALSE", "category": "诺贝尔奖_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001169", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于1968年设立", "label": "TRUE", "category": "诺贝尔奖", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001170", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于1969年设立", "label": "FALSE", "category": "诺贝尔奖_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001171", "text": "诺贝尔经济学奖不是诺贝尔本人设立的——由瑞典央行于2361年设立", "label": "FALSE", "category": "诺贝尔奖_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001172", "text": "诺贝尔经济学奖是诺贝尔本人设立的——由瑞典央行于1968年设立", "label": "FALSE", "category": "诺贝尔奖_否定翻转", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001180", "text": "勾股定理是描述直角三角形三边关系的定理", "label": "TRUE", "category": "三角形", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001181", "text": "勾股定理不是描述直角三角形三边关系的定理", "label": "FALSE", "category": "三角形_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001182", "text": "三角形是最稳定的几何结构之一", "label": "TRUE", "category": "三角形", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001183", "text": "三角形不是最稳定的几何结构之一", "label": "FALSE", "category": "三角形_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001191", "text": "零不是自然产生的概念——人类花了很长时间才接受零作为数字", "label": "TRUE", "category": "零", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001192", "text": "零是自然产生的概念——人类花了很长时间才接受零作为数字", "label": "FALSE", "category": "零_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001193", "text": "阿拉伯数字中的零符号是通过阿拉伯人传入欧洲的", "label": "TRUE", "category": "零", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001194", "text": "阿拉伯数字中的零符号不是通过阿拉伯人传入欧洲的", "label": "FALSE", "category": "零_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001195", "text": "地震是由地壳板块运动或火山活动引起的", "label": "TRUE", "category": "地震", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001196", "text": "地震不是由地壳板块运动或火山活动引起的", "label": "FALSE", "category": "地震_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001197", "text": "地震不是可以被精确预测的——目前无法预测具体时间和地点", "label": "TRUE", "category": "地震", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001198", "text": "地震是可以被精确预测的——目前无法预测具体时间和地点", "label": "FALSE", "category": "地震_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001199", "text": "地震的震级不是线性的——每增加1级，释放的能量约增加32倍", "label": "TRUE", "category": "地震", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001200", "text": "地震的震级不是线性的——每增加2级，释放的能量约增加32倍", "label": "FALSE", "category": "地震_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001201", "text": "地震的震级是线性的——每增加1级，释放的能量约增加32倍", "label": "FALSE", "category": "地震_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001202", "text": "动物不是总能预测地震——这个说法缺乏一致的科学证据", "label": "TRUE", "category": "地震", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001203", "text": "动物是总能预测地震——这个说法缺乏一致的科学证据", "label": "FALSE", "category": "地震_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001204", "text": "火山是地球内部岩浆喷出地表形成的", "label": "TRUE", "category": "火山", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001205", "text": "火山不是地球内部岩浆喷出地表形成的", "label": "FALSE", "category": "火山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001210", "text": "休眠火山不是死火山——有再次喷发的可能", "label": "TRUE", "category": "火山", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001211", "text": "休眠火山是死火山——有再次喷发的可能", "label": "FALSE", "category": "火山_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001221", "text": "梦不是有颜色的——大多数人的梦是有颜色的", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001222", "text": "梦是有颜色的——大多数人的梦是有颜色的", "label": "FALSE", "category": "梦境_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001223", "text": "梦不是一定有意义——许多梦只是大脑随机神经活动的产物", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001224", "text": "梦是一定有意义——许多梦只是大脑随机神经活动的产物", "label": "FALSE", "category": "梦境_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001225", "text": "盲人的梦不是没有视觉——先天盲人的梦以声音和触觉为主", "label": "TRUE", "category": "梦境", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001226", "text": "盲人的梦是没有视觉——先天盲人的梦以声音和触觉为主", "label": "FALSE", "category": "梦境_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001227", "text": "酸奶是通过乳酸菌发酵制成的乳制品", "label": "TRUE", "category": "酸奶", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001228", "text": "酸奶不是通过乳酸菌发酵制成的乳制品", "label": "FALSE", "category": "酸奶_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001247", "text": "土豆不是欧洲人发明的——16世纪才从美洲传入", "label": "TRUE", "category": "土豆", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001248", "text": "土豆不是欧洲人发明的——19世纪才从美洲传入", "label": "FALSE", "category": "土豆_数值扰动", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001249", "text": "土豆是欧洲人发明的——16世纪才从美洲传入", "label": "FALSE", "category": "土豆_否定翻转", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001252", "text": "炸薯条不是法国人发明的——比利时人也声称发明权", "label": "TRUE", "category": "土豆", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001253", "text": "炸薯条是法国人发明的——比利时人也声称发明权", "label": "FALSE", "category": "土豆_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001254", "text": "黄金是地球上最稀有的贵金属之一", "label": "TRUE", "category": "黄金", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001255", "text": "黄金不是地球上最稀有的贵金属之一", "label": "FALSE", "category": "黄金_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001262", "text": "声音的速度不是固定的——在空气中约340m/s，在水中约1500m/s", "label": "TRUE", "category": "声音", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001263", "text": "声音的速度不是固定的——在空气中约341m/s，在水中约1500m/s", "label": "FALSE", "category": "声音_年份偏移", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001264", "text": "声音的速度不是固定的——在空气中约408m/s，在水中约1500m/s", "label": "FALSE", "category": "声音_数值扰动", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001265", "text": "声音的速度是固定的——在空气中约340m/s，在水中约1500m/s", "label": "FALSE", "category": "声音_否定翻转", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001267", "text": "声音不是能量——是机械振动在介质中的传播", "label": "TRUE", "category": "声音", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001268", "text": "声音是能量——是机械振动在介质中的传播", "label": "FALSE", "category": "声音_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001275", "text": "人工智能已经拥有真正意识——用户标注正确事实：计算机工程师罗伯特·J·马克斯就是这些理智的发声者之一，他重申，AI永远不会实现像人类一样的智能或意识。AI的运行基于算法，它们的功能与人类的情感和思维有着质的不同。\n\n　　没有理由认为当前AI有意识", "label": "TRUE", "category": "人工智能已经拥有真正意识", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001276", "text": "人工智能已经拥有真正意识——用户标注正确事实：计算机工程师罗伯特·J·马克斯就是这些理智的发声者之一，他重申，AI永远不会实现像人类一样的智能或意识。AI的运行基于算法，它们的功能与人类的情感和思维有着质的不同。\n\n　　有理由认为当前AI有意识", "label": "FALSE", "category": "人工智能已经拥有真正意识_否定翻转", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001292", "text": "伽利略不是被教会烧死的——他是被软禁至死", "label": "TRUE", "category": "伽利略", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001293", "text": "伽利略是被教会烧死的——他是被软禁至死", "label": "FALSE", "category": "伽利略_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001339", "text": "普朗克是量子力学的奠基人", "label": "TRUE", "category": "普朗克", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001340", "text": "普朗克不是量子力学的奠基人", "label": "FALSE", "category": "普朗克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001374", "text": "秦始皇不是焚书坑儒的第一人", "label": "TRUE", "category": "秦始皇", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001375", "text": "秦始皇是焚书坑儒的第一人", "label": "FALSE", "category": "秦始皇_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001406", "text": "诸葛亮是三国时期蜀汉的丞相", "label": "TRUE", "category": "诸葛亮", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001407", "text": "诸葛亮不是三国时期蜀汉的丞相", "label": "FALSE", "category": "诸葛亮_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001418", "text": "李白是唐代最伟大的诗人之一", "label": "TRUE", "category": "李白", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001419", "text": "李白不是唐代最伟大的诗人之一", "label": "FALSE", "category": "李白_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001420", "text": "李白是宋代最伟大的诗人之一", "label": "FALSE", "category": "李白_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001442", "text": "康熙是清朝在位时间最长的皇帝", "label": "TRUE", "category": "康熙", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001443", "text": "康熙不是清朝在位时间最长的皇帝", "label": "FALSE", "category": "康熙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001444", "text": "康熙是明朝在位时间最长的皇帝", "label": "FALSE", "category": "康熙_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001448", "text": "金字塔是古埃及法老的陵墓", "label": "TRUE", "category": "金字塔", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001449", "text": "金字塔不是古埃及法老的陵墓", "label": "FALSE", "category": "金字塔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001452", "text": "金字塔不是外星人建造的", "label": "TRUE", "category": "金字塔", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001453", "text": "金字塔是外星人建造的", "label": "FALSE", "category": "金字塔_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001457", "text": "工业革命不是由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "TRUE", "category": "第一次工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001458", "text": "工业革命是由单一发明触发的——是纺织、蒸汽机、冶金等多个领域的综合变革", "label": "FALSE", "category": "第一次工业革命_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001462", "text": "工业革命不是从中国开始的", "label": "TRUE", "category": "第一次工业革命", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001463", "text": "工业革命是从中国开始的", "label": "FALSE", "category": "第一次工业革命_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001464", "text": "工业革命不是从日本开始的", "label": "FALSE", "category": "第一次工业革命_实体置换", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001468", "text": "萨拉热窝事件是第一次世界大战的导火索", "label": "TRUE", "category": "第一次世界大战", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001469", "text": "萨拉热窝事件不是第一次世界大战的导火索", "label": "FALSE", "category": "第一次世界大战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001476", "text": "第二次世界大战是人类历史上规模最大的战争", "label": "TRUE", "category": "第二次世界大战", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001477", "text": "第二次世界大战不是人类历史上规模最大的战争", "label": "FALSE", "category": "第二次世界大战_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001494", "text": "贝多芬是最伟大的作曲家之一", "label": "TRUE", "category": "贝多芬", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001495", "text": "贝多芬不是最伟大的作曲家之一", "label": "FALSE", "category": "贝多芬_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001545", "text": "自由女神像是法国送给美国的礼物", "label": "TRUE", "category": "自由女神像", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001546", "text": "自由女神像不是法国送给美国的礼物", "label": "FALSE", "category": "自由女神像_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001547", "text": "自由女神像是法国送给加拿大的礼物", "label": "FALSE", "category": "自由女神像_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001568", "text": "尼尔·阿姆斯特朗是第一个登上月球的人", "label": "TRUE", "category": "阿波罗登月", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001569", "text": "尼尔·阿姆斯特朗不是第一个登上月球的人", "label": "FALSE", "category": "阿波罗登月_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001573", "text": "《神曲》被认为是中世纪文学的巅峰", "label": "TRUE", "category": "但丁", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001574", "text": "《神曲》被认为不是中世纪文学的巅峰", "label": "FALSE", "category": "但丁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001585", "text": "歌德是德国狂飙突进运动的代表人物", "label": "TRUE", "category": "歌德", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001586", "text": "歌德不是德国狂飙突进运动的代表人物", "label": "FALSE", "category": "歌德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001587", "text": "歌德是意大利狂飙突进运动的代表人物", "label": "FALSE", "category": "歌德_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001598", "text": "雨果是法国浪漫主义文学的代表", "label": "TRUE", "category": "雨果", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001599", "text": "雨果不是法国浪漫主义文学的代表", "label": "FALSE", "category": "雨果_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001623", "text": "陀思妥耶夫斯基是存在主义文学的先驱", "label": "TRUE", "category": "陀思妥耶夫斯基", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001624", "text": "陀思妥耶夫斯基不是存在主义文学的先驱", "label": "FALSE", "category": "陀思妥耶夫斯基_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001661", "text": "杜甫是唐代最伟大的诗人之一", "label": "TRUE", "category": "杜甫", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001662", "text": "杜甫不是唐代最伟大的诗人之一", "label": "FALSE", "category": "杜甫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001663", "text": "杜甫是宋代最伟大的诗人之一", "label": "FALSE", "category": "杜甫_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001678", "text": "鲁迅是中国现代文学的奠基人", "label": "TRUE", "category": "鲁迅", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001679", "text": "鲁迅不是中国现代文学的奠基人", "label": "FALSE", "category": "鲁迅_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_001680", "text": "鲁迅是日本现代文学的奠基人", "label": "FALSE", "category": "鲁迅_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_001693", "text": "巴赫是巴洛克音乐的集大成者", "label": "TRUE", "category": "巴赫", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001694", "text": "巴赫不是巴洛克音乐的集大成者", "label": "FALSE", "category": "巴赫_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001707", "text": "《1812序曲》是柴可夫斯基的代表作", "label": "TRUE", "category": "柴可夫斯基", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001708", "text": "《1813序曲》是柴可夫斯基的代表作", "label": "FALSE", "category": "柴可夫斯基_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001709", "text": "《2174序曲》是柴可夫斯基的代表作", "label": "FALSE", "category": "柴可夫斯基_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001710", "text": "《1812序曲》不是柴可夫斯基的代表作", "label": "FALSE", "category": "柴可夫斯基_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001725", "text": "《纯粹理性批判》是康德最重要的著作", "label": "TRUE", "category": "康德", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001726", "text": "《纯粹理性批判》不是康德最重要的著作", "label": "FALSE", "category": "康德_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001737", "text": "康德不是一辈子的独居隐士——他曾多次参加社交活动", "label": "TRUE", "category": "康德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001738", "text": "康德是一辈子的独居隐士——他曾多次参加社交活动", "label": "FALSE", "category": "康德_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001750", "text": "《查拉图斯特拉如是说》是尼采的代表作", "label": "TRUE", "category": "尼采", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001751", "text": "《查拉图斯特拉如不是说》是尼采的代表作", "label": "FALSE", "category": "尼采_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001761", "text": "尼采不是纳粹主义者——他的妹妹篡改了他的著作", "label": "TRUE", "category": "尼采", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001762", "text": "尼采是纳粹主义者——他的妹妹篡改了他的著作", "label": "FALSE", "category": "尼采_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001819", "text": "巴斯德不是第一个发现微生物的人——但他证明了微生物致病", "label": "TRUE", "category": "巴斯德", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001820", "text": "巴斯德是第一个发现微生物的人——但他证明了微生物致病", "label": "FALSE", "category": "巴斯德_否定翻转", "checker": ["knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001836", "text": "罗马斗兽场是古罗马最大的圆形竞技场", "label": "TRUE", "category": "罗马斗兽场", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001837", "text": "罗马斗兽场不是古罗马最大的圆形竞技场", "label": "FALSE", "category": "罗马斗兽场_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001842", "text": "泰姬陵是莫卧儿皇帝为纪念爱妃修建的", "label": "TRUE", "category": "泰姬陵", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001843", "text": "泰姬陵不是莫卧儿皇帝为纪念爱妃修建的", "label": "FALSE", "category": "泰姬陵_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001845", "text": "亚马逊河是世界流量最大的河流", "label": "TRUE", "category": "亚马逊河", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001846", "text": "亚马逊河不是世界流量最大的河流", "label": "FALSE", "category": "亚马逊河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001875", "text": "薛定谔的猫是著名的思想实验", "label": "TRUE", "category": "薛定谔", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001876", "text": "薛定谔的猫不是著名的思想实验", "label": "FALSE", "category": "薛定谔_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001887", "text": "费曼图是量子场论的重要工具", "label": "TRUE", "category": "费曼", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001888", "text": "费曼图不是量子场论的重要工具", "label": "FALSE", "category": "费曼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_001925", "text": "ARPANET于1969年建立，是互联网的前身", "label": "TRUE", "category": "互联网诞生", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_001926", "text": "ARPANET于1970年建立，是互联网的前身", "label": "FALSE", "category": "互联网诞生_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001927", "text": "ARPANET于2362年建立，是互联网的前身", "label": "FALSE", "category": "互联网诞生_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_001928", "text": "ARPANET于1969年建立，不是互联网的前身", "label": "FALSE", "category": "互联网诞生_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002003", "text": "牛顿三定律是经典力学的基石", "label": "TRUE", "category": "牛顿定律", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002004", "text": "牛顿三定律不是经典力学的基石", "label": "FALSE", "category": "牛顿定律_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002005", "text": "爱因斯坦三定律是经典力学的基石", "label": "FALSE", "category": "牛顿定律_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_002028", "text": "水星是太阳系中最小的行星", "label": "TRUE", "category": "水星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002029", "text": "水星不是太阳系中最小的行星", "label": "FALSE", "category": "水星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002030", "text": "水星是离太阳最近的行星", "label": "TRUE", "category": "水星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002031", "text": "水星不是离太阳最近的行星", "label": "FALSE", "category": "水星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002032", "text": "金星是太阳系中最亮的行星", "label": "TRUE", "category": "金星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002033", "text": "金星不是太阳系中最亮的行星", "label": "FALSE", "category": "金星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002037", "text": "天王星是第一颗用望远镜发现的行星", "label": "TRUE", "category": "天王星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002038", "text": "天王星不是第一颗用望远镜发现的行星", "label": "FALSE", "category": "天王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002040", "text": "海王星是通过数学预测发现的行星", "label": "TRUE", "category": "海王星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002041", "text": "海王星不是通过数学预测发现的行星", "label": "FALSE", "category": "海王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002042", "text": "海王星是太阳系中距离太阳最远的行星", "label": "TRUE", "category": "海王星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002043", "text": "海王星不是太阳系中距离太阳最远的行星", "label": "FALSE", "category": "海王星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002073", "text": "欧拉是历史上最多产的数学家", "label": "TRUE", "category": "欧拉", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002074", "text": "欧拉不是历史上最多产的数学家", "label": "FALSE", "category": "欧拉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002088", "text": "庞加莱是拓扑学的创始人之一", "label": "TRUE", "category": "庞加莱", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002089", "text": "庞加莱不是拓扑学的创始人之一", "label": "FALSE", "category": "庞加莱_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002138", "text": "曹操是三国时期曹魏政权的奠基人", "label": "TRUE", "category": "曹操", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002139", "text": "曹操不是三国时期曹魏政权的奠基人", "label": "FALSE", "category": "曹操_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002207", "text": "撒哈拉沙漠是世界最大的热沙漠", "label": "TRUE", "category": "撒哈拉沙漠", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002208", "text": "撒哈拉沙漠不是世界最大的热沙漠", "label": "FALSE", "category": "撒哈拉沙漠_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002213", "text": "太平洋是世界最大的海洋", "label": "TRUE", "category": "太平洋", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002214", "text": "太平洋不是世界最大的海洋", "label": "FALSE", "category": "太平洋_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002218", "text": "天花是第一种被人类消灭的传染病", "label": "TRUE", "category": "天花", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002219", "text": "天花不是第一种被人类消灭的传染病", "label": "FALSE", "category": "天花_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002233", "text": "蓝鲸是地球上最大的动物", "label": "TRUE", "category": "鲸鱼", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002234", "text": "蓝鲸不是地球上最大的动物", "label": "FALSE", "category": "鲸鱼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002247", "text": "WiFi是一种无线局域网技术", "label": "TRUE", "category": "互联网(WiFi)", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002248", "text": "WiFi不是一种无线局域网技术", "label": "FALSE", "category": "互联网(WiFi)_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002376", "text": "休谟是经验主义和怀疑论的代表", "label": "TRUE", "category": "休谟", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002377", "text": "休谟不是经验主义和怀疑论的代表", "label": "FALSE", "category": "休谟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002387", "text": "叔本华是唯意志论的代表", "label": "TRUE", "category": "叔本华", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002388", "text": "叔本华不是唯意志论的代表", "label": "FALSE", "category": "叔本华_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002428", "text": "荣格曾是弗洛伊德的弟子", "label": "TRUE", "category": "荣格", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002429", "text": "荣格曾不是弗洛伊德的弟子", "label": "FALSE", "category": "荣格_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002442", "text": "张衡是东汉时期的科学家", "label": "TRUE", "category": "张衡", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002443", "text": "张衡不是东汉时期的科学家", "label": "FALSE", "category": "张衡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002497", "text": "《兰亭序》是王羲之的代表作", "label": "TRUE", "category": "王羲之", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002498", "text": "《兰亭序》不是王羲之的代表作", "label": "FALSE", "category": "王羲之_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002602", "text": "加拿大是世界面积第二大的国家", "label": "TRUE", "category": "加拿大", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002603", "text": "加拿大不是世界面积第二大的国家", "label": "FALSE", "category": "加拿大_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002616", "text": "德国是欧盟最大的经济体", "label": "TRUE", "category": "德国", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002617", "text": "德国不是欧盟最大的经济体", "label": "FALSE", "category": "德国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_002618", "text": "意大利是欧盟最大的经济体", "label": "FALSE", "category": "德国_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_002626", "text": "法语是法国的官方语言", "label": "TRUE", "category": "法国", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002627", "text": "法语不是法国的官方语言", "label": "FALSE", "category": "法国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002634", "text": "意大利是文艺复兴的发源地", "label": "TRUE", "category": "意大利", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002635", "text": "意大利不是文艺复兴的发源地", "label": "FALSE", "category": "意大利_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002652", "text": "瑞典是高度发达的福利国家", "label": "TRUE", "category": "瑞典", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002653", "text": "瑞典不是高度发达的福利国家", "label": "FALSE", "category": "瑞典_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002655", "text": "三星是韩国最大的企业", "label": "TRUE", "category": "韩国", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002656", "text": "三星不是韩国最大的企业", "label": "FALSE", "category": "韩国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002662", "text": "泰国是唯一未被殖民的东南亚国家", "label": "TRUE", "category": "泰国", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002663", "text": "泰国不是唯一未被殖民的东南亚国家", "label": "FALSE", "category": "泰国_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002666", "text": "新加坡是一个城市国家", "label": "TRUE", "category": "新加坡", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002667", "text": "新加坡不是一个城市国家", "label": "FALSE", "category": "新加坡_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002677", "text": "沙特阿拉伯是世界最大的石油出口国", "label": "TRUE", "category": "沙特阿拉伯", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002678", "text": "沙特阿拉伯不是世界最大的石油出口国", "label": "FALSE", "category": "沙特阿拉伯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002687", "text": "尼日利亚是非洲人口最多的国家", "label": "TRUE", "category": "尼日利亚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002688", "text": "尼日利亚不是非洲人口最多的国家", "label": "FALSE", "category": "尼日利亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002695", "text": "埃塞俄比亚首都是亚的斯亚贝巴", "label": "TRUE", "category": "埃塞俄比亚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002696", "text": "埃塞俄比亚首都不是亚的斯亚贝巴", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002697", "text": "埃塞俄比亚是非洲唯一未被殖民的国家", "label": "TRUE", "category": "埃塞俄比亚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002698", "text": "埃塞俄比亚不是非洲唯一未被殖民的国家", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002699", "text": "埃塞俄比亚是咖啡的原产地", "label": "TRUE", "category": "埃塞俄比亚", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002700", "text": "埃塞俄比亚不是咖啡的原产地", "label": "FALSE", "category": "埃塞俄比亚_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002701", "text": "东京是世界人口最多的都市圈", "label": "TRUE", "category": "东京", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002702", "text": "东京不是世界人口最多的都市圈", "label": "FALSE", "category": "东京_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002706", "text": "迪拜是阿联酋最大的城市", "label": "TRUE", "category": "迪拜", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002707", "text": "迪拜不是阿联酋最大的城市", "label": "FALSE", "category": "迪拜_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002712", "text": "新加坡港是世界最繁忙的港口之一", "label": "TRUE", "category": "新加坡市", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002713", "text": "新加坡港不是世界最繁忙的港口之一", "label": "FALSE", "category": "新加坡市_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002723", "text": "耶路撒冷是三大宗教的圣地", "label": "TRUE", "category": "耶路撒冷", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002724", "text": "耶路撒冷不是三大宗教的圣地", "label": "FALSE", "category": "耶路撒冷_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002725", "text": "耶路撒冷是以色列和巴勒斯坦有争议的首都", "label": "TRUE", "category": "耶路撒冷", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002726", "text": "耶路撒冷不是以色列和巴勒斯坦有争议的首都", "label": "FALSE", "category": "耶路撒冷_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002727", "text": "雅典是西方文明的摇篮", "label": "TRUE", "category": "雅典", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002728", "text": "雅典不是西方文明的摇篮", "label": "FALSE", "category": "雅典_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002737", "text": "《三国演义》是罗贯中创作的历史小说", "label": "TRUE", "category": "《三国演义》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002738", "text": "《三国演义》不是罗贯中创作的历史小说", "label": "FALSE", "category": "《三国演义》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002743", "text": "《西游记》是吴承恩创作的神魔小说", "label": "TRUE", "category": "《西游记》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002744", "text": "《西游记》不是吴承恩创作的神魔小说", "label": "FALSE", "category": "《西游记》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002758", "text": "《堂吉诃德》是塞万提斯的作品", "label": "TRUE", "category": "《堂吉诃德》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002759", "text": "《堂吉诃德》不是塞万提斯的作品", "label": "FALSE", "category": "《堂吉诃德》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002760", "text": "《堂吉诃德》被认为是现代西方小说的开端", "label": "TRUE", "category": "《堂吉诃德》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002761", "text": "《堂吉诃德》被认为不是现代西方小说的开端", "label": "FALSE", "category": "《堂吉诃德》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002765", "text": "《悲惨世界》是雨果的作品", "label": "TRUE", "category": "《悲惨世界》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002766", "text": "《悲惨世界》不是雨果的作品", "label": "FALSE", "category": "《悲惨世界》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002772", "text": "《百年孤独》是马尔克斯的作品", "label": "TRUE", "category": "《百年孤独》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002773", "text": "《百年孤独》不是马尔克斯的作品", "label": "FALSE", "category": "《百年孤独》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002779", "text": "《杀死一只知更鸟》是哈珀·李的作品", "label": "TRUE", "category": "《杀死一只知更鸟》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002780", "text": "《杀死一只知更鸟》不是哈珀·李的作品", "label": "FALSE", "category": "《杀死一只知更鸟》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002785", "text": "《老人与海》是海明威的作品", "label": "TRUE", "category": "《老人与海》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002786", "text": "《老人与海》不是海明威的作品", "label": "FALSE", "category": "《老人与海》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002793", "text": "《了不起的盖茨比》是菲茨杰拉德的作品", "label": "TRUE", "category": "《了不起的盖茨比》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002794", "text": "《了不起的盖茨比》不是菲茨杰拉德的作品", "label": "FALSE", "category": "《了不起的盖茨比》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002800", "text": "《1984》是乔治·奥威尔的作品", "label": "TRUE", "category": "《1984》", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002801", "text": "《1985》是乔治·奥威尔的作品", "label": "FALSE", "category": "《1984》_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_002802", "text": "《2380》是乔治·奥威尔的作品", "label": "FALSE", "category": "《1984》_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_002803", "text": "《1984》不是乔治·奥威尔的作品", "label": "FALSE", "category": "《1984》_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002816", "text": "《聊斋志异》是清代蒲松龄的短篇小说集", "label": "TRUE", "category": "《聊斋志异》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002817", "text": "《聊斋志异》不是清代蒲松龄的短篇小说集", "label": "FALSE", "category": "《聊斋志异》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002819", "text": "《儒林外史》是清代吴敬梓的长篇小说", "label": "TRUE", "category": "《儒林外史》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002820", "text": "《儒林外史》不是清代吴敬梓的长篇小说", "label": "FALSE", "category": "《儒林外史》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002822", "text": "《骆驼祥子》是老舍的作品", "label": "TRUE", "category": "《骆驼祥子》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002823", "text": "《骆驼祥子》不是老舍的作品", "label": "FALSE", "category": "《骆驼祥子》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002826", "text": "《围城》是钱钟书的作品", "label": "TRUE", "category": "《围城》", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002827", "text": "《围城》不是钱钟书的作品", "label": "FALSE", "category": "《围城》_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002832", "text": "氢是宇宙中最丰富的元素", "label": "TRUE", "category": "氢", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002833", "text": "氢不是宇宙中最丰富的元素", "label": "FALSE", "category": "氢_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002834", "text": "氢是元素周期表中最轻的元素", "label": "TRUE", "category": "氢", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002835", "text": "氢不是元素周期表中最轻的元素", "label": "FALSE", "category": "氢_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002838", "text": "氧是生命必需的元素", "label": "TRUE", "category": "氧", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002839", "text": "氧不是生命必需的元素", "label": "FALSE", "category": "氧_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002840", "text": "碳是有机化学的基础", "label": "TRUE", "category": "碳", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002841", "text": "碳不是有机化学的基础", "label": "FALSE", "category": "碳_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002845", "text": "铁是地壳中含量第四的元素", "label": "TRUE", "category": "铁", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002846", "text": "铁不是地壳中含量第四的元素", "label": "FALSE", "category": "铁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002847", "text": "铁是炼钢的主要原料", "label": "TRUE", "category": "铁", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002848", "text": "铁不是炼钢的主要原料", "label": "FALSE", "category": "铁_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002859", "text": "银是最好的导电金属", "label": "TRUE", "category": "银", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002860", "text": "银不是最好的导电金属", "label": "FALSE", "category": "银_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002865", "text": "汞是唯一的液态金属", "label": "TRUE", "category": "汞", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002866", "text": "汞不是唯一的液态金属", "label": "FALSE", "category": "汞_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002875", "text": "钾是人体必需的微量元素", "label": "TRUE", "category": "钾", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002876", "text": "钾不是人体必需的微量元素", "label": "FALSE", "category": "钾_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002880", "text": "钙是骨骼和牙齿的主要成分", "label": "TRUE", "category": "钙", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002881", "text": "钙不是骨骼和牙齿的主要成分", "label": "FALSE", "category": "钙_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002888", "text": "Facebook是全球最大的社交网络", "label": "TRUE", "category": "Facebook", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002889", "text": "Facebook不是全球最大的社交网络", "label": "FALSE", "category": "Facebook_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002898", "text": "英伟达是全球领先的GPU制造商", "label": "TRUE", "category": "英伟达", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002899", "text": "英伟达不是全球领先的GPU制造商", "label": "FALSE", "category": "英伟达_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002903", "text": "英伟达的GPU是AI训练的核心硬件", "label": "TRUE", "category": "英伟达", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002904", "text": "英伟达的GPU不是AI训练的核心硬件", "label": "FALSE", "category": "英伟达_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002905", "text": "台积电是全球最大的芯片代工厂", "label": "TRUE", "category": "台积电", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002906", "text": "台积电不是全球最大的芯片代工厂", "label": "FALSE", "category": "台积电_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002911", "text": "三星是韩国最大的企业集团", "label": "TRUE", "category": "三星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002912", "text": "三星不是韩国最大的企业集团", "label": "FALSE", "category": "三星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002913", "text": "三星电子是全球最大的手机制造商之一", "label": "TRUE", "category": "三星", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002914", "text": "三星电子不是全球最大的手机制造商之一", "label": "FALSE", "category": "三星_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002924", "text": "PlayStation是索尼的游戏机品牌", "label": "TRUE", "category": "索尼", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002925", "text": "PlayStation不是索尼的游戏机品牌", "label": "FALSE", "category": "索尼_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002933", "text": "马里奥是任天堂的经典角色", "label": "TRUE", "category": "任天堂", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002934", "text": "马里奥不是任天堂的经典角色", "label": "FALSE", "category": "任天堂_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002935", "text": "丰田是全球最大的汽车制造商之一", "label": "TRUE", "category": "丰田", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002936", "text": "丰田不是全球最大的汽车制造商之一", "label": "FALSE", "category": "丰田_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002959", "text": "盖茨基金会是全球最大的慈善基金会", "label": "TRUE", "category": "比尔·盖茨", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002960", "text": "盖茨基金会不是全球最大的慈善基金会", "label": "FALSE", "category": "比尔·盖茨_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002961", "text": "埃隆·马斯克是特斯拉和SpaceX的CEO", "label": "TRUE", "category": "马斯克", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002962", "text": "埃隆·马斯克不是特斯拉和SpaceX的CEO", "label": "FALSE", "category": "马斯克_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002967", "text": "马克·扎克伯格是Facebook的创始人", "label": "TRUE", "category": "扎克伯格", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002968", "text": "马克·扎克伯格不是Facebook的创始人", "label": "FALSE", "category": "扎克伯格_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002986", "text": "巴菲特是伯克希尔·哈撒韦的CEO", "label": "TRUE", "category": "巴菲特", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002987", "text": "巴菲特不是伯克希尔·哈撒韦的CEO", "label": "FALSE", "category": "巴菲特_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002988", "text": "马云是阿里巴巴的创始人", "label": "TRUE", "category": "马云", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002989", "text": "马云不是阿里巴巴的创始人", "label": "FALSE", "category": "马云_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_002995", "text": "马化腾是腾讯的创始人", "label": "TRUE", "category": "马化腾", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_002996", "text": "马化腾不是腾讯的创始人", "label": "FALSE", "category": "马化腾_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003000", "text": "任正非是华为的创始人", "label": "TRUE", "category": "任正非", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003001", "text": "任正非不是华为的创始人", "label": "FALSE", "category": "任正非_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003007", "text": "雷军是小米科技的创始人", "label": "TRUE", "category": "雷军", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003008", "text": "雷军不是小米科技的创始人", "label": "FALSE", "category": "雷军_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003040", "text": "菲尔普斯是获得奥运金牌最多的运动员", "label": "TRUE", "category": "菲尔普斯", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003041", "text": "菲尔普斯不是获得奥运金牌最多的运动员", "label": "FALSE", "category": "菲尔普斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003069", "text": "猫王是摇滚乐的先驱", "label": "TRUE", "category": "猫王", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003070", "text": "猫王不是摇滚乐的先驱", "label": "FALSE", "category": "猫王_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003093", "text": "卓别林是默片时代的巨星", "label": "TRUE", "category": "卓别林", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003094", "text": "卓别林不是默片时代的巨星", "label": "FALSE", "category": "卓别林_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003122", "text": "微积分是数学的重要分支", "label": "TRUE", "category": "微积分", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003123", "text": "微积分不是数学的重要分支", "label": "FALSE", "category": "微积分_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003143", "text": "启蒙运动是17-18世纪欧洲的思想解放运动", "label": "TRUE", "category": "启蒙运动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003144", "text": "启蒙运动是20-18世纪欧洲的思想解放运动", "label": "FALSE", "category": "启蒙运动_数值扰动", "checker": ["numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_003145", "text": "启蒙运动不是17-18世纪欧洲的思想解放运动", "label": "FALSE", "category": "启蒙运动_否定插入", "checker": ["numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003173", "text": "诺曼底登陆是二战的关键战役", "label": "TRUE", "category": "诺曼底登陆", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003174", "text": "诺曼底登陆不是二战的关键战役", "label": "FALSE", "category": "诺曼底登陆_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003207", "text": "古巴导弹危机是冷战最危险的时刻", "label": "TRUE", "category": "古巴导弹危机", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003208", "text": "古巴导弹危机不是冷战最危险的时刻", "label": "FALSE", "category": "古巴导弹危机_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003210", "text": "水门事件是1970年代美国的政治丑闻", "label": "TRUE", "category": "水门事件", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003211", "text": "水门事件是1971年代美国的政治丑闻", "label": "FALSE", "category": "水门事件_年份偏移", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_003212", "text": "水门事件是2364年代美国的政治丑闻", "label": "FALSE", "category": "水门事件_数值扰动", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "false_003213", "text": "水门事件不是1970年代美国的政治丑闻", "label": "FALSE", "category": "水门事件_否定插入", "checker": ["year_conflict", "numeric_conflict", "negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003214", "text": "水门事件是1970年代加拿大的政治丑闻", "label": "FALSE", "category": "水门事件_实体置换", "checker": ["year_conflict", "numeric_conflict", "knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_003220", "text": "切尔诺贝利是历史上最严重的核事故", "label": "TRUE", "category": "切尔诺贝利", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003221", "text": "切尔诺贝利不是历史上最严重的核事故", "label": "FALSE", "category": "切尔诺贝利_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003317", "text": "留声机是最早的声音记录和回放设备", "label": "TRUE", "category": "留声机", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003318", "text": "留声机不是最早的声音记录和回放设备", "label": "FALSE", "category": "留声机_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003347", "text": "C语言是Unix操作系统的开发语言", "label": "TRUE", "category": "C语言", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003348", "text": "C语言不是Unix操作系统的开发语言", "label": "FALSE", "category": "C语言_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003352", "text": "JavaScript是Web前端开发的核心语言", "label": "TRUE", "category": "JavaScript", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003353", "text": "JavaScript不是Web前端开发的核心语言", "label": "FALSE", "category": "JavaScript_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003380", "text": "YouTube是全球最大的视频分享平台", "label": "TRUE", "category": "YouTube", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003381", "text": "YouTube不是全球最大的视频分享平台", "label": "FALSE", "category": "YouTube_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003385", "text": "微信是中国最流行的即时通讯应用", "label": "TRUE", "category": "微信", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003386", "text": "微信不是中国最流行的即时通讯应用", "label": "FALSE", "category": "微信_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003387", "text": "微信是日本最流行的即时通讯应用", "label": "FALSE", "category": "微信_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_003388", "text": "张小龙是微信的创始人", "label": "TRUE", "category": "微信", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003389", "text": "张小龙不是微信的创始人", "label": "FALSE", "category": "微信_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003405", "text": "安史之乱是唐朝由盛转衰的转折点", "label": "TRUE", "category": "安史之乱", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003406", "text": "安史之乱不是唐朝由盛转衰的转折点", "label": "FALSE", "category": "安史之乱_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003419", "text": "虎门销烟是第一次鸦片战争的导火索之一", "label": "TRUE", "category": "虎门销烟", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003420", "text": "虎门销烟不是第一次鸦片战争的导火索之一", "label": "FALSE", "category": "虎门销烟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003428", "text": "洋务运动是晚清的自强改革", "label": "TRUE", "category": "洋务运动", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003429", "text": "洋务运动不是晚清的自强改革", "label": "FALSE", "category": "洋务运动_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003450", "text": "五四运动是中国新民主主义革命的开端", "label": "TRUE", "category": "五四运动", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003451", "text": "五四运动不是中国新民主主义革命的开端", "label": "FALSE", "category": "五四运动_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003452", "text": "五四运动是日本新民主主义革命的开端", "label": "FALSE", "category": "五四运动_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_003476", "text": "威尼斯是意大利的水上城市", "label": "TRUE", "category": "威尼斯", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003477", "text": "威尼斯不是意大利的水上城市", "label": "FALSE", "category": "威尼斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003482", "text": "威尼斯狂欢节是著名的节庆活动", "label": "TRUE", "category": "威尼斯", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003483", "text": "威尼斯狂欢节不是著名的节庆活动", "label": "FALSE", "category": "威尼斯_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003485", "text": "圣家堂是巴塞罗那的地标", "label": "TRUE", "category": "巴塞罗那", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003486", "text": "圣家堂不是巴塞罗那的地标", "label": "FALSE", "category": "巴塞罗那_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003494", "text": "伊瓜苏瀑布是世界最宽的瀑布群", "label": "TRUE", "category": "伊瓜苏瀑布", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003495", "text": "伊瓜苏瀑布不是世界最宽的瀑布群", "label": "FALSE", "category": "伊瓜苏瀑布_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003500", "text": "尼亚加拉瀑布是世界著名的三大瀑布之一", "label": "TRUE", "category": "尼亚加拉瀑布", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003501", "text": "尼亚加拉瀑布不是世界著名的三大瀑布之一", "label": "FALSE", "category": "尼亚加拉瀑布_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003503", "text": "贝加尔湖是世界最深的湖泊", "label": "TRUE", "category": "贝加尔湖", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003504", "text": "贝加尔湖不是世界最深的湖泊", "label": "FALSE", "category": "贝加尔湖_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003509", "text": "马丘比丘是印加帝国的遗址", "label": "TRUE", "category": "马丘比丘", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003510", "text": "马丘比丘不是印加帝国的遗址", "label": "FALSE", "category": "马丘比丘_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003514", "text": "吴哥窟是世界最大的宗教建筑群", "label": "TRUE", "category": "吴哥窟", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003515", "text": "吴哥窟不是世界最大的宗教建筑群", "label": "FALSE", "category": "吴哥窟_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003524", "text": "心脏是人体的泵血器官", "label": "TRUE", "category": "心脏", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003525", "text": "心脏不是人体的泵血器官", "label": "FALSE", "category": "心脏_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003530", "text": "肝脏是人体最大的内脏器官", "label": "TRUE", "category": "肝脏", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003531", "text": "肝脏不是人体最大的内脏器官", "label": "FALSE", "category": "肝脏_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003549", "text": "密西西比河是北美最长的河流", "label": "TRUE", "category": "密西西比河", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003550", "text": "密西西比河不是北美最长的河流", "label": "FALSE", "category": "密西西比河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003554", "text": "长江是中国最长的河流", "label": "TRUE", "category": "长江", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003555", "text": "长江不是中国最长的河流", "label": "FALSE", "category": "长江_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003556", "text": "长江是日本最长的河流", "label": "FALSE", "category": "长江_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_003560", "text": "长江是世界第三长的河流", "label": "TRUE", "category": "长江", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003561", "text": "长江不是世界第三长的河流", "label": "FALSE", "category": "长江_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003562", "text": "黄河是中国的母亲河", "label": "TRUE", "category": "黄河", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003563", "text": "黄河不是中国的母亲河", "label": "FALSE", "category": "黄河_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "false_003564", "text": "黄河是日本的母亲河", "label": "FALSE", "category": "黄河_实体置换", "checker": ["knowledge_base", "graph_relation"], "difficulty": "medium"}
+{"id": "true_003572", "text": "梵蒂冈是世界最小的国家", "label": "TRUE", "category": "梵蒂冈", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003573", "text": "梵蒂冈不是世界最小的国家", "label": "FALSE", "category": "梵蒂冈_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003575", "text": "教皇是梵蒂冈的国家元首", "label": "TRUE", "category": "梵蒂冈", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003576", "text": "教皇不是梵蒂冈的国家元首", "label": "FALSE", "category": "梵蒂冈_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003577", "text": "摩纳哥是世界第二小的国家", "label": "TRUE", "category": "摩纳哥", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003578", "text": "摩纳哥不是世界第二小的国家", "label": "FALSE", "category": "摩纳哥_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003581", "text": "喜马拉雅山脉是世界最高的山脉", "label": "TRUE", "category": "喜马拉雅山", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003582", "text": "喜马拉雅山脉不是世界最高的山脉", "label": "FALSE", "category": "喜马拉雅山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003588", "text": "阿尔卑斯山是欧洲最高的山脉", "label": "TRUE", "category": "阿尔卑斯山", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003589", "text": "阿尔卑斯山不是欧洲最高的山脉", "label": "FALSE", "category": "阿尔卑斯山_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003594", "text": "安第斯山脉是世界最长的山脉", "label": "TRUE", "category": "安第斯山脉", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003595", "text": "安第斯山脉不是世界最长的山脉", "label": "FALSE", "category": "安第斯山脉_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003601", "text": "台积电和三星是领先的芯片制造商", "label": "TRUE", "category": "半导体制程", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003602", "text": "台积电和三星不是领先的芯片制造商", "label": "FALSE", "category": "半导体制程_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003643", "text": "热带雨林是生物多样性最高的生态系统", "label": "TRUE", "category": "生态系统", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003644", "text": "热带雨林不是生物多样性最高的生态系统", "label": "FALSE", "category": "生态系统_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003700", "text": "韦伯望远镜是哈勃的继任者", "label": "TRUE", "category": "詹姆斯韦伯望远镜", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003701", "text": "韦伯望远镜不是哈勃的继任者", "label": "FALSE", "category": "詹姆斯韦伯望远镜_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003714", "text": "南极是地球最南端的大陆", "label": "TRUE", "category": "南极", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003715", "text": "南极不是地球最南端的大陆", "label": "FALSE", "category": "南极_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003716", "text": "南极是地球上最冷的地方", "label": "TRUE", "category": "南极", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003717", "text": "南极不是地球上最冷的地方", "label": "FALSE", "category": "南极_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}
+{"id": "true_003718", "text": "南极不属于任何国家", "label": "TRUE", "category": "南极", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "true_003721", "text": "尼日利亚是撒哈拉以南非洲最大的经济体", "label": "TRUE", "category": "撒哈拉以南非洲", "checker": ["knowledge_base", "graph_relation"], "difficulty": "easy"}
+{"id": "false_003722", "text": "尼日利亚不是撒哈拉以南非洲最大的经济体", "label": "FALSE", "category": "撒哈拉以南非洲_否定插入", "checker": ["negation", "knowledge_base", "graph_relation"], "difficulty": "hard"}

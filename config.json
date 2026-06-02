@@ -4,7 +4,7 @@
     "host": "0.0.0.0",
     "mock_mode": false,
     "upstream_url": "http://localhost:11434/v1",
-    "api_key": "not-needed",
+    "api_key": "${UPSTREAM_API_KEY:-not-needed}",
     "model": "llama3.2:1b"
   },
   "observer": {
