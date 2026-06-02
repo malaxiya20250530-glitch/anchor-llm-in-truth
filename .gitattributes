@@ -1,0 +1,4 @@
+# git-crypt 加密所有 Python 源码
+*.py filter=git-crypt diff=git-crypt
+*.json filter=git-crypt diff=git-crypt
+.gitattributes !filter !diff
