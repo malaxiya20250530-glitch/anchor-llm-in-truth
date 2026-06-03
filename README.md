@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth/actions/workflows/test.yml/badge.svg)](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth/actions)
 [![Python](https://img.shields.io/badge/Python-3.13-blue)](https://python.org)
-[![License](https://img.shields.io/badge/License-Proprietary-red)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/malaxiya20250530-glitch/anchor-llm-in-truth?style=social)](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth)
 
 > **Zero-dependency LLM hallucination detection. 704万 facts. 14 checkers. Pure Python stdlib.**
