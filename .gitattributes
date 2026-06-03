@@ -1,4 +1,9 @@
-# git-crypt 加密所有 Python 源码
-*.py filter=git-crypt diff=git-crypt
-*.json filter=git-crypt diff=git-crypt
+# 源码保护: .pye加密文件禁止diff
+*.pye binary
+*.db binary
+*.db-shm binary
+*.db-wal binary
+
+# git-crypt 已废弃 (改用 encrypt_stdlib.py)
+# 所有 .py .json 文件明文存储
 .gitattributes !filter !diff
