@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hallucination Detector — LLM 幻觉检测中间件</title>
-<meta name="description" content="Zero-dependency LLM hallucination detection middleware. 14 checkers, 608 facts, OpenAI-compatible gateway. 零依赖大模型幻觉检测中间件。">
+<meta name="description" content="Zero-dependency LLM hallucination detection middleware. 14 checkers, 7M+ facts, OpenAI-compatible gateway. 零依赖大模型幻觉检测中间件。">
 <meta name="keywords" content="LLM,hallucination,fact-checker,AI safety,OpenAI,Chinese NLP,幻觉检测,大模型安全">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -59,7 +59,7 @@ h2{font-size:2rem;text-align:center;margin-bottom:2rem;color:#f1f5f9}
 
   <div class="stats-bar">
     <div class="stat"><div class="num">14</div><div class="label en">Checkers</div><div class="label zh">检查器</div></div>
-    <div class="stat"><div class="num">608</div><div class="label en">Facts</div><div class="label zh">事实库</div></div>
+    <div class="stat"><div class="num">7M+</div><div class="label en">Facts</div><div class="label zh">事实库</div></div>
     <div class="stat"><div class="num">0</div><div class="label en">Dependencies</div><div class="label zh">外部依赖</div></div>
     <div class="stat"><div class="num">4</div><div class="label en">Platforms</div><div class="label zh">平台支持</div></div>
   </div>
@@ -130,7 +130,7 @@ User Request<br>↓<br>
 ├─ ObserverSecurity<br>
 ├─ <span style="color:#a78bfa">HallucinationDetector</span><br>
 │  ├─ 14 Checkers (weighted chain)<br>
-│  ├─ Knowledge Graph (608 facts)<br>
+│  ├─ Knowledge Graph (7M+ facts)<br>
 │  ├─ Vector KB (hybrid search)<br>
 │  └─ Web Verifier (cross-validation)<br>
 ├─ Consensus Engine<br>
