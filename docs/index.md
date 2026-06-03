@@ -5,7 +5,7 @@ LLM 幻觉检测透明代理 — 夹在用户与 LLM 之间，实时拦截虚假
 ## 快速开始
 
 ```bash
-pip install git+https://github.com/malaxiya20250530-glitch/shiyan2925.git
+pip install git+https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth.git
 ```
 
 ### 对接 Ollama

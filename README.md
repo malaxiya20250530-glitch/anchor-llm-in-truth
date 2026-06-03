@@ -1,37 +1,28 @@
-# 🔍 Anchor · 幻觉检测器
+# 🔍 Anchor · LLM Hallucination Detector · 大模型幻觉检测器
 
-[![PyPI](https://img.shields.io/pypi/v/llm-fact-guard)](https://pypi.org/project/llm-fact-guard/)
-[![Downloads](https://img.shields.io/pypi/dm/llm-fact-guard)](https://pypi.org/project/llm-fact-guard/)
-
-
-[![CI](https://github.com/malaxiya20250530-glitch/shiyan2925/actions/workflows/test.yml/badge.svg)](https://github.com/malaxiya20250530-glitch/shiyan2925/actions)
-[![Build](https://github.com/malaxiya20250530-glitch/shiyan2925/actions/workflows/build-binaries.yml/badge.svg)](https://github.com/malaxiya20250530-glitch/shiyan2925/actions)
+[![CI](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth/actions/workflows/test.yml/badge.svg)](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth/actions)
 [![Python](https://img.shields.io/badge/Python-3.13-blue)](https://python.org)
 [![License](https://img.shields.io/badge/License-Proprietary-red)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/malaxiya20250530-glitch/shiyan2925?style=social)](https://github.com/malaxiya20250530-glitch/shiyan2925)
+[![Stars](https://img.shields.io/github/stars/malaxiya20250530-glitch/anchor-llm-in-truth?style=social)](https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth)
 
-> **Zero-dependency LLM hallucination detection middleware. Like a CDN for AI safety.**
-> **零外部依赖的大模型幻觉检测中间件。像 CDN 一样守护 AI 安全。**
-
-🌐 [Live Demo](https://malaxiya20250530-glitch.github.io/shiyan2925/) · 📖 [Contributing](CONTRIBUTING.md) · 🏥 [Medical KB](kb_medical.json) · ⚖️ [Legal KB](kb_legal.json)
+> **Zero-dependency LLM hallucination detection. 704万 facts. 14 checkers. Pure Python stdlib.**
+> **零外部依赖。704万条事实。14个检查器。纯Python标准库。**
 
 ---
 
-## ⚡ 5-Second Demo · 5 秒体验
+## ⚡ 5-Second Demo · 5秒体验
 
 ```bash
 python3 hallucination_detector.py "朱元璋发明了火锅"
 ```
-
 ```
 🔴 [contradicted] 朱元璋发明了火锅  (90%)
    Evidence: 朱元璋是明朝开国皇帝，1328-1398 年
-   Source: 明史
 ```
 
-English users try:
 ```bash
-python3 hallucination_detector.py "Edison invented the light bulb"
+python3 hallucination_detector.py "Edison invented the telephone"
+# → 🔴 contradicted  贝尔才是电话发明者
 ```
 
 ---
@@ -39,102 +30,115 @@ python3 hallucination_detector.py "Edison invented the light bulb"
 ## 🏗️ Architecture · 架构
 
 ```
-User → awareness_gateway (OpenAI-compatible API)
-         ├─ BillingMiddleware     ← Pay-per-token
-         ├─ ObserverSecurity      ← Security middleware
+User → Anchor Gateway (OpenAI-compatible API)
+         ├─ Prompt Injection Defense (12防线)
          ├─ HallucinationDetector
-         │    ├─ 14 Checkers      ← Weighted chain
-         │    ├─ Knowledge Graph   ← 608 facts
-         │    ├─ Vector KB         ← Hybrid search
-         │    └─ Web Verifier      ← Cross-validation
-         ├─ Consensus Engine
-         ├─ Alignment Analyzer
-         └─ Feedback → Auto KB Updater (self-evolving)
+         │    ├─ 14 Checkers (责任链, F1加权)
+         │    ├─ fact_store.db (704万条事实, SQLite FTS)
+         │    ├─ kb_core.json (514实体语义索引)
+         │    └─ GraphReasoner (知识图谱推理)
+         ├─ Consensus Voter (三模式投票)
+         └─ Meta Weight Learner (动态权重学习)
 ```
 
-## 🚀 Quick Start · 快速开始
-
-**Zero dependencies. Clone and run.**
-
-```bash
-git clone https://github.com/malaxiya20250530-glitch/shiyan2925.git
-cd shiyan2925
-
-# CLI detection
-python3 hallucination_detector.py "爱迪生发明了电灯泡"
-
-# OpenAI-compatible gateway
-python3 awareness_gateway.py --mock --port 8800
-curl http://localhost:8800/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-f你的key" \
-  -d '{"model":"mock","messages":[{"role":"user","content":"你好"}]}'
-
-# Dashboard
-python3 dashboard_server.py --port 8080
-# Open http://localhost:8080
+**三层事实架构：**
 ```
-
-## 💰 Monetization · 变现
-
-```bash
-# Create API keys with tiered plans
-python3 billing.py create "Client A" pro   # free / basic / pro / enterprise
-python3 billing.py stats                    # MRR overview
-python3 billing.py list                     # All accounts
+🟦 L1: Entity Layer (kb_core.json)   → "你在问什么？"
+🟨 L2: Fact Layer (fact_store.db)    → "世界上有哪些事实？"
+🟪 L3: Trust Layer (belief function) → "哪些事实值得相信？"
 ```
-
-| Plan | Monthly Quota | Rate Limit | Price |
-|------|:---:|:---:|:---:|
-| Free · 免费 | 10K tokens | 2 req/s | ¥0 |
-| Basic · 基础 | 100K tokens | 5 req/s | ¥29 |
-| Pro · 专业 | 1M tokens | 20 req/s | ¥199 |
-| Enterprise · 企业 | Unlimited | 50 req/s | ¥999 |
-
-## 🏥 Industry Knowledge Bases · 行业知识库
-
-| Domain | Entries | File |
-|--------|:---:|------|
-| Medicine · 医疗 | 45 | `kb_medical.json` |
-| Law · 法律 | 52 | `kb_legal.json` |
-| General · 通用 | 511 | `kb_core.json` |
-
-```bash
-python3 -c "from kb_loader import load_industry_kb; load_industry_kb()"
-```
-
-## 🔐 Binary Compilation · 加密编译
-
-```
-git push → GitHub Actions → .so for Linux / Mac / Windows
-```
-
-| Platform | Artifact |
-|----------|----------|
-| 🐧 Linux x86_64 | `.so` |
-| 🍎 macOS arm64 | `.so` |
-| 🍏 macOS x86_64 | `.so` |
-| 🪟 Windows x86_64 | `.pyd` |
-
-## 🧪 Testing · 测试
-
-```bash
-python3 test_fact_checker.py          # Unit tests
-python3 test_knowledge_graph.py       # Knowledge graph
-python3 test_observer_security.py     # Security observer
-python3 test_deepseek.py              # End-to-end with DeepSeek
-```
-
-## 📊 Stats · 项目规模
-
-- **17,733 lines** Python · **61 modules** · **14 checkers**
-- **608 facts** · **6 CI workflows** · **0 external deps**
-
-## 📄 License · 许可证
-
-Proprietary · 专有软件. Contact author for commercial licensing.
-Copyright © 2025-2026 Li Qiao · 李桥
 
 ---
 
-⭐ **If this helps you, star this repo! 如果对你有用，点个 Star！**
+## 🚀 Quick Start · 快速开始
+
+```bash
+# 克隆
+git clone git@github.com:malaxiya20250530-glitch/anchor-llm-in-truth.git
+cd anchor-llm-in-truth
+
+# 事实核查
+python3 hallucination_detector.py "朱元璋发明了火锅"
+
+# 启动网关 (OpenAI兼容API)
+python3 awareness_gateway.py --mock --port 8800
+
+# 测试
+python3 test_fact_checker.py        # 核心测试 (5组)
+python3 test_adversarial.py         # 攻防测试 (14用例)
+python3 injection_attack_sim.py     # 注入防御评分
+```
+
+**API 调用：**
+```bash
+curl -X POST http://localhost:8800/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Did 朱元璋 invent hotpot?"}]}'
+```
+
+---
+
+## 📊 Capabilities · 能力矩阵
+
+| 能力 | 评分 | 说明 |
+|------|------|------|
+| 核心幻觉检测 | A (90%) | 14检查器责任链 |
+| 否定混淆处理 | A (100%) | 9组双否定归一化 |
+| 知识库规模 | A | 704万条事实 / 1.8GB |
+| 注入防御 | B (86%) | 12条防线 / 29载荷 |
+| 诱导性鲁棒性 | A (100%) | 14/14用例通过 |
+| 零外部依赖 | A | 纯Python标准库 |
+
+---
+
+## 🛡️ Security · 安全
+
+- **Prompt Injection Defense**: 12条防线 (sanitize → instruction detect → structural detect → KB validate → tool hijack detect)
+- **Adversarial Test**: 14/14 攻防用例通过 (100/100 A级)
+- **Injection Score**: 86/100 (29载荷, 25拦截)
+- **CI/CD**: GitHub Actions 自动解密→测试→F1退化检查
+
+---
+
+## 📁 Key Files · 关键文件
+
+| 文件 | 行数 | 作用 |
+|------|------|------|
+| `hallucination_detector.py` | 1604 | 核心引擎 |
+| `checker_classes.py` | 988 | 14个检查器 |
+| `prompt_injection_defense.py` | 1556 | 12条防线 |
+| `knowledge/fact_store.db` | 1.8GB | 704万条事实 |
+| `kb_core.json` | 134KB | 514实体索引 |
+
+---
+
+## 🧪 Tests · 测试
+
+```bash
+python3 test_fact_checker.py          # 核心检测 (5/5 ✅)
+python3 test_adversarial.py           # 攻防博弈 (14/14 ✅)
+python3 test_graph_checker.py         # 图谱推理 (11/11 ✅)
+python3 coverage_report.py            # 检查器覆盖率
+```
+
+---
+
+## 🔧 Adding a Checker · 添加检查器
+
+```python
+from checker_registry import Checker, checker
+
+@checker
+class MyChecker(Checker):
+    weight = 0.80
+    def check(self, claim: str, fact: str, engine=None):
+        if "关键词" in claim and "反例" in fact:
+            return ("contradicted", 0.85)
+        return None
+```
+
+两步：继承 `Checker` + `@checker` 装饰器。自动注册到责任链。
+
+---
+
+Built with ❤️ on Android Termux. Zero dependencies. Pure Python stdlib.

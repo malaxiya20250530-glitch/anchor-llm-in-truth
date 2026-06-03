@@ -32,7 +32,7 @@ python3 hallucination_detector.py "朱元璋发明了火锅"
 - 可视化仪表盘
 - 跨平台 Cython 加密编译
 
-GitHub: https://github.com/malaxiya20250530-glitch/shiyan2925
+GitHub: https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 欢迎 Star，也欢迎提 Issue 交流思路。
 
 ---
@@ -72,7 +72,7 @@ CausalChecker          → 因果关系
 - 内置 API 计费 + 仪表盘 + 加密编译
 - GitHub Actions 四平台云编译 .so
 
-GitHub: https://github.com/malaxiya20250530-glitch/shiyan2925
+GitHub: https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 
 ---
 
@@ -95,7 +95,7 @@ python3 hallucination_detector.py "朱元璋发明了火锅"
 - 可视化仪表盘
 - 跨平台加密编译 (.so)
 
-仓库: https://github.com/malaxiya20250530-glitch/shiyan2925
+仓库: https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 觉得有用的话点个 Star，感谢！
 
 ---
@@ -116,7 +116,7 @@ I built a middleware that sits between your LLM and users, detecting hallucinati
 
 **Quick try:**
 ```bash
-git clone https://github.com/malaxiya20250530-glitch/shiyan2925
+git clone https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 python3 hallucination_detector.py "Edison invented the light bulb"
 ```
 
@@ -138,7 +138,7 @@ I spent 8 months building a hallucination detection system. It's a drop-in middl
 
 Zero external dependencies. Pure Python stdlib.
 
-GitHub: https://github.com/malaxiya20250530-glitch/shiyan2925
+GitHub: https://github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 
 ---
 
@@ -153,7 +153,7 @@ python3 hallucination_detector.py "Zhu Yuanzhang invented hotpot"
 # → CONTRADICTED 90%
 ```
 
-🔗 github.com/malaxiya20250530-glitch/shiyan2925
+🔗 github.com/malaxiya20250530-glitch/anchor-llm-in-truth
 
 #LLM #AI #OpenSource #Python #MachineLearning
 

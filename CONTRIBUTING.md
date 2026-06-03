@@ -5,8 +5,8 @@
 ## 快速上手
 
 ```bash
-git clone git@github.com:malaxiya20250530-glitch/shiyan2925.git
-cd shiyan2925
+git clone git@github.com:malaxiya20250530-glitch/anchor-llm-in-truth.git
+cd anchor-llm-in-truth
 python3 test_fact_checker.py  # 确保全部通过
 ```
 
