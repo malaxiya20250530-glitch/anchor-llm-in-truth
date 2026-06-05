@@ -1,0 +1,14 @@
+{
+  "name": "灵绘 - 桌面精灵",
+  "short_name": "灵绘",
+  "start_url": "nezha_dance_viewer.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#ff4400",
+  "icons": [{
+    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🔥</text></svg>",
+    "sizes": "100x100",
+    "type": "image/svg+xml"
+  }]
+}
