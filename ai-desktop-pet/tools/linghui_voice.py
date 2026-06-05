@@ -115,13 +115,57 @@ FREE_SONGS = [
         "title": "中国舞曲",
         "url": "https://freepd.com/music/Chinese%20Dance.mp3",
         "bpm": 110,
-        "desc": "传统中国风舞曲 (CC0)"
+        "desc": "传统中国风舞曲 (CC0)",
+        "mood": "elegant"
     },
     {
         "title": "史诗战歌",
         "url": "https://freepd.com/music/Epic%20Trailer.mp3",
         "bpm": 140,
-        "desc": "史诗战斗配乐 (CC0)"
+        "desc": "史诗战斗配乐 (CC0)",
+        "mood": "epic"
+    },
+    {
+        "title": "宁静钢琴",
+        "url": "https://freepd.com/music/Pensive%20Piano.mp3",
+        "bpm": 80,
+        "desc": "宁静钢琴独奏 (CC0)",
+        "mood": "calm"
+    },
+    {
+        "title": "欢快庆典",
+        "url": "https://freepd.com/music/Celebration.mp3",
+        "bpm": 120,
+        "desc": "欢乐庆典音乐 (CC0)",
+        "mood": "happy"
+    },
+    {
+        "title": "神秘东方",
+        "url": "https://freepd.com/music/Oriental%20Grove.mp3",
+        "bpm": 95,
+        "desc": "东方神秘氛围 (CC0)",
+        "mood": "mysterious"
+    },
+    {
+        "title": "爵士咖啡馆",
+        "url": "https://freepd.com/music/Jazz%20Cafe.mp3",
+        "bpm": 90,
+        "desc": "轻松爵士背景 (CC0)",
+        "mood": "relaxed"
+    },
+    {
+        "title": "电子律动",
+        "url": "https://freepd.com/music/Electro%20Swing.mp3",
+        "bpm": 130,
+        "desc": "现代电子摇摆 (CC0)",
+        "mood": "energetic"
+    },
+    {
+        "title": "古筝流水",
+        "url": "https://freepd.com/music/GuZheng%20River.mp3",
+        "bpm": 70,
+        "desc": "古筝流水意境 (CC0)",
+        "mood": "zen"
     },
 ]
 

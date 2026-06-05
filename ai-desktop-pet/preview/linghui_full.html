@@ -109,6 +109,7 @@ body{background:#0a0a0f;color:#e0ddd5;font-family:"PingFang SC","Noto Sans SC",s
     <div class="dl-row">
       <input id="dlUrl" placeholder="输入歌曲URL下载...">
       <button onclick="downloadSong()">下载</button>
+      <button onclick="downloadSongList()" style="background:#ff6600">📋 歌单</button>
     </div>
     <ul id="playlist"></ul>
   </div>
@@ -189,6 +190,9 @@ function handleWSMessage(msg) {
       addMessage('ai', `已下载: ${msg.name} (${(msg.size/1024).toFixed(0)}KB)`);
       refreshPlaylist();
       break;
+    case 'music_songlist':
+      showSongListDialog(msg.songs);
+      break;
     case 'status':
       break;
     case 'error':
@@ -244,6 +248,39 @@ const audio = document.getElementById('audioPlayer');
 
 function refreshPlaylist() {
   sendWS({type: 'music_list'});
+}
+
+function downloadSongList() {
+  addMessage('ai', '正在获取歌单...');
+  sendWS({type: 'music_songlist'});
+}
+
+function showSongListDialog(songs) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg ai';
+  div.style.maxWidth = '95%';
+  let html = '🎵 预置歌单 (CC0 免费音乐):<br><br>';
+  songs.forEach((s, i) => {
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #333">
+      <span>${s.title} <small style="color:#888">${s.desc}</small></span>
+      <button onclick="event.stopPropagation();downloadOneSong('${s.url.replace(/'/g, "\'")}')" style="background:#ff4400;color:#fff;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;font-size:11px">下载</button>
+    </div>`;
+  });
+  html += '<br><button onclick="downloadAllSongs()" style="background:#ff6600;color:#fff;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:13px">📥 一键下载全部</button>';
+  div.innerHTML = html;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function downloadOneSong(url) {
+  document.getElementById('dlUrl').value = url;
+  downloadSong();
+}
+
+function downloadAllSongs() {
+  addMessage('ai', '正在批量下载歌单...');
+  sendWS({type: 'music_download_batch'});
 }
 
 function renderPlaylist(files) {
@@ -341,6 +378,9 @@ let recognition = null;
 let synth = window.speechSynthesis;
 let isListening = false;
 let wakeEnabled = false;
+let lastWakeTime = 0;
+const WAKE_COOLDOWN = 2500;  // 唤醒冷却 2.5 秒，防误触
+const WAKE_WORDS = ['你好灵绘', '灵绘', '嘿灵绘', '小灵', '灵灵'];
 
 function initVoice() {
   if (recognition) return;
@@ -353,30 +393,76 @@ function initVoice() {
   recognition.lang = 'zh-CN';
   recognition.interimResults = true;
   recognition.continuous = false;
+  recognition.maxAlternatives = 3;  // 获取多个备选，提高唤醒准确率
 
   recognition.onresult = (e) => {
-    let transcript = '';
+    // 收集所有备选文本
+    let transcripts = [];
     for (let i = e.resultIndex; i < e.results.length; i++) {
-      transcript += e.results[i][0].transcript;
+      for (let j = 0; j < e.results[i].length; j++) {
+        transcripts.push(e.results[i][j].transcript.trim());
+      }
     }
-    document.getElementById('transcript').textContent = transcript;
+    const best = transcripts[0] || '';
+    document.getElementById('transcript').textContent = best;
+
     if (e.results[e.results.length-1].isFinal) {
-      const text = transcript.trim();
-      if (wakeEnabled && !text.includes('灵绘') && !text.includes('你好灵绘')) {
-        document.getElementById('voiceStatus').textContent = '未检测到唤醒词，继续监听...';
-        if (isListening) startListening();
+      // 唤醒模式：检查所有备选文本是否包含唤醒词
+      if (wakeEnabled) {
+        const now = Date.now();
+        const inCooldown = (now - lastWakeTime) < WAKE_COOLDOWN;
+        let woke = false;
+
+        if (!inCooldown) {
+          for (const t of transcripts) {
+            for (const ww of WAKE_WORDS) {
+              // 唤醒词必须在句子开头 或 独立出现（前后是边界）
+              if (t === ww || t.startsWith(ww) || t.includes(' ' + ww) || t.includes('，' + ww) || t.includes('。' + ww)) {
+                woke = true;
+                break;
+              }
+            }
+            if (woke) break;
+          }
+        }
+
+        if (woke) {
+          lastWakeTime = now;
+          document.getElementById('transcript').textContent = '🔔 灵绘已唤醒！';
+          document.getElementById('voiceStatus').textContent = '请说话...';
+          // 视觉反馈：按钮闪烁
+          const btn = document.getElementById('micBtn');
+          btn.style.boxShadow = '0 0 40px #ff4400';
+          setTimeout(() => { btn.style.boxShadow = ''; }, 500);
+          // 继续监听用户指令
+          if (isListening) setTimeout(startListening, 300);
+          return;
+        }
+
+        // 未检测到唤醒词，静默忽略
+        document.getElementById('voiceStatus').textContent = '监听唤醒词中...';
+        document.getElementById('transcript').textContent = '';
+        if (isListening) setTimeout(startListening, 300);
         return;
       }
-      addMessage('user', '🎤 ' + text);
+
+      // 非唤醒模式：直接发送
+      addMessage('user', '🎤 ' + best);
       document.getElementById('voiceStatus').textContent = '思考中...';
-      sendWS({type: 'voice_chat', content: text, context: {}});
+      sendWS({type: 'voice_chat', content: best, context: {}});
       if (isListening) setTimeout(startListening, 2000);
     }
   };
 
   recognition.onerror = (e) => {
-    document.getElementById('voiceStatus').textContent = `识别错误: ${e.error}`;
-    if (isListening && e.error !== 'aborted') setTimeout(startListening, 1000);
+    if (e.error === 'no-speech') {
+      document.getElementById('voiceStatus').textContent = wakeEnabled ? '监听中...' : '未检测到语音';
+    } else if (e.error === 'aborted') {
+      // 正常中断，不提示
+    } else {
+      document.getElementById('voiceStatus').textContent = `识别异常: ${e.error}`;
+    }
+    if (isListening && e.error !== 'aborted') setTimeout(startListening, 800);
   };
 
   recognition.onend = () => {
@@ -422,7 +508,7 @@ function toggleWake() {
   const label = document.getElementById('wakeLabel');
   if (wakeEnabled) {
     sw.classList.add('on');
-    label.textContent = '开启 "你好灵绘"';
+    label.textContent = `开启 (${WAKE_WORDS.slice(0,3).join('/')})`;
     if (!isListening) { isListening = true; startListening(); }
   } else {
     sw.classList.remove('on');

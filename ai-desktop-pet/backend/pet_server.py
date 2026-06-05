@@ -7,6 +7,7 @@ import os
 import sys
 import time
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from urllib.parse import unquote
 from typing import Optional
 import urllib.request
 import urllib.error
@@ -72,6 +73,10 @@ class PetServer:
             return await self._handle_music_download(msg)
         elif msg_type == "voice_chat":
             return await self._handle_voice_chat(msg)
+        elif msg_type == "music_songlist":
+            return self._handle_music_songlist()
+        elif msg_type == "music_download_batch":
+            return await self._handle_music_download_batch()
         else:
             return json.dumps({"type": "error", "message": f"未知消息类型: {msg_type}"})
 
@@ -149,6 +154,90 @@ class PetServer:
         }, ensure_ascii=False)
 
 
+    # ─── 音乐管理 ───
+
+    def _handle_music_list(self) -> str:
+        """列出 music 目录下的所有音频文件"""
+        music_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "music")
+        os.makedirs(music_dir, exist_ok=True)
+        files = []
+        for f in sorted(os.listdir(music_dir)):
+            if f.endswith(('.mp3', '.wav', '.ogg', '.flac', '.m4a')):
+                fpath = os.path.join(music_dir, f)
+                fsize = os.path.getsize(fpath)
+                files.append({"name": f, "size": fsize, "path": f"music/{f}"})
+        return json.dumps({"type": "music_list", "files": files}, ensure_ascii=False)
+
+    async def _handle_music_download(self, msg: dict) -> str:
+        """下载歌曲到 music 目录"""
+        url = msg.get("url", "").strip()
+        if not url:
+            return json.dumps({"type": "error", "message": "缺少歌曲URL"})
+        music_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "music")
+        os.makedirs(music_dir, exist_ok=True)
+        fname = url.rsplit("/", 1)[-1].split("?")[0]
+        if not fname.endswith((".mp3", ".wav", ".ogg")):
+            fname += ".mp3"
+        fpath = os.path.join(music_dir, fname)
+        if os.path.exists(fpath):
+            return json.dumps({"type": "music_downloaded", "name": fname, "path": f"music/{fname}", "cached": True})
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "LingHui/2.0"})
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = resp.read()
+                with open(fpath, "wb") as f:
+                    f.write(data)
+            return json.dumps({"type": "music_downloaded", "name": fname, "path": f"music/{fname}", "size": len(data)})
+        except urllib.error.URLError as e:
+            return json.dumps({"type": "error", "message": f"下载失败: {e.reason}"})
+        except Exception as e:
+            return json.dumps({"type": "error", "message": f"下载异常: {e}"})
+
+    async def _handle_voice_chat(self, msg: dict) -> str:
+        """处理语音转文字后的对话请求，复用 user_input 逻辑"""
+        msg["type"] = "user_input"
+        return await self._handle_user_input(msg)
+
+    def _handle_music_songlist(self) -> str:
+        """返回预置歌单列表（供前端一键下载）"""
+        songs = _load_free_songs()
+        result = [{"title": s["title"], "desc": s.get("desc", ""), "mood": s.get("mood", ""), "url": s["url"]} for s in songs]
+        return json.dumps({"type": "music_songlist", "songs": result}, ensure_ascii=False)
+
+    async def _handle_music_download_batch(self) -> str:
+        """批量下载预置歌单"""
+        songs = _load_free_songs()
+        if not songs:
+            return json.dumps({"type": "error", "message": "歌单为空"})
+        import importlib.util
+        voice_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tools", "linghui_voice.py")
+        spec = importlib.util.spec_from_file_location("linghui_voice", voice_path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        download_song = getattr(mod, "download_song", None)
+        music_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "music")
+        os.makedirs(music_dir, exist_ok=True)
+        ok = 0
+        for song in songs:
+            if download_song and download_song(song, str(music_dir)):
+                ok += 1
+        return self._handle_music_list()
+
+# ─── 歌单加载辅助函数 ───
+
+def _load_free_songs() -> list:
+    """加载 CC0 免费歌单"""
+    try:
+        import importlib.util
+        voice_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tools", "linghui_voice.py")
+        spec = importlib.util.spec_from_file_location("linghui_voice", voice_path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return getattr(mod, "FREE_SONGS", [])
+    except Exception:
+        return []
+
+
 # ─── 简易 WebSocket 服务（纯 Python 标准库实现）───
 
 class SimpleWSServer:
@@ -169,16 +258,40 @@ class SimpleWSServer:
         print(f"   情绪引擎: 就绪 | LLM: {self.pet.llm.model} | 自动化: {'启用' if self.pet.automation.enabled else '未启用'}")
         print(f"   性格: {self.pet.personality.profile['label']}")
 
-        # 同时启动 HTTP 静态文件服务（托管前端页面）
-        web_root = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'docs', 'linghui')
-        if os.path.isdir(web_root):
-            os.chdir(web_root)
-            from http.server import HTTPServer, SimpleHTTPRequestHandler
-            SimpleHTTPRequestHandler.extensions_map[".glb"] = "model/gltf-binary"
-            SimpleHTTPRequestHandler.extensions_map[".gltf"] = "model/gltf+json"
-            httpd = HTTPServer(('0.0.0.0', 8080), SimpleHTTPRequestHandler)
-            print(f"   🌐 前端页面: http://0.0.0.0:8080")
-            http_server_task = asyncio.get_event_loop().run_in_executor(None, httpd.serve_forever)
+        # 同时启动 HTTP 静态文件服务（托管前端页面 + 文件上传）
+        preview_dir = os.path.join(os.path.dirname(__file__), "..", "preview")
+        os.chdir(preview_dir)
+        SimpleHTTPRequestHandler.extensions_map[".glb"] = "model/gltf-binary"
+        SimpleHTTPRequestHandler.extensions_map[".gltf"] = "model/gltf+json"
+
+        # 自定义 handler：静态文件 + POST /music/upload
+        pet_ref = self.pet
+        class UploadHandler(SimpleHTTPRequestHandler):
+            def do_POST(self):
+                if self.path == "/music/upload":
+                    try:
+                        length = int(self.headers.get("Content-Length", 0))
+                        data = self.rfile.read(length)
+                        fname = unquote(self.headers.get("X-Filename", "upload.mp3"))
+                        music_dir = os.path.join(os.path.dirname(__file__), "preview", "music")
+                        os.makedirs(music_dir, exist_ok=True)
+                        fpath = os.path.join(music_dir, os.path.basename(fname))
+                        with open(fpath, "wb") as f:
+                            f.write(data)
+                        self.send_response(200)
+                        self.end_headers()
+                        self.wfile.write(b'{"ok":true,"name":"' + fname.encode() + b'"}')
+                    except Exception as e:
+                        self.send_response(500)
+                        self.end_headers()
+                        self.wfile.write(b'{"error":"' + str(e).encode() + b'"}')
+                else:
+                    self.send_response(404)
+                    self.end_headers()
+
+        httpd = HTTPServer(('0.0.0.0', 8080), UploadHandler)
+        print(f"   🌐 前端页面: http://0.0.0.0:8080")
+        http_server_task = asyncio.get_event_loop().run_in_executor(None, httpd.serve_forever)
         print("   等待连接...\n")
 
         async with server:
