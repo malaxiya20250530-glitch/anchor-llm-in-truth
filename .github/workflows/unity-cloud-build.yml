@@ -16,22 +16,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 🗑️ 清理缓存
+      - name: 🗑️ 清理
         run: find ai-desktop-pet -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 
-      - name: 📦 缓存 Unity Library
+      - name: 📦 缓存 Library
         uses: actions/cache@v4
         with:
           path: ai-desktop-pet/unity_project/Library
-          key: Library-Android-${{ hashFiles('ai-desktop-pet/unity_project/Assets/**', 'ai-desktop-pet/unity_project/Packages/**', 'ai-desktop-pet/unity_project/ProjectSettings/**') }}
-          restore-keys: Library-Android-
+          key: Library-Android-v2-${{ hashFiles('ai-desktop-pet/unity_project/Assets/**') }}
+          restore-keys: Library-Android-v2-
 
-      - name: 🎮 Unity 编译 APK
+      - name: 🔑 激活个人许可证
+        uses: game-ci/unity-activate@v1
+        with:
+          unityVersion: 2022.3.20f1
+          unityUsername: ${{ secrets.UNITY_EMAIL }}
+          unityPassword: ${{ secrets.UNITY_PASSWORD }}
+          unitySerial: ''
+          unityPersonal: 'true'
+
+      - name: 🎮 编译 APK
         uses: game-ci/unity-builder@v4
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           projectPath: ai-desktop-pet/unity_project
           targetPlatform: Android
@@ -47,10 +52,9 @@ jobs:
           path: build/Android/*.apk
           retention-days: 30
 
-      - name: 📋 构建报告
+      - name: 📋 报告
         run: |
           APK=$(find build/Android -name "*.apk" 2>/dev/null | head -1)
-          SIZE=$(du -h "$APK" 2>/dev/null | cut -f1)
-          echo "### 🔥 灵绘 APK 构建完成" >> $GITHUB_STEP_SUMMARY
-          echo "**APK**: $APK ($SIZE)" >> $GITHUB_STEP_SUMMARY
-          echo "📱 下载后直接安装到手机" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔥 灵绘 APK" >> $GITHUB_STEP_SUMMARY
+          echo "**文件**: $APK" >> $GITHUB_STEP_SUMMARY
+          echo "**大小**: $(du -h "$APK" 2>/dev/null | cut -f1)" >> $GITHUB_STEP_SUMMARY
