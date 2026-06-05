@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>test2</title>
+<style>body{background:#000;margin:0;overflow:hidden}#L{position:fixed;top:30px;left:30px;color:#0f0;font-size:14px;z-index:99;pointer-events:none}</style></head>
+<body><div id=L>加载中...</div>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script>
+(function w(){
+  if(typeof THREE==='undefined'){setTimeout(w,300);return;}
+  var L=document.getElementById('L'),log='',wheels=[];
+  try{
+    var s=new THREE.Scene();s.background=new THREE.Color(0x0a0a1a);log+='S ';
+    var c=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);c.position.set(0,0.5,3);c.lookAt(0,0.4,0);log+='C ';
+    var r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(1);r.setSize(innerWidth,innerHeight);document.body.appendChild(r.domElement);log+='R ';
+
+    s.add(new THREE.AmbientLight(0x443322,4));
+    s.add(new THREE.DirectionalLight(0xffffff,12)).position.set(0,1.5,5);
+    s.add(new THREE.DirectionalLight(0xff8866,4)).position.set(-1.5,1,2);
+
+    var sk=new THREE.MeshStandardMaterial({color:0xfce4c8,roughness:0.3});
+    var rd=new THREE.MeshStandardMaterial({color:0xdd2222,roughness:0.2});
+    var pn=new THREE.MeshStandardMaterial({color:0x4a4048,roughness:0.45});
+    var gd=new THREE.MeshStandardMaterial({color:0xe6b422,roughness:0.08,metalness:0.9});
+
+    var G=new THREE.Group();s.add(G);
+
+    // 身体
+    G.add((function(){var m=new THREE.Mesh(new THREE.CapsuleGeometry(0.14,0.3,8,10),rd);m.position.set(0,0.5,0);return m;})());log+='体 ';
+    // 头
+    G.add((function(){var m=new THREE.Mesh(new THREE.SphereGeometry(0.19,24,24),sk);m.position.set(0,0.98,0);return m;})());log+='头 ';
+    // 腿
+    for(var i=-1;i<=1;i+=2){
+      G.add((function(){var m=new THREE.Mesh(new THREE.CapsuleGeometry(0.055,0.22,6,8),pn);m.position.set(i*0.08,0.27,0);return m;})());
+      G.add((function(){var m=new THREE.Mesh(new THREE.CapsuleGeometry(0.048,0.2,6,8),pn);m.position.set(i*0.08,0.05,0);return m;})());
+    }
+    log+='腿 ';
+    // 手臂
+    for(var i=-1;i<=1;i+=2){
+      G.add((function(){var m=new THREE.Mesh(new THREE.CapsuleGeometry(0.042,0.2,8,10),sk);m.position.set(i*0.2,0.58,i*0.04);return m;})());
+    }
+    log+='臂 ';
+    // 风火轮
+    for(var i=-1;i<=1;i+=2){
+      var wh=new THREE.Group();
+      wh.add(new THREE.Mesh(new THREE.TorusGeometry(0.1,0.03,10,18),gd));
+      wh.position.set(i*0.1,-0.14,0.05);G.add(wh);wheels.push(wh);
+    }
+    log+='轮 ';
+
+    G.rotation.y=Math.PI;
+    L.innerHTML=log+'OK!';
+
+    setTimeout(function(){L.style.opacity=0},3000);
+
+    (function loop(t){
+      requestAnimationFrame(loop);
+      G.position.y=Math.abs(Math.sin(t*0.003))*0.01;
+      G.rotation.z=Math.sin(t*0.003)*0.04;
+      for(var i=0;i<wheels.length;i++)wheels[i].rotation.x+=0.18;
+      r.render(s,c);
+    })();
+  }catch(e){L.innerHTML=log+'❌'+e.message}
+})();
+</script></body></html>
