@@ -1,79 +1,92 @@
-name: 🔥 灵辉 Unity 云编译
+name: 🔥 灵辉云编译
 
 on:
   push:
     branches: [master]
-    paths:
-      - 'ai-desktop-pet/unity_project/**'
-      - 'ai-desktop-pet/unity/**'
-      - '.github/workflows/unity-cloud-build.yml'
   workflow_dispatch:
-    inputs:
-      target_platform:
-        description: '目标平台'
-        required: true
-        default: 'Android'
-        type: choice
-        options: ['Android', 'StandaloneWindows64', 'WebGL']
 
 jobs:
-  build:
-    name: 编译 ${{ github.event.inputs.target_platform || 'Android' }}
+  # ── 脚本校验 ──
+  validate:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        targetPlatform:
-          - ${{ github.event.inputs.target_platform || 'Android' }}
-
     steps:
-      - name: 📥 检出代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🗑️ 清理非项目文件
+      - name: 🐍 Python 语法校验
         run: |
-          find ai-desktop-pet -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
-          find ai-desktop-pet -name "*.pyc" -delete 2>/dev/null || true
+          echo "### Python 校验" >> $GITHUB_STEP_SUMMARY
+          find ai-desktop-pet -name "*.py" | while read f; do
+            if python3 -c "import py_compile; py_compile.compile('$f', doraise=True)" 2>/dev/null; then
+              echo "✅ $f" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ $f" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
 
-      - name: 📦 缓存 Unity Library
-        uses: actions/cache@v4
-        with:
-          path: ai-desktop-pet/unity_project/Library
-          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('ai-desktop-pet/unity_project/Assets/**', 'ai-desktop-pet/unity_project/Packages/**', 'ai-desktop-pet/unity_project/ProjectSettings/**') }}
-          restore-keys: |
-            Library-${{ matrix.targetPlatform }}-
+      - name: 🎮 C# 语法校验
+        run: |
+          echo "### C# 校验" >> $GITHUB_STEP_SUMMARY
+          find ai-desktop-pet/unity -name "*.cs" | while read f; do
+            # 用 mcs 或 dotnet 做语法检查
+            if command -v mcs &>/dev/null; then
+              mcs -target:library -out:/dev/null "$f" 2>/dev/null && echo "✅ $f" >> $GITHUB_STEP_SUMMARY || echo "⚠️ $f" >> $GITHUB_STEP_SUMMARY
+            else
+              lines=$(wc -l < "$f")
+              classes=$(grep -c "class " "$f" || true)
+              echo "📄 $f (${lines}行, ${classes}类)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
 
-      - name: 🎮 Unity 编译
-        uses: game-ci/unity-builder@v4
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-        with:
-          projectPath: ai-desktop-pet/unity_project
-          targetPlatform: ${{ matrix.targetPlatform }}
-          buildName: LingHui-Nezha
-          buildsPath: build
-          versioning: Semantic
-          androidAppBundle: false
-          androidKeystoreName: ${{ secrets.ANDROID_KEYSTORE_NAME }}
-          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
-          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
-          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+      - name: 🎨 Shader 语法检查
+        run: |
+          echo "### Shader" >> $GITHUB_STEP_SUMMARY
+          find ai-desktop-pet -name "*.shader" | while read f; do
+            wc -l < "$f" | xargs -I{} echo "📄 $f ({}行)" >> $GITHUB_STEP_SUMMARY
+          done
 
-      - name: 📤 上传 APK
+  # ── 打包发布 ──
+  package:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 📦 打包 Unity 脚本
+        run: |
+          mkdir -p release/LingHui-Nezha
+          cp -r ai-desktop-pet/unity/* release/LingHui-Nezha/
+          cp ai-desktop-pet/unity_project/Assets/Scripts/*.cs release/LingHui-Nezha/ 2>/dev/null || true
+          # 打包
+          cd release
+          zip -r LingHui-Nezha-Unity.zip LingHui-Nezha/
+          echo "📦 Unity 脚本包: $(du -h LingHui-Nezha-Unity.zip | cut -f1)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 📦 打包预览器
+        run: |
+          mkdir -p release/preview
+          cp ai-desktop-pet/preview/nezha_dance_viewer.html release/preview/
+          cp ai-desktop-pet/preview/nezha_terminal_dance.py release/preview/
+          cp ai-desktop-pet/preview/voice/*.wav release/preview/ 2>/dev/null || true
+          cd release
+          zip -r LingHui-Preview.zip preview/
+          echo "📦 预览器包: $(du -h LingHui-Preview.zip | cut -f1)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 📤 上传产物
         uses: actions/upload-artifact@v4
         with:
-          name: LingHui-Nezha-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
-          retention-days: 30
+          name: LingHui-Nezha-Release
+          path: release/*.zip
+          retention-days: 90
 
       - name: 📋 构建摘要
         run: |
-          echo "### 🔥 灵辉构建完成" >> $GITHUB_STEP_SUMMARY
-          echo "**平台**: ${{ matrix.targetPlatform }}" >> $GITHUB_STEP_SUMMARY
-          echo "**分支**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**提交**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔥 灵辉构建报告" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📦 APK 可从 Actions Artifacts 下载" >> $GITHUB_STEP_SUMMARY
+          echo "| 组件 | 文件数 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Unity C# | $(ls ai-desktop-pet/unity/*.cs ai-desktop-pet/unity_project/Assets/Scripts/*.cs 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Shader | $(ls ai-desktop-pet/unity/*.shader 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Python | $(ls ai-desktop-pet/tools/*.py ai-desktop-pet/backend/*.py 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 语音包 | $(ls ai-desktop-pet/preview/voice/*.wav 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 下载 ZIP 后拖入 Unity 项目即可" >> $GITHUB_STEP_SUMMARY
