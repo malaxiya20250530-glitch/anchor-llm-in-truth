@@ -1,36 +1,46 @@
 <!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>test</title>
-<style>body{background:#0a0618;margin:0;color:#fff;font-family:sans-serif;padding:20px}</style></head>
+<style>*{margin:0;padding:0}body{background:#0a0618;overflow:hidden}#log{position:fixed;top:10px;left:10px;color:#0f0;font-size:14px;font-family:monospace;z-index:999;pointer-events:none}canvas{display:block!important;position:fixed!important;top:0!important;left:0!important}</style></head>
 <body>
-<div id=log style="font-size:14px">测试中...</div>
+<div id=log>测试中...</div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
 (function w(){
   if(typeof THREE==='undefined'){setTimeout(w,200);return;}
   var L=document.getElementById('log');
-  L.innerHTML='Three.js ✅<br>';
+  L.innerHTML='Three ✅ W='+innerWidth+' H='+innerHeight+'<br>';
   try{
-    var s=new THREE.Scene();s.background=new THREE.Color(0x0a0618);
+    var s=new THREE.Scene();s.background=new THREE.Color(0x331111);
     L.innerHTML+='Scene ✅<br>';
     var c=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);
-    c.position.set(0,0,3);L.innerHTML+='Camera ✅<br>';
-    var r=new THREE.WebGLRenderer({antialias:false,alpha:true});
-    r.setSize(innerWidth,innerHeight);document.body.appendChild(r.domElement);
-    L.innerHTML+='Renderer ✅<br>';
-    s.add(new THREE.AmbientLight(0xffffff,2));
-    s.add(new THREE.DirectionalLight(0xffffff,5)).position.set(0,1,3);
-    var sphere=new THREE.Mesh(
-      new THREE.SphereGeometry(0.3,24,24),
-      new THREE.MeshStandardMaterial({color:0xff6644,roughness:0.3})
+    c.position.set(0,0,3);c.lookAt(0,0,0);
+    L.innerHTML+='Cam ✅<br>';
+    var r=new THREE.WebGLRenderer({antialias:false,alpha:false});
+    r.setPixelRatio(1);
+    r.setSize(innerWidth,innerHeight);
+    r.domElement.style.position='fixed';
+    r.domElement.style.top='0';
+    r.domElement.style.left='0';
+    r.domElement.style.zIndex='1';
+    document.body.insertBefore(r.domElement,document.body.firstChild);
+    L.innerHTML+='GL ✅ ctx='+(r.getContext()?'yes':'no')+'<br>';
+    s.add(new THREE.AmbientLight(0xffffff,3));
+    s.add(new THREE.DirectionalLight(0xffffff,6)).position.set(0,2,4);
+    var m=new THREE.Mesh(
+      new THREE.SphereGeometry(0.4,32,32),
+      new THREE.MeshStandardMaterial({color:0xff4444,roughness:0.2,metalness:0.3})
     );
-    s.add(sphere);L.innerHTML+='球体 ✅<br>';
+    s.add(m);
+    L.innerHTML+='球 ✅ 帧=';
+    var fc=0;
     function loop(t){
       requestAnimationFrame(loop);
-      sphere.rotation.y+=0.01;sphere.position.y=Math.sin(t*0.003)*0.2;
+      fc++;m.rotation.y+=0.02;m.position.y=Math.sin(t*0.003)*0.3;
       r.render(s,c);
+      if(fc%30==0)L.innerHTML=L.innerHTML.split('帧=')[0]+'帧='+fc;
     }
     requestAnimationFrame(loop);
-    L.innerHTML+='全部OK! 🎉';
-    setTimeout(function(){L.style.opacity=0},1500);
-  }catch(e){L.innerHTML+='<br>❌ '+e.message}
+    L.innerHTML+='启动!<br>canvas:'+r.domElement.width+'x'+r.domElement.height;
+    setTimeout(function(){L.style.opacity='0.3'},3000);
+  }catch(e){L.innerHTML+='<br>❌'+e.message}
 })();
 </script></body></html>
