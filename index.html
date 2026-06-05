@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hallucination Detector — LLM 幻觉检测中间件</title>
+<meta name="description" content="Zero-dependency LLM hallucination detection middleware. 14 checkers, 7M+ facts, OpenAI-compatible gateway. 零依赖大模型幻觉检测中间件。">
+<meta name="keywords" content="LLM,hallucination,fact-checker,AI safety,OpenAI,Chinese NLP,幻觉检测,大模型安全">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a1a;--card:#111133;--text:#c8d6e5;--accent:#60a5fa;--green:#22c55e;--red:#ef4444}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.hero{text-align:center;padding:6rem 2rem 4rem;background:radial-gradient(ellipse at 50% 0%,#1e3a5f20,transparent 60%)}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,var(--accent),#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem}
+.hero p{font-size:1.2rem;color:#64748b;max-width:600px;margin:0 auto}
+.lang-switch{position:fixed;top:1rem;right:1rem;z-index:10}
+.lang-switch button{background:var(--card);border:1px solid #334155;color:var(--text);padding:.5rem 1rem;cursor:pointer;border-radius:6px;margin-left:.5rem;transition:.2s}
+.lang-switch button:hover,.lang-switch button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cta{margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cta a{display:inline-block;padding:.75rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;transition:.2s}
+.cta .primary{background:var(--accent);color:#fff}
+.cta .secondary{background:transparent;border:1px solid #334155;color:var(--text)}
+.cta a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(96,165,250,.2)}
+section{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+h2{font-size:2rem;text-align:center;margin-bottom:2rem;color:#f1f5f9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.card{background:var(--card);border-radius:12px;padding:2rem;border:1px solid #1e293b;transition:.2s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .icon{font-size:2rem;margin-bottom:1rem}
+.card h3{font-size:1.1rem;margin-bottom:.5rem;color:#f1f5f9}
+.card p{font-size:.9rem;color:#94a3b8}
+.install{background:#0d1117;border-radius:8px;padding:1.5rem;font-family:'Fira Code',monospace;font-size:.9rem;overflow-x:auto;white-space:pre;border:1px solid #30363d;position:relative}
+.install .copy{position:absolute;top:.5rem;right:.5rem;background:#30363d;border:none;color:#c8d6e5;padding:.3rem .7rem;border-radius:4px;cursor:pointer;font-size:.8rem}
+.demo-result{background:rgba(239,68,68,.1);border-left:3px solid var(--red);padding:1rem;border-radius:0 8px 8px 0;margin-top:1rem;font-family:monospace;font-size:.85rem}
+.demo-result .green{color:var(--green)}
+.stats-bar{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-top:1rem}
+.stat{text-align:center}
+.stat .num{font-size:2.5rem;font-weight:700;background:linear-gradient(90deg,var(--accent),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .label{font-size:.85rem;color:#64748b}
+.zh{display:none}
+.footer{text-align:center;padding:2rem;color:#475569;font-size:.85rem}
+@media(max-width:640px){.hero{padding:4rem 1rem 2rem}.stats-bar{gap:1.5rem}}
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button class="active" onclick="switchLang('en')">EN</button>
+  <button onclick="switchLang('zh')">中文</button>
+</div>
+
+<header class="hero">
+
+  <h1 class="en">Hallucination Detector</h1>
+  <h1 class="zh">幻觉检测器</h1>
+
+  <p class="en">Zero-dependency LLM hallucination detection middleware. Like a CDN for AI safety.</p>
+  <p class="zh">零外部依赖的大模型幻觉检测中间件。像 CDN 一样守护 AI 安全。</p>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="num">14</div><div class="label en">Checkers</div><div class="label zh">检查器</div></div>
+    <div class="stat"><div class="num">7M+</div><div class="label en">Facts</div><div class="label zh">事实库</div></div>
+    <div class="stat"><div class="num">0</div><div class="label en">Dependencies</div><div class="label zh">外部依赖</div></div>
+    <div class="stat"><div class="num">4</div><div class="label en">Platforms</div><div class="label zh">平台支持</div></div>
+  </div>
+
+  <div class="cta">
+    <a href="https://github.com/malaxiya20250530-glitch/shiyan2925" class="primary en">⭐ Star on GitHub</a>
+    <a href="https://github.com/malaxiya20250530-glitch/shiyan2925" class="primary zh">⭐ GitHub 加星</a>
+    <a href="#install" class="secondary en">Quick Start ↓</a>
+    <a href="#install" class="secondary zh">快速开始 ↓</a>
+  </div>
+</header>
+
+<section id="install">
+  <h2 class="en">⚡ Quick Start</h2>
+  <h2 class="zh">⚡ 快速开始</h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">1️⃣</div>
+      <h3 class="en">Clone & Run</h3>
+      <h3 class="zh">克隆即用</h3>
+      <div class="install">
+<span>git clone https://github.com/malaxiya20250530-glitch/shiyan2925.git
+cd shiyan2925
+python3 hallucination_detector.py "朱元璋发明了火锅"</span>
+      </div>
+      <div class="demo-result">
+🔴 <strong class="en">CONTRADICTED</strong><strong class="zh">矛盾</strong> — 朱元璋发明了火锅<br>
+<span style="color:#94a3b8">Evidence: 朱元璋是明朝开国皇帝，1328-1398 年</span><br>
+<span style="color:#94a3b8">Confidence: 90%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">2️⃣</div>
+      <h3 class="en">OpenAI-Compatible Gateway</h3>
+      <h3 class="zh">OpenAI 兼容网关</h3>
+      <div class="install">
+<span>python3 awareness_gateway.py --mock --port 8800
+curl http://localhost:8800/health</span>
+      </div>
+      <p class="en" style="margin-top:1rem">Drop-in replacement. Your existing OpenAI apps work instantly.</p>
+      <p class="zh" style="margin-top:1rem">直接替换，现有 OpenAI 应用无需改代码。</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">3️⃣</div>
+      <h3 class="en">Dashboard</h3>
+      <h3 class="zh">可视化仪表盘</h3>
+      <div class="install">
+<span>python3 dashboard_server.py --port 8080
+# Open http://localhost:8080</span>
+      </div>
+      <p class="en" style="margin-top:1rem">Real-time hallucination rate, KB stats, billing overview.</p>
+      <p class="zh" style="margin-top:1rem">实时幻觉率 / 知识库统计 / 计费总览。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="en">🏗️ Architecture</h2>
+  <h2 class="zh">🏗️ 系统架构</h2>
+
+  <div class="card" style="font-family:monospace;font-size:.8rem;line-height:2;text-align:center;max-width:700px;margin:0 auto">
+User Request<br>↓<br>
+<span style="color:var(--accent)">awareness_gateway</span> (OpenAI API)<br>
+├─ BillingMiddleware<br>
+├─ ObserverSecurity<br>
+├─ <span style="color:#a78bfa">HallucinationDetector</span><br>
+│  ├─ 14 Checkers (weighted chain)<br>
+│  ├─ Knowledge Graph (7M+ facts)<br>
+│  ├─ Vector KB (hybrid search)<br>
+│  └─ Web Verifier (cross-validation)<br>
+├─ Consensus Engine<br>
+├─ Alignment Analyzer<br>
+└─ Feedback → Auto KB Updater
+  </div>
+</section>
+
+<section>
+  <h2 class="en">🔒 Enterprise Ready</h2>
+  <h2 class="zh">🔒 企业级就绪</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3 class="en">💰 Billing Built-in</h3>
+      <h3 class="zh">💰 内置计费</h3>
+      <p class="en">Free / Basic / Pro / Enterprise plans. Per-token charging with API key management.</p>
+      <p class="zh">免费/基础/专业/企业四档套餐，按 token 自动扣费。</p>
+    </div>
+    <div class="card">
+      <h3 class="en">🏥 Industry KB</h3>
+      <h3 class="zh">🏥 行业知识库</h3>
+      <p class="en">Medical (45 facts) + Legal (52 facts) vertical domain KBs for specialized deployment.</p>
+      <p class="zh">医疗 45 条 + 法律 52 条垂直领域事实库，专项部署。</p>
+    </div>
+    <div class="card">
+      <h3 class="en">🔐 Binary Compilation</h3>
+      <h3 class="zh">🔐 加密编译</h3>
+      <p class="en">Cython → .so/.pyd. GitHub Actions cloud build for Linux/Mac/Windows.</p>
+      <p class="zh">Cython 编译为 .so 二进制，GitHub Actions 四平台云编译。</p>
+    </div>
+    <div class="card">
+      <h3 class="en">🌍 Zero Dependencies</h3>
+      <h3 class="zh">🌍 零外部依赖</h3>
+      <p class="en">Pure Python stdlib. No pip install needed. Runs anywhere Python 3.13 runs.</p>
+      <p class="zh">纯 Python 标准库，无需 pip install，有 Python 就能跑。</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Copyright &copy; 2025-2026 Li Qiao · <a href="https://github.com/malaxiya20250530-glitch/shiyan2925" style="color:var(--accent)">GitHub</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem">Built with zero JavaScript frameworks. Pure HTML + CSS.</p>
+</footer>
+
+<script>
+function switchLang(lang) {
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-switch button:nth-child(${lang==='en'?1:2})`).classList.add('active');
+  document.querySelectorAll('.en,.zh').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.' + lang).forEach(el => el.style.display = '');
+}
+// Default to English
+switchLang('en');
+</script>
+
+</body>
+</html>
