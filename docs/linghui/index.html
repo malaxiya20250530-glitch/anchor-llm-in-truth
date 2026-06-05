@@ -87,8 +87,8 @@ G.add(M(new THREE.TorusGeometry(0.025,0.006,6,8,Math.PI),redM,0,0.95,-0.17,0.2,0
 
 // === 腮红 ===
 for(var s=-1;s<=1;s+=2){
-  var blush=new THREE.Mesh(new THREE.CircleGeometry(0.025,8),new THREE.MeshBasicMaterial({color:0xffaaaa,side:THREE.DoubleSide,transparent:true,opacity:0.4,depthWrite:false}));
-  blush.position.set(s*0.1,0.97,-0.15);G.add(blush);
+  var blush=new THREE.Mesh(new THREE.SphereGeometry(0.025,8,8),new THREE.MeshBasicMaterial({color:0xffaaaa,side:THREE.DoubleSide,transparent:true,opacity:0.4,depthWrite:false}));
+  blush.position.set(s*0.1,0.97,-0.15);blush.scale.set(1,1,0.2);G.add(blush);
 }
 
 // === 刘海 ===
@@ -215,6 +215,6 @@ function loop(t){
 requestAnimationFrame(loop);
 window.addEventListener('resize',function(){if(!cam||!R)return;cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
-}catch(e){document.getElementById('L').innerHTML='⚠️ 加载失败，请刷新重试'}
+}catch(e){var el=document.getElementById("L");el.style.display="block";el.style.opacity="1";el.innerHTML="\u26a0\ufe0f "+e.message}
 }
 </script></body></html>
