@@ -1,158 +1,127 @@
 <!DOCTYPE html><html lang=zh><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><title>灵绘</title>
 <link rel=manifest href=manifest.json>
 <meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-capable content=yes>
-<style>*{margin:0;padding:0}body{background:#000;overflow:hidden}#L{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4400;font-size:18px;font-family:sans-serif;z-index:10;transition:opacity .8s}</style></head>
+<style>*{margin:0;padding:0}body{background:#000;overflow:hidden}#L{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4400;font-size:18px;font-family:sans-serif;z-index:10;transition:opacity .8s;pointer-events:none}</style></head>
 <body>
-<a href="ar.html" style="position:fixed;top:15px;right:15px;z-index:100;background:rgba(255,68,0,0.8);color:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;font-family:sans-serif;font-size:14px">📱 AR</a>
-<div id=L>🔥 灵绘</div>
-<script type=importmap>{"imports":{"three":"https://unpkg.com/npm/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type=module>
-import * as T from 'three';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+<div id=L>🔥 灵绘加载中...</div>
+<a href=ar.html style="position:fixed;top:15px;right:15px;z-index:100;background:rgba(255,68,0,0.8);color:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;font-family:sans-serif;font-size:14px">📱 AR</a>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js">
+</script>
+<script>
+// 等 Three.js 加载完
+(function wait(){
+  if(typeof THREE==='undefined'){setTimeout(wait,200);return;}
+  init();
+})();
 
-const scene=new T.Scene();scene.background=new T.Color(0x050508);scene.fog=new T.Fog(0x050508,3,12);
-const cam=new T.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);
+function init(){
+var scene=new THREE.Scene();scene.background=new THREE.Color(0x050508);scene.fog=new THREE.Fog(0x050508,3,12);
+var cam=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);
 cam.position.set(0,0.75,3.2);cam.lookAt(0,0.6,0);
-const R=new T.WebGLRenderer({antialias:true,alpha:true});
+var R=new THREE.WebGLRenderer({antialias:true,alpha:true});
 R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(innerWidth,innerHeight);
-R.shadowMap.enabled=true;R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.2;
+R.shadowMap.enabled=true;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.2;
 document.body.appendChild(R.domElement);
 
-scene.add(new T.AmbientLight(0x221111,1.5));
-const key=new T.DirectionalLight(0xffcc88,10);key.position.set(2,2.5,3);key.castShadow=true;
+scene.add(new THREE.AmbientLight(0x221111,1.5));
+var key=new THREE.DirectionalLight(0xffcc88,10);key.position.set(2,2.5,3);key.castShadow=true;
 key.shadow.mapSize.set(1024,1024);scene.add(key);
-scene.add(new T.DirectionalLight(0xff4422,3)).position.set(-1,0.5,-0.5);
-scene.add(new T.DirectionalLight(0x3344ff,1.5)).position.set(0,-0.5,2);
+scene.add(new THREE.DirectionalLight(0xff4422,3)).position.set(-1,0.5,-0.5);
+scene.add(new THREE.DirectionalLight(0x3344ff,1.5)).position.set(0,-0.5,2);
 
-const skin=new T.MeshStandardMaterial({color:0xf5dcc3,roughness:0.5});
-const vest=new T.MeshStandardMaterial({color:0xcc2222,roughness:0.55});
-const hair=new T.MeshStandardMaterial({color:0x1a1a2e,roughness:0.4});
-const pants=new T.MeshStandardMaterial({color:0x3a3a45,roughness:0.65});
-const gold=new T.MeshStandardMaterial({color:0xdaa520,roughness:0.15,metalness:0.95});
-const eyeM=new T.MeshStandardMaterial({color:0x000000,roughness:0.05,emissive:0x220000});
-const sashMat=new T.MeshStandardMaterial({color:0xdd2222,roughness:0.3,emissive:0x220000,side:T.DoubleSide});
+var skin=new THREE.MeshStandardMaterial({color:0xf5dcc3,roughness:0.5});
+var vest=new THREE.MeshStandardMaterial({color:0xcc2222,roughness:0.55});
+var hair=new THREE.MeshStandardMaterial({color:0x1a1a2e,roughness:0.4});
+var pants=new THREE.MeshStandardMaterial({color:0x3a3a45,roughness:0.65});
+var gold=new THREE.MeshStandardMaterial({color:0xdaa520,roughness:0.15,metalness:0.95});
+var eyeM=new THREE.MeshStandardMaterial({color:0x000000,roughness:0.05,emissive:0x220000});
+var sashMat=new THREE.MeshStandardMaterial({color:0xdd2222,roughness:0.3,emissive:0x220000,side:THREE.DoubleSide});
 
-function M(g,m,x,y,z,rx=0,ry=0,rz=0,sx=1,sy=1,sz=1){
-  const o=new T.Mesh(g,m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.scale.set(sx,sy,sz);o.castShadow=true;o.receiveShadow=true;return o;
+function M(g,m,x,y,z,rx,ry,rz,sx,sy,sz){
+  rx=rx||0;ry=ry||0;rz=rz||0;sx=sx||1;sy=sy||1;sz=sz||1;
+  var o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.scale.set(sx,sy,sz);o.castShadow=true;o.receiveShadow=true;return o;
 }
 
-const G=new T.Group();
+var G=new THREE.Group();
+G.add(M(new THREE.CapsuleGeometry(0.18,0.3,8,12),vest,0,0.65,0));
+G.add(M(new THREE.CylinderGeometry(0.06,0.07,0.08,10),skin,0,0.88,0));
+G.add(M(new THREE.SphereGeometry(0.16,22,22),skin,0,1.04,0));
+G.add(M(new THREE.SphereGeometry(0.04,10,10),eyeM,-0.05,1.08,-0.14));
+G.add(M(new THREE.SphereGeometry(0.04,10,10),eyeM,0.05,1.08,-0.14));
+G.add(M(new THREE.BoxGeometry(0.06,0.01,0.02),hair,-0.06,1.13,-0.13,0,0,-0.25));
+G.add(M(new THREE.BoxGeometry(0.06,0.01,0.02),hair,0.06,1.13,-0.13,0,0,0.25));
 
-// === 身体 ===
-// 躯干（红色马甲）
-G.add(M(new T.CapsuleGeometry(0.18,0.3,8,12),vest,0,0.65,0));
-// 脖子
-G.add(M(new T.CylinderGeometry(0.06,0.07,0.08,10),skin,0,0.88,0));
-// 头
-G.add(M(new T.SphereGeometry(0.16,22,22),skin,0,1.04,0));
-// 眼睛(黑瞳+烟熏)
-G.add(M(new T.SphereGeometry(0.04,10,10),eyeM,-0.05,1.08,-0.14));
-G.add(M(new T.SphereGeometry(0.04,10,10),eyeM,0.05,1.08,-0.14));
-// 剑眉
-G.add(M(new T.BoxGeometry(0.06,0.01,0.02),hair,-0.06,1.13,-0.13,0,0,-0.25));
-G.add(M(new T.BoxGeometry(0.06,0.01,0.02),hair,0.06,1.13,-0.13,0,0,0.25));
-// 小嘴
-G.add(M(new T.TorusGeometry(0.03,0.006,4,8),new T.MeshStandardMaterial({color:0x330000,roughness:0.3}),0,1.0,-0.14,0,0,0,1,0.4,1));
-
-// === 双丸子头 ===
-for(let s=-1;s<=1;s+=2){
-  G.add(M(new T.TorusGeometry(0.07,0.032,10,16),hair,s*0.14,1.2,0,T.PI/2,0,0));
-  G.add(M(new T.SphereGeometry(0.055,10,10),hair,s*0.14,1.2,0));
-  // 红头绳 — 显眼的红色圆柱
-  const rope=new T.Mesh(new T.CylinderGeometry(0.012,0.008,0.22,8),new T.MeshStandardMaterial({color:0xff2222,roughness:0.2,emissive:0x330000}));
-  rope.position.set(s*0.18,1.1,-0.05);rope.rotation.set(0.3*s,0,0.1);rope.castShadow=true;
-  G.add(rope);
+for(var s=-1;s<=1;s+=2){
+  G.add(M(new THREE.TorusGeometry(0.07,0.032,10,16),hair,s*0.14,1.2,0,Math.PI/2,0,0));
+  G.add(M(new THREE.SphereGeometry(0.055,10,10),hair,s*0.14,1.2,0));
+  var rope=new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.008,0.22,8),new THREE.MeshStandardMaterial({color:0xff2222,roughness:0.2,emissive:0x330000}));
+  rope.position.set(s*0.18,1.1,-0.05);rope.rotation.set(0.3*s,0,0.1);rope.castShadow=true;G.add(rope);
 }
-
-// === 混天绫 — 绕双臂的大红色飘带 ===
-function makeSash(x,y,z,rx,ry,rz,sc){
-  const s=new T.Mesh(new T.TorusGeometry(0.12,0.025,12,32,T.PI*1.5),sashMat);
-  s.position.set(x,y,z);s.rotation.set(rx,ry,rz);s.scale.set(1,sc,1);s.castShadow=true;
-  return s;
+for(var s=-1;s<=1;s+=2){
+  G.add(M(new THREE.CapsuleGeometry(0.045,0.2,8,12),skin,s*0.23,0.8,s*0.05,0.2*s,0,0.3*s));
+  G.add(M(new THREE.CapsuleGeometry(0.038,0.18,8,12),skin,s*0.3,0.58,s*0.08,0.1*s,0,0.2*s));
+  G.add(M(new THREE.SphereGeometry(0.04,8,8),skin,s*0.36,0.4,s*0.1));
+  G.add(M(new THREE.TorusGeometry(0.055,0.018,12,24),gold,s*0.36,0.42,-0.03,Math.PI/3,0,0));
 }
-G.add(makeSash(-0.25,0.8,0,0.2,0,-0.3,1));
-G.add(makeSash(0.25,0.8,0,0.2,0,0.3,1));
-// 飘带尾
-for(let s=-1;s<=1;s+=2){
-  const tail=new T.Mesh(new T.CylinderGeometry(0.015,0.03,0.5,8),sashMat);
-  tail.position.set(s*0.35,0.45,0.1);tail.rotation.set(0.5*s,0,0.4*s);tail.castShadow=true;
-  G.add(tail);
+for(var s=-1;s<=1;s+=2){
+  G.add(M(new THREE.CapsuleGeometry(0.055,0.22,6,10),pants,s*0.08,0.35,0));
+  G.add(M(new THREE.CapsuleGeometry(0.048,0.2,6,10),pants,s*0.08,0.1,0));
+  G.add(M(new THREE.BoxGeometry(0.1,0.05,0.15),pants,s*0.08,0.03,0.04));
 }
-
-// === 手臂 + 乾坤圈(手腕) ===
-for(let s=-1;s<=1;s+=2){
-  G.add(M(new T.CapsuleGeometry(0.045,0.2,8,12),skin,s*0.23,0.8,s*0.05,0.2*s,0,0.3*s));
-  G.add(M(new T.CapsuleGeometry(0.038,0.18,8,12),skin,s*0.3,0.58,s*0.08,0.1*s,0,0.2*s));
-  G.add(M(new T.SphereGeometry(0.04,8,8),skin,s*0.36,0.4,s*0.1));
-  // 乾坤圈 — 金色手镯
-  G.add(M(new T.TorusGeometry(0.055,0.018,12,24),gold,s*0.36,0.42,-0.03,T.PI/3,0,0));
+for(var s=-1;s<=1;s+=2){
+  var sa=new THREE.Mesh(new THREE.TorusGeometry(0.12,0.025,12,32,Math.PI*1.5),sashMat);
+  sa.position.set(s*0.25,0.8,0);sa.rotation.set(0.2,0,s*0.3);sa.castShadow=true;G.add(sa);
+  var tail=new THREE.Mesh(new THREE.CylinderGeometry(0.015,0.03,0.5,8),sashMat);
+  tail.position.set(s*0.35,0.45,0.1);tail.rotation.set(0.5*s,0,0.4*s);tail.castShadow=true;G.add(tail);
 }
-
-// === 腿 ===
-for(let s=-1;s<=1;s+=2){
-  G.add(M(new T.CapsuleGeometry(0.055,0.22,6,10),pants,s*0.08,0.35,0));
-  G.add(M(new T.CapsuleGeometry(0.048,0.2,6,10),pants,s*0.08,0.1,0));
-  G.add(M(new T.BoxGeometry(0.1,0.05,0.15),pants,s*0.08,0.03,0.04));
-}
-
 scene.add(G);
 
-// === 风火轮(脚底) ===
 function makeWheel(x){
-  const w=new T.Group();
-  w.add(M(new T.TorusGeometry(0.09,0.028,12,28),gold,0,0,0,T.PI/2,0,0));
-  w.add(M(new T.TorusGeometry(0.05,0.012,8,16),gold,0,0,0,T.PI/2,0,0));
-  w.position.set(x,-0.06,0.06);
-  return w;
+  var w=new THREE.Group();
+  w.add(M(new THREE.TorusGeometry(0.09,0.028,12,28),gold,0,0,0,Math.PI/2,0,0));
+  w.add(M(new THREE.TorusGeometry(0.05,0.012,8,16),gold,0,0,0,Math.PI/2,0,0));
+  w.position.set(x,-0.06,0.06);return w;
 }
-const wL=makeWheel(-0.08),wR=makeWheel(0.08);
-scene.add(wL);scene.add(wR);
+var wL=makeWheel(-0.08),wR=makeWheel(0.08);scene.add(wL);scene.add(wR);
 
-// === 风火轮火焰 ===
 function makeFire(x){
-  const c=80,g=new T.BufferGeometry(),p=new Float32Array(c*3),cl=new Float32Array(c*3);
-  for(let i=0;i<c;i++){const a=i/c*T.PI*2,r=0.07+Math.random()*0.04;p[i*3]=Math.cos(a)*r;p[i*3+1]=Math.sin(a)*r;p[i*3+2]=(Math.random()-0.5)*0.02;cl[i*3]=0.5+Math.random()*0.5;cl[i*3+1]=0.05+Math.random()*0.2;cl[i*3+2]=Math.random()*0.1}
-  g.setAttribute('position',new T.BufferAttribute(p,3));g.setAttribute('color',new T.BufferAttribute(cl,3));
-  const m=new T.PointsMaterial({size:0.018,vertexColors:true,blending:T.AdditiveBlending,depthWrite:false});
-  const pt=new T.Points(g,m);pt.position.set(x,-0.06,0.06);return pt;
+  var c=80,g=new THREE.BufferGeometry(),p=new Float32Array(c*3),cl=new Float32Array(c*3);
+  for(var i=0;i<c;i++){var a=i/c*Math.PI*2,r=0.07+Math.random()*0.04;p[i*3]=Math.cos(a)*r;p[i*3+1]=Math.sin(a)*r;p[i*3+2]=(Math.random()-0.5)*0.02;cl[i*3]=0.5+Math.random()*0.5;cl[i*3+1]=0.05+Math.random()*0.2;cl[i*3+2]=Math.random()*0.1}
+  g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(cl,3));
+  var m=new THREE.PointsMaterial({size:0.018,vertexColors:true,blending:THREE.AdditiveBlending,depthWrite:false});
+  var pt=new THREE.Points(g,m);pt.position.set(x,-0.06,0.06);return pt;
 }
-const fL=makeFire(-0.08),fR=makeFire(0.08);
-scene.add(fL);scene.add(fR);
+var fL=makeFire(-0.08),fR=makeFire(0.08);scene.add(fL);scene.add(fR);
 
-// === 背景火星 ===
-const bgG=new T.BufferGeometry(),bgP=new Float32Array(200*3);
-for(let i=0;i<200;i++){bgP[i*3]=(Math.random()-0.5)*3;bgP[i*3+1]=Math.random()*2-0.5;bgP[i*3+2]=(Math.random()-0.5)*2}
-bgG.setAttribute('position',new T.BufferAttribute(bgP,3));
-const bgPt=new T.Points(bgG,new T.PointsMaterial({color:0xff4400,size:0.012,blending:T.AdditiveBlending,depthWrite:false,opacity:0.5}));
-scene.add(bgPt);
+var bgG=new THREE.BufferGeometry(),bgP=new Float32Array(200*3);
+for(var i=0;i<200;i++){bgP[i*3]=(Math.random()-0.5)*3;bgP[i*3+1]=Math.random()*2-0.5;bgP[i*3+2]=(Math.random()-0.5)*2}
+bgG.setAttribute('position',new THREE.BufferAttribute(bgP,3));
+scene.add(new THREE.Points(bgG,new THREE.PointsMaterial({color:0xff4400,size:0.012,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.5})));
 
-// === 控制 ===
-const ctrl=new OrbitControls(cam,R.domElement);
+var ctrl=new THREE.OrbitControls(cam,R.domElement);
 ctrl.target.set(0,0.55,0);ctrl.enableDamping=true;ctrl.dampingFactor=0.08;
-ctrl.minDistance=1;ctrl.maxDistance=5;ctrl.maxPolarAngle=T.PI*0.65;
+ctrl.minDistance=1;ctrl.maxDistance=5;ctrl.maxPolarAngle=Math.PI*0.65;
 ctrl.autoRotate=true;ctrl.autoRotateSpeed=1;ctrl.update();
 
-// 面朝镜头
-G.rotation.y=T.PI; // 转过来!
+G.rotation.y=Math.PI;
 document.getElementById('L').style.opacity='0';
-setTimeout(()=>document.getElementById('L').style.display='none',800);
+setTimeout(function(){document.getElementById('L').style.display='none'},800);
 
-// === 动画 ===
 function loop(t){
   requestAnimationFrame(loop);
-  const st=Math.sin(t*0.003),ct=Math.cos(t*0.004);
+  var st=Math.sin(t*0.003);
   G.position.y=Math.abs(st)*0.015;
   G.rotation.z=st*0.05;
-  G.rotation.y=T.PI+st*0.1; // 面朝前微微晃
-  
+  G.rotation.y=Math.PI+st*0.1;
   wL.rotation.x+=0.18;wR.rotation.x+=0.18;
   fL.rotation.y+=0.25;fR.rotation.y+=0.25;
   fL.scale.setScalar(1+Math.abs(st)*0.5);fR.scale.setScalar(1+Math.abs(st)*0.5);
-  bgPt.rotation.y+=0.003;
-  
   ctrl.update();R.render(scene,cam);
 }
 requestAnimationFrame(loop);
-window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+window.addEventListener('resize',function(){cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+}
 </script></body></html>
