@@ -8,6 +8,10 @@ import sys
 import time
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from typing import Optional
+import urllib.request
+import urllib.error
+import glob
+import mimetypes
 
 # 切到 backend 目录以正确加载 config.json
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +41,10 @@ class PetServer:
 
         self._start_time: float = time.time()
         self._active: bool = True
+        # 确保 music/voice 目录存在
+        _preview = os.path.join(os.path.dirname(__file__), "..", "preview")
+        os.makedirs(os.path.join(_preview, "music"), exist_ok=True)
+        os.makedirs(os.path.join(_preview, "voice"), exist_ok=True)
 
     # ─── 消息处理主循环 ───
 
@@ -58,6 +66,12 @@ class PetServer:
         elif msg_type == "reset_emotion":
             self.emotion.reset_to_neutral()
             return json.dumps({"type": "status", "message": "情绪已重置"})
+        elif msg_type == "music_list":
+            return self._handle_music_list()
+        elif msg_type == "music_download":
+            return await self._handle_music_download(msg)
+        elif msg_type == "voice_chat":
+            return await self._handle_voice_chat(msg)
         else:
             return json.dumps({"type": "error", "message": f"未知消息类型: {msg_type}"})
 

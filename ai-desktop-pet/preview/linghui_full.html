@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>灵绘 · 全功能</title>
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0ddd5;font-family:"PingFang SC","Noto Sans SC",sans-serif;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+/* 顶部栏 */
+#header{background:linear-gradient(135deg,#1a0a0a,#2a1015);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #ff440033;flex-shrink:0}
+#header .logo{font-size:22px;font-weight:bold;background:linear-gradient(135deg,#ff4400,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#header .status{font-size:11px;color:#888;margin-left:auto}
+#header .status.on{color:#4f4}
+#header .status.off{color:#f44}
+/* 主内容区 */
+#main{flex:1;overflow-y:auto;padding:12px;-webkit-overflow-scrolling:touch}
+/* 底部标签栏 */
+#tabs{display:flex;border-top:1px solid #ff440022;background:#110a0a;flex-shrink:0}
+.tab{flex:1;padding:10px 0;text-align:center;color:#666;font-size:13px;cursor:pointer;border:none;background:none;transition:color .2s}
+.tab.active{color:#ff4400;border-top:2px solid #ff4400;margin-top:-1px}
+/* ── 对话页 ── */
+#chatPage{display:flex;flex-direction:column;height:100%}
+#messages{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.5;word-break:break-word;animation:fadeUp .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;background:linear-gradient(135deg,#ff4400,#cc3300);color:#fff;border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:#1a1418;border:1px solid #ff440033;border-bottom-left-radius:4px}
+.msg .time{font-size:10px;opacity:.5;margin-top:4px}
+#inputRow{display:flex;gap:8px;padding:8px 0;flex-shrink:0}
+#inputRow input{flex:1;padding:12px;border-radius:20px;border:1px solid #ff440044;background:#1a1418;color:#e0ddd5;font-size:14px;outline:none}
+#inputRow input:focus{border-color:#ff4400}
+#inputRow button{width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#ff4400,#cc3300);color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
+/* ── 音乐页 ── */
+#musicPage{display:flex;flex-direction:column;gap:12px}
+.player-card{background:linear-gradient(135deg,#1a0a0a,#2a1015);border-radius:16px;padding:16px;border:1px solid #ff440022}
+.player-card .now-playing{font-size:12px;color:#888;margin-bottom:4px}
+.player-card .song-name{font-size:18px;font-weight:bold;color:#ff6600;margin-bottom:12px}
+.player-controls{display:flex;align-items:center;gap:16px;justify-content:center}
+.player-controls button{width:40px;height:40px;border-radius:50%;border:none;background:#ff440020;color:#ff6600;font-size:16px;cursor:pointer}
+.player-controls .play-btn{width:56px;height:56px;background:linear-gradient(135deg,#ff4400,#cc3300);color:#fff;font-size:22px}
+#playlist{list-style:none;display:flex;flex-direction:column;gap:4px}
+#playlist li{padding:12px;border-radius:10px;background:#1a1418;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:1px solid transparent;transition:border .2s}
+#playlist li:hover,#playlist li.active{border-color:#ff440066}
+#playlist li .info{flex:1;min-width:0}
+#playlist li .name{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#playlist li .size{font-size:11px;color:#666}
+#playlist li .del{color:#f44;background:none;border:none;font-size:16px;cursor:pointer;padding:4px 8px}
+.add-row{display:flex;gap:8px;flex-wrap:wrap}
+.add-row button,.add-row label{flex:1;min-width:80px;padding:10px;border-radius:20px;border:1px dashed #ff440044;background:transparent;color:#ff6600;font-size:12px;cursor:pointer;text-align:center}
+.dl-row{display:flex;gap:8px;width:100%}
+.dl-row input{flex:1;padding:10px;border-radius:20px;border:1px solid #ff440044;background:#1a1418;color:#e0ddd5;font-size:12px;outline:none}
+.dl-row button{padding:10px 16px;border-radius:20px;border:none;background:#ff4400;color:#fff;font-size:12px;cursor:pointer}
+/* ── 语音页 ── */
+#voicePage{display:flex;flex-direction:column;align-items:center;gap:20px;padding-top:20px}
+.wake-toggle{display:flex;align-items:center;gap:10px;font-size:14px}
+.wake-toggle .switch{position:relative;width:52px;height:28px;background:#333;border-radius:14px;cursor:pointer;transition:background .3s}
+.wake-toggle .switch.on{background:#ff4400}
+.wake-toggle .switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .3s}
+.wake-toggle .switch.on::after{transform:translateX(24px)}
+.mic-btn{width:100px;height:100px;border-radius:50%;border:3px solid #ff4400;background:#1a0808;color:#ff4400;font-size:36px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.mic-btn.recording{background:#ff4400;color:#fff;box-shadow:0 0 30px #ff440066;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 30px #ff440066}50%{box-shadow:0 0 60px #ff440099}}
+#transcript{text-align:center;font-size:16px;color:#ff8800;min-height:24px;padding:0 20px}
+#voiceReply{text-align:center;font-size:14px;color:#ccc;padding:0 20px;max-width:300px}
+.status-text{font-size:12px;color:#666}
+/* 隐藏文件输入 */
+#fileInput{display:none}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <span class="logo">🔥 灵绘</span>
+  <span class="status off" id="wsStatus">● 离线</span>
+</div>
+
+<div id="main">
+  <!-- 对话页 -->
+  <div id="chatPage" style="display:flex">
+    <div id="messages">
+      <div class="msg ai">你好！我是灵绘，可以聊天、放音乐、听你说话～</div>
+    </div>
+    <div id="inputRow">
+      <input id="chatInput" placeholder="输入消息..." autocomplete="off">
+      <button onclick="sendChat()" title="发送">➤</button>
+    </div>
+  </div>
+  <!-- 音乐页 -->
+  <div id="musicPage" style="display:none">
+    <div class="player-card">
+      <div class="now-playing">正在播放</div>
+      <div class="song-name" id="nowPlaying">未选择歌曲</div>
+      <div class="player-controls">
+        <button onclick="prevTrack()">⏮</button>
+        <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+        <button onclick="nextTrack()">⏭</button>
+      </div>
+    </div>
+    <audio id="audioPlayer" preload="auto" style="display:none"></audio>
+    <div class="add-row">
+      <label for="fileInput">📁 本地导入</label>
+      <input type="file" id="fileInput" accept="audio/*" multiple>
+      <button onclick="refreshPlaylist()">🔄 刷新列表</button>
+    </div>
+    <div class="dl-row">
+      <input id="dlUrl" placeholder="输入歌曲URL下载...">
+      <button onclick="downloadSong()">下载</button>
+    </div>
+    <ul id="playlist"></ul>
+  </div>
+  <!-- 语音页 -->
+  <div id="voicePage" style="display:none">
+    <div class="wake-toggle">
+      <span>语音唤醒</span>
+      <div class="switch" id="wakeSwitch" onclick="toggleWake()"></div>
+      <span id="wakeLabel">关闭</span>
+    </div>
+    <button class="mic-btn" id="micBtn" onclick="toggleVoice()">🎤</button>
+    <div class="status-text" id="voiceStatus">点击麦克风开始说话</div>
+    <div id="transcript"></div>
+    <div id="voiceReply"></div>
+  </div>
+</div>
+
+<div id="tabs">
+  <button class="tab active" data-page="chatPage" onclick="switchTab('chatPage',this)">💬 对话</button>
+  <button class="tab" data-page="musicPage" onclick="switchTab('musicPage',this)">🎵 音乐</button>
+  <button class="tab" data-page="voicePage" onclick="switchTab('voicePage',this)">🎤 语音</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  WebSocket 连接管理
+// ═══════════════════════════════════════════
+const WS_URL = `ws://${location.hostname}:9527/ws`;
+let ws = null;
+let wsReady = false;
+const pending = [];
+
+function connectWS() {
+  try {
+    ws = new WebSocket(WS_URL);
+    ws.onopen = () => {
+      wsReady = true;
+      document.getElementById('wsStatus').textContent = '● 在线';
+      document.getElementById('wsStatus').className = 'status on';
+      pending.forEach(m => ws.send(JSON.stringify(m)));
+      pending.length = 0;
+    };
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      handleWSMessage(msg);
+    };
+    ws.onclose = () => {
+      wsReady = false;
+      document.getElementById('wsStatus').textContent = '● 离线';
+      document.getElementById('wsStatus').className = 'status off';
+      setTimeout(connectWS, 3000);
+    };
+    ws.onerror = () => ws.close();
+  } catch(e) { setTimeout(connectWS, 3000); }
+}
+
+function sendWS(msg) {
+  if (wsReady && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify(msg));
+  } else {
+    pending.push(msg);
+  }
+}
+
+function handleWSMessage(msg) {
+  switch(msg.type) {
+    case 'pet_response':
+      addMessage('ai', msg.text);
+      // 语音合成回复
+      if (document.getElementById('wakeSwitch').classList.contains('on')) {
+        speakText(msg.text);
+      }
+      break;
+    case 'music_list':
+      renderPlaylist(msg.files);
+      break;
+    case 'music_downloaded':
+      addMessage('ai', `已下载: ${msg.name} (${(msg.size/1024).toFixed(0)}KB)`);
+      refreshPlaylist();
+      break;
+    case 'status':
+      break;
+    case 'error':
+      addMessage('ai', `⚠ ${msg.message}`);
+      break;
+  }
+}
+
+// ═══════════════════════════════════════════
+//  标签切换
+// ═══════════════════════════════════════════
+function switchTab(pageId, btn) {
+  document.querySelectorAll('#main > div').forEach(d => d.style.display = 'none');
+  document.getElementById(pageId).style.display = 'flex';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (pageId === 'musicPage') refreshPlaylist();
+  if (pageId === 'voicePage') initVoice();
+}
+
+// ═══════════════════════════════════════════
+//  文本对话
+// ═══════════════════════════════════════════
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage('user', text);
+  input.value = '';
+  sendWS({type: 'user_input', content: text, context: {}});
+}
+
+document.getElementById('chatInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendChat();
+});
+
+function addMessage(role, text) {
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const now = new Date();
+  div.innerHTML = text + `<div class="time">${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}</div>`;
+  const msgs = document.getElementById('messages');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ═══════════════════════════════════════════
+//  音乐播放
+// ═══════════════════════════════════════════
+let playlist = [];
+let currentTrack = -1;
+const audio = document.getElementById('audioPlayer');
+
+function refreshPlaylist() {
+  sendWS({type: 'music_list'});
+}
+
+function renderPlaylist(files) {
+  playlist = files;
+  const ul = document.getElementById('playlist');
+  ul.innerHTML = '';
+  files.forEach((f, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<div class="info"><div class="name">${f.name}</div><div class="size">${(f.size/1024).toFixed(0)}KB</div></div><button class="del" onclick="event.stopPropagation();deleteTrack(${i})">✕</button>`;
+    li.onclick = () => playTrack(i);
+    if (i === currentTrack) li.classList.add('active');
+    ul.appendChild(li);
+  });
+}
+
+function playTrack(i) {
+  if (i < 0 || i >= playlist.length) return;
+  currentTrack = i;
+  const f = playlist[i];
+  audio.src = f.path;
+  audio.play().catch(e => console.log('播放失败:', e));
+  document.getElementById('nowPlaying').textContent = f.name;
+  document.getElementById('playBtn').textContent = '⏸';
+  renderPlaylist(playlist);
+}
+
+function togglePlay() {
+  if (!playlist.length) return;
+  if (currentTrack < 0) { playTrack(0); return; }
+  if (audio.paused) {
+    audio.play();
+    document.getElementById('playBtn').textContent = '⏸';
+  } else {
+    audio.pause();
+    document.getElementById('playBtn').textContent = '▶';
+  }
+}
+
+function nextTrack() {
+  if (!playlist.length) return;
+  playTrack((currentTrack + 1) % playlist.length);
+}
+
+function prevTrack() {
+  if (!playlist.length) return;
+  playTrack((currentTrack - 1 + playlist.length) % playlist.length);
+}
+
+function deleteTrack(i) {
+  playlist.splice(i, 1);
+  if (currentTrack === i) { audio.pause(); currentTrack = -1; document.getElementById('nowPlaying').textContent = '未选择歌曲'; document.getElementById('playBtn').textContent = '▶'; }
+  else if (currentTrack > i) currentTrack--;
+  renderPlaylist(playlist);
+}
+
+// 本地文件导入
+document.getElementById('fileInput').addEventListener('change', async function() {
+  const files = this.files;
+  if (!files.length) return;
+  for (const file of files) {
+    const buf = await file.arrayBuffer();
+    // 通过后端上传: 用 fetch POST 发送文件
+    try {
+      const resp = await fetch(`http://${location.hostname}:9528/music/upload`, {
+        method: 'POST',
+        body: new Uint8Array(buf),
+        headers: {'X-Filename': encodeURIComponent(file.name)}
+      });
+      if (resp.ok) addMessage('ai', `已导入: ${file.name}`);
+    } catch(e) {
+      // 后端未开启上传端点，尝试直接使用 Blob URL
+      const blobUrl = URL.createObjectURL(new Blob([buf], {type: file.type}));
+      playlist.push({name: file.name, size: buf.byteLength, path: blobUrl, local: true});
+      renderPlaylist(playlist);
+    }
+  }
+  refreshPlaylist();
+  this.value = '';
+});
+
+// 网络下载
+function downloadSong() {
+  const url = document.getElementById('dlUrl').value.trim();
+  if (!url) return;
+  document.getElementById('dlUrl').value = '';
+  sendWS({type: 'music_download', url});
+}
+
+audio.addEventListener('ended', nextTrack);
+
+// ═══════════════════════════════════════════
+//  语音对话 (Web Speech API)
+// ═══════════════════════════════════════════
+let recognition = null;
+let synth = window.speechSynthesis;
+let isListening = false;
+let wakeEnabled = false;
+
+function initVoice() {
+  if (recognition) return;
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    document.getElementById('voiceStatus').textContent = '⚠ 浏览器不支持语音识别';
+    return;
+  }
+  recognition = new SpeechRecognition();
+  recognition.lang = 'zh-CN';
+  recognition.interimResults = true;
+  recognition.continuous = false;
+
+  recognition.onresult = (e) => {
+    let transcript = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      transcript += e.results[i][0].transcript;
+    }
+    document.getElementById('transcript').textContent = transcript;
+    if (e.results[e.results.length-1].isFinal) {
+      const text = transcript.trim();
+      if (wakeEnabled && !text.includes('灵绘') && !text.includes('你好灵绘')) {
+        document.getElementById('voiceStatus').textContent = '未检测到唤醒词，继续监听...';
+        if (isListening) startListening();
+        return;
+      }
+      addMessage('user', '🎤 ' + text);
+      document.getElementById('voiceStatus').textContent = '思考中...';
+      sendWS({type: 'voice_chat', content: text, context: {}});
+      if (isListening) setTimeout(startListening, 2000);
+    }
+  };
+
+  recognition.onerror = (e) => {
+    document.getElementById('voiceStatus').textContent = `识别错误: ${e.error}`;
+    if (isListening && e.error !== 'aborted') setTimeout(startListening, 1000);
+  };
+
+  recognition.onend = () => {
+    if (isListening && !wakeEnabled) {
+      document.getElementById('micBtn').classList.remove('recording');
+      document.getElementById('voiceStatus').textContent = '点击麦克风开始说话';
+    }
+  };
+}
+
+function startListening() {
+  if (!recognition) return;
+  try {
+    recognition.start();
+    document.getElementById('micBtn').classList.add('recording');
+    document.getElementById('voiceStatus').textContent = wakeEnabled ? '监听唤醒词 "你好灵绘"...' : '正在听...';
+  } catch(e) { /* 已在运行 */ }
+}
+
+function stopListening() {
+  if (recognition) {
+    try { recognition.stop(); } catch(e) {}
+  }
+  document.getElementById('micBtn').classList.remove('recording');
+  document.getElementById('voiceStatus').textContent = '点击麦克风开始说话';
+}
+
+function toggleVoice() {
+  if (!recognition) initVoice();
+  if (isListening) {
+    isListening = false;
+    stopListening();
+  } else {
+    isListening = true;
+    startListening();
+  }
+}
+
+// 语音唤醒
+function toggleWake() {
+  wakeEnabled = !wakeEnabled;
+  const sw = document.getElementById('wakeSwitch');
+  const label = document.getElementById('wakeLabel');
+  if (wakeEnabled) {
+    sw.classList.add('on');
+    label.textContent = '开启 "你好灵绘"';
+    if (!isListening) { isListening = true; startListening(); }
+  } else {
+    sw.classList.remove('on');
+    label.textContent = '关闭';
+  }
+}
+
+// TTS 语音合成
+function speakText(text) {
+  if (!synth) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-CN';
+  u.rate = 1.1;
+  u.pitch = 1.0;
+  u.volume = 0.9;
+  synth.speak(u);
+}
+
+// ═══════════════════════════════════════════
+//  启动
+// ═══════════════════════════════════════════
+connectWS();
+initVoice();
+
+// 注册 Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

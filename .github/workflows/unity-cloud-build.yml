@@ -14,11 +14,14 @@ jobs:
 
       - name: 📦 打包灵绘 PWA
         run: |
-          mkdir -p release/linghui-pwa
-          cp ai-desktop-pet/preview/nezha_dance_viewer.html release/linghui-pwa/index.html
+          mkdir -p release/linghui-pwa/music release/linghui-pwa/voice
+          cp ai-desktop-pet/preview/linghui_full.html release/linghui-pwa/index.html
+          cp ai-desktop-pet/preview/nezha_dance_viewer.html release/linghui-pwa/3d.html
           cp ai-desktop-pet/preview/manifest.json release/linghui-pwa/
           cp ai-desktop-pet/preview/sw.js release/linghui-pwa/
           cp ai-desktop-pet/preview/voice/*.wav release/linghui-pwa/voice/ 2>/dev/null || true
+          cp ai-desktop-pet/preview/music/*.mp3 release/linghui-pwa/music/ 2>/dev/null || true
+          cp ai-desktop-pet/nezha_textured.glb release/linghui-pwa/nezha.glb 2>/dev/null || true
           cd release && zip -r LingHui-PWA.zip linghui-pwa/
 
       - name: 📤 上传
