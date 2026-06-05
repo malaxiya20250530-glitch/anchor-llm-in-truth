@@ -14,35 +14,26 @@
 
 function init(){
 try{
-var L=document.getElementById('L');
-L.innerHTML='⚡ 引擎就绪';
+var L=document.getElementById('L');L.innerHTML='⚡';
 
 var scene=new THREE.Scene();scene.background=new THREE.Color(0x0a0a1a);
 var cam=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);
-cam.position.set(0,0.5,2.8);cam.lookAt(0,0.45,0);
+cam.position.set(0,0.5,1.8);cam.lookAt(0,0.5,0);
 
-var R=new THREE.WebGLRenderer({antialias:true});
-R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
-R.shadowMap.enabled=false;
+var R=new THREE.WebGLRenderer({antialias:true});R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
 document.body.appendChild(R.domElement);
 
-// 光照
-scene.add(new THREE.AmbientLight(0x443322,4));
-scene.add(new THREE.DirectionalLight(0xffffff,12)).position.set(0,1.5,5);
-scene.add(new THREE.DirectionalLight(0xff8866,5)).position.set(-2,1,2);
-scene.add(new THREE.DirectionalLight(0x6688ff,4)).position.set(2,2,-1);
-scene.add(new THREE.DirectionalLight(0xffffff,2)).position.set(0,3,1);
-
-// === 材质 ===
-var skin=new THREE.MeshStandardMaterial({color:0xfce4c8,roughness:0.3});
-var vest=new THREE.MeshStandardMaterial({color:0xcc2222,roughness:0.4});
-var hair=new THREE.MeshStandardMaterial({color:0x111122,roughness:0.3});
-var pants=new THREE.MeshStandardMaterial({color:0x4a4048,roughness:0.45});
-var gold=new THREE.MeshStandardMaterial({color:0xe6b422,roughness:0.08,metalness:0.9});
-var eyeBlack=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.05});
-var eyeWhite=new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.1});
-var red=new THREE.MeshStandardMaterial({color:0xdd2222,roughness:0.2,emissive:0x330000});
-var sashM=new THREE.MeshStandardMaterial({color:0xdd2222,roughness:0.2,emissive:0x330000,side:THREE.DoubleSide});
+// BasicMaterial——红米不需要灯光
+var sk=new THREE.MeshBasicMaterial({color:0xfce4c8});
+var rd=new THREE.MeshBasicMaterial({color:0xcc2222});
+var hr=new THREE.MeshBasicMaterial({color:0x111122});
+var pn=new THREE.MeshBasicMaterial({color:0x554455});
+var gd=new THREE.MeshBasicMaterial({color:0xdaa520});
+var ey=new THREE.MeshBasicMaterial({color:0x111111});
+var wt=new THREE.MeshBasicMaterial({color:0xffffff});
+var bk=new THREE.MeshBasicMaterial({color:0x222222});
+var sash=new THREE.MeshBasicMaterial({color:0xdd2222,side:THREE.DoubleSide});
+var blushM=new THREE.MeshBasicMaterial({color:0xff9999,transparent:true,opacity:0.5,depthWrite:false});
 
 function M(geo,mat,x,y,z,rx,ry,rz,sx,sy,sz){
   rx=rx||0;ry=ry||0;rz=rz||0;sx=sx||1;sy=sy||1;sz=sz||1;
@@ -50,127 +41,120 @@ function M(geo,mat,x,y,z,rx,ry,rz,sx,sy,sz){
 }
 
 var G=new THREE.Group();
+G.scale.setScalar(1.8);
 
-// === 身体+肚兜 ===
-G.add(M(new THREE.CapsuleGeometry(0.14,0.3,8,10),vest,0,0.5,0));
-G.add(M(new THREE.TorusGeometry(0.15,0.015,8,16),gold,0,0.6,0,Math.PI/2,0,0));
+// 身体+肚兜
+G.add(M(new THREE.CapsuleGeometry(0.14,0.3,8,10),rd,0,0.5,0));
+G.add(M(new THREE.TorusGeometry(0.15,0.015,8,16),gd,0,0.6,0,Math.PI/2,0,0));
 
-// === 脖子 ===
-G.add(M(new THREE.CylinderGeometry(0.055,0.065,0.08,10),skin,0,0.05,0));
+// 脖子
+G.add(M(new THREE.CylinderGeometry(0.055,0.065,0.08,10),sk,0,0.05,0));
 
-// === 大头 ===
-G.add(M(new THREE.SphereGeometry(0.19,24,24),skin,0,0.98,0));
+// 大头
+G.add(M(new THREE.SphereGeometry(0.19,24,24),sk,0,0.98,0));
 
-// === 耳朵 ===
+// 耳朵
 for(var i=-1;i<=1;i+=2)
-  G.add(M(new THREE.SphereGeometry(0.045,10,10),skin,i*0.19,0.98,-0.02,0,0,i*0.3));
+  G.add(M(new THREE.SphereGeometry(0.045,10,10),sk,i*0.19,0.98,-0.02,0,0,i*0.3));
 
-// === 眼睛 ===
+// 眼睛(大眼萌)
 for(var i=-1;i<=1;i+=2){
-  G.add(M(new THREE.SphereGeometry(0.05,12,12),eyeWhite,i*0.065,1.04,-0.14));
-  G.add(M(new THREE.SphereGeometry(0.032,10,10),eyeBlack,i*0.065,1.04,-0.16));
-  G.add(M(new THREE.SphereGeometry(0.013,8,8),eyeWhite,i*0.075,1.07,-0.17));
-  // 眉毛
-  G.add(M(new THREE.BoxGeometry(0.06,0.01,0.015),hair,i*0.065,1.12,-0.13,0.05,0,-0.15*i));
+  G.add(M(new THREE.SphereGeometry(0.05,12,12),wt,i*0.065,1.04,-0.14));
+  G.add(M(new THREE.SphereGeometry(0.032,10,10),ey,i*0.065,1.04,-0.16));
+  G.add(M(new THREE.SphereGeometry(0.013,8,8),wt,i*0.075,1.07,-0.17));
 }
+// 眉毛
+for(var i=-1;i<=1;i+=2)
+  G.add(M(new THREE.BoxGeometry(0.06,0.01,0.015),bk,i*0.065,1.12,-0.13,0.05,0,-0.15*i));
 
-// === 嘴 ===
-G.add(M(new THREE.TorusGeometry(0.025,0.006,8,8,Math.PI),red,0,0.93,-0.17,0.2,0,0));
+// 嘴
+G.add(M(new THREE.TorusGeometry(0.025,0.006,8,8,Math.PI),rd,0,0.93,-0.17,0.2,0,0));
 
-// === 腮红 ===
+// 腮红
 for(var i=-1;i<=1;i+=2){
-  var bl=new THREE.Mesh(new THREE.SphereGeometry(0.025,10,10),
-    new THREE.MeshBasicMaterial({color:0xff8888,transparent:true,opacity:0.35,depthWrite:false}));
+  var bl=new THREE.Mesh(new THREE.SphereGeometry(0.028,10,10),blushM);
   bl.position.set(i*0.1,0.95,-0.15);bl.scale.set(1,1,0.15);G.add(bl);
 }
 
-// === 刘海 ===
-for(var i=0;i<5;i++){
-  var fx=(i-2)*0.06;
-  G.add(M(new THREE.CylinderGeometry(0.01,0.02,0.14,8),hair,fx,1.13,-0.08,0.3,0,0));
+// 刘海
+for(var i=0;i<5;i++){var fx=(i-2)*0.06;
+  G.add(M(new THREE.CylinderGeometry(0.01,0.02,0.14,8),hr,fx,1.13,-0.08,0.3,0,0));
 }
 
-// === 双髻 ===
+// 双髻
 for(var i=-1;i<=1;i+=2){
-  G.add(M(new THREE.SphereGeometry(0.075,14,14),hair,i*0.17,1.17,0.03));
-  G.add(M(new THREE.TorusGeometry(0.065,0.028,10,16),hair,i*0.17,1.12,0.03,Math.PI/2,0,0));
-  G.add(M(new THREE.TorusGeometry(0.07,0.018,10,14),red,i*0.17,1.12,0.03,Math.PI/2,0,0));
-  // 头绳飘
+  G.add(M(new THREE.SphereGeometry(0.075,14,14),hr,i*0.17,1.17,0.03));
+  G.add(M(new THREE.TorusGeometry(0.065,0.028,10,16),hr,i*0.17,1.12,0.03,Math.PI/2,0,0));
+  G.add(M(new THREE.TorusGeometry(0.07,0.018,10,14),rd,i*0.17,1.12,0.03,Math.PI/2,0,0));
+  // 头绳
   for(var j=0;j<3;j++){
-    G.add(M(new THREE.CylinderGeometry(0.006,0.005,0.1,6),red,
-      i*0.23,1.1+j*0.05,-0.02-j*0.04,0.5+0.3*j,i*0.6,0.2*j));
+    var rp=new THREE.Mesh(new THREE.CylinderGeometry(0.006,0.005,0.1,6),rd);
+    rp.position.set(i*0.23,1.1+j*0.05,-0.02-j*0.04);rp.rotation.set(0.5+0.3*j,i*0.6,0.2*j);G.add(rp);
   }
 }
 
-// === 手臂+乾坤圈 ===
+// 手臂+乾坤圈
 for(var i=-1;i<=1;i+=2){
-  G.add(M(new THREE.CapsuleGeometry(0.042,0.2,8,10),skin,i*0.2,0.58,i*0.04,0.3*i,0,0.4*i));
-  G.add(M(new THREE.CapsuleGeometry(0.036,0.16,8,10),skin,i*0.29,0.4,i*0.06,0.2*i,0,0.3*i));
-  G.add(M(new THREE.SphereGeometry(0.036,8,8),skin,i*0.36,0.26,i*0.08));
-  G.add(M(new THREE.TorusGeometry(0.065,0.022,12,24),gold,i*0.35,0.28,-0.02,Math.PI/3,0,0));
+  G.add(M(new THREE.CapsuleGeometry(0.042,0.2,8,10),sk,i*0.2,0.58,i*0.04,0.3*i,0,0.4*i));
+  G.add(M(new THREE.CapsuleGeometry(0.036,0.16,8,10),sk,i*0.29,0.4,i*0.06,0.2*i,0,0.3*i));
+  G.add(M(new THREE.SphereGeometry(0.036,8,8),sk,i*0.36,0.26,i*0.08));
+  G.add(M(new THREE.TorusGeometry(0.065,0.022,12,24),gd,i*0.35,0.28,-0.02,Math.PI/3,0,0));
 }
 
-// === 腿 ===
+// 腿
 for(var i=-1;i<=1;i+=2){
-  G.add(M(new THREE.CapsuleGeometry(0.055,0.22,6,8),pants,i*0.08,0.27,0));
-  G.add(M(new THREE.CapsuleGeometry(0.048,0.2,6,8),pants,i*0.08,0.05,0));
-  G.add(M(new THREE.BoxGeometry(0.1,0.04,0.14),pants,i*0.08,-0.03,0.04));
+  G.add(M(new THREE.CapsuleGeometry(0.055,0.22,6,8),pn,i*0.08,0.27,0));
+  G.add(M(new THREE.CapsuleGeometry(0.048,0.2,6,8),pn,i*0.08,0.05,0));
+  G.add(M(new THREE.BoxGeometry(0.1,0.04,0.14),pn,i*0.08,-0.03,0.04));
 }
 
-// === 混天绫 ===
+// 混天绫
 for(var i=-1;i<=1;i+=2){
-  for(var j=0;j<4;j++){
-    var ang=j*0.55;
-    G.add(M(new THREE.CylinderGeometry(0.02,0.018,0.16,6),sashM,
+  for(var j=0;j<4;j++){var ang=j*0.55;
+    G.add(M(new THREE.CylinderGeometry(0.02,0.018,0.16,6),sash,
       i*(0.23+Math.cos(ang)*0.1),0.73+Math.sin(ang)*0.1,0.05+j*0.07,
       0.5+ang*0.3,i*0.4,ang*0.5*i));
   }
   for(var j=0;j<3;j++){
-    G.add(M(new THREE.CylinderGeometry(0.015,0.022,0.22,6),sashM,
+    G.add(M(new THREE.CylinderGeometry(0.015,0.022,0.22,6),sash,
       i*(0.15+j*0.09),0.32-j*0.12,0.1+j*0.09,
       0.3-j*0.3,i*0.3+j*0.2,0.5*i));
   }
 }
 
-// === 风火轮 ===
-function wheel(x,z){
-  var w=new THREE.Group();
-  w.add(M(new THREE.TorusGeometry(0.1,0.03,10,18),gold,0,0,0,Math.PI/2,0,0));
-  w.add(M(new THREE.TorusGeometry(0.06,0.015,8,14),gold,0,0,0,Math.PI/2,0,0));
-  w.position.set(x,-0.14,z);return w;
+// 风火轮
+var wheels=[];
+for(var i=-1;i<=1;i+=2){
+  var wh=new THREE.Group();
+  wh.add(M(new THREE.TorusGeometry(0.1,0.03,10,18),gd,0,0,0,Math.PI/2,0,0));
+  wh.add(M(new THREE.TorusGeometry(0.06,0.015,8,14),gd,0,0,0,Math.PI/2,0,0));
+  wh.position.set(i*0.1,-0.14,0.05);G.add(wh);wheels.push(wh);
 }
-var wL=wheel(-0.1,0.05),wR=wheel(0.1,0.05);
-G.add(wL);G.add(wR);
 
-// === 火焰 ===
-function fire(x,z){
+// 火焰
+var fires=[];
+for(var i=-1;i<=1;i+=2){
   var n=40,geo=new THREE.BufferGeometry(),p=new Float32Array(n*3),cl=new Float32Array(n*3);
-  for(var i=0;i<n;i++){
-    var a=i/n*Math.PI*2,r=0.07+Math.random()*0.05;
-    p[i*3]=Math.cos(a)*r;p[i*3+1]=Math.sin(a)*r;p[i*3+2]=(Math.random()-0.5)*0.03;
-    cl[i*3]=0.5+Math.random()*0.5;cl[i*3+1]=0.05+Math.random()*0.2;cl[i*3+2]=Math.random()*0.1;
+  for(var j=0;j<n;j++){var a=j/n*Math.PI*2,r=0.07+Math.random()*0.05;
+    p[j*3]=Math.cos(a)*r;p[j*3+1]=Math.sin(a)*r;p[j*3+2]=(Math.random()-0.5)*0.03;
+    cl[j*3]=0.5+Math.random()*0.5;cl[j*3+1]=0.05+Math.random()*0.2;cl[j*3+2]=Math.random()*0.1;
   }
   geo.setAttribute('position',new THREE.BufferAttribute(p,3));
   geo.setAttribute('color',new THREE.BufferAttribute(cl,3));
   var pt=new THREE.Points(geo,new THREE.PointsMaterial({size:0.024,vertexColors:true,blending:THREE.AdditiveBlending,depthWrite:false}));
-  pt.position.set(x,-0.14,z);return pt;
+  pt.position.set(i*0.1,-0.14,0.05);G.add(pt);fires.push(pt);
 }
-var fL=fire(-0.1,0.05),fR=fire(0.1,0.05);
-G.add(fL);G.add(fR);
 
-// === 星空 ===
-var bgG=new THREE.BufferGeometry(),bgP=new Float32Array(120*3);
-for(var i=0;i<120;i++){bgP[i*3]=(Math.random()-0.5)*3;bgP[i*3+1]=Math.random()*2-0.5;bgP[i*3+2]=(Math.random()-0.5)*2}
+// 星空
+var bgG=new THREE.BufferGeometry(),bgP=new Float32Array(100*3);
+for(var i=0;i<100;i++){bgP[i*3]=(Math.random()-0.5)*4;bgP[i*3+1]=Math.random()*3-0.5;bgP[i*3+2]=(Math.random()-0.5)*3}
 bgG.setAttribute('position',new THREE.BufferAttribute(bgP,3));
 scene.add(new THREE.Points(bgG,new THREE.PointsMaterial({color:0xff6622,size:0.015,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.6})));
 
 scene.add(G);
 
-L.style.opacity='0';
-setTimeout(function(){L.style.display='none'},600);
-
-// === 触控 ===
-var autoR=true,rotY=0,rotX=-0.1,dist=2.8;
+// 触控
+var autoR=true,rotY=0,rotX=-0.1,dist=1.8;
 var lx=0,ly=0,ld=0,tch=false;
 R.domElement.addEventListener('touchstart',function(e){
   if(e.touches.length==1){lx=e.touches[0].clientX;ly=e.touches[0].clientY;tch=true;autoR=false}
@@ -179,12 +163,13 @@ R.domElement.addEventListener('touchstart',function(e){
 });
 R.domElement.addEventListener('touchmove',function(e){
   if(e.touches.length==1&&tch){rotY+=(e.touches[0].clientX-lx)*0.005;rotX+=(e.touches[0].clientY-ly)*0.005;rotX=Math.max(-1,Math.min(1,rotX));lx=e.touches[0].clientX;ly=e.touches[0].clientY}
-  if(e.touches.length==2){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);dist*=ld/d;dist=Math.max(1.2,Math.min(5.5,dist));ld=d}
+  if(e.touches.length==2){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);dist*=ld/d;dist=Math.max(1,Math.min(4,dist));ld=d}
   e.preventDefault();
 },{passive:false});
 R.domElement.addEventListener('touchend',function(){tch=false;setTimeout(function(){autoR=true},2000)});
 
 G.rotation.y=Math.PI;
+L.style.opacity='0';setTimeout(function(){L.style.display='none'},600);
 
 (function loop(t){
   requestAnimationFrame(loop);
@@ -192,14 +177,13 @@ G.rotation.y=Math.PI;
   G.position.y=Math.abs(st)*0.01;
   G.rotation.z=st*0.04;
   G.rotation.y=Math.PI+st*0.08;
-  wL.rotation.x+=0.18;wR.rotation.x+=0.18;
-  fL.rotation.y+=0.25;fR.rotation.y+=0.25;
-  fL.scale.setScalar(1+Math.abs(st)*0.5);fR.scale.setScalar(1+Math.abs(st)*0.5);
+  for(var i=0;i<wheels.length;i++)wheels[i].rotation.x+=0.18;
+  for(var i=0;i<fires.length;i++){fires[i].rotation.y+=0.25;fires[i].scale.setScalar(1+Math.abs(st)*0.5)}
   if(autoR)rotY+=0.005;
   cam.position.x=Math.sin(rotY)*Math.cos(rotX)*dist;
   cam.position.y=Math.sin(rotX)*dist+0.5;
   cam.position.z=Math.cos(rotY)*Math.cos(rotX)*dist;
-  cam.lookAt(0,0.45,0);
+  cam.lookAt(0,0.5,0);
   R.render(scene,cam);
 })();
 
