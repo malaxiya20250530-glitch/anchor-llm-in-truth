@@ -7,8 +7,7 @@
 <a href=ar.html style="position:fixed;top:15px;right:15px;z-index:100;background:rgba(255,68,0,0.8);color:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;font-family:sans-serif;font-size:14px">📱 AR</a>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js">
 </script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js">
-</script>
+
 <script>
 // 等 Three.js 加载完
 (function wait(){
@@ -100,10 +99,24 @@ for(var i=0;i<200;i++){bgP[i*3]=(Math.random()-0.5)*3;bgP[i*3+1]=Math.random()*2
 bgG.setAttribute('position',new THREE.BufferAttribute(bgP,3));
 scene.add(new THREE.Points(bgG,new THREE.PointsMaterial({color:0xff4400,size:0.012,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.5})));
 
-var ctrl=new THREE.OrbitControls(cam,R.domElement);
-ctrl.target.set(0,0.55,0);ctrl.enableDamping=true;ctrl.dampingFactor=0.08;
-ctrl.minDistance=1;ctrl.maxDistance=5;ctrl.maxPolarAngle=Math.PI*0.65;
-ctrl.autoRotate=true;ctrl.autoRotateSpeed=1;ctrl.update();
+// 手写触摸旋转
+var autoRotate=true,rotY=Math.PI,rotX=0,dist=3.2;
+var lastX=0,lastY=0,lastD=0,touching=false;
+R.domElement.addEventListener('touchstart',function(e){
+  if(e.touches.length==1){lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;touching=true;autoRotate=false}
+  if(e.touches.length==2){lastD=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)}
+  e.preventDefault();
+});
+R.domElement.addEventListener('touchmove',function(e){
+  if(e.touches.length==1&&touching){rotY+=(e.touches[0].clientX-lastX)*0.005;rotX+=(e.touches[0].clientY-lastY)*0.005;rotX=Math.max(-1,Math.min(1,rotX));lastX=e.touches[0].clientX;lastY=e.touches[0].clientY}
+  if(e.touches.length==2){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);dist*=lastD/d;dist=Math.max(1,Math.min(6,dist));lastD=d}
+  e.preventDefault();
+},{passive:false});
+R.domElement.addEventListener('touchend',function(){touching=false;setTimeout(function(){autoRotate=true},2000)});
+R.domElement.addEventListener('mousedown',function(e){lastX=e.clientX;lastY=e.clientY;touching=true;autoRotate=false});
+R.domElement.addEventListener('mousemove',function(e){if(touching){rotY+=(e.clientX-lastX)*0.005;rotX+=(e.clientY-lastY)*0.005;rotX=Math.max(-1,Math.min(1,rotX));lastX=e.clientX;lastY=e.clientY}});
+R.domElement.addEventListener('mouseup',function(){touching=false;setTimeout(function(){autoRotate=true},2000)});
+R.domElement.addEventListener('wheel',function(e){dist*=1+e.deltaY*0.001;dist=Math.max(1,Math.min(6,dist));e.preventDefault()},{passive:false});
 
 G.rotation.y=Math.PI;
 document.getElementById('L').style.opacity='0';
@@ -118,7 +131,12 @@ function loop(t){
   wL.rotation.x+=0.18;wR.rotation.x+=0.18;
   fL.rotation.y+=0.25;fR.rotation.y+=0.25;
   fL.scale.setScalar(1+Math.abs(st)*0.5);fR.scale.setScalar(1+Math.abs(st)*0.5);
-  ctrl.update();R.render(scene,cam);
+  if(autoRotate)rotY+=0.005;
+cam.position.x=Math.sin(rotY)*Math.cos(rotX)*dist;
+cam.position.y=Math.sin(rotX)*dist+0.6;
+cam.position.z=Math.cos(rotY)*Math.cos(rotX)*dist;
+cam.lookAt(0,0.55,0);
+R.render(scene,cam);
 }
 requestAnimationFrame(loop);
 window.addEventListener('resize',function(){cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
