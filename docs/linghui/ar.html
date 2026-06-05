@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang=zh><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>灵绘 AR</title>
+<style>
+*{margin:0;padding:0}body{background:#000;overflow:hidden}
+#enter{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);padding:16px 40px;background:rgba(255,68,0,0.9);color:#fff;border:none;border-radius:30px;font-size:18px;z-index:100;cursor:pointer;font-family:sans-serif}
+#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4400;font-size:20px;font-family:sans-serif;z-index:50;text-align:center}
+#dom-overlay{position:fixed;bottom:20px;left:0;right:0;text-align:center;color:#ff4400;font-family:sans-serif;font-size:14px;z-index:30;pointer-events:none}
+</style></head>
+<body>
+<div id=msg>🔥 灵绘 AR</div>
+<button id=enter onclick=startAR()>进入 AR</button>
+<div id=dom-overlay>手机对准桌面 → 点击放置哪吒</div>
+
+<script type=importmap>{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type=module>
+import * as T from 'three';
+import {ARButton} from 'three/addons/webxr/ARButton.js';
+import {XRControllerModelFactory} from 'three/addons/webxr/XRControllerModelFactory.js';
+
+const scene=new T.Scene();
+const cam=new T.PerspectiveCamera(60,innerWidth/innerHeight,0.01,20);
+const R=new T.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(innerWidth,innerHeight);
+R.xr.enabled=true;R.setAnimationLoop(null);
+document.body.appendChild(R.domElement);
+
+// 灯光
+scene.add(new T.AmbientLight(0xffffff,1.5));
+const sun=new T.DirectionalLight(0xffffff,4);sun.position.set(1,2,1);scene.add(sun);
+
+// 材质
+const skin=new T.MeshStandardMaterial({color:0xf5dcc3,roughness:0.5});
+const vest=new T.MeshStandardMaterial({color:0xcc2222,roughness:0.55});
+const hair=new T.MeshStandardMaterial({color:0x1a1a2e,roughness:0.4});
+const pants=new T.MeshStandardMaterial({color:0x3a3a45,roughness:0.65});
+const gold=new T.MeshStandardMaterial({color:0xdaa520,roughness:0.15,metalness:0.95});
+const eyeM=new T.MeshStandardMaterial({color:0x000000,roughness:0.05,emissive:0x220000});
+const sashMat=new T.MeshStandardMaterial({color:0xdd2222,roughness:0.3,emissive:0x220000,side:T.DoubleSide});
+
+function M(g,m,x,y,z,rx=0,ry=0,rz=0,sx=1,sy=1,sz=1){
+  const o=new T.Mesh(g,m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.scale.set(sx,sy,sz);o.castShadow=true;return o;
+}
+
+function buildNezha(){
+  const G=new T.Group();
+  G.add(M(new T.CapsuleGeometry(0.18,0.3,8,12),vest,0,0.65,0));
+  G.add(M(new T.CylinderGeometry(0.06,0.07,0.08,10),skin,0,0.88,0));
+  G.add(M(new T.SphereGeometry(0.16,22,22),skin,0,1.04,0));
+  G.add(M(new T.SphereGeometry(0.04,10,10),eyeM,-0.05,1.08,-0.14));
+  G.add(M(new T.SphereGeometry(0.04,10,10),eyeM,0.05,1.08,-0.14));
+  G.add(M(new T.BoxGeometry(0.06,0.01,0.02),hair,-0.06,1.13,-0.13,0,0,-0.25));
+  G.add(M(new T.BoxGeometry(0.06,0.01,0.02),hair,0.06,1.13,-0.13,0,0,0.25));
+  
+  for(let s=-1;s<=1;s+=2){
+    G.add(M(new T.TorusGeometry(0.07,0.032,10,16),hair,s*0.14,1.2,0,T.PI/2,0,0));
+    G.add(M(new T.SphereGeometry(0.055,10,10),hair,s*0.14,1.2,0));
+    const rope=new T.Mesh(new T.CylinderGeometry(0.012,0.008,0.22,8),new T.MeshStandardMaterial({color:0xff2222,roughness:0.2,emissive:0x330000}));
+    rope.position.set(s*0.18,1.1,-0.05);rope.rotation.set(0.3*s,0,0.1);rope.castShadow=true;
+    G.add(rope);
+  }
+  
+  for(let s=-1;s<=1;s+=2){
+    G.add(M(new T.CapsuleGeometry(0.045,0.2,8,12),skin,s*0.23,0.8,s*0.05,0.2*s,0,0.3*s));
+    G.add(M(new T.CapsuleGeometry(0.038,0.18,8,12),skin,s*0.3,0.58,s*0.08,0.1*s,0,0.2*s));
+    G.add(M(new T.SphereGeometry(0.04,8,8),skin,s*0.36,0.4,s*0.1));
+    G.add(M(new T.TorusGeometry(0.055,0.018,12,24),gold,s*0.36,0.42,-0.03,T.PI/3,0,0));
+  }
+  
+  for(let s=-1;s<=1;s+=2){
+    G.add(M(new T.CapsuleGeometry(0.055,0.22,6,10),pants,s*0.08,0.35,0));
+    G.add(M(new T.CapsuleGeometry(0.048,0.2,6,10),pants,s*0.08,0.1,0));
+    G.add(M(new T.BoxGeometry(0.1,0.05,0.15),pants,s*0.08,0.03,0.04));
+  }
+  
+  // 混天绫
+  for(let s=-1;s<=1;s+=2){
+    const sa=new T.Mesh(new T.TorusGeometry(0.12,0.025,12,32,T.PI*1.5),sashMat);
+    sa.position.set(s*0.25,0.8,0);sa.rotation.set(0.2,0,s*0.3);sa.castShadow=true;
+    G.add(sa);
+    const tail=new T.Mesh(new T.CylinderGeometry(0.015,0.03,0.5,8),sashMat);
+    tail.position.set(s*0.35,0.45,0.1);tail.rotation.set(0.5*s,0,0.4*s);tail.castShadow=true;
+    G.add(tail);
+  }
+  
+  return G;
+}
+
+const nezha=buildNezha();
+nezha.scale.setScalar(0.5);
+scene.add(nezha);
+
+// 放置指示环
+const ringG=new T.RingGeometry(0.15,0.18,64);
+const ringM=new T.MeshBasicMaterial({color:0xff4400,side:T.DoubleSide,transparent:true,opacity:0.6});
+const ring=new T.Mesh(ringG,ringM);
+ring.rotation.x=-T.PI/2;ring.visible=false;
+scene.add(ring);
+
+// WebXR
+let hitTestSource=null,reticle=ring;
+let placed=false;
+
+async function startAR(){
+  document.getElementById('enter').style.display='none';
+  document.getElementById('msg').textContent='扫描平面...';
+  
+  const session=await navigator.xr.requestSession('immersive-ar',{
+    requiredFeatures:['hit-test','dom-overlay'],
+    domOverlay:{root:document.getElementById('dom-overlay')}
+  });
+  
+  R.xr.setReferenceSpaceType('local');
+  await R.xr.setSession(session);
+  
+  const viewerSpace=await session.requestReferenceSpace('viewer');
+  const localSpace=await session.requestReferenceSpace('local');
+  
+  hitTestSource=await session.requestHitTestSource({space:viewerSpace});
+  
+  R.setAnimationLoop((t,frame)=>{
+    if(!frame)return;
+    const ref=frame.getViewerPose(localSpace);
+    
+    if(!placed&&hitTestSource&&ref){
+      const hits=frame.getHitTestResults(hitTestSource);
+      if(hits.length>0){
+        const hit=hits[0];
+        const pose=hit.getPose(localSpace);
+        ring.visible=true;
+        ring.position.set(pose.transform.position.x,pose.transform.position.y,pose.transform.position.z);
+        ring.rotation.setFromRotationMatrix(new T.Matrix4().fromArray(pose.transform.matrix));
+      }else{
+        ring.visible=false;
+      }
+    }
+    
+    R.render(scene,cam);
+  });
+  
+  // 点击放置
+  session.addEventListener('select',()=>{
+    if(!placed&&hitTestSource&&ring.visible){
+      nezha.position.copy(ring.position);
+      nezha.rotation.copy(ring.rotation);
+      nezha.visible=true;
+      ring.visible=false;
+      placed=true;
+      hitTestSource.cancel();
+      hitTestSource=null;
+      document.getElementById('dom-overlay').textContent='哪吒已放置!';
+    }
+  });
+}
+
+// 检查 AR 支持
+function checkAR(){
+  if(!navigator.xr){
+    document.getElementById('msg').textContent='你的浏览器不支持 AR';
+    document.getElementById('enter').style.display='none';
+    return;
+  }
+  navigator.xr.isSessionSupported('immersive-ar').then(s=>{
+    if(!s){
+      document.getElementById('msg').textContent='你的设备不支持 AR,试试 Chrome 最新版';
+      document.getElementById('enter').textContent='重试';
+    }
+  });
+}
+checkAR();
+window.startAR=startAR;
+
+// 呼吸动画(非AR模式)
+function loop(t){
+  requestAnimationFrame(loop);
+  if(!R.xr.isPresenting){
+    const st=Math.sin(t*0.003);
+    nezha.position.y=Math.abs(st)*0.01;
+    nezha.rotation.y+=0.005;
+    R.render(scene,cam);
+  }
+}
+requestAnimationFrame(loop);
+</script></body></html>
