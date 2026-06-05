@@ -8,7 +8,7 @@
   var L=document.getElementById('L'),log='',wheels=[];
   try{
     var s=new THREE.Scene();s.background=new THREE.Color(0x333333);log+='S ';
-    var c=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);c.position.set(0,0.5,3);c.lookAt(0,0.4,0);log+='C ';
+    var c=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,20);c.position.set(0,0.5,1.8);c.lookAt(0,0.5,0);log+='C ';
     var r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(1);r.setSize(innerWidth,innerHeight);document.body.appendChild(r.domElement);log+='R ';
 
     // no light needed
@@ -45,7 +45,7 @@
     }
     log+='轮 ';
 
-    G.rotation.y=Math.PI;
+    G.scale.setScalar(1.8);G.rotation.y=Math.PI;
     L.innerHTML=log+'OK!';
 
     setTimeout(function(){L.style.opacity=0},3000);
