@@ -129,3 +129,50 @@
 
 ## 文件引用格式
 引用文件路径时使用反引号，如 `hallucination_detector.py`
+
+
+# 🧠 记忆系统（跨会话持久化）
+
+## 数据层
+
+| 存储 | 位置 | 内容 |
+|------|------|------|
+| 线程元数据 | `state_5.sqlite` | 所有历史线程的标题、时间、token 用量 |
+| 完整对话 | `.codex/sessions/` | rollout JSONL，含每条消息和工具调用 |
+| 项目记忆 | `.codex/memories/*.jsonl` | 架构决策、工具用法、bug 记录、性能优化 |
+
+## 启动时加载
+
+每次新会话开始时，运行以下命令获取上下文：
+
+```bash
+python3 codex_memory.py context
+```
+
+将输出的 `summary` 和 `project_memories` 注入当前对话开头，作为背景知识。
+
+## 写入规则
+
+仅在以下情况写入 `.codex/memories/`：
+- ✔ 架构决策已确认
+- ✔ 工具用法模式稳定（≥3 次重复）
+- ✔ bug 根因已确认并修复
+- ✔ 系统设计发生变更
+
+不写入：
+- ✘ 临时调试日志
+- ✘ 未确认的假设
+- ✘ 一次性错误
+- ✘ 敏感信息（token、密码、密钥）
+
+## 记忆类别
+
+- `architecture` — 架构决策、模块职责
+- `decision` — 技术选型、权衡
+- `tool_usage` — 常用命令、测试流程
+- `bug` — 已知问题、教训
+- `performance` — 性能优化记录
+
+## 当前项目记忆
+
+加载自 `.codex/memories/`，内容由 `python3 codex_memory.py memories` 输出。
