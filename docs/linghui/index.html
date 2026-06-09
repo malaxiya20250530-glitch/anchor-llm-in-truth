@@ -566,7 +566,11 @@ function renderPlaylistUI(){
 }
 function playCurrent(){
   if(currentIdx<0||currentIdx>=playlist.length)return;
-  var s=playlist[currentIdx];audio.src=s.url;audio.load();var playPromise=audio.play();if(playPromise!==undefined)playPromise.catch(function(e){showToast('⚠ 播放失败: '+(e.message||'未知错误').substr(0,20))});
+  var s=playlist[currentIdx];
+  // 跨域音频：断开 AudioContext 让音频直接输出（iTunes 等外部源无 CORS 头）
+  var isCrossOrigin=s.url&&(s.url.startsWith('http://')||s.url.startsWith('https://'))&&!s.url.includes(location.hostname);
+  if(isCrossOrigin&&audioCtx){stopViz();audioCtx.close();audioCtx=null;analyser=null}
+  audio.src=s.url;audio.load();var playPromise=audio.play();if(playPromise!==undefined)playPromise.catch(function(e){showToast('⚠ 播放失败: '+(e.message||'未知错误').substr(0,20))});
   document.querySelector('#nowPlaying .title').textContent=s.title||'未知';
   document.querySelector('#nowPlaying .artist').textContent=s.artist||'';
   document.getElementById('btnPlay').textContent='⏸';renderPlaylistUI();
@@ -609,7 +613,6 @@ var BALL_COUNT=12;
 
 function initAudioContext(){
   if(audioCtx){
-    // 移动端 AudioContext 可能被暂停，恢复它
     if(audioCtx.state==='suspended')audioCtx.resume();
     return;
   }
@@ -618,12 +621,16 @@ function initAudioContext(){
     analyser=audioCtx.createAnalyser();
     analyser.fftSize=64;
     analyser.smoothingTimeConstant=0.7;
+    audio.crossOrigin='anonymous';
     var source=audioCtx.createMediaElementSource(audio);
     source.connect(analyser);
     analyser.connect(audioCtx.destination);
-    // 如果 AudioContext 被暂停，恢复它
     if(audioCtx.state==='suspended')audioCtx.resume();
-  }catch(e){audioCtx=null;analyser=null}
+  }catch(e){
+    // CORS 限制：无法通过 AudioContext 分析，音频直出（无波形可视化）
+    if(audioCtx){audioCtx.close();audioCtx=null}
+    analyser=null;
+  }
 }
 
 function startViz(){
