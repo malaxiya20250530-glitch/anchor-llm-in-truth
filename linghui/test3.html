@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang=zh><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>GLB性能测试</title>
+<style>*{margin:0;padding:0}body{background:#000;color:#0f0;font:12px monospace;padding:10px}#v{width:100%;height:300px;background:#050508}</style></head>
+<body>
+<div id=v></div><pre id=s></pre>
+
+<script type=importmap>
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+
+<script type=module>
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const out=document.getElementById('s');
+function L(s){out.innerHTML+=s+'\n'}
+
+try{
+  const t0=performance.now();
+  const gltf=await new Promise((ok,err)=>{new GLTFLoader().load('nezha.glb',ok,undefined,err)});
+  const t1=performance.now();
+  L('加载耗时: '+(t1-t0).toFixed(0)+'ms');
+  L('文件大小: 2.4MB');
+
+  let verts=0,tris=0;
+  gltf.scene.traverse(function(ch){if(ch.isMesh){verts+=ch.geometry.attributes.position.count;tris+=ch.geometry.index?ch.geometry.index.count/3:ch.geometry.attributes.position.count/3}});
+  L('顶点: '+verts.toLocaleString()+'  三角面: '+Math.round(tris).toLocaleString());
+
+  // 性能测试
+  const scene=new THREE.Scene();scene.background=new THREE.Color(0x050508);
+  const cam=new THREE.PerspectiveCamera(45,2,0.1,10);cam.position.set(0,0.5,1.8);cam.lookAt(0,0.4,0);
+  const R=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
+  R.setPixelRatio(1);R.setSize(360,300);
+  document.getElementById('v').appendChild(R.domElement);
+  scene.add(new THREE.AmbientLight(0xffffff,0.5));
+  scene.add(new THREE.DirectionalLight(0xffeedd,1)).position.set(2,2,3);
+
+  gltf.scene.traverse(function(ch){if(ch.isMesh)ch.material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.55})});
+  gltf.scene.scale.setScalar(2.8);gltf.scene.position.set(0,-0.25,0);gltf.scene.rotation.y=Math.PI;
+  scene.add(gltf.scene);
+
+  // 跑 120 帧测 FPS
+  const tStart=performance.now();
+  let frames=0;
+  await new Promise(function(ok){
+    function loop(){
+      frames++;
+      R.render(scene,cam);
+      if(frames<120)requestAnimationFrame(loop);
+      else{const elapsed=performance.now()-tStart;L('120帧耗时: '+elapsed.toFixed(0)+'ms  (≈'+(120000/elapsed).toFixed(1)+' FPS)');ok()}
+    }
+    loop();
+  });
+
+  L('\n✅ 性能测试通过');
+
+}catch(e){L('❌ '+e.message);console.error(e)}
+</script></body></html>

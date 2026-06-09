@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang=zh><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><title>灵绘</title>
+<link rel=manifest href=manifest.json>
+<meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-capable content=yes>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0618;overflow:hidden;font-family:sans-serif}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#L{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#f80;font-size:14px;font-family:monospace;z-index:10;pointer-events:none;transition:opacity .6s;white-space:pre-wrap;text-align:center;max-width:90vw}
+#bar{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:120px;height:4px;background:rgba(255,68,0,.2);border-radius:2px;z-index:10}
+#bar div{height:100%;background:#f80;border-radius:2px;width:0;transition:width .3s}
+
+/* ── 连接状态指示 ── */
+#conn{position:fixed;top:12px;left:12px;z-index:100;width:10px;height:10px;border-radius:50%;background:#666;transition:background .3s}
+#conn.on{background:#0f0;box-shadow:0 0 6px #0f0}
+#conn.off{background:#f44;box-shadow:0 0 6px #f44}
+
+/* ── 对话气泡 ── */
+#bubble{position:fixed;top:15%;left:50%;transform:translateX(-50%);z-index:50;
+  background:rgba(20,10,40,.92);color:#eee;padding:12px 18px;border-radius:16px;
+  max-width:82vw;max-height:30vh;overflow-y:auto;font-size:15px;line-height:1.5;
+  opacity:0;transition:opacity .4s;pointer-events:none;
+  border:1px solid rgba(255,136,0,.3);word-break:break-word}
+#bubble.show{opacity:1}
+#bubble .emoji{font-size:24px;display:block;margin-bottom:4px}
+
+/* ── 底部输入栏 ── */
+#inputBar{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(10,6,24,.94);padding:8px 12px;display:flex;gap:8px;align-items:center;
+  border-top:1px solid rgba(255,136,0,.15)}
+#inputBar input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,136,0,.25);
+  color:#fff;padding:10px 14px;border-radius:22px;font-size:15px;outline:none}
+#inputBar input::placeholder{color:rgba(255,255,255,.35)}
+#inputBar button{width:42px;height:42px;border-radius:50%;border:none;
+  font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,136,0,.15);color:#f80;transition:background .2s}
+#inputBar button:active{background:rgba(255,136,0,.35)}
+#inputBar button.send{background:#f80;color:#fff;width:52px;height:42px;border-radius:22px;font-size:14px}
+#inputBar button.recording{background:#f44;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── AR 链接 ── */
+#arLink{position:fixed;top:28px;right:15px;z-index:100;
+  background:rgba(255,136,0,.8);color:#fff;padding:6px 14px;border-radius:18px;
+  text-decoration:none;font-size:13px}
+</style></head>
+<body>
+
+<canvas class=stars id=starsC></canvas>
+<div id=conn></div>
+<div id=L>🔥 灵绘加载中...</div><div id=bar><div></div></div>
+<div id=bubble></div>
+
+<a id=arLink href=ar.html>📱 AR</a>
+
+<div id=inputBar>
+  <button id=micBtn title=语音>🎤</button>
+  <input id=msgIn type=text placeholder="和灵绘说点什么..." enterkeyhint=send>
+  <button id=sendBtn class=send>发送</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+// ── CDN 降级：jsdelivr 失败 → unpkg ──
+(function(){
+  var cdnFallback={
+    'three.min.js':'https://unpkg.com/three@0.140.0/build/three.min.js',
+    'GLTFLoader.js':'https://unpkg.com/three@0.140.0/examples/js/loaders/GLTFLoader.js'
+  };
+  window.addEventListener('error',function(e){
+    if(!e.target||e.target.tagName!=='SCRIPT')return;
+    var key=Object.keys(cdnFallback).find(function(k){return e.target.src.indexOf(k)>-1});
+    if(!key)return;
+    var s=document.createElement('script');s.src=cdnFallback[key];
+    document.head.appendChild(s);
+  },true);
+})();
+</script>
+
+
+<script>
+var L=document.getElementById('L'), bar=document.querySelector('#bar div');
+var connDot=document.getElementById('conn'), bubble=document.getElementById('bubble');
+var msgIn=document.getElementById('msgIn'), sendBtn=document.getElementById('sendBtn');
+var micBtn=document.getElementById('micBtn');
+
+// ═══════════════════════════════════════════
+// 辅助函数
+// ═══════════════════════════════════════════
+function log(s){L.innerHTML+=s+'<br>'}
+
+var EMOTION_EMOJI={happy:'😊',sad:'😢',angry:'😤',curious:'🤔',idle:'😶',excited:'🤩',sleepy:'😴'};
+var EMOTION_COLOR={happy:0xffcc00,sad:0x4488ff,angry:0xff3333,curious:0xcc66ff,idle:0xff8800,excited:0xff6600,sleepy:0x8888cc};
+
+var bubbleTimer=null;
+function showBubble(text,emotion){
+  if(!text)return;
+  var emoji=EMOTION_EMOJI[emotion]||'';
+  bubble.innerHTML=(emoji?'<span class=emoji>'+emoji+'</span>':'')+text;
+  bubble.classList.add('show');
+  clearTimeout(bubbleTimer);
+  bubbleTimer=setTimeout(function(){bubble.classList.remove('show')},8000);
+}
+
+// ═══════════════════════════════════════════
+// WebSocket 连接
+// ═══════════════════════════════════════════
+var ws=null,wsReconnectTimer=null;
+
+function connectWS(){
+  if(ws&&ws.readyState===WebSocket.OPEN)return;
+  try{
+    ws=new WebSocket(`ws://${window.location.hostname}:9527`);
+    ws.onopen=function(){
+      connDot.className='on';
+      log('已连接 AI 后端');
+      if(wsReconnectTimer){clearInterval(wsReconnectTimer);wsReconnectTimer=null}
+    };
+    ws.onclose=function(){
+      connDot.className='off';
+      if(!wsReconnectTimer)wsReconnectTimer=setInterval(connectWS,3000);
+    };
+    ws.onerror=function(){connDot.className='off'};
+    ws.onmessage=function(e){
+      try{
+        var data=JSON.parse(e.data);
+        if(data.type==='pet_response'){
+          showBubble(data.text,data.emotion);
+          if(data.emotion&&nezhaModel)setEmotionColor(data.emotion);
+          if(data.animation)log('动画: '+data.animation);
+        }
+      }catch(_){/* JSON 解析失败 — 非标准消息静默忽略 */}
+    };
+  }catch(_){connDot.className='off';if(!wsReconnectTimer)wsReconnectTimer=setInterval(connectWS,3000)}
+}
+
+function sendMsg(text){
+  text=text.trim();
+  if(!text)return;
+  msgIn.value='';
+  if(ws&&ws.readyState===WebSocket.OPEN){
+    ws.send(JSON.stringify({type:'user_input',content:text,context:{app_focus:'home',time:new Date().toTimeString().slice(0,5)}}));
+    showBubble('💬 '+text,'idle');
+  }else{
+    showBubble('⚠️ AI 后端未连接，请先启动 pet_server.py','sad');
+  }
+}
+
+// 发送按钮
+sendBtn.addEventListener('click',function(){sendMsg(msgIn.value)});
+msgIn.addEventListener('keydown',function(e){if(e.key==='Enter')sendMsg(msgIn.value)});
+
+// ═══════════════════════════════════════════
+// ── 语音输入（Web Speech API + HTTPS检测 + 降级方案）──
+// ═══════════════════════════════════════════
+var recognition=null,isRecording=false;
+var isHTTPS=(window.location.protocol==='https:'||window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1');
+
+if(('webkitSpeechRecognition' in window||'SpeechRecognition' in window)&&isHTTPS){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang='zh-CN';
+  recognition.interimResults=false;
+  recognition.continuous=false;
+  recognition.onresult=function(e){
+    var text=e.results[0][0].transcript;
+    msgIn.value=text;
+    sendMsg(text);
+  };
+  recognition.onerror=function(e){
+    isRecording=false;micBtn.classList.remove('recording');
+    var msg=e.error;
+    if(e.error==='not-allowed')msg='麦克风权限被拒绝，请在浏览器设置中开启';
+    else if(e.error==='service-not-allowed')msg='需要HTTPS才能语音输入，请用键盘语音按钮';
+    else if(e.error==='network')msg='语音服务网络不通，请检查网络';
+    else msg='语音识别错误: '+e.error;
+    showBubble('🎤 '+msg,'sad');
+  };
+  recognition.onend=function(){isRecording=false;micBtn.classList.remove('recording')};
+}else{
+  // 降级：利用键盘原生语音输入（Android Chrome x-webkit-speech）
+  if(!isHTTPS)msgIn.setAttribute('x-webkit-speech','');
+  msgIn.setAttribute('speech','');
+  micBtn.title='语音(需HTTPS;当前为键盘降级模式)';
+}
+
+micBtn.addEventListener('click',function(){
+  if(!recognition){
+    msgIn.focus();
+    showBubble('🎤 请点击键盘上的语音按钮（🎙️）开始说话','happy');
+    return;
+  }
+  if(isRecording){recognition.stop();return}
+  isRecording=true;micBtn.classList.add('recording');
+  try{recognition.start()}catch(_){isRecording=false;micBtn.classList.remove('recording')}
+});
+
+// ═══════════════════════════════════════════
+// 情绪 → 模型颜色
+// ═══════════════════════════════════════════
+var nezhaModel=null;
+function setEmotionColor(emotion){
+  if(!nezhaModel)return;
+  var color=EMOTION_COLOR[emotion]||EMOTION_COLOR.idle;
+  nezhaModel.traverse(function(ch){
+    if(ch.isMesh&&ch.material&&ch.material.emissive){
+      ch.material.emissive.setHex(color);
+      ch.material.emissiveIntensity=emotion==='excited'?0.6:0.25;
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+// Three.js 初始化
+// ═══════════════════════════════════════════
+(function waitTHREE(){
+  if(typeof THREE==='undefined'){setTimeout(waitTHREE,200);return}
+  if(typeof THREE.GLTFLoader==='undefined'){setTimeout(waitTHREE,200);return}
+  log('THREE ok');
+  log('GLTFLoader ok');
+  init();
+})();
+
+function init(){
+try{
+  var scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x1a1030);
+  var cam=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.08,20);
+  cam.position.set(0,0.2,1.8);cam.lookAt(0,0.2,0);
+  var R=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  R.setSize(innerWidth,innerHeight);
+  R.domElement.style.position='fixed';R.domElement.style.zIndex='1';document.body.appendChild(R.domElement);
+  log('WebGL ok');
+
+  scene.add(new THREE.AmbientLight(0xffffff,0.55));
+  var k=new THREE.DirectionalLight(0xffeedd,1.1);k.position.set(2,2.5,3);scene.add(k);
+  scene.add(new THREE.DirectionalLight(0xff8866,0.35)).position.set(-1,0.5,-0.8);
+
+  // ── GLB 加载（超时10s + 重试1次 + 库可用性检查）──
+  if(typeof THREE==='undefined'||typeof THREE.GLTFLoader==='undefined'){
+    L.innerHTML='⚠️ GLTFLoader 库加载失败，请检查网络后刷新';
+    console.error('GLTFLoader not available');
+    connectWS();
+    return;
+  }
+  log('开始加载 GLB...');
+  var loader=new THREE.GLTFLoader();
+  loader.setCrossOrigin('anonymous');
+
+  var glbRetries=0, glbMaxRetries=1;
+  function loadGLB(){
+    var timedOut=false;
+    var timer=setTimeout(function(){
+      timedOut=true;
+      if(glbRetries<glbMaxRetries){glbRetries++;log('GLB 超时,重试('+glbRetries+'/'+glbMaxRetries+')...');clearTimeout(timer);loadGLB();}
+      else{L.innerHTML='⚠️ GLB加载超时(>10s),请刷新重试';console.error('GLB timeout');connectWS();}
+    },10000);
+
+    loader.load('nezha.glb',
+    function(gltf){
+      clearTimeout(timer);
+      log('GLB 解析成功');
+      var nezha=gltf.scene;
+      nezha.scale.setScalar(0.9);nezha.position.set(0,-0.05,0);nezha.rotation.y=Math.PI;
+      nezhaModel=nezha; // 保存引用供情绪系统使用
+
+      var meshes=0;
+      nezha.traverse(function(ch){
+        if(ch.isMesh){
+          meshes++;
+          // 使用 StandardMaterial 以支持 emissive 情绪颜色
+          if(ch.material&&ch.material.color){
+            var oldColor=ch.material.color.clone();
+            ch.material=new THREE.MeshPhongMaterial({color:oldColor,roughness:0.7,metalness:0.1});
+          }else{
+            ch.material=new THREE.MeshPhongMaterial({color:0xdd3333,vertexColors:!!ch.geometry.attributes.color,roughness:0.7,metalness:0.1});
+          }
+          // 确保 emissive 属性存在
+          if(!ch.material.emissive)ch.material.emissive=new THREE.Color(0xff8800);
+          ch.material.emissiveIntensity=0.25;
+        }
+      });
+      log('Mesh: '+meshes);
+      scene.add(nezha);
+
+      // 触控
+      var autoR=false,rotY=0,rotX=-0.05,dist=1.8;
+      var lx=0,ly=0,ld=0,tch=false;
+      R.domElement.addEventListener('touchstart',function(e){
+        if(e.touches.length==1){lx=e.touches[0].clientX;ly=e.touches[0].clientY;tch=true;autoR=false}
+        if(e.touches.length==2){ld=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)}
+        e.preventDefault();
+      });
+      R.domElement.addEventListener('touchmove',function(e){
+        if(e.touches.length==1&&tch){rotY+=(e.touches[0].clientX-lx)*0.005;rotX+=(e.touches[0].clientY-ly)*0.005;rotX=Math.max(-1,Math.min(1,rotX));lx=e.touches[0].clientX;ly=e.touches[0].clientY}
+        if(e.touches.length==2){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);dist*=ld/d;dist=Math.max(0.8,Math.min(4,dist));ld=d}
+        e.preventDefault();
+      },{passive:false});
+      R.domElement.addEventListener('touchend',function(){tch=false;setTimeout(function(){autoR=true},2000)});
+
+      L.style.opacity='0';setTimeout(function(){L.style.display='none';bar.parentElement.style.display='none'},800);
+
+      !function loop(t){requestAnimationFrame(loop);
+        nezha.rotation.y=Math.PI;
+        if(autoR)rotY+=0.005;
+        cam.position.x=Math.sin(rotY)*Math.cos(rotX)*dist;
+        cam.position.y=Math.sin(rotX)*dist+0.2;
+        cam.position.z=Math.cos(rotY)*Math.cos(rotX)*dist;
+        cam.lookAt(0,0.2,0);R.render(scene,cam);
+      }();
+
+      // 模型加载完成 → 开始连接后端
+      connectWS();
+    },
+    function(p){if(p.total)bar.style.width=Math.round(p.loaded/p.total*100)+'%'},
+    function(err){
+      clearTimeout(timer);
+      if(timedOut)return;
+      var msg='';
+      if(typeof err==='string')msg=err;
+      else if(err instanceof ErrorEvent)msg=err.message;
+      else if(err instanceof ProgressEvent)msg='ProgressEvent';
+      else if(err&&err.message)msg=err.message;
+      else if(err&&err.error)msg=err.error;
+      else msg=JSON.stringify(err).slice(0,200);
+      L.innerHTML='⚠️ GLB加载失败:\n'+msg;
+      console.error(err);
+      connectWS(); // 即使模型失败也尝试连接后端
+    }
+  );
+  }
+  loadGLB();
+
+  window.addEventListener('resize',function(){cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+
+}catch(e){L.innerHTML='⚠️ '+e.message;console.error(e)}
+}
+
+// ═══════════════════════════════════════════
+// 星空背景
+// ═══════════════════════════════════════════
+(function drawStars(){
+  var cv=document.getElementById('starsC'),w=innerWidth,h=innerHeight;
+  cv.width=w;cv.height=h;
+  var ctx=cv.getContext('2d');
+  for(var i=0;i<80;i++){
+    var x=Math.random()*w,y=Math.random()*h,r=Math.random()*1.8+0.4;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,100,30,'+(Math.random()*0.5+0.2)+')';
+    ctx.fill();
+  }
+  window.addEventListener('resize',function(){
+    cv.width=innerWidth;cv.height=innerHeight;
+    var c2=cv.getContext('2d');
+    for(var j=0;j<80;j++){
+      var x2=Math.random()*innerWidth,y2=Math.random()*innerHeight,r2=Math.random()*1.8+0.4;
+      c2.beginPath();c2.arc(x2,y2,r2,0,Math.PI*2);
+      c2.fillStyle='rgba(255,100,30,'+(Math.random()*0.5+0.2)+')';
+      c2.fill();
+    }
+  });
+})();
+</script>
+</body></html>

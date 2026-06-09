@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang=zh><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><title>灵绘 3D</title>
+<style>*{margin:0;padding:0}body{background:#000;overflow:hidden}#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4400;font-size:18px;font-family:sans-serif;z-index:50;text-align:center;pointer-events:none;transition:opacity 0.6s}#log{position:fixed;bottom:40px;left:10px;right:10px;color:#666;font-size:12px;font-family:monospace;z-index:50;text-align:center}</style></head>
+<body>
+<div id=msg>🔥 灵绘加载中...</div><div id=log></div>
+<a href=index.html style="position:fixed;top:15px;left:15px;z-index:100;background:rgba(255,68,0,0.7);color:#fff;padding:6px 14px;border-radius:16px;text-decoration:none;font-family:sans-serif;font-size:13px">← 返回</a>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js">
+</script>
+<script>
+(function wait(){
+  if(typeof THREE==='undefined'){setTimeout(wait,200);return;}
+  init();
+})();
+
+var logEl=document.getElementById('log');var L='';
+function log(s){L+=s+'<br>';logEl.innerHTML=L}
+var msg=document.getElementById('msg');
+
+function init(){
+try{
+log('1.开始检测');
+if(typeof navigator.xr==='undefined'){
+  msg.innerHTML='❌ 浏览器不支持XR<br><small>切换到3D预览模式</small>';
+  log('navigator.xr 不存在');
+  setTimeout(init3D,800);
+}else{
+  log('2.XR API存在');
+  navigator.xr.isSessionSupported('immersive-ar').then(function(ok){
+    log('3.immersive-ar: '+ok);
+    if(ok){
+      msg.innerHTML='✅ 支持AR<br><small>点击屏幕进入</small>';
+      document.body.onclick=function(){document.body.onclick=null;loadThreeAndAR();};
+    }else{
+      msg.innerHTML='⚠️ 设备不支持AR<br><small>自动切换3D预览</small>';
+      log('4.设备不支持沉浸式AR(需ARCore)');
+      setTimeout(init3D,1000);
+    }
+  }).catch(function(e){
+    log('检测出错:'+e.message);
+    setTimeout(init3D,800);
+  });
+}
+}catch(e){log('初始化异常:'+e.message);setTimeout(init3D,500)}
+}
+
+function loadThreeAndAR(){
+  // AR模式——仅支持ARCore的设备
+  msg.innerHTML='⏳ 启动AR...';
+  initAR();
+}
+
+function buildNezha(light){
+  var G=new THREE.Group();
+  var skin=new THREE.MeshStandardMaterial({color:0xf5dcc3,roughness:0.5});
+  var vest=new THREE.MeshStandardMaterial({color:0xcc2222,roughness:0.55});
+  var hair=new THREE.MeshStandardMaterial({color:0x1a1a2e,roughness:0.4});
+  var gold=new THREE.MeshStandardMaterial({color:0xdaa520,roughness:0.15,metalness:0.8});
+  var eyeM=new THREE.MeshStandardMaterial({color:0x000000,roughness:0.05,emissive:0x220000});
+  var pantM=new THREE.MeshStandardMaterial({color:0x3a3a45,roughness:0.65});
+  var sashM=new THREE.MeshStandardMaterial({color:0xdd2222,roughness:0.3,emissive:0x220000,side:THREE.DoubleSide});
+  function M(g,m,x,y,z,rx,ry,rz,sx,sy,sz){
+    rx=rx||0;ry=ry||0;rz=rz||0;sx=sx||1;sy=sy||1;sz=sz||1;
+    var o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.scale.set(sx,sy,sz);return o;
+  }
+  // 身体
+  G.add(M(new THREE.CapsuleGeometry(0.18,0.3,6,8),vest,0,0.65,0));
+  G.add(M(new THREE.CylinderGeometry(0.06,0.07,0.08,8),skin,0,0.88,0));
+  G.add(M(new THREE.SphereGeometry(0.16,16,16),skin,0,1.04,0));
+  // 眼睛
+  G.add(M(new THREE.SphereGeometry(0.04,8,8),eyeM,-0.05,1.08,-0.14));
+  G.add(M(new THREE.SphereGeometry(0.04,8,8),eyeM,0.05,1.08,-0.14));
+  G.add(M(new THREE.BoxGeometry(0.06,0.01,0.02),hair,-0.06,1.13,-0.13,0,0,-0.25));
+  G.add(M(new THREE.BoxGeometry(0.06,0.01,0.02),hair,0.06,1.13,-0.13,0,0,0.25));
+  // 丸子头+红头绳
+  for(var s=-1;s<=1;s+=2){
+    G.add(M(new THREE.TorusGeometry(0.07,0.032,8,12),hair,s*0.14,1.2,0,Math.PI/2,0,0));
+    G.add(M(new THREE.SphereGeometry(0.055,8,8),hair,s*0.14,1.2,0));
+    var rope=new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.008,0.22,6),new THREE.MeshStandardMaterial({color:0xff2222,roughness:0.2,emissive:0x330000}));
+    rope.position.set(s*0.18,1.1,-0.05);rope.rotation.set(0.3*s,0,0.1);G.add(rope);
+  }
+  // 手臂
+  for(var s=-1;s<=1;s+=2){
+    G.add(M(new THREE.CapsuleGeometry(0.045,0.2,6,8),skin,s*0.23,0.8,s*0.05,0.2*s,0,0.3*s));
+    G.add(M(new THREE.CapsuleGeometry(0.038,0.18,6,8),skin,s*0.3,0.58,s*0.08,0.1*s,0,0.2*s));
+    G.add(M(new THREE.SphereGeometry(0.04,6,6),skin,s*0.36,0.4,s*0.1));
+    G.add(M(new THREE.TorusGeometry(0.055,0.018,10,16),gold,s*0.36,0.42,-0.03,Math.PI/3,0,0));
+  }
+  // 腿部
+  for(var s=-1;s<=1;s+=2){
+    G.add(M(new THREE.CapsuleGeometry(0.055,0.22,4,6),pantM,s*0.08,0.35,0));
+    G.add(M(new THREE.CapsuleGeometry(0.048,0.2,4,6),pantM,s*0.08,0.1,0));
+    G.add(M(new THREE.BoxGeometry(0.1,0.05,0.15),pantM,s*0.08,0.03,0.04));
+  }
+  // 混天绫
+  for(var s=-1;s<=1;s+=2){
+    var sa=new THREE.Mesh(new THREE.TorusGeometry(0.12,0.025,8,16,Math.PI*1.5),sashM);
+    sa.position.set(s*0.25,0.8,0);sa.rotation.set(0.2,0,s*0.3);G.add(sa);
+    var tail=new THREE.Mesh(new THREE.CylinderGeometry(0.015,0.03,0.5,6),sashM);
+    tail.position.set(s*0.35,0.45,0.1);tail.rotation.set(0.5*s,0,0.4*s);G.add(tail);
+  }
+  // 风火轮
+  function makeWheel(x){
+    var w=new THREE.Group();
+    w.add(M(new THREE.TorusGeometry(0.09,0.028,8,16),gold,0,0,0,Math.PI/2,0,0));
+    w.add(M(new THREE.TorusGeometry(0.05,0.012,6,12),gold,0,0,0,Math.PI/2,0,0));
+    w.position.set(x,-0.06,0.06);return w;
+  }
+  var wL=makeWheel(-0.08),wR=makeWheel(0.08);
+  G.userData={wheels:[wL,wR]};
+  G.add(wL);G.add(wR);
+  // 火焰
+  function makeFire(x){
+    var c=30,g=new THREE.BufferGeometry(),p=new Float32Array(c*3),cl=new Float32Array(c*3);
+    for(var i=0;i<c;i++){var a=i/c*Math.PI*2,r=0.06+Math.random()*0.04;p[i*3]=Math.cos(a)*r;p[i*3+1]=Math.sin(a)*r;p[i*3+2]=(Math.random()-0.5)*0.02;cl[i*3]=0.5+Math.random()*0.5;cl[i*3+1]=0.05+Math.random()*0.2;cl[i*3+2]=Math.random()*0.1}
+    g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(cl,3));
+    var m=new THREE.PointsMaterial({size:0.018,vertexColors:true,blending:THREE.AdditiveBlending,depthWrite:false});
+    var pt=new THREE.Points(g,m);pt.position.set(x,-0.06,0.06);return pt;
+  }
+  var fL=makeFire(-0.08),fR=makeFire(0.08);
+  G.userData.fires=[fL,fR];
+  G.add(fL);G.add(fR);
+  return G;
+}
+
+function init3D(){
+  log('5.初始化3D预览');
+  msg.style.opacity='0';
+  setTimeout(function(){msg.style.display='none'},600);
+
+  var scene=new THREE.Scene();scene.background=new THREE.Color(0x050508);scene.fog=new THREE.Fog(0x050508,2,10);
+  var cam=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,15);
+  cam.position.set(0,0.6,2.8);cam.lookAt(0,0.55,0);
+  var R=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'low-power'});
+  R.setPixelRatio(Math.min(devicePixelRatio,1.5));R.setSize(innerWidth,innerHeight);
+  R.shadowMap.enabled=false;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.2;
+  document.body.appendChild(R.domElement);
+
+  scene.add(new THREE.AmbientLight(0x221111,2));
+  var key=new THREE.DirectionalLight(0xffcc88,10);key.position.set(2,2.5,3);scene.add(key);
+  scene.add(new THREE.DirectionalLight(0xff4422,3)).position.set(-1,0.5,-0.5);
+  scene.add(new THREE.DirectionalLight(0xff3344ff,1.5)).position.set(0,-0.5,2);
+
+  var nezha=buildNezha();
+  scene.add(nezha);
+
+  var bgG=new THREE.BufferGeometry(),bgP=new Float32Array(80*3);
+  for(var i=0;i<80;i++){bgP[i*3]=(Math.random()-0.5)*3;bgP[i*3+1]=Math.random()*2-0.5;bgP[i*3+2]=(Math.random()-0.5)*2}
+  bgG.setAttribute('position',new THREE.BufferAttribute(bgP,3));
+  scene.add(new THREE.Points(bgG,new THREE.PointsMaterial({color:0xff4400,size:0.015,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.4})));
+
+  // 触摸控制
+  var autoRotate=true,rotY=Math.PI,rotX=0,dist=2.8;
+  var lastX=0,lastY=0,lastD=0,touching=false;
+  R.domElement.addEventListener('touchstart',function(e){
+    if(e.touches.length==1){lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;touching=true;autoRotate=false}
+    if(e.touches.length==2){lastD=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)}
+    e.preventDefault();
+  });
+  R.domElement.addEventListener('touchmove',function(e){
+    if(e.touches.length==1&&touching){rotY+=(e.touches[0].clientX-lastX)*0.005;rotX+=(e.touches[0].clientY-lastY)*0.005;rotX=Math.max(-1,Math.min(1,rotX));lastX=e.touches[0].clientX;lastY=e.touches[0].clientY}
+    if(e.touches.length==2){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);dist*=lastD/d;dist=Math.max(1,Math.min(6,dist));lastD=d}
+    e.preventDefault();
+  },{passive:false});
+  R.domElement.addEventListener('touchend',function(){touching=false;setTimeout(function(){autoRotate=true},2000)});
+
+  nezha.rotation.y=Math.PI;
+  var wheels=nezha.userData.wheels||[],fires=nezha.userData.fires||[];
+
+  function loop(t){
+    requestAnimationFrame(loop);
+    var st=Math.sin(t*0.003);
+    nezha.position.y=Math.abs(st)*0.015;
+    nezha.rotation.z=st*0.05;
+    nezha.rotation.y=Math.PI+st*0.1;
+    if(wheels[0])wheels[0].rotation.x+=0.18;
+    if(wheels[1])wheels[1].rotation.x+=0.18;
+    if(fires[0]){fires[0].rotation.y+=0.25;fires[0].scale.setScalar(1+Math.abs(st)*0.5)}
+    if(fires[1]){fires[1].rotation.y+=0.25;fires[1].scale.setScalar(1+Math.abs(st)*0.5)}
+    if(autoRotate)rotY+=0.005;
+    cam.position.x=Math.sin(rotY)*Math.cos(rotX)*dist;
+    cam.position.y=Math.sin(rotX)*dist+0.6;
+    cam.position.z=Math.cos(rotY)*Math.cos(rotX)*dist;
+    cam.lookAt(0,0.55,0);
+    R.render(scene,cam);
+  }
+  requestAnimationFrame(loop);
+  window.addEventListener('resize',function(){if(!cam||!R)return;cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+}
+
+function initAR(){
+  // AR——仅支持有ARCore的设备
+  var scene=new THREE.Scene();
+  var cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.01,20);
+  var R=new THREE.WebGLRenderer({antialias:false,alpha:true,powerPreference:'low-power'});
+  R.setPixelRatio(Math.min(devicePixelRatio,1.5));R.setSize(innerWidth,innerHeight);
+  R.shadowMap.enabled=false;R.xr.enabled=true;
+  document.body.appendChild(R.domElement);
+  scene.add(new THREE.AmbientLight(0xffffff,1.5));
+  scene.add(new THREE.DirectionalLight(0xffffff,4)).position.set(1,2,1);
+  var nezha=buildNezha();nezha.scale.setScalar(0.3);nezha.position.set(0,0,-1.5);
+  scene.add(nezha);
+
+  log('6.请求AR会话...');
+  navigator.xr.requestSession('immersive-ar',{optionalFeatures:[]}).then(function(session){
+    log('7.AR会话成功!');
+    R.xr.setSession(session);
+    R.setAnimationLoop(function(){R.render(scene,cam)});
+    msg.innerHTML='✅ AR已启动<br><small>哪吒在你前方</small>';
+    msg.style.opacity='1';
+  }).catch(function(e){
+    log('AR失败:'+e.message);
+    // 降级到3D预览
+    document.body.innerHTML=''; // 清掉AR的canvas
+    init3D();
+  });
+
+  window.addEventListener('resize',function(){if(!cam||!R)return;cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+}
+</script></body></html>
