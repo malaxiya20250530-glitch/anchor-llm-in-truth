@@ -634,6 +634,10 @@ function initAudioContext(){
 }
 
 function startViz(){
+  // 跨域音频不连 AudioContext，直接跳过可视化
+  var src=audio.src||audio.currentSrc;
+  var crossOrigin=src&&(src.startsWith('http://')||src.startsWith('https://'))&&!src.includes(location.hostname);
+  if(crossOrigin)return;
   if(!analyser){initAudioContext();}
   if(!analyser)return;
   var cv=document.getElementById('vizBar');
