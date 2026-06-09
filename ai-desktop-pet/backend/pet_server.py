@@ -297,7 +297,7 @@ class SimpleWSServer:
                         length = int(self.headers.get("Content-Length", 0))
                         data = self.rfile.read(length)
                         fname = unquote(self.headers.get("X-Filename", "upload.mp3"))
-                        music_dir = os.path.join(os.path.dirname(__file__), "preview", "music")
+                        music_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "music")
                         os.makedirs(music_dir, exist_ok=True)
                         fpath = os.path.join(music_dir, os.path.basename(fname))
                         with open(fpath, "wb") as f:
