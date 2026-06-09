@@ -193,12 +193,18 @@ class PetServer:
         return json.dumps({"type": "music_list", "files": files}, ensure_ascii=False)
 
     async def _handle_music_download(self, msg: dict) -> str:
-        """下载歌曲到 music 目录"""
+        """下载歌曲：支持直接URL或 ytsearch:N:关键词 格式"""
         url = msg.get("url", "").strip()
         if not url:
             return json.dumps({"type": "error", "message": "缺少歌曲URL"})
         music_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "music")
         os.makedirs(music_dir, exist_ok=True)
+
+        # YouTube 搜索下载
+        if url.startswith("ytsearch"):
+            return await self._youtube_download(url, music_dir)
+
+        # 直接 URL 下载
         fname = url.rsplit("/", 1)[-1].split("?")[0]
         if not fname.endswith((".mp3", ".wav", ".ogg")):
             fname += ".mp3"
@@ -216,6 +222,35 @@ class PetServer:
             return json.dumps({"type": "error", "message": f"下载失败: {e.reason}"})
         except Exception as e:
             return json.dumps({"type": "error", "message": f"下载异常: {e}"})
+
+    async def _youtube_download(self, query: str, music_dir: str) -> str:
+        """使用 yt-dlp 从 YouTube 搜索并下载音频"""
+        import subprocess, glob
+        try:
+            # yt-dlp 搜索+下载最佳音频，转 MP3
+            tmpl = os.path.join(music_dir, "%(title).100s.%(ext)s")
+            # 先清理旧临时文件
+            for old in glob.glob(os.path.join(music_dir, "*.part")):
+                try: os.remove(old)
+                except: pass
+            result = subprocess.run([
+                "yt-dlp", "--no-playlist", "--extract-audio", "--audio-format", "mp3",
+                "--audio-quality", "0", "--max-filesize", "15m",
+                "--output", tmpl, query
+            ], capture_output=True, text=True, timeout=120, cwd=music_dir)
+            # 查找下载的文件
+            mp3s = sorted(glob.glob(os.path.join(music_dir, "*.mp3")), key=os.path.getmtime, reverse=True)
+            if mp3s:
+                fname = os.path.basename(mp3s[0])
+                fsize = os.path.getsize(mp3s[0])
+                return json.dumps({"type": "music_downloaded", "name": fname, "path": f"music/{fname}", "size": fsize})
+            return json.dumps({"type": "error", "message": "未找到匹配歌曲"})
+        except subprocess.TimeoutExpired:
+            return json.dumps({"type": "error", "message": "下载超时，请重试"})
+        except FileNotFoundError:
+            return json.dumps({"type": "error", "message": "yt-dlp 未安装"})
+        except Exception as e:
+            return json.dumps({"type": "error", "message": f"下载失败: {str(e)[:40]}"})
 
     async def _handle_voice_chat(self, msg: dict) -> str:
         """处理语音转文字后的对话请求，复用 user_input 逻辑"""

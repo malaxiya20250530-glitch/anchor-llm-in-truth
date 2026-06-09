@@ -309,7 +309,12 @@ function handleMsg(m){
       break;
     case 'music_downloaded':
       addMessage('ai','✅ 已下载: '+m.name);
-      refreshPlaylistWS();
+      // 下载完后自动刷新列表并播放
+      sendWS({type:'music_list'});
+      setTimeout(function(){
+        var idx=playlist.findIndex(function(s){return s.title===m.name||s.url.includes(m.name)});
+        if(idx>=0){currentIdx=idx;playCurrent()}
+      },800);
       break;
     case 'music_songlist':
       showSongListDialog(m.songs);
@@ -742,11 +747,11 @@ document.getElementById('searchIn').addEventListener('keydown',function(e){
 function bindSearchClicks(){
   document.querySelectorAll('#searchResults .songItem').forEach(function(el){
     el.addEventListener('click',function(){
-      var t=this.dataset.title,a=this.dataset.artist,u=this.dataset.url;
-      if(!u){showToast('⚠ 无预览');return}
-      var f=playlist.findIndex(function(s){return s.url===u||s.path===u});
-      if(f>=0)currentIdx=f;else{playlist.push({title:t,artist:a,url:u});currentIdx=playlist.length-1}
-      playCurrent();document.getElementById('searchResults').innerHTML='';document.getElementById('searchIn').value='';
+      var t=this.dataset.title,a=this.dataset.artist;
+      // 通过后端下载 YouTube 音频（iTunes 返回 M4P 格式浏览器不支持）
+      sendWS({type:'music_download',url:'ytsearch1:'+encodeURIComponent(t+' '+a)});
+      showToast('🔍 正在下载: '+t);
+      document.getElementById('searchResults').innerHTML='';document.getElementById('searchIn').value='';
     });
   });
 }
