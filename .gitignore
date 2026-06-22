@@ -41,3 +41,7 @@ knowledge/fact_store.db
 
 # === 记忆运行时文件 ===
 .memory/session/
+
+# === Agent 运行时文件 ===
+.ollama/
+.reasonix/
